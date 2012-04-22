@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Stumptown40Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="Stumptown40ModelStoreContainer">
+          <EntitySet Name="Bracket" EntityType="Stumptown40Model.Store.Bracket" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Match" EntityType="Stumptown40Model.Store.Match" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Racer" EntityType="Stumptown40Model.Store.Racer" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Round" EntityType="Stumptown40Model.Store.Round" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Match_Racer1Id" Association="Stumptown40Model.Store.FK_Match_Racer1Id">
+            <End Role="Racer" EntitySet="Racer" />
+            <End Role="Match" EntitySet="Match" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_Racer2Id" Association="Stumptown40Model.Store.FK_Match_Racer2Id">
+            <End Role="Racer" EntitySet="Racer" />
+            <End Role="Match" EntitySet="Match" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_RoundId" Association="Stumptown40Model.Store.FK_Match_RoundId">
+            <End Role="Round" EntitySet="Round" />
+            <End Role="Match" EntitySet="Match" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_WinningRacerId" Association="Stumptown40Model.Store.FK_Match_WinningRacerId">
+            <End Role="Racer" EntitySet="Racer" />
+            <End Role="Match" EntitySet="Match" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Round_BracketId" Association="Stumptown40Model.Store.FK_Round_BracketId">
+            <End Role="Bracket" EntitySet="Bracket" />
+            <End Role="Round" EntitySet="Round" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Bracket">
+          <Key>
+            <PropertyRef Name="BracketId" />
+          </Key>
+          <Property Name="BracketId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Match">
+          <Key>
+            <PropertyRef Name="MatchId" />
+          </Key>
+          <Property Name="MatchId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RoundId" Type="int" Nullable="false" />
+          <Property Name="Cluster" Type="int" Nullable="false" />
+          <Property Name="RaceNumber" Type="int" Nullable="false" />
+          <Property Name="Racer1Id" Type="int" />
+          <Property Name="Racer2Id" Type="int" />
+          <Property Name="WinningRacerId" Type="int" />
+          <Property Name="NextMatchId" Type="int" />
+        </EntityType>
+        <EntityType Name="Racer">
+          <Key>
+            <PropertyRef Name="RacerId" />
+          </Key>
+          <Property Name="RacerId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="Organization" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="FaceUrl" Type="nvarchar" MaxLength="200" />
+          <Property Name="CarUrl" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Round">
+          <Key>
+            <PropertyRef Name="RoundId" />
+          </Key>
+          <Property Name="RoundId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BracketId" Type="int" Nullable="false" />
+          <Property Name="RoundNumber" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Match_Racer1Id">
+          <End Role="Racer" Type="Stumptown40Model.Store.Racer" Multiplicity="0..1" />
+          <End Role="Match" Type="Stumptown40Model.Store.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racer">
+              <PropertyRef Name="RacerId" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="Racer1Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_Racer2Id">
+          <End Role="Racer" Type="Stumptown40Model.Store.Racer" Multiplicity="0..1" />
+          <End Role="Match" Type="Stumptown40Model.Store.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racer">
+              <PropertyRef Name="RacerId" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="Racer2Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_RoundId">
+          <End Role="Round" Type="Stumptown40Model.Store.Round" Multiplicity="1" />
+          <End Role="Match" Type="Stumptown40Model.Store.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Round">
+              <PropertyRef Name="RoundId" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="RoundId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_WinningRacerId">
+          <End Role="Racer" Type="Stumptown40Model.Store.Racer" Multiplicity="0..1" />
+          <End Role="Match" Type="Stumptown40Model.Store.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racer">
+              <PropertyRef Name="RacerId" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="WinningRacerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Round_BracketId">
+          <End Role="Bracket" Type="Stumptown40Model.Store.Bracket" Multiplicity="1" />
+          <End Role="Round" Type="Stumptown40Model.Store.Round" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bracket">
+              <PropertyRef Name="BracketId" />
+            </Principal>
+            <Dependent Role="Round">
+              <PropertyRef Name="BracketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Stumptown40Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="Stumptown40Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Brackets" EntityType="Stumptown40Model.Bracket" />
+          <EntitySet Name="Matches" EntityType="Stumptown40Model.Match" />
+          <EntitySet Name="Racers" EntityType="Stumptown40Model.Racer" />
+          <EntitySet Name="Rounds" EntityType="Stumptown40Model.Round" />
+          <AssociationSet Name="FK_Round_BracketId" Association="Stumptown40Model.FK_Round_BracketId">
+            <End Role="Bracket" EntitySet="Brackets" />
+            <End Role="Round" EntitySet="Rounds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_Racer1Id" Association="Stumptown40Model.FK_Match_Racer1Id">
+            <End Role="Racer" EntitySet="Racers" />
+            <End Role="Match" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_Racer2Id" Association="Stumptown40Model.FK_Match_Racer2Id">
+            <End Role="Racer" EntitySet="Racers" />
+            <End Role="Match" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_RoundId" Association="Stumptown40Model.FK_Match_RoundId">
+            <End Role="Round" EntitySet="Rounds" />
+            <End Role="Match" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_WinningRacerId" Association="Stumptown40Model.FK_Match_WinningRacerId">
+            <End Role="Racer" EntitySet="Racers" />
+            <End Role="Match" EntitySet="Matches" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Bracket">
+          <Key>
+            <PropertyRef Name="BracketId" />
+          </Key>
+          <Property Name="BracketId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Rounds" Relationship="Stumptown40Model.FK_Round_BracketId" FromRole="Bracket" ToRole="Round" />
+        </EntityType>
+        <EntityType Name="Match">
+          <Key>
+            <PropertyRef Name="MatchId" />
+          </Key>
+          <Property Name="MatchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoundId" Type="Int32" Nullable="false" />
+          <Property Name="Cluster" Type="Int32" Nullable="false" />
+          <Property Name="RaceNumber" Type="Int32" Nullable="false" />
+          <Property Name="Racer1Id" Type="Int32" />
+          <Property Name="Racer2Id" Type="Int32" />
+          <Property Name="WinningRacerId" Type="Int32" />
+          <Property Name="NextMatchId" Type="Int32" />
+          <NavigationProperty Name="Racer" Relationship="Stumptown40Model.FK_Match_Racer1Id" FromRole="Match" ToRole="Racer" />
+          <NavigationProperty Name="Racer1" Relationship="Stumptown40Model.FK_Match_Racer2Id" FromRole="Match" ToRole="Racer" />
+          <NavigationProperty Name="Round" Relationship="Stumptown40Model.FK_Match_RoundId" FromRole="Match" ToRole="Round" />
+          <NavigationProperty Name="Racer2" Relationship="Stumptown40Model.FK_Match_WinningRacerId" FromRole="Match" ToRole="Racer" />
+        </EntityType>
+        <EntityType Name="Racer">
+          <Key>
+            <PropertyRef Name="RacerId" />
+          </Key>
+          <Property Name="RacerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="Organization" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="FaceUrl" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="CarUrl" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Matches" Relationship="Stumptown40Model.FK_Match_Racer1Id" FromRole="Racer" ToRole="Match" />
+          <NavigationProperty Name="Matches1" Relationship="Stumptown40Model.FK_Match_Racer2Id" FromRole="Racer" ToRole="Match" />
+          <NavigationProperty Name="Matches2" Relationship="Stumptown40Model.FK_Match_WinningRacerId" FromRole="Racer" ToRole="Match" />
+        </EntityType>
+        <EntityType Name="Round">
+          <Key>
+            <PropertyRef Name="RoundId" />
+          </Key>
+          <Property Name="RoundId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BracketId" Type="Int32" Nullable="false" />
+          <Property Name="RoundNumber" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bracket" Relationship="Stumptown40Model.FK_Round_BracketId" FromRole="Round" ToRole="Bracket" />
+          <NavigationProperty Name="Matches" Relationship="Stumptown40Model.FK_Match_RoundId" FromRole="Round" ToRole="Match" />
+        </EntityType>
+        <Association Name="FK_Round_BracketId">
+          <End Role="Bracket" Type="Stumptown40Model.Bracket" Multiplicity="1" />
+          <End Role="Round" Type="Stumptown40Model.Round" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bracket">
+              <PropertyRef Name="BracketId" />
+            </Principal>
+            <Dependent Role="Round">
+              <PropertyRef Name="BracketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_Racer1Id">
+          <End Role="Racer" Type="Stumptown40Model.Racer" Multiplicity="0..1" />
+          <End Role="Match" Type="Stumptown40Model.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racer">
+              <PropertyRef Name="RacerId" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="Racer1Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_Racer2Id">
+          <End Role="Racer" Type="Stumptown40Model.Racer" Multiplicity="0..1" />
+          <End Role="Match" Type="Stumptown40Model.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racer">
+              <PropertyRef Name="RacerId" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="Racer2Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_RoundId">
+          <End Role="Round" Type="Stumptown40Model.Round" Multiplicity="1" />
+          <End Role="Match" Type="Stumptown40Model.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Round">
+              <PropertyRef Name="RoundId" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="RoundId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_WinningRacerId">
+          <End Role="Racer" Type="Stumptown40Model.Racer" Multiplicity="0..1" />
+          <End Role="Match" Type="Stumptown40Model.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racer">
+              <PropertyRef Name="RacerId" />
+            </Principal>
+            <Dependent Role="Match">
+              <PropertyRef Name="WinningRacerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Stumptown40ModelStoreContainer" CdmEntityContainer="Stumptown40Entities">
+          <EntitySetMapping Name="Brackets">
+            <EntityTypeMapping TypeName="Stumptown40Model.Bracket">
+              <MappingFragment StoreEntitySet="Bracket">
+                <ScalarProperty Name="BracketId" ColumnName="BracketId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Matches">
+            <EntityTypeMapping TypeName="Stumptown40Model.Match">
+              <MappingFragment StoreEntitySet="Match">
+                <ScalarProperty Name="MatchId" ColumnName="MatchId" />
+                <ScalarProperty Name="RoundId" ColumnName="RoundId" />
+                <ScalarProperty Name="Cluster" ColumnName="Cluster" />
+                <ScalarProperty Name="RaceNumber" ColumnName="RaceNumber" />
+                <ScalarProperty Name="Racer1Id" ColumnName="Racer1Id" />
+                <ScalarProperty Name="Racer2Id" ColumnName="Racer2Id" />
+                <ScalarProperty Name="WinningRacerId" ColumnName="WinningRacerId" />
+                <ScalarProperty Name="NextMatchId" ColumnName="NextMatchId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Racers">
+            <EntityTypeMapping TypeName="Stumptown40Model.Racer">
+              <MappingFragment StoreEntitySet="Racer">
+                <ScalarProperty Name="RacerId" ColumnName="RacerId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Organization" ColumnName="Organization" />
+                <ScalarProperty Name="FaceUrl" ColumnName="FaceUrl" />
+                <ScalarProperty Name="CarUrl" ColumnName="CarUrl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rounds">
+            <EntityTypeMapping TypeName="Stumptown40Model.Round">
+              <MappingFragment StoreEntitySet="Round">
+                <ScalarProperty Name="RoundId" ColumnName="RoundId" />
+                <ScalarProperty Name="BracketId" ColumnName="BracketId" />
+                <ScalarProperty Name="RoundNumber" ColumnName="RoundNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

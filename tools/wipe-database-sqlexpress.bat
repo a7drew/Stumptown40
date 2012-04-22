@@ -1,0 +1,1 @@
+wipe-database ".\sqlexpress"
