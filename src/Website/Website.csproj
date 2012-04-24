@@ -172,11 +172,6 @@
     <Content Include="scripts\jquery-1.7.2-vsdoc.js" />
     <Content Include="scripts\jquery-1.7.2.js" />
     <Content Include="scripts\jquery-1.7.2.min.js" />
-    <Content Include="scripts\jquery-ui-1.8.19.js" />
-    <Content Include="scripts\jquery-ui-1.8.19.min.js" />
-    <Content Include="scripts\jquery.validate-vsdoc.js" />
-    <Content Include="scripts\jquery.validate.js" />
-    <Content Include="scripts\jquery.validate.min.js" />
     <Content Include="scripts\json2.js" />
     <Content Include="scripts\json2.min.js" />
     <Content Include="scripts\underscore.js" />
