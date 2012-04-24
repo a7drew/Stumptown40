@@ -175,7 +175,7 @@ BEGIN
 END
 GO
 
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=2, [NextWinningMatchSlot]=2, [NextLosingMatchId]=80, [NextLosingMatchSlot]=2 WHERE [MatchId]=1;
+UPDATE [dbo].[Match] SET [NextWinningMatchId]=17, [NextWinningMatchSlot]=2, [NextLosingMatchId]=80, [NextLosingMatchSlot]=2 WHERE [MatchId]=1;
 UPDATE [dbo].[Match] SET [NextWinningMatchId]=19, [NextWinningMatchSlot]=2, [NextLosingMatchId]=81, [NextLosingMatchSlot]=2 WHERE [MatchId]=2;
 UPDATE [dbo].[Match] SET [NextWinningMatchId]=21, [NextWinningMatchSlot]=2, [NextLosingMatchId]=86, [NextLosingMatchSlot]=2 WHERE [MatchId]=3;
 UPDATE [dbo].[Match] SET [NextWinningMatchId]=23, [NextWinningMatchSlot]=2, [NextLosingMatchId]=87, [NextLosingMatchSlot]=2 WHERE [MatchId]=4;

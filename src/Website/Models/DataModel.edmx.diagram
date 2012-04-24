@@ -4,12 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5b5e84d2fcf148919a9b949a8cd7572b" Name="Diagram1">
-        <EntityTypeShape EntityType="Stumptown40Model.Bracket" Width="1.5" PointX="1.5" PointY="8.875" IsExpanded="true" />
+      <Diagram DiagramId="56bbe49db24b42ea94dd5bb95557b2d4" Name="Diagram1">
+        <EntityTypeShape EntityType="Stumptown40Model.Bracket" Width="1.5" PointX="1.5" PointY="10.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Stumptown40Model.Match" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Stumptown40Model.Racer" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Stumptown40Model.Round" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stumptown40Model.Racer" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stumptown40Model.Round" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
         <AssociationConnector Association="Stumptown40Model.FK_Round_BracketId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stumptown40Model.FK_Match_NextLosingMatchId" ManuallyRouted="false" />
+        <AssociationConnector Association="Stumptown40Model.FK_Match_NextWinningMatchId" ManuallyRouted="false" />
         <AssociationConnector Association="Stumptown40Model.FK_Match_Racer1Id" ManuallyRouted="false" />
         <AssociationConnector Association="Stumptown40Model.FK_Match_Racer2Id" ManuallyRouted="false" />
         <AssociationConnector Association="Stumptown40Model.FK_Match_RoundId" ManuallyRouted="false" />

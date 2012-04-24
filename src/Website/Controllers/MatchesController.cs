@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Website.Infrastructure;
@@ -15,6 +16,10 @@ namespace Website.Controllers
 			this.ctx = EntityFactory.GetDataContext();
 		}
 
+		/// <summary>
+		///	Get list of matches by RoundId
+		/// </summary>
+		/// <param name="id">RoundId</param>
 		public ActionResult Index(int id)
 		{
 			var model = (from a in this.ctx.Matches
@@ -25,7 +30,7 @@ namespace Website.Controllers
 			             from r1 in racer1.DefaultIfEmpty(null)
 						 from r2 in racer2.DefaultIfEmpty(null)
 						 from w in winningRacer.DefaultIfEmpty(null)
-						 orderby a.Cluster, a.RaceNumber
+						 orderby a.RaceNumber
 						 select new
 			                    	{
 			                    		a.MatchId,
@@ -56,6 +61,10 @@ namespace Website.Controllers
 			};
 		}
 
+		/// <summary>
+		/// Get header info for a given RoundId
+		/// </summary>
+		/// <param name="id">RoundId</param>
 		public ActionResult Header(int id)
 		{
 			var round = this.ctx.Rounds.Single(r => r.RoundId == id);
@@ -76,6 +85,10 @@ namespace Website.Controllers
 			};
 		}
 
+		/// <summary>
+		/// Get a list of matches by RoundId
+		/// </summary>
+		/// <param name="id">RoundId</param>
 		public ActionResult Detail(int id)
 		{
 			var model = (from a in this.ctx.Matches
@@ -91,7 +104,6 @@ namespace Website.Controllers
 			                    		a.MatchId,
 			                    		a.RaceNumber,
                                         a.RoundId,
-                                        a.Cluster,
                                         a.Round.RoundNumber,
 			                    		Racer1 = new
 			                    		         	{
@@ -124,27 +136,11 @@ namespace Website.Controllers
 		{
 			var match = this.ctx.Matches.Single(m => m.MatchId == matchId);
 			match.WinningRacerId = winningRacerId;
-
-			if (match.NextMatchId != null)
-			{
-				var nextMatch = this.ctx.Matches.Single(m => m.MatchId == match.NextMatchId);
-
-				if (IsLastMatchPointingToNextMatch(match, nextMatch))
-				{
-					nextMatch.Racer2Id = winningRacerId;
-				}
-				else
-				{
-					nextMatch.Racer1Id = winningRacerId;
-				}
-			}
-
-			if (match.RoundId == 1)
-			{
-				// TODO: Add this racer to the losing bracket
-			}
-
+			match.Modified = DateTime.Now;
 			this.ctx.SaveChanges();
+
+			SetNextMatch(match.NextWinningMatchId, match.NextWinningMatchSlot, winningRacerId);
+			SetNextMatch(match.NextLosingMatchId, match.NextLosingMatchSlot, losingRacerId);
 
 			var model = new { result = "OK" };
 			//return Json(model, JsonRequestBehavior.AllowGet);
@@ -156,11 +152,30 @@ namespace Website.Controllers
 			};
 		}
 
+		private void SetNextMatch(int? nextMatchId, int? nextMatchSlot, int racerId)
+		{
+			if (!nextMatchId.HasValue)
+				return;
+
+			var nextMatch = this.ctx.Matches.Single(m => m.MatchId == nextMatchId.Value);
+
+			switch (nextMatchSlot)
+			{
+				case 1:
+					nextMatch.Racer1Id = racerId;
+					break;
+				case 2:
+					nextMatch.Racer2Id = racerId;
+					break;
+			}
+
+			this.ctx.SaveChanges();
+		}
+
 		[HttpGet]
 		public ActionResult Setup()
         {
             ClearMatches();
-            MapMatches();
             AssignPlayers();
 
             var model = new {Result="Races have been setup."};
@@ -189,105 +204,28 @@ namespace Website.Controllers
 
         private void AssignPlayers()
         {
-            var racers = this.ctx.Racers.ToList();
+            var racers = this.ctx.Racers.OrderBy(r => r.RacerId).ToList();
 
-            var round1Matches = this.ctx.Matches.Where(m => m.Round.BracketId == 1 && m.Round.RoundNumber == 1).ToList();
-            var x = 0;
-            foreach (var match in round1Matches)
-            {
-                match.Racer1Id = racers[x].RacerId;
-                x++;
-                match.Racer2Id = racers[x].RacerId;
-                x++;
-            }
+			var matches = this.ctx.Matches.Where(m => m.MatchId < 49).OrderBy(m => m.MatchId).ToList();
 
-        	for (int cluster = 1; cluster < 5; cluster++)
+        	int racerIndex = 0;
+
+        	foreach (var match in matches)
         	{
-        		var round2Matches = this.ctx.Matches.Where(m => m.Round.BracketId == 1 && m.Round.RoundNumber == 2 && m.Cluster == cluster).ToList();
-
-        		foreach (var match in round2Matches)
+        		if (!this.ctx.Matches.Any(m => m.NextWinningMatchId == match.MatchId && m.NextWinningMatchSlot == 1))
         		{
-					if (match.RaceNumber % 2 == 0)
-					{
-						match.Racer1Id = racers[x].RacerId;
-						x++;
-						match.Racer2Id = racers[x].RacerId;
-						x++;
-					}
-					else
-					{
-						match.Racer1Id = racers[x].RacerId;
-						x++;
-					}
+        			match.Racer1Id = racers[racerIndex].RacerId;
+        			racerIndex++;
+        		}
+
+				if (!this.ctx.Matches.Any(m => m.NextWinningMatchId == match.MatchId && m.NextWinningMatchSlot == 2))
+        		{
+        			match.Racer2Id = racers[racerIndex].RacerId;
+        			racerIndex++;
         		}
         	}
 
         	this.ctx.SaveChanges();
         }
-
-        private void MapMatches()
-        {
-            var matches = this.ctx.Matches.ToList();
-
-            for (int c = 1; c < 5; c++)
-            {
-                MapNextMatch(matches, 1, c, 1, c, 1);
-                MapNextMatch(matches, 1, c, 2, c, 3);
-                MapNextMatch(matches, 1, c, 3, c, 5);
-                MapNextMatch(matches, 1, c, 4, c, 7);
-                                               
-                MapNextMatch(matches, 2, c, 1, c, 1);
-                MapNextMatch(matches, 2, c, 2, c, 1);
-                MapNextMatch(matches, 2, c, 3, c, 2);
-                MapNextMatch(matches, 2, c, 4, c, 2);
-                MapNextMatch(matches, 2, c, 5, c, 3);
-                MapNextMatch(matches, 2, c, 6, c, 3);
-                MapNextMatch(matches, 2, c, 7, c, 4);
-                MapNextMatch(matches, 2, c, 8, c, 4);
-                                               
-                MapNextMatch(matches, 3, c, 1, c, 1);
-                MapNextMatch(matches, 3, c, 2, c, 1);
-                MapNextMatch(matches, 3, c, 3, c, 2);
-                MapNextMatch(matches, 3, c, 4, c, 2);
-                                               
-                MapNextMatch(matches, 4, c, 1, c, 1);
-                MapNextMatch(matches, 4, c, 2, c, 1);
-            }
-
-            MapNextMatch(matches, 5, 1, 1, 1, 1);
-            MapNextMatch(matches, 5, 2, 1, 1, 1);
-            MapNextMatch(matches, 5, 3, 1, 1, 2);
-            MapNextMatch(matches, 5, 4, 1, 1, 2);
-
-            MapNextMatch(matches, 6, 1, 1, 1, 1);
-            MapNextMatch(matches, 6, 1, 2, 1, 1);
-
-        	this.ctx.SaveChanges();
-        }
-
-        private void MapNextMatch(List<Match> matches, int roundId, int cluster, int raceNumber, int nextCluster, int nextRaceNumber)
-        {
-            var match = matches.Single(m => m.RoundId == roundId
-                && m.RaceNumber == raceNumber
-                && m.Cluster == cluster);
-
-            var nextMatch = matches.Single(m => m.RoundId == (roundId + 1)
-                                                && m.Cluster == nextCluster
-                                                && m.RaceNumber == nextRaceNumber);
-
-            match.NextMatchId = nextMatch.MatchId;
-        }
-
-		private bool IsLastMatchPointingToNextMatch(Match match, Match nextMatch)
-		{
-			var lastMatchPointingToNextMatch =
-				this.ctx.Matches
-				.Where(m => m.NextMatchId == nextMatch.MatchId)
-				.OrderBy(m => m.RaceNumber)
-				.ToList()
-				.Last();
-
-			return (lastMatchPointingToNextMatch.MatchId == match.MatchId);
-		}
 	}
 }

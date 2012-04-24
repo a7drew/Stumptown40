@@ -10,6 +10,14 @@
           <EntitySet Name="Match" EntityType="Stumptown40Model.Store.Match" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Racer" EntityType="Stumptown40Model.Store.Racer" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Round" EntityType="Stumptown40Model.Store.Round" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Match_NextLosingMatchId" Association="Stumptown40Model.Store.FK_Match_NextLosingMatchId">
+            <End Role="Match" EntitySet="Match" />
+            <End Role="Match1" EntitySet="Match" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_NextWinningMatchId" Association="Stumptown40Model.Store.FK_Match_NextWinningMatchId">
+            <End Role="Match" EntitySet="Match" />
+            <End Role="Match1" EntitySet="Match" />
+          </AssociationSet>
           <AssociationSet Name="FK_Match_Racer1Id" Association="Stumptown40Model.Store.FK_Match_Racer1Id">
             <End Role="Racer" EntitySet="Racer" />
             <End Role="Match" EntitySet="Match" />
@@ -35,21 +43,24 @@
           <Key>
             <PropertyRef Name="BracketId" />
           </Key>
-          <Property Name="BracketId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BracketId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
         </EntityType>
         <EntityType Name="Match">
           <Key>
             <PropertyRef Name="MatchId" />
           </Key>
-          <Property Name="MatchId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MatchId" Type="int" Nullable="false" />
           <Property Name="RoundId" Type="int" Nullable="false" />
-          <Property Name="Cluster" Type="int" Nullable="false" />
           <Property Name="RaceNumber" Type="int" Nullable="false" />
           <Property Name="Racer1Id" Type="int" />
           <Property Name="Racer2Id" Type="int" />
           <Property Name="WinningRacerId" Type="int" />
-          <Property Name="NextMatchId" Type="int" />
+          <Property Name="NextWinningMatchId" Type="int" />
+          <Property Name="NextWinningMatchSlot" Type="int" />
+          <Property Name="NextLosingMatchId" Type="int" />
+          <Property Name="NextLosingMatchSlot" Type="int" />
+          <Property Name="Modified" Type="datetime" />
         </EntityType>
         <EntityType Name="Racer">
           <Key>
@@ -65,10 +76,34 @@
           <Key>
             <PropertyRef Name="RoundId" />
           </Key>
-          <Property Name="RoundId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RoundId" Type="int" Nullable="false" />
           <Property Name="BracketId" Type="int" Nullable="false" />
           <Property Name="RoundNumber" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Match_NextLosingMatchId">
+          <End Role="Match" Type="Stumptown40Model.Store.Match" Multiplicity="0..1" />
+          <End Role="Match1" Type="Stumptown40Model.Store.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Match">
+              <PropertyRef Name="MatchId" />
+            </Principal>
+            <Dependent Role="Match1">
+              <PropertyRef Name="NextLosingMatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_NextWinningMatchId">
+          <End Role="Match" Type="Stumptown40Model.Store.Match" Multiplicity="0..1" />
+          <End Role="Match1" Type="Stumptown40Model.Store.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Match">
+              <PropertyRef Name="MatchId" />
+            </Principal>
+            <Dependent Role="Match1">
+              <PropertyRef Name="NextWinningMatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Match_Racer1Id">
           <End Role="Racer" Type="Stumptown40Model.Store.Racer" Multiplicity="0..1" />
           <End Role="Match" Type="Stumptown40Model.Store.Match" Multiplicity="*" />
@@ -143,6 +178,14 @@
             <End Role="Bracket" EntitySet="Brackets" />
             <End Role="Round" EntitySet="Rounds" />
           </AssociationSet>
+          <AssociationSet Name="FK_Match_NextLosingMatchId" Association="Stumptown40Model.FK_Match_NextLosingMatchId">
+            <End Role="Match" EntitySet="Matches" />
+            <End Role="Match1" EntitySet="Matches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Match_NextWinningMatchId" Association="Stumptown40Model.FK_Match_NextWinningMatchId">
+            <End Role="Match" EntitySet="Matches" />
+            <End Role="Match1" EntitySet="Matches" />
+          </AssociationSet>
           <AssociationSet Name="FK_Match_Racer1Id" Association="Stumptown40Model.FK_Match_Racer1Id">
             <End Role="Racer" EntitySet="Racers" />
             <End Role="Match" EntitySet="Matches" />
@@ -164,7 +207,7 @@
           <Key>
             <PropertyRef Name="BracketId" />
           </Key>
-          <Property Name="BracketId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BracketId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Rounds" Relationship="Stumptown40Model.FK_Round_BracketId" FromRole="Bracket" ToRole="Round" />
         </EntityType>
@@ -172,14 +215,21 @@
           <Key>
             <PropertyRef Name="MatchId" />
           </Key>
-          <Property Name="MatchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MatchId" Type="Int32" Nullable="false" />
           <Property Name="RoundId" Type="Int32" Nullable="false" />
-          <Property Name="Cluster" Type="Int32" Nullable="false" />
           <Property Name="RaceNumber" Type="Int32" Nullable="false" />
           <Property Name="Racer1Id" Type="Int32" />
           <Property Name="Racer2Id" Type="Int32" />
           <Property Name="WinningRacerId" Type="Int32" />
-          <Property Name="NextMatchId" Type="Int32" />
+          <Property Name="NextWinningMatchId" Type="Int32" />
+          <Property Name="NextWinningMatchSlot" Type="Int32" />
+          <Property Name="NextLosingMatchId" Type="Int32" />
+          <Property Name="NextLosingMatchSlot" Type="Int32" />
+          <Property Name="Modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Match1" Relationship="Stumptown40Model.FK_Match_NextLosingMatchId" FromRole="Match" ToRole="Match1" />
+          <NavigationProperty Name="Match2" Relationship="Stumptown40Model.FK_Match_NextLosingMatchId" FromRole="Match1" ToRole="Match" />
+          <NavigationProperty Name="Match11" Relationship="Stumptown40Model.FK_Match_NextWinningMatchId" FromRole="Match" ToRole="Match1" />
+          <NavigationProperty Name="Match3" Relationship="Stumptown40Model.FK_Match_NextWinningMatchId" FromRole="Match1" ToRole="Match" />
           <NavigationProperty Name="Racer" Relationship="Stumptown40Model.FK_Match_Racer1Id" FromRole="Match" ToRole="Racer" />
           <NavigationProperty Name="Racer1" Relationship="Stumptown40Model.FK_Match_Racer2Id" FromRole="Match" ToRole="Racer" />
           <NavigationProperty Name="Round" Relationship="Stumptown40Model.FK_Match_RoundId" FromRole="Match" ToRole="Round" />
@@ -202,7 +252,7 @@
           <Key>
             <PropertyRef Name="RoundId" />
           </Key>
-          <Property Name="RoundId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoundId" Type="Int32" Nullable="false" />
           <Property Name="BracketId" Type="Int32" Nullable="false" />
           <Property Name="RoundNumber" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Bracket" Relationship="Stumptown40Model.FK_Round_BracketId" FromRole="Round" ToRole="Bracket" />
@@ -217,6 +267,30 @@
             </Principal>
             <Dependent Role="Round">
               <PropertyRef Name="BracketId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_NextLosingMatchId">
+          <End Role="Match" Type="Stumptown40Model.Match" Multiplicity="0..1" />
+          <End Role="Match1" Type="Stumptown40Model.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Match">
+              <PropertyRef Name="MatchId" />
+            </Principal>
+            <Dependent Role="Match1">
+              <PropertyRef Name="NextLosingMatchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Match_NextWinningMatchId">
+          <End Role="Match" Type="Stumptown40Model.Match" Multiplicity="0..1" />
+          <End Role="Match1" Type="Stumptown40Model.Match" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Match">
+              <PropertyRef Name="MatchId" />
+            </Principal>
+            <Dependent Role="Match1">
+              <PropertyRef Name="NextWinningMatchId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -287,12 +361,15 @@
               <MappingFragment StoreEntitySet="Match">
                 <ScalarProperty Name="MatchId" ColumnName="MatchId" />
                 <ScalarProperty Name="RoundId" ColumnName="RoundId" />
-                <ScalarProperty Name="Cluster" ColumnName="Cluster" />
                 <ScalarProperty Name="RaceNumber" ColumnName="RaceNumber" />
                 <ScalarProperty Name="Racer1Id" ColumnName="Racer1Id" />
                 <ScalarProperty Name="Racer2Id" ColumnName="Racer2Id" />
                 <ScalarProperty Name="WinningRacerId" ColumnName="WinningRacerId" />
-                <ScalarProperty Name="NextMatchId" ColumnName="NextMatchId" />
+                <ScalarProperty Name="NextWinningMatchId" ColumnName="NextWinningMatchId" />
+                <ScalarProperty Name="NextWinningMatchSlot" ColumnName="NextWinningMatchSlot" />
+                <ScalarProperty Name="NextLosingMatchId" ColumnName="NextLosingMatchId" />
+                <ScalarProperty Name="NextLosingMatchSlot" ColumnName="NextLosingMatchSlot" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

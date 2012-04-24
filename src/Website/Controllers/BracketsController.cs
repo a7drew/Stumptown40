@@ -17,6 +17,7 @@ namespace Website.Controllers
 		public ActionResult Index()
 		{
 			var model = ctx.Brackets
+				.OrderBy(b => b.BracketId)
 				.Select(b => new
 								 {
 									 b.BracketId,

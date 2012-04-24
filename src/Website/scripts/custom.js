@@ -1,4 +1,11 @@
 ﻿// MODELS ======================================================================
+//
+// JSONP URLs:
+//	http://localhost:28555
+//	http://stumptown40.cloudapp.net
+//
+
+var webSvcUrl = 'http://stumptown40.cloudapp.net';
 
 var Bracket = Backbone.Model.extend({});
 
@@ -10,7 +17,7 @@ var Brackets = Backbone.Collection.extend({
 		return Backbone.sync(method, model, options);  
 	},
 	url: function() {
-		return "http://stumptown40.cloudapp.net/brackets";
+		return webSvcUrl + "/brackets";
 	}
 });
 
@@ -23,7 +30,7 @@ var Round = Backbone.Model.extend({});
 var Rounds = Backbone.Collection.extend({
 	model: Round,
 	url: function () {
-		return "http://stumptown40.cloudapp.net/rounds/index/" + this.BracketId;
+		return webSvcUrl + "/rounds/index/" + this.BracketId;
 	},
 	sync: function(method, model, options) {  
 		options.timeout = 10000;  
@@ -37,7 +44,7 @@ var rounds = new Rounds();
 
 var MatchHeader = Backbone.Model.extend({
 	url: function () {
-		return "http://stumptown40.cloudapp.net/matches/header/" + this.RoundId;
+		return webSvcUrl + "/matches/header/" + this.RoundId;
 	},
 	sync: function(method, model, options) {  
 		options.timeout = 10000;  
@@ -56,7 +63,7 @@ var Matches = Backbone.Collection.extend({
 	model: Match,
 	url: function ()
 	{
-		return "http://stumptown40.cloudapp.net/matches/index/" + this.RoundId;
+		return webSvcUrl + "/matches/index/" + this.RoundId;
 	},
 	sync: function(method, model, options) {  
 		options.timeout = 10000;  
@@ -71,7 +78,7 @@ var matches = new Matches();
 
 var Race = Backbone.Model.extend({
 	url: function () {
-		return "http://stumptown40.cloudapp.net/matches/detail/" + this.MatchId;
+		return webSvcUrl + "/matches/detail/" + this.MatchId;
 	},
 	sync: function(method, model, options) {  
 		options.timeout = 10000;  
@@ -88,7 +95,7 @@ var Person = Backbone.Model.extend({});
 
 var People = Backbone.Collection.extend({
 	model: Person,
-	url: "http://stumptown40.cloudapp.net/racers",
+	url: webSvcUrl + "/racers",
 	sync: function(method, model, options) {  
 		options.timeout = 10000;  
 		options.dataType = "jsonp";  
@@ -106,7 +113,7 @@ function PostWinner(matchId, winningRacerId, losingRacerId) {
 
 	$.ajax({
 		type: 'post',
-		url: 'http://stumptown40.cloudapp.net/matches/update',
+		url: webSvcUrl + '/matches/update',
 		data: { matchId: matchId, winningRacerId:winningRacerId, losingRacerId:losingRacerId }
 	});
 

@@ -19,6 +19,8 @@ using System.Runtime.Serialization;
 #region EDM Relationship Metadata
 
 [assembly: EdmRelationshipAttribute("Stumptown40Model", "FK_Round_BracketId", "Bracket", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Website.Models.Bracket), "Round", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Website.Models.Round), true)]
+[assembly: EdmRelationshipAttribute("Stumptown40Model", "FK_Match_NextLosingMatchId", "Match", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Website.Models.Match), "Match1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Website.Models.Match), true)]
+[assembly: EdmRelationshipAttribute("Stumptown40Model", "FK_Match_NextWinningMatchId", "Match", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Website.Models.Match), "Match1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Website.Models.Match), true)]
 [assembly: EdmRelationshipAttribute("Stumptown40Model", "FK_Match_Racer1Id", "Racer", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Website.Models.Racer), "Match", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Website.Models.Match), true)]
 [assembly: EdmRelationshipAttribute("Stumptown40Model", "FK_Match_Racer2Id", "Racer", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Website.Models.Racer), "Match", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Website.Models.Match), true)]
 [assembly: EdmRelationshipAttribute("Stumptown40Model", "FK_Match_RoundId", "Round", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Website.Models.Round), "Match", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Website.Models.Match), true)]
@@ -306,14 +308,12 @@ namespace Website.Models
         /// </summary>
         /// <param name="matchId">Initial value of the MatchId property.</param>
         /// <param name="roundId">Initial value of the RoundId property.</param>
-        /// <param name="cluster">Initial value of the Cluster property.</param>
         /// <param name="raceNumber">Initial value of the RaceNumber property.</param>
-        public static Match CreateMatch(global::System.Int32 matchId, global::System.Int32 roundId, global::System.Int32 cluster, global::System.Int32 raceNumber)
+        public static Match CreateMatch(global::System.Int32 matchId, global::System.Int32 roundId, global::System.Int32 raceNumber)
         {
             Match match = new Match();
             match.MatchId = matchId;
             match.RoundId = roundId;
-            match.Cluster = cluster;
             match.RaceNumber = raceNumber;
             return match;
         }
@@ -372,30 +372,6 @@ namespace Website.Models
         private global::System.Int32 _RoundId;
         partial void OnRoundIdChanging(global::System.Int32 value);
         partial void OnRoundIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Cluster
-        {
-            get
-            {
-                return _Cluster;
-            }
-            set
-            {
-                OnClusterChanging(value);
-                ReportPropertyChanging("Cluster");
-                _Cluster = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Cluster");
-                OnClusterChanged();
-            }
-        }
-        private global::System.Int32 _Cluster;
-        partial void OnClusterChanging(global::System.Int32 value);
-        partial void OnClusterChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -498,29 +474,245 @@ namespace Website.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> NextMatchId
+        public Nullable<global::System.Int32> NextWinningMatchId
         {
             get
             {
-                return _NextMatchId;
+                return _NextWinningMatchId;
             }
             set
             {
-                OnNextMatchIdChanging(value);
-                ReportPropertyChanging("NextMatchId");
-                _NextMatchId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("NextMatchId");
-                OnNextMatchIdChanged();
+                OnNextWinningMatchIdChanging(value);
+                ReportPropertyChanging("NextWinningMatchId");
+                _NextWinningMatchId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NextWinningMatchId");
+                OnNextWinningMatchIdChanged();
             }
         }
-        private Nullable<global::System.Int32> _NextMatchId;
-        partial void OnNextMatchIdChanging(Nullable<global::System.Int32> value);
-        partial void OnNextMatchIdChanged();
+        private Nullable<global::System.Int32> _NextWinningMatchId;
+        partial void OnNextWinningMatchIdChanging(Nullable<global::System.Int32> value);
+        partial void OnNextWinningMatchIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> NextWinningMatchSlot
+        {
+            get
+            {
+                return _NextWinningMatchSlot;
+            }
+            set
+            {
+                OnNextWinningMatchSlotChanging(value);
+                ReportPropertyChanging("NextWinningMatchSlot");
+                _NextWinningMatchSlot = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NextWinningMatchSlot");
+                OnNextWinningMatchSlotChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _NextWinningMatchSlot;
+        partial void OnNextWinningMatchSlotChanging(Nullable<global::System.Int32> value);
+        partial void OnNextWinningMatchSlotChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> NextLosingMatchId
+        {
+            get
+            {
+                return _NextLosingMatchId;
+            }
+            set
+            {
+                OnNextLosingMatchIdChanging(value);
+                ReportPropertyChanging("NextLosingMatchId");
+                _NextLosingMatchId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NextLosingMatchId");
+                OnNextLosingMatchIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _NextLosingMatchId;
+        partial void OnNextLosingMatchIdChanging(Nullable<global::System.Int32> value);
+        partial void OnNextLosingMatchIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> NextLosingMatchSlot
+        {
+            get
+            {
+                return _NextLosingMatchSlot;
+            }
+            set
+            {
+                OnNextLosingMatchSlotChanging(value);
+                ReportPropertyChanging("NextLosingMatchSlot");
+                _NextLosingMatchSlot = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NextLosingMatchSlot");
+                OnNextLosingMatchSlotChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _NextLosingMatchSlot;
+        partial void OnNextLosingMatchSlotChanging(Nullable<global::System.Int32> value);
+        partial void OnNextLosingMatchSlotChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> Modified
+        {
+            get
+            {
+                return _Modified;
+            }
+            set
+            {
+                OnModifiedChanging(value);
+                ReportPropertyChanging("Modified");
+                _Modified = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Modified");
+                OnModifiedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _Modified;
+        partial void OnModifiedChanging(Nullable<global::System.DateTime> value);
+        partial void OnModifiedChanged();
 
         #endregion
 
     
         #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Stumptown40Model", "FK_Match_NextLosingMatchId", "Match1")]
+        public EntityCollection<Match> Match1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Match>("Stumptown40Model.FK_Match_NextLosingMatchId", "Match1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Match>("Stumptown40Model.FK_Match_NextLosingMatchId", "Match1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Stumptown40Model", "FK_Match_NextLosingMatchId", "Match")]
+        public Match Match2
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Match>("Stumptown40Model.FK_Match_NextLosingMatchId", "Match").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Match>("Stumptown40Model.FK_Match_NextLosingMatchId", "Match").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Match> Match2Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Match>("Stumptown40Model.FK_Match_NextLosingMatchId", "Match");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Match>("Stumptown40Model.FK_Match_NextLosingMatchId", "Match", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Stumptown40Model", "FK_Match_NextWinningMatchId", "Match1")]
+        public EntityCollection<Match> Match11
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Match>("Stumptown40Model.FK_Match_NextWinningMatchId", "Match1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Match>("Stumptown40Model.FK_Match_NextWinningMatchId", "Match1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("Stumptown40Model", "FK_Match_NextWinningMatchId", "Match")]
+        public Match Match3
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Match>("Stumptown40Model.FK_Match_NextWinningMatchId", "Match").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Match>("Stumptown40Model.FK_Match_NextWinningMatchId", "Match").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Match> Match3Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Match>("Stumptown40Model.FK_Match_NextWinningMatchId", "Match");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Match>("Stumptown40Model.FK_Match_NextWinningMatchId", "Match", value);
+                }
+            }
+        }
     
         /// <summary>
         /// No Metadata Documentation available.
