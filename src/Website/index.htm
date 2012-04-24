@@ -112,13 +112,13 @@
 					<img src="/racers/carphoto/<%= model.Racer2.RacerId %>" class="car" alt="" />
 				</div>
 				
-				<%if (model.Winner.RacerId > 0) { %>
-					<div id="winner">
-						Winner:
-						#<%= model.Winner.RacerId %>
-						<%= model.Winner.Name %>
-					</div>
-				<% } %>
+				<div id="winner">
+					Winner:
+					<span>
+						#<%= model.Winner.RacerId %> <%= model.Winner.Name %>
+					</span>
+				</div>
+
 			</div>
 		</div>
 	</script>

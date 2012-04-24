@@ -5,7 +5,7 @@
 //	http://stumptown40.cloudapp.net
 //
 
-var webSvcUrl = 'http://stumptown40.cloudapp.net';
+var webSvcUrl = 'http://localhost:28555';
 
 var Bracket = Backbone.Model.extend({});
 
@@ -196,9 +196,7 @@ var RaceView = Backbone.View.extend({
 		var losingRacerId = $('#racer2Won').attr('data-racerId');
 
 		PostWinner(matchId, winningRacerId, losingRacerId);
-
-		alert('show winner here');
-
+		this.showWinner(winningRacerId, $(racer1Won).text());
 	},
 	racer2Won : function () {
 		
@@ -207,12 +205,22 @@ var RaceView = Backbone.View.extend({
 		var losingRacerId = $('#racer1Won').attr('data-racerId');
 
 		PostWinner(matchId, winningRacerId, losingRacerId);
-		
-		alert('show winner here');
+		this.showWinner(winningRacerId, $(racer2Won).text());
 	},
 	render: function () {
-		this.$el.html(this.template({ model: this.model.toJSON() }));
+
+		var m = this.model.toJSON();
+		this.$el.html(this.template({ model: m }));
+		
+		if(m.Winner.RacerId === 0) {
+			this.$el.find('#winner').hide();
+		}
+
 		return this;
+	},
+	showWinner: function(racerId, racerName) {
+		$('#winner span').html('#' + racerId + ' ' + racerName);
+		$('#winner').show();
 	}
 });
 
