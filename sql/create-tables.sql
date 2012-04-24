@@ -19,7 +19,7 @@ GO
 
 CREATE TABLE [dbo].[Bracket]
 (
-  [BracketId]   [int] IDENTITY(1,1) NOT NULL,
+  [BracketId]   [int]               NOT NULL,
   [Name]        [nvarchar](100)     NOT NULL,
   CONSTRAINT [PK_Bracket] PRIMARY KEY CLUSTERED ([BracketId] ASC)
 )
@@ -27,7 +27,7 @@ GO
 
 CREATE TABLE [dbo].[Round]
 (
-  [RoundId]     [int] IDENTITY(1,1) NOT NULL,
+  [RoundId]     [int]               NOT NULL,
   [BracketId]   [int]               NOT NULL,
   [RoundNumber] [int]               NOT NULL,
   CONSTRAINT [PK_Round] PRIMARY KEY CLUSTERED ([RoundId] ASC)
@@ -36,14 +36,17 @@ GO
 
 CREATE TABLE [dbo].[Match]
 (
-  [MatchId]        [int] IDENTITY(1,1) NOT NULL,
-  [RoundId]        [int]               NOT NULL,
-  [Cluster]        [int]               NOT NULL,
-  [RaceNumber]     [int]               NOT NULL,
-  [Racer1Id]       [int]                   NULL,
-  [Racer2Id]       [int]                   NULL,
-  [WinningRacerId] [int]                   NULL,
-  [NextMatchId]    [int]                   NULL,
+  [MatchId]              [int]               NOT NULL,
+  [RoundId]              [int]               NOT NULL,
+  [RaceNumber]           [int]               NOT NULL,
+  [Racer1Id]             [int]                   NULL,
+  [Racer2Id]             [int]                   NULL,
+  [WinningRacerId]       [int]                   NULL,
+  [NextWinningMatchId]   [int]                   NULL,
+  [NextWinningMatchSlot] [int]                   NULL,
+  [NextLosingMatchId]    [int]                   NULL,
+  [NextLosingMatchSlot]  [int]                   NULL,
+  [Modified]             [datetime]              NULL,
   CONSTRAINT [PK_Match] PRIMARY KEY CLUSTERED ([MatchId] ASC)
 )
 GO
@@ -82,172 +85,94 @@ GO
 ALTER TABLE [dbo].[Match] CHECK CONSTRAINT [FK_Match_WinningRacerId]
 GO
 
+ALTER TABLE [dbo].[Match]  WITH CHECK ADD  CONSTRAINT [FK_Match_NextWinningMatchId] FOREIGN KEY([NextWinningMatchId])
+REFERENCES [dbo].[Match] ([MatchId])
+GO
+ALTER TABLE [dbo].[Match] CHECK CONSTRAINT [FK_Match_NextWinningMatchId]
+GO
+
+ALTER TABLE [dbo].[Match]  WITH CHECK ADD  CONSTRAINT [FK_Match_NextLosingMatchId] FOREIGN KEY([NextLosingMatchId])
+REFERENCES [dbo].[Match] ([MatchId])
+GO
+ALTER TABLE [dbo].[Match] CHECK CONSTRAINT [FK_Match_NextLosingMatchId]
+GO
+
 --
 -- DATA
 --
 
-INSERT INTO [dbo].[Bracket] (Name) VALUES ('#winning');
-INSERT INTO [dbo].[Bracket] (Name) VALUES ('#drinking');
+INSERT INTO [dbo].[Bracket] (BracketId, Name) VALUES (1, '#winning');
+INSERT INTO [dbo].[Bracket] (BracketId, Name) VALUES (2, '#drinking');
+INSERT INTO [dbo].[Bracket] (BracketId, Name) VALUES (3, '#championship');
 GO
 
-INSERT INTO [dbo].[Round] (BracketId, RoundNumber) VALUES (1, 1);
-INSERT INTO [dbo].[Round] (BracketId, RoundNumber) VALUES (1, 2);
-INSERT INTO [dbo].[Round] (BracketId, RoundNumber) VALUES (1, 3);
-INSERT INTO [dbo].[Round] (BracketId, RoundNumber) VALUES (1, 4);
-INSERT INTO [dbo].[Round] (BracketId, RoundNumber) VALUES (1, 5);
-INSERT INTO [dbo].[Round] (BracketId, RoundNumber) VALUES (1, 6);
-INSERT INTO [dbo].[Round] (BracketId, RoundNumber) VALUES (1, 7);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (1, 1, 1);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (2, 1, 2);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (3, 1, 3);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (4, 1, 4);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (5, 1, 5);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (6, 1, 6);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (7, 1, 7);
 
-INSERT INTO [dbo].[Round] (BracketId, RoundNumber) VALUES (2, 1);
-INSERT INTO [dbo].[Round] (BracketId, RoundNumber) VALUES (2, 2);
-INSERT INTO [dbo].[Round] (BracketId, RoundNumber) VALUES (2, 3);
-INSERT INTO [dbo].[Round] (BracketId, RoundNumber) VALUES (2, 4);
-INSERT INTO [dbo].[Round] (BracketId, RoundNumber) VALUES (2, 5);
-INSERT INTO [dbo].[Round] (BracketId, RoundNumber) VALUES (2, 6);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (8, 2, 1);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (9, 2, 2);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (10, 2, 3);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (11, 2, 4);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (12, 2, 5);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (13, 2, 6);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (14, 2, 7);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (15, 2, 8);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (16, 2, 9);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (17, 2, 10);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (18, 2, 11);
+
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (19, 3, 1);
+INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (20, 3, 2);
 GO
 
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (1, 1, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (1, 1, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (1, 1, 3);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (1, 1, 4);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (1, 2, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (1, 2, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (1, 2, 3);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (1, 2, 4);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (1, 3, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (1, 3, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (1, 3, 3);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (1, 3, 4);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (1, 4, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (1, 4, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (1, 4, 3);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (1, 4, 4);
-GO
+DECLARE @matchId INT
+DECLARE @roundId INT
+DECLARE @lastRoundId INT
+DECLARE @raceNumber INT
+SET @matchId = 1;
+SET @roundId = 1;
+SET @raceNumber = 1;
+SET @lastRoundId = @roundId;
 
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 1, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 1, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 1, 3);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 1, 4);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 1, 5);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 1, 6);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 1, 7);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 1, 8);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 2, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 2, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 2, 3);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 2, 4);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 2, 5);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 2, 6);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 2, 7);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 2, 8);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 3, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 3, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 3, 3);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 3, 4);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 3, 5);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 3, 6);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 3, 7);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 3, 8);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 4, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 4, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 4, 3);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 4, 4);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 4, 5);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 4, 6);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 4, 7);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (2, 4, 8);
-GO
+WHILE @matchId < 160
+BEGIN
 
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (3, 1, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (3, 1, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (3, 1, 3);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (3, 1, 4);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (3, 2, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (3, 2, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (3, 2, 3);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (3, 2, 4);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (3, 3, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (3, 3, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (3, 3, 3);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (3, 3, 4);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (3, 4, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (3, 4, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (3, 4, 3);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (3, 4, 4);
-GO
+	IF @matchId > 16 SET @roundId = 2;
+	IF @matchId > 48 SET @roundId = 3;
+	IF @matchId > 64 SET @roundId = 4;
+	IF @matchId > 72 SET @roundId = 5;
+	IF @matchId > 76 SET @roundId = 6;
+	IF @matchId > 78 SET @roundId = 7;
 
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (4, 1, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (4, 1, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (4, 2, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (4, 2, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (4, 3, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (4, 3, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (4, 4, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (4, 4, 2);
-GO
+	IF @matchId > 79 SET @roundId = 8;
+	IF @matchId > 95 SET @roundId = 9;
+	IF @matchId > 111 SET @roundId = 10;
+	IF @matchId > 127 SET @roundId = 11;
+	IF @matchId > 135 SET @roundId = 12;
+	IF @matchId > 143 SET @roundId = 13;
+	IF @matchId > 147 SET @roundId = 14;
+	IF @matchId > 151 SET @roundId = 15;
+	IF @matchId > 153 SET @roundId = 16;
+	IF @matchId > 155 SET @roundId = 17;
+	IF @matchId > 156 SET @roundId = 18;
 
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (5, 1, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (5, 2, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (5, 3, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (5, 4, 1);
-GO
+	IF @matchId > 157 SET @roundId = 19;
+	IF @matchId > 158 SET @roundId = 20;
 
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (6, 1, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (6, 1, 2);
-GO
+	IF @lastRoundId <> @roundId SET @raceNumber = 1;
 
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (7, 1, 1);
-GO
+	INSERT INTO [dbo].[Match] (MatchId, RoundId, RaceNumber) VALUES (@matchId, @roundId, @raceNumber);
 
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (8, 1, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (8, 1, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (8, 1, 3);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (8, 1, 4);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (8, 2, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (8, 2, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (8, 2, 3);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (8, 2, 4);
-GO
+	SET @lastRoundId = @roundId;
+	SET @raceNumber = @raceNumber + 1;
+	SET @matchId = @matchId + 1;
 
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (9, 1, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (9, 1, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (9, 1, 3);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (9, 1, 4);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (9, 1, 5);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (9, 1, 6);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (9, 1, 7);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (9, 1, 8);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (9, 2, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (9, 2, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (9, 2, 3);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (9, 2, 4);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (9, 2, 5);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (9, 2, 6);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (9, 2, 7);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (9, 2, 8);
-GO
-
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (10, 1, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (10, 1, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (10, 1, 3);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (10, 1, 4);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (10, 2, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (10, 2, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (10, 2, 3);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (10, 2, 4);
-GO
-
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (11, 1, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (11, 1, 2);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (11, 2, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (11, 2, 2);
-GO
-
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (12, 1, 1);
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (12, 1, 2);
-GO
-
-INSERT INTO [dbo].[Match] (RoundId, Cluster, RaceNumber) VALUES (13, 1, 1);
+END
 GO
 
 INSERT INTO [dbo].[Racer] (Name, Organization) VALUES ('Joe Mildenberger', 'Joe Mildenberger');

@@ -25,16 +25,16 @@ CREATE DATABASE [Stumptown40]
 GO
 
 -- EXEC sp_addlogin 'login', 'password', 'defaultDatabase'
-EXEC sp_addlogin 'Stumptown40', 'password', 'Stumptown40'
-GO
+-- EXEC sp_addlogin 'Stumptown40', 'password', 'Stumptown40'
+-- GO
 
-USE Stumptown40
-GO
+-- USE Stumptown40
+-- GO
 
 -- sp_grantdbaccess 'login', 'username'
-EXEC sp_grantdbaccess 'Stumptown40', 'Stumptown40'
-GO
+-- EXEC sp_grantdbaccess 'Stumptown40', 'Stumptown40'
+-- GO
 
 -- sp_addrolemember 'RoleName', 'MemberName'
-EXEC sp_addrolemember 'db_owner', 'Stumptown40'
-GO
+-- EXEC sp_addrolemember 'db_owner', 'Stumptown40'
+-- GO
