@@ -61,6 +61,20 @@
 			<p class="templateName">This is the match header template.</p>
 			<p><a href="#brackets/<%= model.BracketId %>">Back to List</a></p>
             <h1>RoundNumber: <%= model.RoundNumber %></h1>
+			<% if (model.RoundId === 18) { %>
+				<p>The winner of this race goes to the final championship round.</p>
+				<p>The loser of this race gets 3rd place.</p>
+			<% } %>
+			<% if (model.RoundId === 19) { %>
+				<p>The top racer is unbeaten.</p>
+				<p>If the top racer wins this match, they get first place.</p>
+				<p>If the top racer loses this match, we race one final match.</p>
+			<% } %>
+			<% if (model.RoundId === 20) { %>
+				<p>This is the final match.</p>
+				<p>The winner gets first place.</p>
+				<p>The loser gets second place.</p>
+			<% } %>
 		</div>
 	</script>
 
