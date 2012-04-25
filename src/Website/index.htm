@@ -72,12 +72,12 @@
 				<div class="matchup">
 					<a href="#matches/<%= item.MatchId %>">
 						<% if(item.Racer1.RacerId === 0) { %>
-							<p>???</p>
+							<p class="unknownRacer">???</p>
 						<% } else { %>
 							<p>#<%= item.Racer1.RacerId %> <%= item.Racer1.Name %> <% if(item.Winner.RacerId === item.Racer1.RacerId) { %><span>&#10003;</span><% } %></p>
 						<% } %>
                         <% if(item.Racer2.RacerId === 0) { %>
-							<p>???</p>
+							<p class="unknownRacer">???</p>
 						<% } else { %>
 							<p>#<%= item.Racer2.RacerId %> <%= item.Racer2.Name %> <% if(item.Winner.RacerId === item.Racer2.RacerId) { %><span>&#10003;</span><% } %></p>
 						<% } %>

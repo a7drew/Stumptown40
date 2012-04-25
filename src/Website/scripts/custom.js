@@ -5,7 +5,7 @@
 //	http://stumptown40.cloudapp.net
 //
 
-var webSvcUrl = 'http://stumptown40.cloudapp.net';
+var webSvcUrl = 'http://localhost:28555';
 
 var Bracket = Backbone.Model.extend({});
 
@@ -114,7 +114,10 @@ function PostWinner(matchId, winningRacerId, losingRacerId) {
 	$.ajax({
 		type: 'post',
 		url: webSvcUrl + '/matches/update',
-		data: { matchId: matchId, winningRacerId:winningRacerId, losingRacerId:losingRacerId }
+		data: { matchId: matchId, winningRacerId:winningRacerId, losingRacerId:losingRacerId },
+		success: function () {
+			$('#raceTemplate').append('<input id="hiddenPostedWinner" type="hidden" value="' + winningRacerId + '" />');
+		}
 	});
 
 }

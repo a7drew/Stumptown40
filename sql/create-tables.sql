@@ -210,7 +210,7 @@ UPDATE [dbo].[Match] SET [NextWinningMatchId]=56, [NextWinningMatchSlot]=2, [Nex
 UPDATE [dbo].[Match] SET [NextWinningMatchId]=57, [NextWinningMatchSlot]=1, [NextLosingMatchId]=80, [NextLosingMatchSlot]=1 WHERE [MatchId]=33;
 UPDATE [dbo].[Match] SET [NextWinningMatchId]=57, [NextWinningMatchSlot]=2, [NextLosingMatchId]=96, [NextLosingMatchSlot]=1 WHERE [MatchId]=34;
 UPDATE [dbo].[Match] SET [NextWinningMatchId]=58, [NextWinningMatchSlot]=1, [NextLosingMatchId]=81, [NextLosingMatchSlot]=1 WHERE [MatchId]=35;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=58, [NextWinningMatchSlot]=1, [NextLosingMatchId]=97, [NextLosingMatchSlot]=1 WHERE [MatchId]=36;
+UPDATE [dbo].[Match] SET [NextWinningMatchId]=58, [NextWinningMatchSlot]=2, [NextLosingMatchId]=97, [NextLosingMatchSlot]=1 WHERE [MatchId]=36;
 UPDATE [dbo].[Match] SET [NextWinningMatchId]=59, [NextWinningMatchSlot]=1, [NextLosingMatchId]=86, [NextLosingMatchSlot]=1 WHERE [MatchId]=37;
 UPDATE [dbo].[Match] SET [NextWinningMatchId]=59, [NextWinningMatchSlot]=2, [NextLosingMatchId]=102, [NextLosingMatchSlot]=1 WHERE [MatchId]=38;
 UPDATE [dbo].[Match] SET [NextWinningMatchId]=60, [NextWinningMatchSlot]=1, [NextLosingMatchId]=87, [NextLosingMatchSlot]=1 WHERE [MatchId]=39;
@@ -318,9 +318,9 @@ UPDATE [dbo].[Match] SET [NextWinningMatchId]=146, [NextWinningMatchSlot]=1 WHER
 UPDATE [dbo].[Match] SET [NextWinningMatchId]=146, [NextWinningMatchSlot]=2 WHERE [MatchId]=141;
 UPDATE [dbo].[Match] SET [NextWinningMatchId]=147, [NextWinningMatchSlot]=1 WHERE [MatchId]=142;
 UPDATE [dbo].[Match] SET [NextWinningMatchId]=147, [NextWinningMatchSlot]=2 WHERE [MatchId]=143;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=148, [NextWinningMatchSlot]=1 WHERE [MatchId]=144;
+UPDATE [dbo].[Match] SET [NextWinningMatchId]=148, [NextWinningMatchSlot]=2 WHERE [MatchId]=144;
 UPDATE [dbo].[Match] SET [NextWinningMatchId]=149, [NextWinningMatchSlot]=2 WHERE [MatchId]=145;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=150, [NextWinningMatchSlot]=1 WHERE [MatchId]=146;
+UPDATE [dbo].[Match] SET [NextWinningMatchId]=150, [NextWinningMatchSlot]=2 WHERE [MatchId]=146;
 UPDATE [dbo].[Match] SET [NextWinningMatchId]=151, [NextWinningMatchSlot]=2 WHERE [MatchId]=147;
 UPDATE [dbo].[Match] SET [NextWinningMatchId]=152, [NextWinningMatchSlot]=1 WHERE [MatchId]=148;
 UPDATE [dbo].[Match] SET [NextWinningMatchId]=152, [NextWinningMatchSlot]=2 WHERE [MatchId]=149;
