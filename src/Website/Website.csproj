@@ -88,7 +88,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BracketsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MatchesController.cs" />
     <Compile Include="Controllers\RacersController.cs" />
     <Compile Include="Controllers\RoundsController.cs" />
@@ -96,6 +98,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\JsonpResult.cs" />
+    <Compile Include="Models\AdminIndexViewModel.cs" />
     <Compile Include="Models\DataModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -111,7 +114,7 @@
     <Content Include="css\public.css" />
     <Content Include="css\reset.css" />
     <Content Include="Global.asax" />
-    <Content Include="index.html" />
+    <Content Include="index.htm" />
     <Content Include="scripts\backbone.js" />
     <Content Include="scripts\backbone.min.js" />
     <Content Include="scripts\custom.js" />
@@ -123,12 +126,6 @@
     <Content Include="scripts\underscore.js" />
     <Content Include="scripts\underscore.min.js" />
     <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -147,6 +144,7 @@
     <None Include="Models\DataModel.edmx.diagram">
       <DependentUpon>DataModel.edmx</DependentUpon>
     </None>
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

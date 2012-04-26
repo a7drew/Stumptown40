@@ -1,0 +1,67 @@
+﻿@using Website.Models
+@model Website.Models.AdminIndexViewModel
+
+@{
+	int maxBarHeight = 200;
+	int maxRaceBarSeconds = 180;
+	
+	Layout = null;
+	string maxBarHeightpx = maxBarHeight + "px";
+	string matchPercentCompleteWidth = Model.MatchesPercentComplete + "%";
+}
+
+@functions
+{
+	MvcHtmlString GetRaceBar(MatchStat matchStat, int maxBarHeight, int maxRaceBarSeconds)
+	{
+		double height = maxBarHeight;
+		string color = "#000";
+		
+		if(matchStat.SecondsAfterLastRace < maxRaceBarSeconds)
+			height = Math.Floor(((double) matchStat.SecondsAfterLastRace/(double) maxRaceBarSeconds)*100);
+
+		var e = string.Format(
+			"<div style='width:2px;height:{0}px;background:{1};margin-right:2px;'></div>",
+			height, color);
+
+		return new MvcHtmlString(e);
+	}
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Index</title>
+	<link href="/css/reset.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div>
+		
+		<p>First Race: @Model.FirstRaceDate</p>
+		<p>Current Match: #@Model.LastMatchId, @Model.LastRaceDate</p>
+		<p>Average Seconds Per Race: @Math.Floor(Model.CurrentAverageSecondsPerRace)</p>
+		<p>Estimated End: @Model.EstimatedEndDate</p>
+		
+		<hr />
+		
+		<div style="position:relative;width:@matchPercentCompleteWidth;height:80px;background:greenyellow;">
+			<div style="position:absolute;top:0;left:0;font:normal normal normal 48pt Verdana;">@matchPercentCompleteWidth</div>
+		</div>
+
+		<hr/>
+		
+		<table>
+			<tr>
+			@foreach (var m in Model.MatchStats)
+			{
+				<td style="width:2px;height:@maxBarHeightpx;background:#EEE;vertical-align: bottom;">
+					@GetRaceBar(m, maxBarHeight, maxRaceBarSeconds)
+				</td>
+			}
+			</tr>
+		</table>
+		
+	</div>
+</body>
+</html>
