@@ -8,6 +8,7 @@
 	Layout = null;
 	string maxBarHeightpx = maxBarHeight + "px";
 	string matchPercentCompleteWidth = Model.MatchesPercentComplete + "%";
+	int remainingRaceCount = 158 - Model.LastMatchId;
 }
 
 @functions
@@ -34,14 +35,30 @@
 <head>
 	<title>Index</title>
 	<link href="/css/reset.css" rel="stylesheet" type="text/css" />
+	<style>
+		body {
+			margin: 20px;
+			font-family: Verdana;
+		}
+		p {
+			font-weight: bold;
+		}
+		label {
+			font-weight: normal;
+		}
+	</style>
 </head>
 <body>
 	<div>
 		
-		<p>First Race: @Model.FirstRaceDate</p>
-		<p>Current Match: #@Model.LastMatchId, @Model.LastRaceDate</p>
-		<p>Average Seconds Per Race: @Math.Floor(Model.CurrentAverageSecondsPerRace)</p>
-		<p>Estimated End: @Model.EstimatedEndDate</p>
+		<p>
+			<label>Average:</label>
+			@Math.Floor(Model.CurrentAverageSecondsPerRace)s
+		</p>
+		<p>
+			<label>Estimated End:</label>
+			@Model.EstimatedEndDate
+		</p>
 		
 		<hr />
 		
@@ -53,14 +70,23 @@
 		
 		<table>
 			<tr>
-			@foreach (var m in Model.MatchStats)
-			{
-				<td style="width:2px;height:@maxBarHeightpx;background:#EEE;vertical-align: bottom;">
-					@GetRaceBar(m, maxBarHeight, maxRaceBarSeconds)
-				</td>
-			}
+				@foreach (var m in Model.MatchStats)
+				{
+					<td style="width:2px;height:@maxBarHeightpx;background:#EEE;vertical-align: bottom;">
+						@GetRaceBar(m, maxBarHeight, maxRaceBarSeconds)
+					</td>
+				}
 			</tr>
 		</table>
+		<hr />
+		<p>
+			<label>Race:</label>
+			#@Model.LastMatchId, @Model.LastRaceDate
+		</p>
+		<p>
+			<label>Remaining:</label>
+			@remainingRaceCount races
+		</p>
 		
 	</div>
 </body>
