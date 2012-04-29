@@ -1,48 +1,40 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="utf-8">
     <title>3rd Annual Stumptown 40 - May 16th 2012</title>
-	<link href="css/reset.css" rel="stylesheet" type="text/css" />
-	<link href="css/public.css" rel="stylesheet" type="text/css" />
+	<link href="css/screen.css" rel="stylesheet" media="screen" type="text/css" />
 </head>
 <body>
-	
-	<div id="racerApp">
+	<section id="racerApp">
 		<nav>
 			<ul>
-				<li><a href="#home">Stumptown 40</a></li>
-				<li><a href="#brackets">brackets</a></li>
-				<li><a href="#people">racers</a></li>
-				<li><a href="#sponsors">sponsors</a></li>
+				<li><a href="#home">Pre-Race</a></li>
+				<li><a href="#brackets">Brackets</a></li>
+				<li><a href="#people">All Racers</a></li>
+				<li><a href="#sponsors"><span>2012</span> Sponsors</a></li>
 			</ul>
 		</nav>
-		
-		<section id="main">
-		</section>
-
-	</div>
-
+		<article id="main"></article>
+	</section>
+<!-- Pre-race template -->
 	<script type="text/template" id="home-template">
 		<div id="homeTemplate" class="view">
-			<p class="templateName">This is the home template.</p>
+				<p>Pre-Race</p>
 		</div>
 	</script>
-
+<!-- bracket template -->
 	<script type="text/template" id="bracket-template">
 		<div id="bracketTemplate" class="view bracketTemplate">
-			<p class="templateName">This is the bracket template.</p>
 			<% _.each(list, function(item) { %>
-				<div><a href="#brackets/<%= item.BracketId %>"><%= item.Name %></a></div>
+				<a href="#brackets/<%= item.BracketId %>"><%= item.Name %></a>
 			<% }); %>
-			<ul>
 		</div>
 	</script>
-
+<!-- round template -->
 	<script type="text/template" id="round-template">
 		<div id="roundTemplate" class="view roundTemplate">
-			<p class="templateName">This is the round template.</p>
-			<p><a href="#brackets">Back to List</a></p>
-
+			<a href="#brackets">Back to List</a>
 			<% _.each(list, function(item) { %>
 				<div class="round">
 					<% if(item.IsDone) { %>
@@ -51,15 +43,13 @@
 					<a href="#rounds/<%= item.RoundId %>">Round <%= item.RoundNumber %></a>
 				</div>
 			<% }); %>
-
 		</div>
 	</script>
-	
+<!-- match header template -->	
 	<script type="text/template" id="match-header-template">
 		<div id="matchHeader" class="view matchHeader">
-			<p class="templateName">This is the match header template.</p>
 			<p><a href="#brackets/<%= model.BracketId %>">Back to List</a></p>
-            <h1>RoundNumber: <%= model.RoundNumber %></h1>
+            <h1>Round: <%= model.RoundNumber %></h1>
 			<% if (model.RoundId === 18) { %>
 				<p>The winner of this race goes to the final championship round.</p>
 				<p>The loser of this race gets 3rd place.</p>
@@ -76,32 +66,27 @@
 			<% } %>
 		</div>
 	</script>
-
-	<script type="text/template" id="match-template">
-		<div id="matchList" class="view matchList">
-			<p class="templateName">This is the match template.</p>
-
-			<% _.each(list, function(item) { %>
-				<div class="matchup">
-					<a href="#matches/<%= item.MatchId %>">
-						<% if(item.Racer1.RacerId === 0) { %>
-							<p class="unknownRacer">???</p>
-						<% } else { %>
-							<p>#<%= item.Racer1.RacerId %> <%= item.Racer1.Name %> <% if(item.Winner.RacerId === item.Racer1.RacerId) { %><span>&#10003;</span><% } %></p>
-						<% } %>
-                        <% if(item.Racer2.RacerId === 0) { %>
-							<p class="unknownRacer">???</p>
-						<% } else { %>
-							<p>#<%= item.Racer2.RacerId %> <%= item.Racer2.Name %> <% if(item.Winner.RacerId === item.Racer2.RacerId) { %><span>&#10003;</span><% } %></p>
-						<% } %>
-                    </a>
-				</div>
-			<% }); %>
-			
-			<div class="clearBoth"></div>
-
-		</div>
-	</script>
+	<!-- match template -->	
+		<script type="text/template" id="match-template">
+			<div id="matchList" class="view matchList">
+				<% _.each(list, function(item) { %>
+					<div class="matchup">
+						<a href="#matches/<%= item.MatchId %>">
+							<% if(item.Racer1.RacerId === 0) { %>
+								<p class="unknownRacer">???</p>
+							<% } else { %>
+								<p>#<%= item.Racer1.RacerId %> <%= item.Racer1.Name %> <% if(item.Winner.RacerId === item.Racer1.RacerId) { %><span>&#10003;</span><% } %></p>
+							<% } %>
+	                        <% if(item.Racer2.RacerId === 0) { %>
+								<p class="unknownRacer">???</p>
+							<% } else { %>
+								<p>#<%= item.Racer2.RacerId %> <%= item.Racer2.Name %> <% if(item.Winner.RacerId === item.Racer2.RacerId) { %><span>&#10003;</span><% } %></p>
+							<% } %>
+	                    </a>
+					</div>
+				<% }); %>
+			</div>
+		</script>
 
 	<script type="text/template" id="race-template">
 		<div id="raceTemplate" class="view raceTemplate">
@@ -164,12 +149,10 @@
 			</div>
 		</div>
 	</script>
-
 	<script src="scripts/jquery-1.7.2.min.js" type="text/javascript"></script>
 	<script src="scripts/underscore.min.js" type="text/javascript"></script>
 	<script src="scripts/backbone.min.js" type="text/javascript"></script>
 	<script src="scripts/json2.min.js" type="text/javascript"></script>
 	<script src="scripts/custom.js" type="text/javascript"></script>
-
 </body>
 </html>
