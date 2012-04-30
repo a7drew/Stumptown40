@@ -276,13 +276,13 @@ var App = Backbone.Router.extend({
 	},
 	home: function () {
 		var view = new HomeView();
-		$("#main").html(view.render().el);
+		$("#main").html(view.render().el).parents("body").removeClass().addClass("home");
 	},
 	bracketList: function () {
 		brackets.fetch({
 			success: function (model, response) {
 				var view = new BracketView({ collection: brackets });
-				$("#main").html(view.render().el);
+				$("#main").html(view.render().el).parents("body").removeClass().addClass("brackets");
 			}
 		});
 	},
@@ -330,13 +330,13 @@ var App = Backbone.Router.extend({
 		people.fetch({
 			success: function (model, response) {
 				var view = new PeopleView({ collection: people });
-				$('#main').html(view.render().el);
+				$('#main').html(view.render().el).parents("body").removeClass().addClass("racers");
 			}
 		});
 	},
 	sponsorsList: function () {
 		var view = new SponsorView();
-		$('#main').html(view.render().el);
+		$('#main').html(view.render().el).parents("body").removeClass().addClass("sponsors");
 	},
 	fakeSponsorsList: function () {
 		var view = new FakeSponsorView();

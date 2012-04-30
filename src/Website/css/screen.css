@@ -10,27 +10,27 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	outline: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+margin: 0;
+padding: 0;
+border: 0;
+outline: 0;
+font-size: 100%;
+font: inherit;
+vertical-align: baseline;
 }
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
-	display: block;
+display: block;
 }
 body {
-	line-height: 1;
+line-height: 1;
 }
 ol, ul {
-	list-style: none;
+list-style: none;
 }
 
 :focus {
-	outline: 0;
+outline: 0;
 }
 
 
@@ -38,9 +38,9 @@ ol, ul {
 font-family: 'Ranger';
 src: url('../fonts/Ranger.eot');
 src: url('../fonts/Ranger.eot?#iefix') format('embedded-opentype'),
-     url('../fonts/Ranger.woff') format('woff'),
-     url('../fonts/Ranger.ttf') format('truetype'),
-     url('../fonts/Ranger.svg#Ranger') format('svg');
+url('../fonts/Ranger.woff') format('woff'),
+url('../fonts/Ranger.ttf') format('truetype'),
+url('../fonts/Ranger.svg#Ranger') format('svg');
 font-weight: normal;
 font-style: normal;
 }
@@ -49,25 +49,151 @@ font-style: normal;
 font-family: 'Haymaker';
 src: url('../fonts/Haymaker.eot');
 src: url('../fonts/Haymaker.eot?#iefix') format('embedded-opentype'),
-     url('../fonts/Haymaker.woff') format('woff'),
-     url('../fonts/Haymaker.ttf') format('truetype'),
-     url('../fonts/Haymaker.svg#Haymaker') format('svg');
+url('../fonts/Haymaker.woff') format('woff'),
+url('../fonts/Haymaker.ttf') format('truetype'),
+url('../fonts/Haymaker.svg#Haymaker') format('svg');
 font-weight: normal;
 font-style: normal;
 }
 
+html, body {
+width:100%;
+height:100%;
+}
+
 
 body {
-	background:transparent url("../images/bg.png");
-	font-family:Ranger;
-	font-size:28px;
+background: url("../images/bg.png");
+font-family:Ranger;
+font-size:28px;
 }
 
 a {
-	color:#000;
-	text-decoration:none;
+color:#000;
+text-decoration:none;
 }
 
-a span {
-	font-family:Haymaker;
+.value {
+font-family:Haymaker;
 }
+
+header {
+text-align:center;
+width:100%;
+height:160px;
+padding-top:15px;
+position:absolute;
+top:0;
+left:0;
+background:transparent url("../images/racecenter.png") 50% 100% no-repeat;
+}
+
+nav  {
+top:-100px;
+width:700px;
+left:50%;
+margin-left:-350px;
+font-size:16px;
+position:absolute;
+text-align:center;
+padding:80px 0 10px;
+-moz-transition: all 300ms ease-in-out;
+-webkit-transition: all 300ms ease-in-out;
+-ms-transition: all 300ms ease-in-out;
+-o-transition: all 300ms ease-in-out;
+transition: all 300ms ease-in-out;
+z-index:1000;
+}
+
+nav:hover {
+top:-68px;
+background:rgba(255,255,255,.6);
+box-shadow:0 1px 5px rgba(0,0,0,.1);
+}
+
+nav li {
+display:inline;
+text-align:center;
+}
+
+nav a {
+margin:0 20px;
+color:#e36000;
+}
+
+nav a:hover {
+color:#000;
+}
+
+article {
+margin-top:200px;
+float:left;
+width:100%;
+height:100%;
+}
+
+article > div {
+display:inline;
+}
+
+/* brackets page */
+
+.bracketTemplate {
+position:absolute;
+top:50%;
+left:0;
+width:100%;
+margin-top:-109px;
+}
+
+.bracketTemplate a {
+position:absolute;
+left:50%;
+top:0;
+width:100%;
+}
+
+.bracketTemplate a[data-bracket="#winning"] {
+width:316px;
+margin-left:-530px;
+height:218px;
+display:block;
+text-indent:-999em;
+background:transparent url("../images/winners.png") 0 50% no-repeat;
+}
+
+.bracketTemplate a[data-bracket="#drinking"] {
+margin-left:-84px;
+width:158px;
+height:218px;
+display:block;
+text-indent:-999em;
+background:transparent url("../images/losers.png") 0 50% no-repeat;	
+}
+
+.bracketTemplate a[data-bracket="#championship"] {
+margin-left:220px;
+width:201px;
+height:218px;
+display:block;
+text-indent:-999em;
+background:transparent url("../images/championship.png") 0 50% no-repeat;	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

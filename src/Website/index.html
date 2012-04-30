@@ -6,13 +6,16 @@
 	<link href="css/screen.css" rel="stylesheet" media="screen" type="text/css" />
 </head>
 <body>
-	<section id="racerApp">
+	<section>
+		<header>
+			<a href="#home"><img src="images/stumptown40.png" width="225" height="52" alt="Stumptown40"></a>
+		</header>
 		<nav>
 			<ul>
 				<li><a href="#home">Pre-Race</a></li>
 				<li><a href="#brackets">Brackets</a></li>
 				<li><a href="#people">All Racers</a></li>
-				<li><a href="#sponsors"><span>2012</span> Sponsors</a></li>
+				<li><a href="#sponsors"><span class="value">2012</span> Sponsors</a></li>
 			</ul>
 		</nav>
 		<article id="main"></article>
@@ -27,7 +30,7 @@
 	<script type="text/template" id="bracket-template">
 		<div id="bracketTemplate" class="view bracketTemplate">
 			<% _.each(list, function(item) { %>
-				<a href="#brackets/<%= item.BracketId %>"><%= item.Name %></a>
+				<a href="#brackets/<%= item.BracketId %>" data-bracket="<%= item.Name %>"><%= item.Name %></a>
 			<% }); %>
 		</div>
 	</script>
@@ -90,7 +93,6 @@
 
 	<script type="text/template" id="race-template">
 		<div id="raceTemplate" class="view raceTemplate">
-			<p class="templateName">This is the race template.</p>
             <p><a href="#rounds/<%= model.RoundId %>">Back to List</a></p>
             <p>RoundNumber: <%= model.RoundNumber %></p>
             <p>RaceNumber: <%= model.RaceNumber %></p>
