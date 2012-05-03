@@ -37,15 +37,14 @@
 <!-- round template -->
 	<script type="text/template" id="round-template">
 		<div id="roundTemplate" class="view roundTemplate">
-			<a href="#brackets">Back to List</a>
+			<ul class="round">
 			<% _.each(list, function(item) { %>
-				<div class="round">
 					<% if(item.IsDone) { %>
 							&#10003;
 					<% } %>
-					<a href="#rounds/<%= item.RoundId %>">Round <%= item.RoundNumber %></a>
-				</div>
+					<li><a href="#rounds/<%= item.RoundId %>"><span class="name">Round</span> <span class="number"><%= item.RoundNumber %></span></a></li>
 			<% }); %>
+			</ul>
 		</div>
 	</script>
 <!-- match header template -->	
@@ -78,12 +77,12 @@
 							<% if(item.Racer1.RacerId === 0) { %>
 								<p class="unknownRacer">???</p>
 							<% } else { %>
-								<p>#<%= item.Racer1.RacerId %> <%= item.Racer1.Name %> <% if(item.Winner.RacerId === item.Racer1.RacerId) { %><span>&#10003;</span><% } %></p>
+								<p><span class="value"><%= item.Racer1.RacerId %></span> <%= item.Racer1.Name %> <% if(item.Winner.RacerId === item.Racer1.RacerId) { %><span class="winner">&#10003;</span><% } %></p>
 							<% } %>
 	                        <% if(item.Racer2.RacerId === 0) { %>
 								<p class="unknownRacer">???</p>
 							<% } else { %>
-								<p>#<%= item.Racer2.RacerId %> <%= item.Racer2.Name %> <% if(item.Winner.RacerId === item.Racer2.RacerId) { %><span>&#10003;</span><% } %></p>
+								<p><span class="value"><%= item.Racer2.RacerId %></span> <%= item.Racer2.Name %> <% if(item.Winner.RacerId === item.Racer2.RacerId) { %><span class="winner">&#10003;</span><% } %></p>
 							<% } %>
 	                    </a>
 					</div>
@@ -125,10 +124,9 @@
 	
 	<script type="text/template" id="people-template">
 		<div id="peopleTemplate" class="view">
-			<p class="templateName">This is the people template.</p>
-			<ul>
+			<ul class="racerlist">
 				<% _.each(list, function(item) { %>
-					<li>#<%= item.RacerId %> &ndash; <%= item.Name %></li>
+					<li><span class="number"><%= item.RacerId %></span> <span class="name"><%= item.Name %></span></li>
 				<% }); %>
 			</ul>
 		</div>

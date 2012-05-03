@@ -73,7 +73,7 @@ color:#000;
 text-decoration:none;
 }
 
-.value {
+.value, .number {
 font-family:Haymaker;
 }
 
@@ -155,7 +155,7 @@ width:100%;
 
 .bracketTemplate a[data-bracket="#winning"] {
 width:316px;
-margin-left:-530px;
+margin-left:-562px;
 height:218px;
 display:block;
 text-indent:-999em;
@@ -163,7 +163,7 @@ background:transparent url("../images/winners.png") 0 50% no-repeat;
 }
 
 .bracketTemplate a[data-bracket="#drinking"] {
-margin-left:-84px;
+margin-left:296px;
 width:158px;
 height:218px;
 display:block;
@@ -172,13 +172,102 @@ background:transparent url("../images/losers.png") 0 50% no-repeat;
 }
 
 .bracketTemplate a[data-bracket="#championship"] {
-margin-left:220px;
+margin-left:-108px;
 width:201px;
 height:218px;
 display:block;
 text-indent:-999em;
 background:transparent url("../images/championship.png") 0 50% no-repeat;	
 }
+
+
+/* list pages */
+
+.racerlist, .round, .matchList {
+-moz-columns: 2 auto;
+margin: 0 auto;
+width: 80%;
+}
+
+.racerlist li, .round li, .matchList a {
+width: 80%;
+background:#fff;
+padding:40px 80px 28px 20px;
+box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
+position:relative;
+margin-bottom:20px;
+overflow:hidden;
+display:block;
+}
+
+ .matchList a {
+	overflow:visible;
+	margin-bottom:45px;
+}
+
+.racerlist li .number, .round li .number {
+background: url("../images/circle_green.png") repeat scroll 0 0 transparent;
+color: #FFFFFF;
+display: block;
+font-size: 64px;
+height: 163px;
+line-height: 183px;
+position: absolute;
+right: -30px;
+text-align: center;
+margin-top: -82px;
+width: 163px;
+top:50%;
+}
+
+.racerlist li:nth-child(even) .number, .round li:nth-child(even) .number {
+background: url("../images/circle_red.png") repeat scroll 0 0 transparent;
+}
+
+.racerlist li .name, .round li .name {
+display: block;
+font-size: 38px;
+width: 80%;
+}
+
+.matchList .winner {
+ background: url("../images/winner.png") repeat scroll 0 0 transparent;
+    display: block;
+    height: 180px;
+    position: absolute;
+    right: 0;
+    text-indent: -999em;
+    top: -8px;
+    width: 207px;
+    z-index: 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
