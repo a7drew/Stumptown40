@@ -50,7 +50,6 @@
 <!-- match header template -->	
 	<script type="text/template" id="match-header-template">
 		<div id="matchHeader" class="view matchHeader">
-			<p><a href="#brackets/<%= model.BracketId %>">Back to List</a></p>
             <h1>Round: <%= model.RoundNumber %></h1>
 			<% if (model.RoundId === 18) { %>
 				<p>The winner of this race goes to the final championship round.</p>
@@ -70,22 +69,32 @@
 	</script>
 	<!-- match template -->	
 		<script type="text/template" id="match-template">
-			<div id="matchList" class="view matchList">
+			<div id="matchList" class="view cards">
 				<% _.each(list, function(item) { %>
-					<div class="matchup">
 						<a href="#matches/<%= item.MatchId %>">
 							<% if(item.Racer1.RacerId === 0) { %>
-								<p class="unknownRacer">???</p>
+								<div class="card"><span class="unknownRacer">???</span></div>
 							<% } else { %>
-								<p><span class="value"><%= item.Racer1.RacerId %></span> <%= item.Racer1.Name %> <% if(item.Winner.RacerId === item.Racer1.RacerId) { %><span class="winner">&#10003;</span><% } %></p>
+								<div class="card <% if(item.Winner.RacerId === item.Racer1.RacerId) { %>winner<% }%>">
+								<div class="avatar"></div>
+									<div class="racername">
+										<span class="number"><p><%= item.Racer1.RacerId %></p></span>
+										<span class="name"><p><%= item.Racer1.Name %></p></span>
+									</div> 
+								</div>
 							<% } %>
 	                        <% if(item.Racer2.RacerId === 0) { %>
-								<p class="unknownRacer">???</p>
+								<div class="card"><span class="unknownRacer">???</span></div>
 							<% } else { %>
-								<p><span class="value"><%= item.Racer2.RacerId %></span> <%= item.Racer2.Name %> <% if(item.Winner.RacerId === item.Racer2.RacerId) { %><span class="winner">&#10003;</span><% } %></p>
+								<div class="card <% if(item.Winner.RacerId === item.Racer2.RacerId) { %>winner<% }%>">
+									<div class="avatar"></div>
+									<div class="racername">
+										<span class="number"><p><%= item.Racer2.RacerId %></p></span> 
+										<span class="name"><p><%= item.Racer2.Name %></p></span>
+									</div>
+								</div>
 							<% } %>
 	                    </a>
-					</div>
 				<% }); %>
 			</div>
 		</script>

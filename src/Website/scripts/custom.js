@@ -162,7 +162,12 @@ var MatchView = Backbone.View.extend({
 	template: _.template($('#match-template').html()),
 	render: function () {
 		this.$el.html(this.template({ list: this.collection.toJSON() }));
+		//this is not an elegant solution. I need a class on the parent to identify the race "raceover" or "notraced" something like that...
+		setTimeout(function(){
+			$("#matchList").find(".winner").parent().addClass("race_over");
+		}, 0);
 		return this;
+
 	}
 });
 

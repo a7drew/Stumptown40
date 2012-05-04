@@ -183,13 +183,14 @@ background:transparent url("../images/championship.png") 0 50% no-repeat;
 
 /* list pages */
 
-.racerlist, .round, .matchList {
+.racerlist, .round {
 -moz-columns: 2 auto;
+-webkit-columns: 2 auto;
 margin: 0 auto;
 width: 80%;
 }
 
-.racerlist li, .round li, .matchList a {
+.racerlist li, .round li {
 width: 80%;
 background:#fff;
 padding:40px 80px 28px 20px;
@@ -200,12 +201,12 @@ overflow:hidden;
 display:block;
 }
 
- .matchList a {
-	overflow:visible;
-	margin-bottom:45px;
+.matchList a {
+overflow:visible;
+margin-bottom:45px;
 }
 
-.racerlist li .number, .round li .number {
+.racerlist li .number, .round li .number, .cards a .number {
 background: url("../images/circle_green.png") repeat scroll 0 0 transparent;
 color: #FFFFFF;
 display: block;
@@ -220,7 +221,7 @@ width: 163px;
 top:50%;
 }
 
-.racerlist li:nth-child(even) .number, .round li:nth-child(even) .number {
+.racerlist li:nth-child(even) .number, .round li:nth-child(even) .number, .cards a:nth-child(even) .number {
 background: url("../images/circle_red.png") repeat scroll 0 0 transparent;
 }
 
@@ -230,16 +231,105 @@ font-size: 38px;
 width: 80%;
 }
 
-.matchList .winner {
- background: url("../images/winner.png") repeat scroll 0 0 transparent;
-    display: block;
-    height: 180px;
-    position: absolute;
-    right: 0;
-    text-indent: -999em;
-    top: -8px;
-    width: 207px;
-    z-index: 1;
+/* racer cards */
+.cards {
+margin: 0 auto;
+width: 95%;
+}
+
+.cards .winner:after {
+content:'';
+background: url("../images/winner.png") repeat scroll 0 0 transparent;
+display: block;
+height: 180px;
+position: absolute;
+right: 0;
+text-indent: -999em;
+top: -8px;
+width: 207px;
+z-index: 10;
+}
+
+.cards a {
+display: inline-block;
+height: 400px;
+margin-bottom: 300px;
+margin-right: 150px;
+position: relative;
+width: 315px;
+}
+
+.card {
+box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
+position:absolute;
+background:#fff;
+width:315px;
+height:400px;
+margin-bottom:20px;
+padding:10px;
+top:0;
+left:0;
+z-index:1;
+overflow:hidden;
+z-index:2;
+-moz-transform:rotate(0deg);
+-webkit-transform:rotate(0deg);
+}
+
+a > .card + .card, a.race_over > .card {
+-moz-transform:rotate(9deg);
+-webkit-transform:rotate(9deg);
+z-index:1;
+top:100px;
+}
+
+
+a.race_over > .card.winner, a > .card + .card.winner {
+z-index:2;
+top:0;
+-moz-transform:rotate(0deg);
+-webkit-transform:rotate(0deg);
+}
+
+.avatar {
+width:99.9%;
+margin:0 auto;
+height:288px;
+background:#fff url("../images/pinewoodcar.png") 50% 50% no-repeat;
+box-shadow:0 0 65px 20px rgba(0, 0, 0, 0.2) inset, 0 0 5px -2px rgba(0, 0, 0, 0.9) inset;
+position:relative;
+top:0;
+left:0;
+z-index:2;
+}
+
+.racername {
+-moz-box-sizing: padding-box;
+-webkit-box-sizing: padding-box;
+background: none repeat scroll 0 0 #FFFFFF;
+height: 122px;
+left: 0;
+overflow: hidden;
+padding: 0;
+position: absolute;
+top: 298px;
+width: 100%;
+z-index: 1;
+}
+
+.racername .name {
+oultine:1px solid red;
+position: absolute;
+top: -5px;
+width: 185px;
+height: 145px;
+display: table;
+left:10px;
+}
+
+.racername .name p {
+  display: table-cell;
+  vertical-align: middle;
 }
 
 
