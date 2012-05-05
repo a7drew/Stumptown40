@@ -136,6 +136,47 @@ article > div {
 display:inline;
 }
 
+.meta {
+	margin:0 auto;
+	box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
+	background:#fff;
+	width:180px;
+	font-size:28px;
+	text-align:center;
+	line-height:67px;
+	height:61px;
+	position:absolute;
+	left:50%;
+	margin-top:140px;
+	margin-left:-90px;
+}
+
+.meta:before {
+	position:absolute;
+	content:'';
+	width:23px;
+	height:69px;
+	display:block;
+	left:-22px;
+	top:-3px;
+	background:transparent url("../images/ribbon_left.png") no-repeat;
+}
+
+.meta:after {
+	position:absolute;
+	content:'';
+	width:22px;
+	height:69px;
+	display:block;
+	right:-21px;
+	top:-3px;
+	background:transparent url("../images/ribbon_right.png") no-repeat;
+}
+
+.meta span {
+	font-size:30px;
+}
+
 /* brackets page */
 
 .bracketTemplate {
@@ -206,7 +247,7 @@ overflow:visible;
 margin-bottom:45px;
 }
 
-.racerlist li .number, .round li .number, .cards a .number {
+.number {
 background: url("../images/circle_green.png") repeat scroll 0 0 transparent;
 color: #FFFFFF;
 display: block;
@@ -216,12 +257,12 @@ line-height: 183px;
 position: absolute;
 right: -30px;
 text-align: center;
-margin-top: -82px;
+margin-top: -78px;
 width: 163px;
 top:50%;
 }
 
-.racerlist li:nth-child(even) .number, .round li:nth-child(even) .number, .cards a:nth-child(even) .number {
+.racerlist li:nth-child(even) .number, .round li:nth-child(even) .number, .cards a:nth-child(even) .number, .cards .racer2 .number {
 background: url("../images/circle_red.png") repeat scroll 0 0 transparent;
 }
 
@@ -237,6 +278,11 @@ margin: 0 auto;
 width: 95%;
 }
 
+.cards.racers {
+    max-width: 1100px;
+    min-width: 960px;
+}
+
 .cards .winner:after {
 content:'';
 background: url("../images/winner.png") repeat scroll 0 0 transparent;
@@ -250,7 +296,7 @@ width: 207px;
 z-index: 10;
 }
 
-.cards a {
+.cards > a {
 display: inline-block;
 height: 400px;
 margin-bottom: 300px;
@@ -263,7 +309,7 @@ width: 315px;
 box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
 position:absolute;
 background:#fff;
-width:315px;
+width:306px;
 height:400px;
 margin-bottom:20px;
 padding:10px;
@@ -276,7 +322,25 @@ z-index:2;
 -webkit-transform:rotate(0deg);
 }
 
-a > .card + .card, a.race_over > .card {
+
+.racers .card {
+	position:relative;
+	float:left;
+}
+
+.racers .card {
+	position:relative;
+}
+
+.racers .racer2 .card {
+	float:right;
+}
+
+.readout {
+	display:none;
+}
+
+.card + .card, .race_over > .card {
 -moz-transform:rotate(9deg);
 -webkit-transform:rotate(9deg);
 z-index:1;
@@ -284,23 +348,26 @@ top:100px;
 }
 
 
-a.race_over > .card.winner, a > .card + .card.winner {
+.race_over > .card.winner, a > .card + .card.winner {
 z-index:2;
 top:0;
 -moz-transform:rotate(0deg);
 -webkit-transform:rotate(0deg);
 }
 
-.avatar {
-width:99.9%;
+.card .avatar {
+width:306px;
 margin:0 auto;
-height:288px;
-background:#fff url("../images/pinewoodcar.png") 50% 50% no-repeat;
+height:306px;
 box-shadow:0 0 65px 20px rgba(0, 0, 0, 0.2) inset, 0 0 5px -2px rgba(0, 0, 0, 0.9) inset;
 position:relative;
 top:0;
 left:0;
 z-index:2;
+background-color:#fff;
+background-image: url("../images/pinewoodcar.png"), url("http://distilleryimage1.s3.amazonaws.com/8e75fd0e940a11e180c9123138016265_6.jpg");
+background-position:50% 50%;
+background-repeat: no-repeat;
 }
 
 .racername {
@@ -309,7 +376,6 @@ z-index:2;
 background: none repeat scroll 0 0 #FFFFFF;
 height: 122px;
 left: 0;
-overflow: hidden;
 padding: 0;
 position: absolute;
 top: 298px;
@@ -318,13 +384,12 @@ z-index: 1;
 }
 
 .racername .name {
-oultine:1px solid red;
-position: absolute;
-top: -5px;
-width: 185px;
-height: 145px;
-display: table;
-left:10px;
+    display: table;
+    height: 145px;
+    left: 15px;
+    position: absolute;
+    top: 0;
+    width: 185px;
 }
 
 .racername .name p {
