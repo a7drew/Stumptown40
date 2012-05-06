@@ -14,7 +14,7 @@
 			<ul>
 				<li><a href="#people">Speed Racers</a></li>
 				<li><a href="#home">Pre-Race</a></li>
-				<li><a href="#brackets"><span class="value">2012</span> Race</a></li>
+				<li><a href="#brackets">The Race</a></li>
 				<li><a href="#sponsors"><span class="value">2012</span> Sponsors</a></li>
 			</ul>
 		</nav>
@@ -49,8 +49,7 @@
 	</script>
 <!-- match header template -->	
 	<script type="text/template" id="match-header-template">
-		<div id="matchHeader" class="view matchHeader">
-            <h1>Round: <%= model.RoundNumber %></h1>
+			<div class="meta">Round <span class="value"><%= model.RoundNumber %></span></div>
 			<% if (model.RoundId === 18) { %>
 				<p>The winner of this race goes to the final championship round.</p>
 				<p>The loser of this race gets 3rd place.</p>
@@ -65,11 +64,10 @@
 				<p>The winner gets first place.</p>
 				<p>The loser gets second place.</p>
 			<% } %>
-		</div>
 	</script>
 	<!-- match template -->	
 		<script type="text/template" id="match-template">
-			<div id="matchList" class="view cards">
+			<div id="matchList" class="matchList cards">
 				<% _.each(list, function(item) { %>
 						<a href="#matches/<%= item.MatchId %>">
 							<% if(item.Racer1.RacerId === 0) { %>
@@ -145,8 +143,19 @@
 	
 	<script type="text/template" id="sponsor-template">
 		<div id="sponsorTemplate" class="view sponsorTemplate">
-			<p class="templateName">This is the sponsor template.</p>
-			<div><a href="#fakesponsors"><img src="/content/images/sponsors.png" alt="" /></a></div>
+			<div class="meta">Thanks To These Fine Sponors</div>
+			<div class="slideshow">
+				<div class="slides">
+					<a href="#x1" class="p1"><img alt="image 1" src="images/sponsors/webvisions.png"></a>
+					<a href="#x2" class="p2"><img alt="image 2" src="images/sponsors/webtrends.png"></a>
+					<a href="#x3" class="p3"><img alt="image 3" src="images/sponsors/urban.png"></a>
+					<a href="#x4" class="p4"><img alt="image 4" src="images/sponsors/printpinball.png"></a>
+					<a href="#x5" class="p5"><img alt="image 5" src="images/sponsors/popart.png"></a>
+					<a href="#x6" class="p6"><img alt="image 6" src="images/sponsors/adx.png"></a>
+					<a href="#x7" class="p7"><img alt="image 7" src="images/sponsors/handeyesupply.png"></a>
+					<a href="#x8" class="p8"><img alt="image 8" src="images/sponsors/33beers.png"></a>
+				</div>
+			</div>
 		</div>
 	</script>
 	
