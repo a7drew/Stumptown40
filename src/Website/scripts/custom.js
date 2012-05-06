@@ -165,6 +165,7 @@ var MatchView = Backbone.View.extend({
 		//this is not an elegant solution. I need a class on the parent to identify the race "raceover" or "notraced" something like that...
 		setTimeout(function(){
 			$("#matchList").find(".winner").parent().addClass("race_over");
+
 		}, 0);
 		return this;
 
@@ -219,16 +220,40 @@ var RaceView = Backbone.View.extend({
 
 		var m = this.model.toJSON();
 		this.$el.html(this.template({ model: m }));
+		setTimeout(function(){
+			var token = '51853638.1fb234f.976879fb4353497caa70fa47810b6e3d',
+				count = 200
+			    $.ajax({
+			        type: "GET",
+			        dataType: "jsonp",
+			        cache: false,
+			        url: 'https://api.instagram.com/v1/users/self/media/recent?access_token='+token+'&count='+count+'',
+			        success: function(data) {
+			        	$.each(data.data, function(index, value){
+				
+								var test = this.caption.text.replace(/\D/g,''),
+									test2 = race.attributes.Racer1.RacerId
+									console.log(test === test2);
+						
+						
+								
+				          	});   
+			        }
+			    });
+			console.log(test2)
+		}, 0);
 		
 		if(m.Winner.RacerId === 0) {
 			this.$el.find('#winner').hide();
 		}
-
+		
+	
 		return this;
 	},
 	showWinner: function(racerId, racerName) {
 		$('#winner span').html('#' + racerId + ' ' + racerName);
 		$('#winner').show();
+	
 	}
 });
 
