@@ -601,11 +601,17 @@ display:block;
 	margin-top:-100px;
 }
 
-.home img {
+.racerphotos {
+
+}
+
+.racerphotos img {
 	display:block;
 	margin-right:10px;
 	float:left;
+	max-width:80px;
 }
+
 
 
 

@@ -283,21 +283,26 @@ var App = Backbone.Router.extend({
 		var view = new HomeView();
 		$("#main").html(view.render().el);
 		(function poll(){
-			var token = '25329.f59def8.1a9eb7a77f2b46eeb5cec55fa3457d6d',
-				count = 200;
-			    $.ajax({
-			        type: "GET",
-			        dataType: "jsonp",
-			 		async: true,
-			        cache: false,
-			        url: 'https://api.instagram.com/v1/users/self/media/recent?access_token='+token+'&count='+count+'',
-			        success: function(data) {
-			        	$.each(data.data, function(index, value){
-									//console.log(this.images.standard_resolution.url);
-									$('#homeTemplate').append('<img src="'+this.images.thumbnail.url+'" alt="" />')
-				          	});   
-			        }
-			    });
+			$('#instagram').empty();
+				setTimeout(function(){
+					$('#instagram').empty();
+						var token = '25329.f59def8.1a9eb7a77f2b46eeb5cec55fa3457d6d',
+							count = 200;
+						    $.ajax({
+						        type: "GET",
+						        dataType: "jsonp",
+						 		async: true,
+						        cache: false,
+						        url: 'https://api.instagram.com/v1/users/self/media/recent?access_token='+token+'&count='+count+'',
+						        success: function(data) {
+						        	$.each(data.data, function(index, value){
+										//console.log(this.images.standard_resolution.url);
+										$('#instagram').append('<img src="'+this.images.thumbnail.url+'" alt="" />')
+							         });   
+						        }
+						    });
+					poll();
+				}, 15000);
 		})();
 	},
 	bracketList: function () {
