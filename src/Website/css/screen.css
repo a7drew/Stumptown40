@@ -137,44 +137,44 @@ display:inline;
 }
 
 .meta {
-	margin:0 auto;
-	box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
-	background:#fff;
-	width:180px;
-	font-size:28px;
-	text-align:center;
-	line-height:67px;
-	height:61px;
-	position:absolute;
-	left:50%;
-	margin-top:140px;
-	margin-left:-90px;
+margin:0 auto;
+box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
+background:#fff;
+width:180px;
+font-size:28px;
+text-align:center;
+line-height:67px;
+height:61px;
+position:absolute;
+left:50%;
+margin-top:140px;
+margin-left:-90px;
 }
 
 .meta:before {
-	position:absolute;
-	content:'';
-	width:23px;
-	height:69px;
-	display:block;
-	left:-22px;
-	top:-3px;
-	background:transparent url("../images/ribbon_left.png") no-repeat;
+position:absolute;
+content:'';
+width:23px;
+height:69px;
+display:block;
+left:-22px;
+top:-3px;
+background:transparent url("../images/ribbon_left.png") no-repeat;
 }
 
 .meta:after {
-	position:absolute;
-	content:'';
-	width:22px;
-	height:69px;
-	display:block;
-	right:-21px;
-	top:-3px;
-	background:transparent url("../images/ribbon_right.png") no-repeat;
+position:absolute;
+content:'';
+width:22px;
+height:69px;
+display:block;
+right:-21px;
+top:-3px;
+background:transparent url("../images/ribbon_right.png") no-repeat;
 }
 
 .meta span {
-	font-size:30px;
+font-size:30px;
 }
 
 /* brackets page */
@@ -225,8 +225,12 @@ background:transparent url("../images/championship.png") 0 50% no-repeat;
 /* list pages */
 
 .racerlist, .round {
--moz-columns: 2 auto;
--webkit-columns: 2 auto;
+-moz-column-count: 2;
+-moz-column-gap: auto;
+-webkit-column-count: 2;
+-webkit-column-gap:auto;
+column-count: 2;
+column-gap: auto;
 margin: 0 auto;
 width: 80%;
 }
@@ -274,13 +278,13 @@ width: 80%;
 
 /* racer cards */
 .cards {
-   margin: 0 auto;
-    width: 1310px;
+margin: 0 auto;
+width: 1310px;
 }
 
 .cards.racers {
-    max-width: 1100px;
-    min-width: 960px;
+max-width: 1100px;
+min-width: 960px;
 }
 
 .cards .winner:after {
@@ -303,7 +307,7 @@ margin-bottom: 200px;
 position: relative;
 width: 315px;
 margin-left: 4%;
-   margin-right: 4%;
+margin-right: 4%;
 }
 
 .card {
@@ -325,20 +329,20 @@ z-index:2;
 
 
 .racers .card {
-	position:relative;
-	float:left;
+position:relative;
+float:left;
 }
 
 .racers .card {
-	position:relative;
+position:relative;
 }
 
 .racers .racer2 .card {
-	float:right;
+float:right;
 }
 
 .readout {
-	display:none;
+display:none!important;
 }
 
 .card + .card, .race_over > .card {
@@ -372,15 +376,15 @@ background-repeat: no-repeat;
 }
 
 .card .avatar::before {
-	content:'';
-	width:306px;
-	position:absolute;
-	top:0;
-	left:0;
-	height:306px;
-	z-index:3;
-	display:block;
-	box-shadow:0 0 65px 20px rgba(0, 0, 0, 0.2) inset, 0 0 5px -2px rgba(0, 0, 0, 0.9) inset;
+content:'';
+width:306px;
+position:absolute;
+top:0;
+left:0;
+height:306px;
+z-index:3;
+display:block;
+box-shadow:0 0 65px 20px rgba(0, 0, 0, 0.2) inset, 0 0 5px -2px rgba(0, 0, 0, 0.9) inset;
 }
 
 .racername {
@@ -397,35 +401,35 @@ z-index: 1;
 }
 
 .racername .name {
-    display: table;
-    height: 145px;
-    left: 15px;
-    position: absolute;
-    top: 0;
-    width: 185px;
+display: table;
+height: 145px;
+left: 15px;
+position: absolute;
+top: 0;
+width: 185px;
 }
 
 .racername .name p {
-  display: table-cell;
-  vertical-align: middle;
+display: table-cell;
+vertical-align: middle;
 }
 
 
 .matchList {
-	padding-top:100px;
+padding-top:100px;
 }
 
 .matchListHeader .meta {
-	margin-top:0;
+margin-top:0;
 }
 
 
 /* sponsor */
 
 .sponsorTemplate .meta {
-	width:500px;
-	margin-top:-100px;
-	margin-left:-250px;
+width:500px;
+margin-top:-100px;
+margin-left:-250px;
 }
 
 .slideshow {
@@ -451,32 +455,32 @@ height:318px;
 -moz-animation-timing-function: cubic-bezier(0.680, -0.550, 0.265, 1.550);
 -moz-animation-duration:40s;
 -webkit-animation-iteration-count: infinite;
--webkit-animation-timing-function: linear;
+-webkit-animation-timing-function: cubic-bezier(0.680, -0.550, 0.265, 1.550);
 -webkit-animation-duration:40s;
 width:100%;
 display:block;
-    line-height: 318px;
+line-height: 318px;
 }
 .slides a.p1 {left:0;}
 
 .slides a img,
 .slides a span {
-	margin:0 auto;
-	display:inline;
+margin:0 auto;
+display:inline;
 }
 
 .slides a span {
-	font-size:52px;
+font-size:52px;
 }
 
 /* for Firefox */
-@-moz-keyframes show1 {
+@-webkit-keyframes show1 {
 0% {left:0;}
 10% {left:0;}
 11% {left:100%;}
 100% {left:100%;}
 }
-@-moz-keyframes show2 {
+@-webkit-keyframes show2 {
 0% {left:-100%;}
 10% {left:-100%;}
 11% {left:0;}
@@ -484,7 +488,7 @@ display:block;
 21% {left:-100%;}
 100% {left:-100%;}
 }
-@-moz-keyframes show3 {
+@-webkit-keyframes show3 {
 0% {left:100%;}
 20% {left:100%;}
 21% {left:0;}
@@ -492,7 +496,7 @@ display:block;
 31% {left:100%;}
 100% {left:100%;}
 }
-@-moz-keyframes show4 {
+@-webkit-keyframes show4 {
 0% {left:-100%;}
 30% {left:-100%;}
 31% {left:0;}
@@ -500,7 +504,7 @@ display:block;
 41% {left:-100%;}
 100% {left:-100%;}
 }
-@-moz-keyframes show5 {
+@-webkit-keyframes show5 {
 0% {left:100%;}
 40% {left:100%;}
 41% {left:0;}
@@ -508,7 +512,7 @@ display:block;
 51% {left:100%;}
 100% {left:100%;}
 }
-@-moz-keyframes show6 {
+@-webkit-keyframes show6 {
 0% {left:-100%;}
 50% {left:-100%;}
 51% {left:0;}
@@ -516,7 +520,7 @@ display:block;
 61% {left:-100%;}
 100% {left:-100%;}
 }
-@-moz-keyframes show7 {
+@-webkit-keyframes show7 {
 0% {left:100%;}
 60% {left:100%;}
 61% {left:0;}
@@ -524,7 +528,7 @@ display:block;
 71% {left:100%;}
 100% {left:100%;}
 }
-@-moz-keyframes show8 {
+@-webkit-keyframes show8 {
 0% {left:-100%;}
 70% {left:-100%;}
 71% {left:0;}
@@ -532,7 +536,7 @@ display:block;
 81% {left:-100%;}
 100% {left:-100%;}
 }
-@-moz-keyframes show9 {
+@-webkit-keyframes show9 {
 0% {left:100%;}
 80% {left:100%;}
 81% {left:0;}
@@ -541,7 +545,7 @@ display:block;
 100% {left:100%;}
 }
 
-@-moz-keyframes show10 {
+@-webkit-keyframes show10 {
 0% {left:-100%;}
 90% {left:-100%;}
 91% {left:0;}
@@ -549,7 +553,7 @@ display:block;
 100% {left:-100%;}
 }
 
-@-moz-keyframes show11 {
+@-webkit-keyframes show11 {
 0% {left:100%;}
 99% {left:100%;}
 100% {left:0;}
@@ -558,82 +562,120 @@ display:block;
 
 .slides a.p1 {
 -moz-animation-name: show1;
+-webkit-animation-name: show1;
 }
 .slides a.p2 {
 -moz-animation-name: show2;
+-webkit-animation-name: show2;
 }
 .slides a.p3 {
 -moz-animation-name: show3;
+-webkit-animation-name: show3;
 }
 .slides a.p4 {
 -moz-animation-name: show4;
+-webkit-animation-name: show4;
 }
 .slides a.p5 {
 -moz-animation-name: show5;
+-webkit-animation-name: show5;
 }
 .slides a.p6 {
 -moz-animation-name: show6;
+-webkit-animation-name: show6;
 }
 .slides a.p7 {
 -moz-animation-name: show7;
+-webkit-animation-name: show7;
 }
 .slides a.p8 {
 -moz-animation-name: show8;
+-webkit-animation-name: show8;
 }
 .slides a.p9 {
 -moz-animation-name: show9;
+-webkit-animation-name: show9;
 }
 .slides a.p10 {
 -moz-animation-name: show10;
+-webkit-animation-name: show10;
 }
 .slides a.p11 {
 -moz-animation-name: show11;
+-webkit-animation-name: show11;
 }
 
 /* home */
 .home {
-	padding-top:100px;
-	width:80%;
-	margin:0 auto;
+padding-top:100px;
+width:1440px;
+margin:0 auto;
 }
 
 .home .meta {
-	margin-top:-100px;
+margin-top:-100px;
 }
 
 .racerphotos {
+position:relative;
+}
 
+.racerphotos li {
+position:relative;
+float:left;
+width:80px;
+height:80px;
 }
 
 .racerphotos img {
-	display:block;
-	margin-right:10px;
-	float:left;
-	max-width:80px;
+display:block;
+max-width:80px;
+max-height:80px;
+position:fixed;
+display:block;
+z-index:1;
+/*-webkit-transform: translateZ(0);*/
 }
 
+.racerphotos .animate img {
+-moz-animation-iteration-count: 1;
+-moz-animation-timing-function: cubic-bezier(0.390, 0.575, 0.565, 1.000);
+-moz-animation-duration:1.5s;
+-webkit-animation-iteration-count: 1;
+-webkit-animation-timing-function: cubic-bezier(0.390, 0.575, 0.565, 1.000);
+-webkit-animation-duration:1.5s;
+}
 
+@-moz-keyframes big {
+0%, 100% {
+max-width:80px;
+max-height:80px;
+z-index:10000;
+margin-left:0;
+}
 
+10%,20%,30%,40%,50%,60%,70%,80%,90% {
+max-width:412px;
+max-height:412px;
+margin-left:-186px;
+margin-top:-136px;
+box-shadow: 0 2px 5px rgba(0,0,0,.8);
+}
+}
 
+@-webkit-keyframes big {
+0%, 100% {
+max-width:80px;
+max-height:80px;
+z-index:10000;
+margin-left:0;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+10%,20%,30%,40%,50%,60%,70%,80%,90% {
+max-width:412px;
+max-height:412px;
+margin-left:-186px;
+margin-top:-136px;
+box-shadow: 0 2px 5px rgba(0,0,0,.8);
+}
+}

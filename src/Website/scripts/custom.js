@@ -282,27 +282,78 @@ var App = Backbone.Router.extend({
 	home: function () {
 		var view = new HomeView();
 		$("#main").html(view.render().el);
+			var mytoken = '25329.f59def8.1a9eb7a77f2b46eeb5cec55fa3457d6d',
+				pullcount = 200;
+			function instagram() {
+				var token = mytoken,
+					count = pullcount;
+				    $.ajax({
+				        type: "GET",
+				        dataType: "jsonp",
+				 		async: true,
+				        cache: false,
+				        url: 'https://api.instagram.com/v1/users/self/media/recent?access_token='+token+'&count='+count+'',
+				        success: function(data) {
+				        	$.each(data.data, function(index, value){
+								var id = this.id,
+								 	seconds = index * 2;
+									$('#instagram').addClass("animate");
+									$('#instagram.animate').append('<li><img style="-moz-animation-name: big; -moz-animation-delay:'+seconds+'s; -webkit-animation-name: big; -webkit-animation-delay:'+seconds+'s;" data-id="'+id+'" src="'+this.images.standard_resolution.url+'" alt="" /></li>');
+					         });   
+				        },
+						complete: function(){
+							$('#instagram li:last-child img').on('webkitAnimationEnd oAnimationEnd msAnimationEnd animationend', function() {
+								$("#instagram li").each(function(){
+										$(this).children("img").css({
+											"-moz-animation-name":  "off",
+											"-webkit-animation-name":  "off"	
+										});
+										setTimeout(function(){
+											$("#instagram li").each(function(){
+												$(this).children("img").css({
+													"-moz-animation-name":  "big",
+													"-webkit-animation-name":  "big"
+												});
+											});
+										}, 10);
+								});	
+							});
+						}
+				    });
+			}
+			function newphoto() {
+				var token = mytoken,
+					count = pullcount;
+				$.ajax({
+				        type: "GET",
+				        dataType: "jsonp",
+				 		async: true,
+				        cache: false,
+				        url: 'https://api.instagram.com/v1/users/self/media/recent?access_token='+token+'&count='+count+'',
+						success: function(data) {
+							var id = data.data[0].id;
+							var photoID1 = data.data[0].id;
+							var photoID2 = $('#instagram img:nth-child(1)').attr('data-id');							
+							if(photoID1 != photoID2) {
+								$('#instagram').prepend('<li><img  style="-moz-animation-name: big; -moz-animation-delay:2s; -webkit-animation-name: big; -webkit-animation-delay:2s;" data-id="'+id+'" src="'+data.data[0].images.standard_resolution.url+'" alt="" /></li>');
+								$("#instagram li").each(function(index){
+									var seconds = index * 2;
+									console.log("this fired")
+									$(this).children('img').css({
+										"-moz-animation-delay": seconds+"s",
+										"-webkit-animation-delay": seconds+"s"
+									});
+								});
+							}
+						}
+				});
+			}	 
+		instagram();
 		(function poll(){
-			$('#instagram').empty();
 				setTimeout(function(){
-					$('#instagram').empty();
-						var token = '25329.f59def8.1a9eb7a77f2b46eeb5cec55fa3457d6d',
-							count = 200;
-						    $.ajax({
-						        type: "GET",
-						        dataType: "jsonp",
-						 		async: true,
-						        cache: false,
-						        url: 'https://api.instagram.com/v1/users/self/media/recent?access_token='+token+'&count='+count+'',
-						        success: function(data) {
-						        	$.each(data.data, function(index, value){
-										//console.log(this.images.standard_resolution.url);
-										$('#instagram').append('<img src="'+this.images.thumbnail.url+'" alt="" />')
-							         });   
-						        }
-						    });
+					newphoto();
 					poll();
-				}, 15000);
+				}, 5000); //pull for new photos every 5 secs. allowed up to 5000 requests hour
 		})();
 	},
 	bracketList: function () {
