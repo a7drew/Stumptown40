@@ -458,9 +458,14 @@ display:block;
 }
 .slides a.p1 {left:0;}
 
-.slides a img {
+.slides a img,
+.slides a span {
 	margin:0 auto;
 	display:inline;
+}
+
+.slides a span {
+	font-size:52px;
 }
 
 /* for Firefox */
@@ -531,8 +536,8 @@ display:block;
 80% {left:100%;}
 81% {left:0;}
 90% {left:0;}
-91% {left:320px;}
-100% {left:320px;}
+91% {left:100%;}
+100% {left:100%;}
 }
 
 @-moz-keyframes show10 {
