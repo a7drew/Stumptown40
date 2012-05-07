@@ -129,7 +129,7 @@ var HomeView = Backbone.View.extend({
 	template: _.template($('#home-template').html()),
 	render: function () {
 		this.$el.html(this.template());
-		return this;
+			return this;
 	}
 });
 
@@ -250,21 +250,6 @@ var SponsorView = Backbone.View.extend({
 	template: _.template($('#sponsor-template').html()),
 	render: function () {
 		this.$el.html(this.template());
-			setTimeout(function(){
-				var token = '51853638.1fb234f.976879fb4353497caa70fa47810b6e3d',
-					count = 200
-				    $.ajax({
-				        type: "GET",
-				        dataType: "jsonp",
-				        cache: false,
-				        url: 'https://api.instagram.com/v1/users/self/media/recent?access_token='+token+'&count='+count+'',
-				        success: function(data) {
-				        	$.each(data.data, function(index, value){
-										console.log(this.caption);
-					          	});   
-				        }
-				    });
-			}, 0);
 		return this;
 	}
 });
@@ -296,13 +281,30 @@ var App = Backbone.Router.extend({
 	},
 	home: function () {
 		var view = new HomeView();
-		$("#main").html(view.render().el).parents("body").removeClass().addClass("home");
+		$("#main").html(view.render().el);
+		(function poll(){
+			var token = '25329.f59def8.1a9eb7a77f2b46eeb5cec55fa3457d6d',
+				count = 200;
+			    $.ajax({
+			        type: "GET",
+			        dataType: "jsonp",
+			 		async: true,
+			        cache: false,
+			        url: 'https://api.instagram.com/v1/users/self/media/recent?access_token='+token+'&count='+count+'',
+			        success: function(data) {
+			        	$.each(data.data, function(index, value){
+									//console.log(this.images.standard_resolution.url);
+									$('#homeTemplate').append('<img src="'+this.images.thumbnail.url+'" alt="" />')
+				          	});   
+			        }
+			    });
+		})();
 	},
 	bracketList: function () {
 		brackets.fetch({
 			success: function (model, response) {
 				var view = new BracketView({ collection: brackets });
-				$("#main").html(view.render().el).parents("body").removeClass().addClass("brackets");
+				$("#main").html(view.render().el);
 			}
 		});
 	},
@@ -350,13 +352,13 @@ var App = Backbone.Router.extend({
 		people.fetch({
 			success: function (model, response) {
 				var view = new PeopleView({ collection: people });
-				$('#main').html(view.render().el).parents("body").removeClass().addClass("racers");
+				$('#main').html(view.render().el);
 			}
 		});
 	},
 	sponsorsList: function () {
 		var view = new SponsorView();
-		$('#main').html(view.render().el).parents("body").removeClass().addClass("sponsors");
+		$('#main').html(view.render().el).parents("body");
 	},
 	fakeSponsorsList: function () {
 		var view = new FakeSponsorView();

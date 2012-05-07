@@ -63,7 +63,7 @@ height:100%;
 
 
 body {
-background: url("../images/bg.png");
+background: url("../images/bg.png") fixed;
 font-family:Ranger;
 font-size:28px;
 }
@@ -274,8 +274,8 @@ width: 80%;
 
 /* racer cards */
 .cards {
-margin: 0 auto;
-width: 95%;
+   margin: 0 auto;
+    width: 1310px;
 }
 
 .cards.racers {
@@ -299,10 +299,11 @@ z-index: 10;
 .cards > a {
 display: inline-block;
 height: 400px;
-margin-bottom: 300px;
-margin-right: 150px;
+margin-bottom: 200px;
 position: relative;
 width: 315px;
+margin-left: 4%;
+   margin-right: 4%;
 }
 
 .card {
@@ -589,6 +590,44 @@ display:block;
 -moz-animation-name: show11;
 }
 
-/*.slides:hover img {
- -moz-animation-play-state: paused;
- }*/
+/* home */
+.home {
+	padding-top:100px;
+	width:80%;
+	margin:0 auto;
+}
+
+.home .meta {
+	margin-top:-100px;
+}
+
+.home img {
+	display:block;
+	margin-right:10px;
+	float:left;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
