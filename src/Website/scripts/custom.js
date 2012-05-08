@@ -303,6 +303,7 @@ var App = Backbone.Router.extend({
 				        },
 						complete: function(){
 							$('#instagram li:last-child img').on('webkitAnimationEnd oAnimationEnd msAnimationEnd animationend', function() {
+								alert("working")
 								$("#instagram li").each(function(){
 										$(this).children("img").css({
 											"-moz-animation-name":  "off",
