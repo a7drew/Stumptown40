@@ -303,12 +303,12 @@ var App = Backbone.Router.extend({
 				        },
 						complete: function(){
 							$('#instagram li:last-child img').on('webkitAnimationEnd oAnimationEnd msAnimationEnd animationend', function() {
-								alert("working")
 								$("#instagram li").each(function(){
 										$(this).children("img").css({
 											"-moz-animation-name":  "off",
 											"-webkit-animation-name":  "off"	
 										});
+										//Not working for webkit for some reason. Alas, we will use Firefox!
 										setTimeout(function(){
 											$("#instagram li").each(function(){
 												$(this).children("img").css({
@@ -339,7 +339,6 @@ var App = Backbone.Router.extend({
 								$('#instagram').prepend('<li><img  style="-moz-animation-name: big; -moz-animation-delay:2s; -webkit-animation-name: big; -webkit-animation-delay:2s;" data-id="'+id+'" src="'+data.data[0].images.standard_resolution.url+'" alt="" /></li>');
 								$("#instagram li").each(function(index){
 									var seconds = index * 2;
-									console.log("this fired")
 									$(this).children('img').css({
 										"-moz-animation-delay": seconds+"s",
 										"-webkit-animation-delay": seconds+"s"
