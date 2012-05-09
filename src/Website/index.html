@@ -42,17 +42,14 @@
 		<div id="roundTemplate" class="view roundTemplate">
 			<ul class="round">
 			<% _.each(list, function(item) { %>
-					<% if(item.IsDone) { %>
-							&#10003;
-					<% } %>
-					<li><a href="#rounds/<%= item.RoundId %>"><span class="name">Round</span> <span class="number"><%= item.RoundNumber %></span></a></li>
+					<li <% if(item.IsDone) { %>class="winner"<% } %>><a href="#rounds/<%= item.RoundId %>"><span class="name">Round</span> <span class="number"><%= item.RoundNumber %></span></a></li>
 			<% }); %>
 			</ul>
 		</div>
 	</script>
 <!-- match header template -->	
 	<script type="text/template" id="match-header-template">
-			<div class="meta">Round <span class="value"><%= model.RoundNumber %></span></div>
+			<div class="meta"><a href="#brackets/<%= model.BracketId %>">Round <span class="value"><%= model.RoundNumber %></span></a></div>
 			<% if (model.RoundId === 18) { %>
 				<p>The winner of this race goes to the final championship round.</p>
 				<p>The loser of this race gets 3rd place.</p>
@@ -102,7 +99,7 @@
 
 	<script type="text/template" id="race-template">
 		<div id="raceTemplate" class="view raceTemplate">
-            <div class="meta">Round <span class="value"><%= model.RoundNumber %></span></div>
+            <div class="meta"><a href="#rounds/<%= model.RoundId %>/m<%= model.MatchId %>">Round <span class="value"><%= model.RoundNumber %></span></a></div>
 			<div class="racers cards">
 				<div class="racer1">
 							<div class="card <% if(model.Winner.RacerId === model.Racer1.RacerId) { %>winner<% }%>">

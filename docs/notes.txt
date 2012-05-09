@@ -1,0 +1,11 @@
+Create new view
+	indicate mode: leader (default), follower
+during startup, 
+	if follower
+	every X seconds:
+	request current view
+	show current view
+if leader
+	every view change:
+	update latest url
+

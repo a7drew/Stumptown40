@@ -114,8 +114,7 @@
   <ItemGroup>
     <Content Include="Content\images\c00.jpg" />
     <Content Include="Content\images\r00.gif" />
-    <Content Include="css\public.css" />
-    <Content Include="css\reset.css" />
+    <Content Include="css\screen.css" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="scripts\backbone.js" />

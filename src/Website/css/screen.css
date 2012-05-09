@@ -246,6 +246,19 @@ overflow:hidden;
 display:block;
 }
 
+.round li.winner:after {
+content:'';
+background: url("../images/winner.png") repeat scroll 0 0 transparent;
+display: block;
+height: 180px;
+position: absolute;
+right: 220px;
+text-indent: -999em;
+top: -8px;
+width: 207px;
+z-index: 10;
+}
+
 .matchList a {
 overflow:visible;
 margin-bottom:45px;
@@ -385,6 +398,10 @@ height:306px;
 z-index:3;
 display:block;
 box-shadow:0 0 65px 20px rgba(0, 0, 0, 0.2) inset, 0 0 5px -2px rgba(0, 0, 0, 0.9) inset;
+}
+
+.card .avatar .car {
+height:314px;
 }
 
 .racername {
