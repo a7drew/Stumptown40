@@ -13,3 +13,5 @@ csx/
 *.zip
 Web.Debug.config
 Web.Release.config
+.DS_Store
+*.ncrunchsolution
