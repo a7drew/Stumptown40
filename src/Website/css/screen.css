@@ -259,6 +259,14 @@ width: 207px;
 z-index: 10;
 }
 
+.roundTemplate .round li.winner:after {
+display:none;
+}
+
+.roundTemplate .round li.winner {
+	opacity:.3;
+}
+
 .matchList a {
 overflow:visible;
 margin-bottom:45px;
