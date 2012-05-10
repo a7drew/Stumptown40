@@ -100,6 +100,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\AppItems.cs" />
     <Compile Include="Infrastructure\JsonpResult.cs" />
     <Compile Include="Models\AdminIndexViewModel.cs" />
     <Compile Include="Models\DataModel.Designer.cs">
@@ -115,7 +116,31 @@
     <Content Include="Content\images\c00.jpg" />
     <Content Include="Content\images\r00.gif" />
     <Content Include="css\screen.css" />
+    <Content Include="fonts\Haymaker.svg" />
+    <Content Include="fonts\Ranger.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\bg.png" />
+    <Content Include="images\championship.png" />
+    <Content Include="images\circle_green.png" />
+    <Content Include="images\circle_red.png" />
+    <Content Include="images\losers.png" />
+    <Content Include="images\pinewoodcar.png" />
+    <Content Include="images\racecenter.png" />
+    <Content Include="images\ribbon.png" />
+    <Content Include="images\ribbon_left.png" />
+    <Content Include="images\ribbon_right.png" />
+    <Content Include="images\sponsors\33beers.png" />
+    <Content Include="images\sponsors\adx.png" />
+    <Content Include="images\sponsors\handeyesupply.png" />
+    <Content Include="images\sponsors\popart.png" />
+    <Content Include="images\sponsors\printpinball.png" />
+    <Content Include="images\sponsors\urban.png" />
+    <Content Include="images\sponsors\webtrends.png" />
+    <Content Include="images\sponsors\webvisions.png" />
+    <Content Include="images\stripes.png" />
+    <Content Include="images\stumptown40.png" />
+    <Content Include="images\winner.png" />
+    <Content Include="images\winners.png" />
     <Content Include="index.html" />
     <Content Include="scripts\backbone.js" />
     <Content Include="scripts\backbone.min.js" />
@@ -143,6 +168,14 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="fonts\Haymaker.eot" />
+    <Content Include="fonts\Haymaker.otf" />
+    <Content Include="fonts\Haymaker.ttf" />
+    <Content Include="fonts\Haymaker.woff" />
+    <Content Include="fonts\Ranger.eot" />
+    <Content Include="fonts\Ranger.otf" />
+    <Content Include="fonts\Ranger.ttf" />
+    <Content Include="fonts\Ranger.woff" />
     <None Include="Models\DataModel.edmx.diagram">
       <DependentUpon>DataModel.edmx</DependentUpon>
     </None>

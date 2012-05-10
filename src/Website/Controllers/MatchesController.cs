@@ -132,8 +132,19 @@ namespace Website.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Update(int matchId, int winningRacerId, int losingRacerId)
+		public ActionResult Update(int matchId, int winningRacerId, int losingRacerId, string pin)
 		{
+            var actualPin = System.Configuration.ConfigurationManager.AppSettings["pin"].ToString();
+
+            if (pin != actualPin)
+            {
+                return new JsonpResult
+                {
+                    Data = new { result = "NOPE" },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
+            }
+
 			var match = this.ctx.Matches.Single(m => m.MatchId == matchId);
 			match.WinningRacerId = winningRacerId;
 			match.Modified = DateTime.Now;

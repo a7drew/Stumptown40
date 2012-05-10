@@ -171,6 +171,29 @@
 			</div>
 		</div>
 	</script>
+
+    <!-- admin template -->
+	<script type="text/template" id="admin-template">
+		<div id="adminTemplate" class="view">
+            <div style="margin:40px;">
+                <input type="radio" id="rdoLeader" name="userMode" value="0" />
+                <label for="rdoLeader">Leader</label>
+            </div>
+            <div style="margin:40px;">
+                <input type="radio" id="rdoFollower" name="userMode" value="1" />
+                <label for="rdoFollower">Follower</label>
+            </div>
+            <div style="margin:40px;">
+                <input type="radio" id="rdoOff" name="userMode" checked value="2" />
+                <label for="rdoOff">Off</label>
+            </div>
+            <div style="margin:40px">
+                <input type="text" id="txtPin" placeholder="pin" style="font-size:20pt;" />
+                <input type="button" id="btnSubmit" value="Submit" style="font-size:20pt;" />
+            </div>
+		</div>
+	</script>
+
 	<script src="scripts/jquery-1.7.2.min.js" type="text/javascript"></script>
 	<script src="scripts/underscore.min.js" type="text/javascript"></script>
 	<script src="scripts/backbone.min.js" type="text/javascript"></script>
