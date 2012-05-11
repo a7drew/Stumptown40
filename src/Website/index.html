@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
     <title>3rd Annual Stumptown 40 - May 16th 2012</title>
+	<meta name="viewport" content="width=device-width,maximum-scale=1.0,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<link href="css/screen.css" rel="stylesheet" media="screen" type="text/css" />
 </head>
 <body>
@@ -132,7 +134,7 @@
 	</script>
 	
 	<script type="text/template" id="people-template">
-		<div id="peopleTemplate" class="view">
+		<div id="peopleTemplate" class="view peopleTemplate">
 			<ul class="racerlist">
 				<% _.each(list, function(item) { %>
 					<li><span class="number"><%= item.RacerId %></span> <span class="name"><%= item.Name %></span></li>
