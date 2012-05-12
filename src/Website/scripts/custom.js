@@ -571,13 +571,8 @@ $(function ()
 {
     if ($.cookie('stumptown40UserMode') == null)
     {
-        alert('setting default cookie!');
         $.cookie('stumptown40UserMode', '2', { expires: 7, path: '/' }); // off
         $.cookie('stumptown40UserMode', 'xxx', { expires: 7, path: '/' });
-    }
-    else
-    {
-        alert('NOT setting default cookie!');
     }
 
     window.app = new App();
