@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="56bbe49db24b42ea94dd5bb95557b2d4" Name="Diagram1">
+      <Diagram DiagramId="2bba30c3d8f7467b91d5d75f7c6f95d3" Name="Diagram1">
         <EntityTypeShape EntityType="Stumptown40Model.Bracket" Width="1.5" PointX="1.5" PointY="10.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Stumptown40Model.Match" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Stumptown40Model.Racer" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Stumptown40Model.Racer" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="Stumptown40Model.Round" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
         <AssociationConnector Association="Stumptown40Model.FK_Round_BracketId" ManuallyRouted="false" />
         <AssociationConnector Association="Stumptown40Model.FK_Match_NextLosingMatchId" ManuallyRouted="false" />

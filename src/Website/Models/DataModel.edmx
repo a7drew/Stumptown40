@@ -67,6 +67,7 @@
             <PropertyRef Name="RacerId" />
           </Key>
           <Property Name="RacerId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StartSlot" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="Organization" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="FaceUrl" Type="nvarchar" MaxLength="200" />
@@ -240,6 +241,7 @@
             <PropertyRef Name="RacerId" />
           </Key>
           <Property Name="RacerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartSlot" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="Organization" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="FaceUrl" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
@@ -377,6 +379,7 @@
             <EntityTypeMapping TypeName="Stumptown40Model.Racer">
               <MappingFragment StoreEntitySet="Racer">
                 <ScalarProperty Name="RacerId" ColumnName="RacerId" />
+                <ScalarProperty Name="StartSlot" ColumnName="StartSlot" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Organization" ColumnName="Organization" />
                 <ScalarProperty Name="FaceUrl" ColumnName="FaceUrl" />

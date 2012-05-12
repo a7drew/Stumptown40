@@ -184,13 +184,26 @@ namespace Website.Controllers
 		}
 
 		[HttpGet]
-		public ActionResult Setup()
+		public ActionResult Setup(string pin)
         {
+            var actualPin = System.Configuration.ConfigurationManager.AppSettings["pin"].ToString();
+
+            if (string.IsNullOrEmpty(pin) && (pin != actualPin))
+            {
+                return new JsonpResult
+                {
+                    Data = new { result = "NOPE" },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
+            }
+
             ClearMatches();
+
+            // RandomizePlayers();
+
             AssignPlayers();
 
             var model = new {Result="Races have been setup."};
-			//return Json(model, JsonRequestBehavior.AllowGet);
 
 			return new JsonpResult
 			{
@@ -212,6 +225,28 @@ namespace Website.Controllers
 
 			this.ctx.SaveChanges();
 		}
+
+        private void RandomizePlayers()
+        {
+            var racers = this.ctx.Racers.OrderBy(r => r.RacerId).ToList();
+
+            var rnd = new Random();
+            int carsAssigned = 0;
+            foreach (var racer in racers)
+            {
+                int randomStartSlot = rnd.Next(1, 80);
+
+                while (racers.Any(r => r.StartSlot == randomStartSlot))
+                {
+                    randomStartSlot = rnd.Next(1, 81);
+                }
+
+                racer.StartSlot = randomStartSlot;
+                carsAssigned = racers.Count(r => r.StartSlot > 0);
+            }
+
+            this.ctx.SaveChanges();
+        }
 
         private void AssignPlayers()
         {

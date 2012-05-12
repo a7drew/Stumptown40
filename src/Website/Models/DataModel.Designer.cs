@@ -884,12 +884,14 @@ namespace Website.Models
         /// Create a new Racer object.
         /// </summary>
         /// <param name="racerId">Initial value of the RacerId property.</param>
+        /// <param name="startSlot">Initial value of the StartSlot property.</param>
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="organization">Initial value of the Organization property.</param>
-        public static Racer CreateRacer(global::System.Int32 racerId, global::System.String name, global::System.String organization)
+        public static Racer CreateRacer(global::System.Int32 racerId, global::System.Int32 startSlot, global::System.String name, global::System.String organization)
         {
             Racer racer = new Racer();
             racer.RacerId = racerId;
+            racer.StartSlot = startSlot;
             racer.Name = name;
             racer.Organization = organization;
             return racer;
@@ -925,6 +927,30 @@ namespace Website.Models
         private global::System.Int32 _RacerId;
         partial void OnRacerIdChanging(global::System.Int32 value);
         partial void OnRacerIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 StartSlot
+        {
+            get
+            {
+                return _StartSlot;
+            }
+            set
+            {
+                OnStartSlotChanging(value);
+                ReportPropertyChanging("StartSlot");
+                _StartSlot = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("StartSlot");
+                OnStartSlotChanged();
+            }
+        }
+        private global::System.Int32 _StartSlot;
+        partial void OnStartSlotChanging(global::System.Int32 value);
+        partial void OnStartSlotChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
