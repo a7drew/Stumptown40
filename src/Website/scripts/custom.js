@@ -5,7 +5,7 @@
 //	http://stumptown40.cloudapp.net
 //
 
-var webSvcUrl = 'http://stumptown40.cloudapp.net';
+var webSvcUrl = 'http://localhost:28555';
 
 var Bracket = Backbone.Model.extend({});
 
@@ -111,7 +111,7 @@ var people = new People();
 
 function PostWinner(matchId, winningRacerId, losingRacerId) {
 
-    if (window.stumptown40UserMode != 0)
+    if ($.cookie('stumptown40UserMode') != '0')
         return;
 
     $.ajax({
@@ -122,7 +122,7 @@ function PostWinner(matchId, winningRacerId, losingRacerId) {
             matchId: matchId,
             winningRacerId: winningRacerId,
             losingRacerId: losingRacerId,
-            pin: window.stumptown40UserModePin
+            pin: $.cookie('stumptown40UserModePin')
         },
         success: function ()
         {
@@ -134,7 +134,7 @@ function PostWinner(matchId, winningRacerId, losingRacerId) {
 
 function SetUrl()
 {
-    if (window.stumptown40UserMode != 0)
+    if ($.cookie('stumptown40UserMode') != '0')
         return;
 
     $.ajax({
@@ -143,7 +143,7 @@ function SetUrl()
         data:
         {
             url: window.location.hash,
-            pin: window.stumptown40UserModePin
+            pin: $.cookie('stumptown40UserModePin')
         }
     });
 }
@@ -245,7 +245,7 @@ var RaceView = Backbone.View.extend({
     },
     racer1Won: function ()
     {
-        if (window.stumptown40UserMode != 0)
+        if ($.cookie('stumptown40UserMode') != '0')
             return;
 
         var matchId = $('#racer1Won').attr('data-matchId');
@@ -255,13 +255,10 @@ var RaceView = Backbone.View.extend({
         PostWinner(matchId, winningRacerId, losingRacerId);
 
         window.location.href += '/update';
-
-//        $('div.racers div.racer1 div.card').addClass('winner');
-//        $('div.racers div.racer2 div.card').removeClass('winner');
     },
     racer2Won: function ()
     {
-        if (window.stumptown40UserMode != 0)
+        if ($.cookie('stumptown40UserMode') != '0')
             return;
 
         var matchId = $('#racer2Won').attr('data-matchId');
@@ -272,8 +269,8 @@ var RaceView = Backbone.View.extend({
 
         window.location.href += '/update';
 
-//        $('div.racers div.racer2 div.card').addClass('winner');
-//        $('div.racers div.racer1 div.card').removeClass('winner');
+        //        $('div.racers div.racer2 div.card').addClass('winner');
+        //        $('div.racers div.racer1 div.card').removeClass('winner');
     },
     render: function ()
     {
@@ -303,10 +300,11 @@ var AdminView = Backbone.View.extend({
     btnSubmitClicked: function ()
     {
         var radioButton = $('#adminTemplate input:checked');
-        window.stumptown40UserMode = radioButton.val();
-        window.stumptown40UserModePin = $('#txtPin').val();
 
-        switch (window.stumptown40UserMode)
+        $.cookie('stumptown40UserMode', radioButton.val().toString(), { expires: 7, path: '/' });
+        $.cookie('stumptown40UserModePin', $('#txtPin').val().toString(), { expires: 7, path: '/' });
+
+        switch ($.cookie('stumptown40UserMode'))
         {
             case '0':
                 alert('user mode is "Leader"');
@@ -571,8 +569,16 @@ var App = Backbone.Router.extend({
 
 $(function ()
 {
-    window.stumptown40UserMode = '2'; // off
-    window.stumptown40UserModePin = '';
+    if ($.cookie('stumptown40UserMode') == null)
+    {
+        alert('setting default cookie!');
+        $.cookie('stumptown40UserMode', '2', { expires: 7, path: '/' }); // off
+        $.cookie('stumptown40UserMode', 'xxx', { expires: 7, path: '/' });
+    }
+    else
+    {
+        alert('NOT setting default cookie!');
+    }
 
     window.app = new App();
     Backbone.history.start();
