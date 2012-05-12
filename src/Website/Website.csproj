@@ -97,6 +97,7 @@
     <Compile Include="Controllers\MatchesController.cs" />
     <Compile Include="Controllers\RacersController.cs" />
     <Compile Include="Controllers\RoundsController.cs" />
+    <Compile Include="Controllers\TweetController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
