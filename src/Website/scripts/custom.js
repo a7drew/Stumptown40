@@ -5,7 +5,7 @@
 //	http://stumptown40.cloudapp.net
 //
 
-var webSvcUrl = 'http://localhost:28555';
+var webSvcUrl = 'http://stumptown40.cloudapp.net';
 
 var Bracket = Backbone.Model.extend({});
 
@@ -132,17 +132,21 @@ function PostWinner(matchId, winningRacerId, losingRacerId) {
 
 }
 
-function SetUrl()
+function SetUrl(url)
 {
     if ($.cookie('stumptown40UserMode') != '0')
         return;
+
+    if (!url) {
+        url = window.location.hash;
+    }
 
     $.ajax({
         type: 'post',
         url: webSvcUrl + '/home/seturl',
         data:
         {
-            url: window.location.hash,
+            url: url,
             pin: $.cookie('stumptown40UserModePin')
         }
     });
@@ -254,7 +258,11 @@ var RaceView = Backbone.View.extend({
 
         PostWinner(matchId, winningRacerId, losingRacerId);
 
-        window.location.href += '/update';
+        SetUrl(window.location.href + '/update');
+        // window.location.href += '/update';
+
+        $('div.racers div.racer1 div.card').addClass('winner');
+        $('div.racers div.racer2 div.card').removeClass('winner');
     },
     racer2Won: function ()
     {
@@ -267,10 +275,12 @@ var RaceView = Backbone.View.extend({
 
         PostWinner(matchId, winningRacerId, losingRacerId);
 
-        window.location.href += '/update';
+        SetUrl(window.location.href + '/update');
+        
+        // window.location.href += '/update';
 
-        //        $('div.racers div.racer2 div.card').addClass('winner');
-        //        $('div.racers div.racer1 div.card').removeClass('winner');
+        $('div.racers div.racer2 div.card').addClass('winner');
+        $('div.racers div.racer1 div.card').removeClass('winner');
     },
     render: function ()
     {
