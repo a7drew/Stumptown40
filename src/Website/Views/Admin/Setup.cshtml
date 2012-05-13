@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clear Matches</title>
+</head>
+<body>
+    <div>
+        <h1>Clear Match Results</h1>
+
+        @using (Html.BeginForm()) {
+            <p>Are you sure you want to clear match results?</p>
+            @*<div style="margin:20px;">
+                <label for="stumptown40UserModePin">pin</label>
+                <input type="text" name="stumptown40UserModePin" id="stumptown40UserModePin" />
+            </div>*@
+            <div style="margin:20px;">            
+                <input type="submit" />
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(ViewBag.Message)) {
+            <h2 style="color:#F00;">@ViewBag.Message</h2>
+        }
+
+    </div>
+</body>
+</html>

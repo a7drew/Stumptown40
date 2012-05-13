@@ -52,5 +52,25 @@ namespace Website.Controllers
 
         	return View(model);
         }
+
+        public ActionResult Setup()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Setup(FormCollection form)
+        {
+            var c = this.HttpContext.Request.Cookies["stumptown40UserModePin"];
+            var actualPin = System.Configuration.ConfigurationManager.AppSettings["pin"].ToString();
+
+            if ((c == null) || c.Value != actualPin)
+            {
+                this.ViewBag.Message = "Nope.";
+                return View();
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
