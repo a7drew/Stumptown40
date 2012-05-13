@@ -250,7 +250,7 @@ namespace Website.Controllers
 
         private void AssignPlayers()
         {
-            var racers = this.ctx.Racers.OrderBy(r => r.RacerId).ToList();
+            var racers = this.ctx.Racers.OrderBy(r => r.StartSlot).ToList();
 
 			var matches = this.ctx.Matches.Where(m => m.MatchId < 49).OrderBy(m => m.MatchId).ToList();
 
