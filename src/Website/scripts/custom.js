@@ -391,7 +391,7 @@ var App = Backbone.Router.extend({
         SetUrl();
         var view = new HomeView();
         $("#main").html(view.render().el);
-        var mytoken = '51853638.1fb234f.976879fb4353497caa70fa47810b6e3d&',
+        var mytoken = '51853638.1fb234f.976879fb4353497caa70fa47810b6e3d',
 				pullcount = 200;
         function instagram()
         {
@@ -423,17 +423,19 @@ var App = Backbone.Router.extend({
                                 "-moz-animation-name": "off",
                                 "-webkit-animation-name": "off"
                             });
-                            //Not working for webkit for some reason. Alas, we will use Firefox!
                             setTimeout(function ()
                             {
-                                $("#instagram li").each(function ()
+                                $("#instagram li").each(function (index)
                                 {
+									var seconds = index * 2;
                                     $(this).children("img").css({
                                         "-moz-animation-name": "big",
-                                        "-webkit-animation-name": "big"
+                                        "-webkit-animation-name": "big",
+										"-webkit-animation-delay": seconds + "s",
+										"-moz-animation-delay": seconds + "s"
                                     });
                                 });
-                            }, 10);
+                            }, 0);
                         });
                     });
                 }
@@ -456,15 +458,8 @@ var App = Backbone.Router.extend({
                     var photoID2 = $('#instagram img:nth-child(1)').attr('data-id');
                     if (photoID1 != photoID2)
                     {
-                        $('#instagram').prepend('<li><img  style="-moz-animation-name: big; -moz-animation-delay:2s; -webkit-animation-name: big; -webkit-animation-delay:2s;" data-id="' + id + '" src="' + data.data[0].images.standard_resolution.url + '" alt="" /></li>');
-                        $("#instagram li").each(function (index)
-                        {
-                            var seconds = index * 2;
-                            $(this).children('img').css({
-                                "-moz-animation-delay": seconds + "s",
-                                "-webkit-animation-delay": seconds + "s"
-                            });
-                        });
+                        $('#instagram').prepend('<li><img data-id="' + id + '" src="' + data.data[0].images.standard_resolution.url + '" alt="" /></li>');
+                        
                     }
                 }
             });
