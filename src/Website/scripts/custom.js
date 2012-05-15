@@ -391,7 +391,7 @@ var App = Backbone.Router.extend({
         SetUrl();
         var view = new HomeView();
         $("#main").html(view.render().el);
-        var mytoken = '51853638.1fb234f.976879fb4353497caa70fa47810b6e3d',
+        var mytoken = '51853638.1fb234f.976879fb4353497caa70fa47810b6e3d', //ryan 25329.f59def8.1a9eb7a77f2b46eeb5cec55fa3457d6d, stumptown 51853638.1fb234f.976879fb4353497caa70fa47810b6e3d
 				pullcount = 200;
         function instagram()
         {
@@ -408,14 +408,16 @@ var App = Backbone.Router.extend({
                     $.each(data.data, function (index, value)
                     {
                         var id = this.id,
-								 	seconds = index * 2;
+							seconds = index * 2,
+							random = (Math.floor(Math.random()*index)) * 1.5,
+							racernumberslide = (this.comments.data.text != undefined) ? this.comments.data.text.replace(/^#/, '') : '3';
                         $('#instagram').addClass("animate");
-                        $('#instagram.animate').append('<li><img style="-moz-animation-name: big; -moz-animation-delay:' + seconds + 's; -webkit-animation-name: big; -webkit-animation-delay:' + seconds + 's;" data-id="' + id + '" src="' + this.images.standard_resolution.url + '" alt="" /></li>');
+                        $('#instagram.animate').append('<li><img style="-moz-animation-name: big; -moz-animation-delay:' + random + 's; -webkit-animation-name: big; -webkit-animation-delay:' + random + 's;" data-id="' + id + '" src="' + this.images.low_resolution.url + '" alt="" /><span class="racernumberslide">'+racernumberslide+'</span></li>');
                     });
                 },
                 complete: function ()
                 {
-                    $('#instagram li:last-child img').on('webkitAnimationEnd oAnimationEnd msAnimationEnd animationend', function ()
+                  /*  $('#instagram li:last-child img').on('webkitAnimationEnd oAnimationEnd msAnimationEnd animationend', function ()
                     {
                         $("#instagram li").each(function ()
                         {
@@ -427,17 +429,43 @@ var App = Backbone.Router.extend({
                             {
                                 $("#instagram li").each(function (index)
                                 {
-									var seconds = index * 2;
+									var seconds = index * 2,
+										random = (Math.floor(Math.random()*10)) / 2;
                                     $(this).children("img").css({
                                         "-moz-animation-name": "big",
                                         "-webkit-animation-name": "big",
-										"-webkit-animation-delay": seconds + "s",
-										"-moz-animation-delay": seconds + "s"
+										"-webkit-animation-delay": random + "s",
+										"-moz-animation-delay": random + "s"
                                     });
                                 });
                             }, 0);
                         });
-                    });
+                    });*/
+
+					 /*  $('#instagram li:last-child img').on('webkitAnimationEnd oAnimationEnd msAnimationEnd animationend', function ()
+	                    {
+	                        $("#instagram li").each(function ()
+	                        {
+	                            $(this).children("img").css({
+	                                "-moz-animation-name": "off",
+	                                "-webkit-animation-name": "off"
+	                            });
+	                            setTimeout(function ()
+	                            {
+	                                $("#instagram li").each(function (index)
+	                                {
+										var seconds = index * 2,
+											random = (Math.floor(Math.random()*10)) / 2;
+	                                    $(this).children("img").css({
+	                                        "-moz-animation-name": "big",
+	                                        "-webkit-animation-name": "big",
+											"-webkit-animation-delay": random + "s",
+											"-moz-animation-delay": random + "s"
+	                                    });
+	                                });
+	                            }, 0);
+	                        });
+	                    });*/
                 }
             });
         }
@@ -459,6 +487,27 @@ var App = Backbone.Router.extend({
                     if (photoID1 != photoID2)
                     {
                         $('#instagram').prepend('<li><img data-id="' + id + '" src="' + data.data[0].images.standard_resolution.url + '" alt="" /></li>');
+						$("#instagram li").each(function ()
+                        {
+                            $(this).children("img").css({
+                                "-moz-animation-name": "off",
+                                "-webkit-animation-name": "off"
+                            });
+                            setTimeout(function ()
+                            {
+                                $("#instagram li").each(function (index)
+                                {
+									var seconds = index * 2,
+										random = (Math.floor(Math.random()*index)) / 2;
+                                    $(this).children("img").css({
+                                        "-moz-animation-name": "big",
+                                        "-webkit-animation-name": "big",
+										"-webkit-animation-delay": random + "s",
+										"-moz-animation-delay": random + "s"
+                                    });
+                                });
+                            }, 0);
+                        });
                         
                     }
                 }

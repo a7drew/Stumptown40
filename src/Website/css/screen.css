@@ -60,6 +60,7 @@ html, body {
 width:100%;
 height:100%;
 /* enable when ready for on screen viewing overflow:hidden; */
+overflow:hidden;
 }
 
 
@@ -87,6 +88,7 @@ position:absolute;
 top:-70px;
 left:0;
 background:transparent url("../images/racecenter.png") 50% 100% no-repeat;
+z-index:10;
 }
 
 nav  {
@@ -457,7 +459,8 @@ box-shadow:0 0 65px 20px rgba(0, 0, 0, 0.2) inset, 0 0 5px -2px rgba(0, 0, 0, 0.
 }
 
 .card .avatar .car {
-height:314px;
+height:306px;
+width:306px;
 }
 
 .racername {
@@ -764,9 +767,12 @@ font-size:52px;
 
 /* home */
 .home {
-padding-top:100px;
-width:1440px;
-margin:0 auto;
+ /*background: url("../images/stumptown40_lg.png") no-repeat scroll 50% 50% transparent;*/
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%
 }
 
 .home .meta {
@@ -774,41 +780,89 @@ margin-top:-100px;
 }
 
 .racerphotos {
-position:relative;
+	left: 10px;
+	    position: absolute;
+	    top: 75px;
+	    width: 100%;
 }
 
 .racerphotos li {
-position:relative;
-float:left;
-width:80px;
-height:80px;
+	float: left;
+	    height: 126px;
+	    position: relative;
+	    width: 126px;
 }
 
 .racerphotos img {
 display:block;
-max-width:80px;
-max-height:80px;
-position:fixed;
+max-width:100%;
+max-height:100%;
+position:relative;
 display:block;
-z-index:1;
+z-index:2;
 /*-webkit-transform: translateZ(0);*/
 }
 
 .racerphotos .animate img {
 -moz-animation-name: big;
 -moz-animation-iteration-count: 1;
--moz-animation-timing-function: cubic-bezier(0.390, 0.575, 0.565, 1.000);
--moz-animation-duration:1.5s;
+-moz-animation-timing-function: ease-in-out;
+-moz-animation-duration:2s;
 -webkit-animation-name: big;
 -webkit-animation-iteration-count: 1;
 -webkit-animation-timing-function: cubic-bezier(0.390, 0.575, 0.565, 1.000);
 -webkit-animation-duration:1.5s;
+-webkit-backface-visibility: visible !important;
+-moz-backface-visibility: hidden !important;
+}
+
+.racernumberslide {
+ color: #000000;
+    display: block;
+    font-family: Haymaker;
+    font-size: 76px;
+    height: 100%;
+    left: 0;
+    line-height: 146px;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0 -1px 0 #CFB181;
+    top: 0;
+    width: 100%;
+    z-index: 0;
 }
 
 @-moz-keyframes big {
+ 	0% {
+	-moz-transform: translateY(0);
+	z-index:1;
+	}
+
+	50% {
+	-moz-transform: translateY(200px);
+		z-index:1;
+	}
+	
+	70% {
+	-moz-transform: translateY(200px);
+		z-index:1;
+	}
+	
+	80% {
+	-moz-transform: translateY(200px);
+		z-index:1;
+	}
+	
+	100% {
+	-moz-transform: translateY(0);
+		z-index:1;
+	}
+}
+
+/*@-moz-keyframes big {
 0%, 100% {
-max-width:80px;
-max-height:80px;
+max-width:306px;
+max-height:306px;
 z-index:10000;
 margin-left:0;
 }
@@ -820,12 +874,12 @@ margin-left:-286px;
 margin-top:-236px;
 box-shadow: 0 2px 5px rgba(0,0,0,.8);
 }
-}
+}*/
 
 @-webkit-keyframes big {
 0%, 100% {
-max-width:80px;
-max-height:80px;
+max-width:306px;
+max-height:306px;
 z-index:10000;
 margin-left:0;
 }
