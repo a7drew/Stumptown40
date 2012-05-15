@@ -402,7 +402,7 @@ var App = Backbone.Router.extend({
                 dataType: "jsonp",
                 async: true,
                 cache: false,
-                url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + token + '&count=' + count + '',
+                url: getInstagramUrl(),
                 success: function (data)
                 {
                     window.instagramData = data.data;
@@ -452,7 +452,7 @@ var App = Backbone.Router.extend({
                 dataType: "jsonp",
                 async: true,
                 cache: false,
-                url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + token + '&count=' + count + '',
+                url: getInstagramUrl(),
                 success: function (data)
                 {
                     var id = data.data[0].id;
@@ -551,7 +551,7 @@ var App = Backbone.Router.extend({
                 var view = new RaceView({ model: race });
                 $('#main').html(view.render().el);
                 $('.racer1 .avatar img').attr('src', GetAvatarUrl(response.Racer1.RacerId));
-                $('.racer2 .avatar img').attr('src', GetAvatarUrl(response.Racer1.RacerId));
+                $('.racer2 .avatar img').attr('src', GetAvatarUrl(response.Racer2.RacerId));
             }
         });
     },
@@ -599,9 +599,10 @@ function GetAvatarUrl(racerId)
     {
         var item = window.instagramData[x];
 
-        for (var y = 0; y < item.tags.length; y++)
+        if (item.tags.length > 0)
         {
-            if (item.tags[y] === racerId)
+            // only inspect the last tag to accomodate errors in previous tags
+            if (item.tags[item.tags.length-1] == racerId)
             {
                 return item.images.standard_resolution.url;
             }
@@ -612,6 +613,14 @@ function GetAvatarUrl(racerId)
     return '/images/test.jpg';
 }
 
+function getInstagramUrl()
+{
+    var token = '51853638.1fb234f.976879fb4353497caa70fa47810b6e3d';
+    var count = 200;
+    var min_id = '189145508394622706_51853638';
+
+    return 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + token + '&count=' + count + '&min_id=' + min_id;
+}
 // =============================================================================
 
 $(function ()
