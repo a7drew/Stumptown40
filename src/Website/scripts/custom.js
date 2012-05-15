@@ -411,9 +411,9 @@ var App = Backbone.Router.extend({
                     {
                         var id = this.id,
 							seconds = index * 2,
-							random = (Math.floor(Math.random()*index)) * 1.5,
-							racernumberslide = (this.comments.data.text != undefined) ? this.comments.data.text.replace(/^#/, '') : '3';
-                        $('#instagram').addClass("animate");
+							random = (Math.floor(Math.random() * 80)/10)*2,
+							racernumberslide = this.caption.text.replace(/^#/, '');
+							$('#instagram').addClass("animate");
                         $('#instagram.animate').append('<li><img style="-moz-animation-name: big; -moz-animation-delay:' + random + 's; -webkit-animation-name: big; -webkit-animation-delay:' + random + 's;" data-id="' + id + '" src="' + this.images.low_resolution.url + '" alt="" /><span class="racernumberslide">'+racernumberslide+'</span></li>');
                     });
                 },
@@ -483,12 +483,13 @@ var App = Backbone.Router.extend({
                 url: getInstagramUrl(),
                 success: function (data)
                 {
-                    var id = data.data[0].id;
-                    var photoID1 = data.data[0].id;
-                    var photoID2 = $('#instagram img:nth-child(1)').attr('data-id');
+                    var id = data.data[0].id,
+                     	photoID1 = data.data[0].id,
+                     	photoID2 = $('#instagram img:nth-child(1)').attr('data-id'),
+						racernumberslide = data.data[0].caption.text.replace(/^#/, '');
                     if (photoID1 != photoID2)
                     {
-                        $('#instagram').prepend('<li><img data-id="' + id + '" src="' + data.data[0].images.standard_resolution.url + '" alt="" /></li>');
+                        $('#instagram').prepend('<li><img data-id="' + id + '" src="' + data.data[0].images.low_resolution.url + '" alt="" /><span class="racernumberslide">'+racernumberslide+'</span></li>');
 
 						$("#instagram li").each(function ()
                         {
@@ -501,7 +502,7 @@ var App = Backbone.Router.extend({
                                 $("#instagram li").each(function (index)
                                 {
 									var seconds = index * 2,
-										random = (Math.floor(Math.random()*index)) / 2;
+										random = (Math.floor(Math.random() * 80)/10)*2;
                                     $(this).children("img").css({
                                         "-moz-animation-name": "big",
                                         "-webkit-animation-name": "big",
@@ -655,7 +656,7 @@ function GetAvatarUrl(racerId)
             // only inspect the last tag to accomodate errors in previous tags
             if (item.tags[item.tags.length-1] == racerId)
             {
-                return item.images.standard_resolution.url;
+                return item.images.low_resolution.url;
             }
         }
     }
@@ -666,6 +667,7 @@ function GetAvatarUrl(racerId)
 
 function getInstagramUrl()
 {
+	//ryan 25329.f59def8.1a9eb7a77f2b46eeb5cec55fa3457d6d, stumptown 51853638.1fb234f.976879fb4353497caa70fa47810b6e3d
     var token = '51853638.1fb234f.976879fb4353497caa70fa47810b6e3d';
     var count = 200;
     var min_id = '189145508394622706_51853638';
