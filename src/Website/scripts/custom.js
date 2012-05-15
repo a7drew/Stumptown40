@@ -427,12 +427,12 @@ var App = Backbone.Router.extend({
                             {
                                 $("#instagram li").each(function (index)
                                 {
-									var seconds = index * 2;
+                                    var seconds = index * 2;
                                     $(this).children("img").css({
                                         "-moz-animation-name": "big",
                                         "-webkit-animation-name": "big",
-										"-webkit-animation-delay": seconds + "s",
-										"-moz-animation-delay": seconds + "s"
+                                        "-webkit-animation-delay": seconds + "s",
+                                        "-moz-animation-delay": seconds + "s"
                                     });
                                 });
                             }, 0);
@@ -459,7 +459,7 @@ var App = Backbone.Router.extend({
                     if (photoID1 != photoID2)
                     {
                         $('#instagram').prepend('<li><img data-id="' + id + '" src="' + data.data[0].images.standard_resolution.url + '" alt="" /></li>');
-                        
+
                     }
                 }
             });
@@ -467,6 +467,9 @@ var App = Backbone.Router.extend({
         instagram();
         (function poll()
         {
+            if (window.location.hash != '#home')
+                return;
+
             setTimeout(function ()
             {
                 newphoto();
