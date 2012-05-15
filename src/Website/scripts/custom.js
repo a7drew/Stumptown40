@@ -405,6 +405,8 @@ var App = Backbone.Router.extend({
                 url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + token + '&count=' + count + '',
                 success: function (data)
                 {
+                    window.instagramData = data.data;
+
                     $.each(data.data, function (index, value)
                     {
                         var id = this.id,
@@ -520,6 +522,13 @@ var App = Backbone.Router.extend({
             {
                 var view = new MatchView({ collection: matches });
                 var $list = $(view.render().el);
+
+                $list.find('#matchList .avatar img').each(function ()
+                {
+                    var racerId = $(this).attr('data-racerId');
+                    $(this).attr('src', GetAvatarUrl(racerId));
+                });
+
                 $('#detail').append($list);
 
                 if (matchId)
@@ -538,8 +547,11 @@ var App = Backbone.Router.extend({
         race.fetch({
             success: function (model, response)
             {
+                // model.racer1Url = '/images/pinewoodcar.png';
                 var view = new RaceView({ model: race });
                 $('#main').html(view.render().el);
+                $('.racer1 .avatar img').attr('src', GetAvatarUrl(response.Racer1.RacerId));
+                $('.racer2 .avatar img').attr('src', GetAvatarUrl(response.Racer1.RacerId));
             }
         });
     },
@@ -572,6 +584,33 @@ var App = Backbone.Router.extend({
         $('#main').html(view.render().el);
     }
 });
+
+// =====
+
+function GetAvatarUrl(racerId)
+{
+    if (!window.instagramData)
+    {
+        // hit pre-race page first to load instagram data!
+        return '/images/test.jpg';
+    }
+
+    for (var x = 0; x < window.instagramData.length; x++)
+    {
+        var item = window.instagramData[x];
+
+        for (var y = 0; y < item.tags.length; y++)
+        {
+            if (item.tags[y] === racerId)
+            {
+                return item.images.standard_resolution.url;
+            }
+        }
+    }
+
+    // default image?
+    return '/images/test.jpg';
+}
 
 // =============================================================================
 
