@@ -76,7 +76,7 @@
 								<div class="card"><span class="unknownRacer">???</span></div>
 							<% } else { %>
 								<div class="card <% if(item.Winner.RacerId === item.Racer1.RacerId) { %>winner<% }%>">
-								<div class="avatar"><img src="images/test.jpg" alt="" /></div>
+								<div class="avatar"><img src="" alt="" data-racerId="<%= item.Racer1.RacerId %>" class="car" /></div>
 									<div class="racername">
 										<span class="number"><p><%= item.Racer1.RacerId %></p></span>
 										<span class="name"><p><%= item.Racer1.Name %></p></span>
@@ -87,7 +87,7 @@
 								<div class="card"><span class="unknownRacer">???</span></div>
 							<% } else { %>
 								<div class="card <% if(item.Winner.RacerId === item.Racer2.RacerId) { %>winner<% }%>">
-									<div class="avatar"><img src="images/test.jpg" alt="" /></div>
+									<div class="avatar"><img src="" alt="" data-racerId="<%= item.Racer2.RacerId %>" class="car" /></div>
 									<div class="racername">
 										<span class="number"><p><%= item.Racer2.RacerId %></p></span> 
 										<span class="name"><p><%= item.Racer2.Name %></p></span>
@@ -105,7 +105,7 @@
 			<div class="racers cards">
 				<div class="racer1">
 							<div class="card <% if(model.Winner.RacerId === model.Racer1.RacerId) { %>winner<% }%>">
-								<div class="avatar"><img src="/racers/carphoto/<%= model.Racer1.RacerId %>" alt="" class="car" /></div>
+								<div class="avatar"><img src="" alt="" class="car" /></div>
 								<div class="racername">
 									<span class="number"><p><%= model.Racer1.RacerId %></p></span>
 									<a id="racer1Won" data-matchId="<%= model.MatchId %>" data-racerId="<%= model.Racer1.RacerId %>" href="javascript:;" class="racer1 racer name"><p><%= model.Racer1.Name %></p></a>
@@ -114,7 +114,7 @@
 				</div>
 				<div class="racer2">
 						<div class="card <% if(model.Winner.RacerId === model.Racer2.RacerId) { %>winner<% }%>">
-						<div class="avatar"><img src="/racers/carphoto/<%= model.Racer2.RacerId %>" alt="" class="car" /></div>
+						<div class="avatar"><img src="" alt="" class="car" /></div>
 							<div class="racername">
 								<span class="number"><p><%= model.Racer2.RacerId %></p></span>
 								<a id="racer2Won" data-matchId="<%= model.MatchId %>" data-racerId="<%= model.Racer2.RacerId %>" href="javascript:;" class="racer2 racer name"><p><%= model.Racer2.Name %></p></a>

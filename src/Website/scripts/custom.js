@@ -402,9 +402,11 @@ var App = Backbone.Router.extend({
                 dataType: "jsonp",
                 async: true,
                 cache: false,
-                url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + token + '&count=' + count + '',
+                url: getInstagramUrl(),
                 success: function (data)
                 {
+                    window.instagramData = data.data;
+
                     $.each(data.data, function (index, value)
                     {
                         var id = this.id,
@@ -478,7 +480,7 @@ var App = Backbone.Router.extend({
                 dataType: "jsonp",
                 async: true,
                 cache: false,
-                url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + token + '&count=' + count + '',
+                url: getInstagramUrl(),
                 success: function (data)
                 {
                     var id = data.data[0].id;
@@ -487,6 +489,7 @@ var App = Backbone.Router.extend({
                     if (photoID1 != photoID2)
                     {
                         $('#instagram').prepend('<li><img data-id="' + id + '" src="' + data.data[0].images.standard_resolution.url + '" alt="" /></li>');
+
 						$("#instagram li").each(function ()
                         {
                             $(this).children("img").css({
@@ -509,6 +512,7 @@ var App = Backbone.Router.extend({
                             }, 0);
                         });
                         
+
                     }
                 }
             });
@@ -516,6 +520,9 @@ var App = Backbone.Router.extend({
         instagram();
         (function poll()
         {
+            if (window.location.hash != '#home')
+                return;
+
             setTimeout(function ()
             {
                 newphoto();
@@ -566,6 +573,13 @@ var App = Backbone.Router.extend({
             {
                 var view = new MatchView({ collection: matches });
                 var $list = $(view.render().el);
+
+                $list.find('#matchList .avatar img').each(function ()
+                {
+                    var racerId = $(this).attr('data-racerId');
+                    $(this).attr('src', GetAvatarUrl(racerId));
+                });
+
                 $('#detail').append($list);
 
                 if (matchId)
@@ -584,8 +598,11 @@ var App = Backbone.Router.extend({
         race.fetch({
             success: function (model, response)
             {
+                // model.racer1Url = '/images/pinewoodcar.png';
                 var view = new RaceView({ model: race });
                 $('#main').html(view.render().el);
+                $('.racer1 .avatar img').attr('src', GetAvatarUrl(response.Racer1.RacerId));
+                $('.racer2 .avatar img').attr('src', GetAvatarUrl(response.Racer2.RacerId));
             }
         });
     },
@@ -619,6 +636,42 @@ var App = Backbone.Router.extend({
     }
 });
 
+// =====
+
+function GetAvatarUrl(racerId)
+{
+    if (!window.instagramData)
+    {
+        // hit pre-race page first to load instagram data!
+        return '/images/default.jpg';
+    }
+
+    for (var x = 0; x < window.instagramData.length; x++)
+    {
+        var item = window.instagramData[x];
+
+        if (item.tags.length > 0)
+        {
+            // only inspect the last tag to accomodate errors in previous tags
+            if (item.tags[item.tags.length-1] == racerId)
+            {
+                return item.images.standard_resolution.url;
+            }
+        }
+    }
+
+    // default image?
+    return '/images/default.jpg';
+}
+
+function getInstagramUrl()
+{
+    var token = '51853638.1fb234f.976879fb4353497caa70fa47810b6e3d';
+    var count = 200;
+    var min_id = '189145508394622706_51853638';
+
+    return 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + token + '&count=' + count + '&min_id=' + min_id;
+}
 // =============================================================================
 
 $(function ()
