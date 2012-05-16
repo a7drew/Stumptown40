@@ -124,6 +124,7 @@
     <Content Include="images\championship.png" />
     <Content Include="images\circle_green.png" />
     <Content Include="images\circle_red.png" />
+    <Content Include="images\default.jpg" />
     <Content Include="images\losers.png" />
     <Content Include="images\pinewoodcar.png" />
     <Content Include="images\racecenter.png" />
@@ -140,6 +141,7 @@
     <Content Include="images\sponsors\webvisions.png" />
     <Content Include="images\stripes.png" />
     <Content Include="images\stumptown40.png" />
+    <Content Include="images\stumptown40_lg.png" />
     <Content Include="images\test.JPG" />
     <Content Include="images\winner.png" />
     <Content Include="images\winners.png" />

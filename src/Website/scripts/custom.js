@@ -142,8 +142,9 @@ function SetUrl(url)
     }
 
     $.ajax({
-        type: 'post',
         url: webSvcUrl + '/home/seturl',
+        type: 'GET',
+        dataType: 'jsonp',
         data:
         {
             url: url,
@@ -155,8 +156,9 @@ function SetUrl(url)
 function GetUrl()
 {
     $.ajax({
-        type: 'post',
+        type: 'get',
         url: webSvcUrl + '/home/geturl',
+        dataType: 'jsonp',
         data:
         {
             e: 'stumptown40'
@@ -258,7 +260,10 @@ var RaceView = Backbone.View.extend({
 
         PostWinner(matchId, winningRacerId, losingRacerId);
 
-        SetUrl(window.location.href + '/update');
+		var d = new Date();
+		var n = d.getSeconds();
+
+        SetUrl(window.location.hash + '/update' + n);
         // window.location.href += '/update';
 
         $('div.racers div.racer1 div.card').addClass('winner');
@@ -275,7 +280,10 @@ var RaceView = Backbone.View.extend({
 
         PostWinner(matchId, winningRacerId, losingRacerId);
 
-        SetUrl(window.location.href + '/update');
+		var d = new Date();
+		var n = d.getSeconds();
+    	
+        SetUrl(window.location.hash + '/update' + n);
         
         // window.location.href += '/update';
 

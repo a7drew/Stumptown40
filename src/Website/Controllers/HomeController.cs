@@ -22,7 +22,6 @@ namespace Website.Controllers
             };
         }
 
-        [HttpPost]
         public ActionResult SetUrl(string url, string pin)
         {
             var actualPin = System.Configuration.ConfigurationManager.AppSettings["pin"].ToString();
