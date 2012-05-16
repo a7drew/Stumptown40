@@ -5,7 +5,7 @@
 //	http://stumptown40.cloudapp.net
 //
 
-var webSvcUrl = 'http://stumptown40.cloudapp.net';
+var webSvcUrl = 'http://localhost:28555';
 
 var Bracket = Backbone.Model.extend({});
 
