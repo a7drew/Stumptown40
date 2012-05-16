@@ -61,6 +61,7 @@ width:100%;
 height:100%;
 /* enable when ready for on screen viewing overflow:hidden; */
 overflow:hidden;
+overflow-y: visible;
 }
 
 

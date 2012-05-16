@@ -678,9 +678,8 @@ function getInstagramUrl()
 	//ryan 25329.f59def8.1a9eb7a77f2b46eeb5cec55fa3457d6d, stumptown 51853638.1fb234f.976879fb4353497caa70fa47810b6e3d
     var token = '51853638.1fb234f.976879fb4353497caa70fa47810b6e3d';
     var count = 200;
-    var min_id = '189145508394622706_51853638';
 
-    return 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + token + '&count=' + count + '&min_id=' + min_id;
+    return 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + token + '&count=' + count;
 }
 // =============================================================================
 
