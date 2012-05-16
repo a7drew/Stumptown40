@@ -5,7 +5,7 @@
 //	http://stumptown40.cloudapp.net
 //
 
-var webSvcUrl = 'http://localhost:28555';
+var webSvcUrl = 'http://stumptown40.cloudapp.net';
 
 var Bracket = Backbone.Model.extend({});
 
@@ -690,6 +690,10 @@ $(function ()
         $.cookie('stumptown40UserMode', '2', { expires: 7, path: '/' }); // off
         $.cookie('stumptown40UserMode', 'xxx', { expires: 7, path: '/' });
     }
+
+	$('#ipadMenu').click(function() {
+		$('nav').toggleClass('on');
+	});
 
     window.app = new App();
     Backbone.history.start();

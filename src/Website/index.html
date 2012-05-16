@@ -7,7 +7,8 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<link href="css/screen.css" rel="stylesheet" media="screen" type="text/css" />
 </head>
-<body>
+	<body>
+	<div id="ipadMenu"></div>	
 	<section>
 		<header>
 			<a href="#home"><img src="images/stumptown40.png" width="225" height="52" alt="Stumptown40"></a>
@@ -53,18 +54,24 @@
 	<script type="text/template" id="match-header-template">
 			<div class="meta"><a href="#brackets/<%= model.BracketId %>">Round <span class="value"><%= model.RoundNumber %></span></a></div>
 			<% if (model.RoundId === 18) { %>
-				<p>The winner of this race goes to the final championship round.</p>
-				<p>The loser of this race gets 3rd place.</p>
+				<div style="position:absolute;top:260px;right:200px;width:500px;">
+					<p style="margin-bottom:20px;">The winner goes on to<br/>&mdash; the championship round &mdash;</p>
+					<p>The loser gets third place<br />&amp; a high five.</p>
+				</div>
 			<% } %>
 			<% if (model.RoundId === 19) { %>
-				<p>The top racer is unbeaten.</p>
-				<p>If the top racer wins this match, they get first place.</p>
-				<p>If the top racer loses this match, we race one final match.</p>
+				<div style="position:absolute;top:260px;right:200px;width:500px;">
+					<p style="margin-bottom:20px;">The top racer is unbeaten.</p>
+					<p style="margin-bottom:20px;">If the top racer wins this match, they get first place.</p>
+					<p>If the top racer loses this match, we race one final match.</p>
+				</div>
 			<% } %>
 			<% if (model.RoundId === 20) { %>
-				<p>This is the final match.</p>
-				<p>The winner gets first place.</p>
-				<p>The loser gets second place.</p>
+				<div style="position:absolute;top:260px;right:200px;width:500px;">
+					<p style="margin-bottom:20px;">This is the final match.</p>
+					<p style="margin-bottom:20px;">The winner gets first place.</p>
+					<p style="margin-bottom:20px;">The loser gets second place.</p>
+				</div>
 			<% } %>
 	</script>
 	<!-- match template -->	

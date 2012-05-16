@@ -109,7 +109,8 @@ transition: all 300ms ease-in-out;
 z-index:1000;
 }
 
-nav:hover {
+nav:hover,
+nav.on {
 top:-68px;
 background:rgba(255,255,255,.6);
 box-shadow:0 1px 5px rgba(0,0,0,.1);
@@ -1009,11 +1010,11 @@ and (max-device-width : 1024px) {
 
 }
 
-
-
-
-
-
-
-
-
+#ipadMenu {
+	position:absolute;
+	top:0;
+	left:0;
+	width:60px;
+	height:60px;
+	z-index:10000;
+}
