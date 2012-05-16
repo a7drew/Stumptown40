@@ -538,6 +538,7 @@ var App = Backbone.Router.extend({
                 poll();
             }, 5000); //pull for new photos every 5 secs. allowed up to 5000 requests hour
         })();
+		$('#ipadMenu')[0].scrollIntoView();
     },
     bracketList: function ()
     {
@@ -612,6 +613,7 @@ var App = Backbone.Router.extend({
                 $('#main').html(view.render().el);
                 $('.racer1 .avatar img').attr('src', GetAvatarUrl(response.Racer1.RacerId));
                 $('.racer2 .avatar img').attr('src', GetAvatarUrl(response.Racer2.RacerId));
+				$('#ipadMenu')[0].scrollIntoView();
             }
         });
     },
@@ -631,6 +633,7 @@ var App = Backbone.Router.extend({
         SetUrl();
         var view = new SponsorView();
         $('#main').html(view.render().el).parents("body");
+		$('#ipadMenu')[0].scrollIntoView();
     },
     fakeSponsorsList: function ()
     {
