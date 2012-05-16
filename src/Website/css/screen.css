@@ -66,7 +66,7 @@ overflow-y: visible;
 
 
 body {
-background: url("../images/bg.png") fixed;
+background: url("../images/bg.png");
 font-family:Ranger;
 font-size:28px;
 }
@@ -131,10 +131,14 @@ color:#000;
 }
 
 article {
-margin-top:120px;
-float:left;
-width:100%;
-height:100%;
+
+float: left;
+    height: 100%;
+    left: 0;
+    margin-top: 120px;
+    position: absolute;
+    top: 0;
+    width: 100%;
 
 }
 
@@ -190,7 +194,7 @@ position:absolute;
 top:50%;
 left:0;
 width:100%;
-margin-top:-109px;
+margin-top:-180px;
 }
 
 .bracketTemplate a {
@@ -376,7 +380,7 @@ z-index: 10;
 .cards > a {
 display: inline-block;
 height: 400px;
-margin-bottom: 200px;
+margin-bottom: 340px;
 position: relative;
 width: 315px;
 margin-left: 4%;
@@ -778,7 +782,7 @@ font-size:52px;
 }
 
 .home .meta {
-margin-top:-100px;
+margin-top:0;
 }
 
 .racerphotos {
@@ -1017,4 +1021,9 @@ and (max-device-width : 1024px) {
 	width:60px;
 	height:60px;
 	z-index:10000;
+}
+
+.intrologo {
+	display:block;
+	margin:0 auto;
 }
