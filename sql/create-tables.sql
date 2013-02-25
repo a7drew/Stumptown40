@@ -18,19 +18,9 @@ CREATE TABLE [dbo].[Racer]
 )
 GO
 
-CREATE TABLE [dbo].[Bracket]
-(
-  [BracketId]   [int]               NOT NULL,
-  [Name]        [nvarchar](100)     NOT NULL,
-  CONSTRAINT [PK_Bracket] PRIMARY KEY CLUSTERED ([BracketId] ASC)
-)
-GO
-
 CREATE TABLE [dbo].[Round]
 (
-  [RoundId]     [int]               NOT NULL,
-  [BracketId]   [int]               NOT NULL,
-  [RoundNumber] [int]               NOT NULL,
+  [RoundId] [int] NOT NULL,
   CONSTRAINT [PK_Round] PRIMARY KEY CLUSTERED ([RoundId] ASC)
 )
 GO
@@ -45,8 +35,6 @@ CREATE TABLE [dbo].[Match]
   [WinningRacerId]       [int]                   NULL,
   [NextWinningMatchId]   [int]                   NULL,
   [NextWinningMatchSlot] [int]                   NULL,
-  [NextLosingMatchId]    [int]                   NULL,
-  [NextLosingMatchSlot]  [int]                   NULL,
   [Modified]             [datetime]              NULL,
   CONSTRAINT [PK_Match] PRIMARY KEY CLUSTERED ([MatchId] ASC)
 )
@@ -55,12 +43,6 @@ GO
 --
 -- FOREIGN KEY CONSTRAINTS
 --
-
-ALTER TABLE [dbo].[Round]  WITH CHECK ADD  CONSTRAINT [FK_Round_BracketId] FOREIGN KEY([BracketId])
-REFERENCES [dbo].[Bracket] ([BracketId])
-GO
-ALTER TABLE [dbo].[Round] CHECK CONSTRAINT [FK_Round_BracketId]
-GO
 
 ALTER TABLE [dbo].[Match]  WITH CHECK ADD  CONSTRAINT [FK_Match_RoundId] FOREIGN KEY([RoundId])
 REFERENCES [dbo].[Round] ([RoundId])
@@ -86,335 +68,220 @@ GO
 ALTER TABLE [dbo].[Match] CHECK CONSTRAINT [FK_Match_WinningRacerId]
 GO
 
-ALTER TABLE [dbo].[Match]  WITH CHECK ADD  CONSTRAINT [FK_Match_NextWinningMatchId] FOREIGN KEY([NextWinningMatchId])
-REFERENCES [dbo].[Match] ([MatchId])
-GO
-ALTER TABLE [dbo].[Match] CHECK CONSTRAINT [FK_Match_NextWinningMatchId]
-GO
-
-ALTER TABLE [dbo].[Match]  WITH CHECK ADD  CONSTRAINT [FK_Match_NextLosingMatchId] FOREIGN KEY([NextLosingMatchId])
-REFERENCES [dbo].[Match] ([MatchId])
-GO
-ALTER TABLE [dbo].[Match] CHECK CONSTRAINT [FK_Match_NextLosingMatchId]
-GO
-
 --
 -- DATA
 --
 
-INSERT INTO [dbo].[Bracket] (BracketId, Name) VALUES (1, '#winning');
-INSERT INTO [dbo].[Bracket] (BracketId, Name) VALUES (2, '#drinking');
-INSERT INTO [dbo].[Bracket] (BracketId, Name) VALUES (3, '#championship');
+INSERT INTO [dbo].[Round] (RoundId) VALUES (1);
+INSERT INTO [dbo].[Round] (RoundId) VALUES (2);
+INSERT INTO [dbo].[Round] (RoundId) VALUES (3);
+INSERT INTO [dbo].[Round] (RoundId) VALUES (4);
+INSERT INTO [dbo].[Round] (RoundId) VALUES (5);
+INSERT INTO [dbo].[Round] (RoundId) VALUES (6);
+INSERT INTO [dbo].[Round] (RoundId) VALUES (7);
+
 GO
 
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (1, 1, 1);
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (2, 1, 2);
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (3, 1, 3);
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (4, 1, 4);
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (5, 1, 5);
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (6, 1, 6);
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (7, 1, 7);
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (1, 1, 1, 37, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (2, 1, 2, 38, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (3, 1, 3, 38, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (4, 1, 4, 39, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (5, 1, 5, 40, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (6, 1, 6, 41, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (7, 1, 7, 42, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (8, 1, 8, 43, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (9, 1, 9, 44, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (10, 1, 10, 45, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (11, 1, 11, 46, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (12, 1, 12, 46, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (13, 1, 13, 47, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (14, 1, 14, 48, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (15, 1, 15, 49, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (16, 1, 16, 50, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (17, 1, 17, 51, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (18, 1, 18, 52, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (19, 1, 19, 53, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (20, 1, 20, 54, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (21, 1, 21, 54, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (22, 1, 22, 55, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (23, 1, 23, 56, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (24, 1, 24, 57, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (25, 1, 25, 58, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (26, 1, 26, 59, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (27, 1, 27, 60, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (28, 1, 28, 61, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (29, 1, 29, 62, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (30, 1, 30, 62, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (31, 1, 31, 63, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (32, 1, 32, 64, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (33, 1, 33, 65, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (34, 1, 34, 66, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (35, 1, 35, 67, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (36, 1, 36, 68, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (37, 2, 1, 69, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (38, 2, 2, 69, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (39, 2, 3, 70, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (40, 2, 4, 70, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (41, 2, 5, 71, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (42, 2, 6, 71, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (43, 2, 7, 72, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (44, 2, 8, 72, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (45, 2, 9, 73, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (46, 2, 10, 73, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (47, 2, 11, 74, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (48, 2, 12, 74, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (49, 2, 13, 75, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (50, 2, 14, 75, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (51, 2, 15, 76, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (52, 2, 16, 76, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (53, 2, 17, 77, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (54, 2, 18, 77, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (55, 2, 19, 78, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (56, 2, 20, 78, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (57, 2, 21, 79, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (58, 2, 22, 79, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (59, 2, 23, 80, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (60, 2, 24, 80, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (61, 2, 25, 81, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (62, 2, 26, 81, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (63, 2, 27, 82, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (64, 2, 28, 82, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (65, 2, 29, 83, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (66, 2, 30, 83, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (67, 2, 31, 84, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (68, 2, 32, 84, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (69, 3, 1, 85, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (70, 3, 2, 85, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (71, 3, 3, 86, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (72, 3, 4, 86, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (73, 3, 5, 87, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (74, 3, 6, 87, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (75, 3, 7, 88, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (76, 3, 8, 88, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (77, 3, 9, 89, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (78, 3, 10, 89, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (79, 3, 11, 90, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (80, 3, 12, 90, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (81, 3, 13, 91, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (82, 3, 14, 91, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (83, 3, 15, 92, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (84, 3, 16, 92, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (85, 4, 1, 93, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (86, 4, 2, 93, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (87, 4, 3, 94, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (88, 4, 4, 94, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (89, 4, 5, 95, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (90, 4, 6, 95, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (91, 4, 7, 96, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (92, 4, 8, 96, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (93, 5, 1, 97, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (94, 5, 2, 97, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (95, 5, 3, 98, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (96, 5, 4, 98, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (97, 6, 1, 99, 1, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (98, 6, 2, 99, 2, GETDATE());
+INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatchId], [NextWinningMatchSlot], [Modified]) VALUES (99, 7, 1, 0, 0, GETDATE());
 
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (8, 2, 1);
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (9, 2, 2);
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (10, 2, 3);
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (11, 2, 4);
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (12, 2, 5);
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (13, 2, 6);
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (14, 2, 7);
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (15, 2, 8);
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (16, 2, 9);
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (17, 2, 10);
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (18, 2, 11);
-
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (19, 3, 1);
-INSERT INTO [dbo].[Round] (RoundId, BracketId, RoundNumber) VALUES (20, 3, 2);
 GO
 
-DECLARE @matchId INT
-DECLARE @roundId INT
-DECLARE @lastRoundId INT
-DECLARE @raceNumber INT
-SET @matchId = 1;
-SET @roundId = 1;
-SET @raceNumber = 1;
-SET @lastRoundId = @roundId;
-
-WHILE @matchId < 160
-BEGIN
-
-	IF @matchId > 16 SET @roundId = 2;
-	IF @matchId > 48 SET @roundId = 3;
-	IF @matchId > 64 SET @roundId = 4;
-	IF @matchId > 72 SET @roundId = 5;
-	IF @matchId > 76 SET @roundId = 6;
-	IF @matchId > 78 SET @roundId = 7;
-
-	IF @matchId > 79 SET @roundId = 8;
-	IF @matchId > 95 SET @roundId = 9;
-	IF @matchId > 111 SET @roundId = 10;
-	IF @matchId > 127 SET @roundId = 11;
-	IF @matchId > 135 SET @roundId = 12;
-	IF @matchId > 143 SET @roundId = 13;
-	IF @matchId > 147 SET @roundId = 14;
-	IF @matchId > 151 SET @roundId = 15;
-	IF @matchId > 153 SET @roundId = 16;
-	IF @matchId > 155 SET @roundId = 17;
-	IF @matchId > 156 SET @roundId = 18;
-
-	IF @matchId > 157 SET @roundId = 19;
-	IF @matchId > 158 SET @roundId = 20;
-
-	IF @lastRoundId <> @roundId SET @raceNumber = 1;
-
-	INSERT INTO [dbo].[Match] (MatchId, RoundId, RaceNumber) VALUES (@matchId, @roundId, @raceNumber);
-
-	SET @lastRoundId = @roundId;
-	SET @raceNumber = @raceNumber + 1;
-	SET @matchId = @matchId + 1;
-
-END
-GO
-
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=17, [NextWinningMatchSlot]=2, [NextLosingMatchId]=80, [NextLosingMatchSlot]=2 WHERE [MatchId]=1;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=19, [NextWinningMatchSlot]=2, [NextLosingMatchId]=81, [NextLosingMatchSlot]=2 WHERE [MatchId]=2;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=21, [NextWinningMatchSlot]=2, [NextLosingMatchId]=86, [NextLosingMatchSlot]=2 WHERE [MatchId]=3;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=23, [NextWinningMatchSlot]=2, [NextLosingMatchId]=87, [NextLosingMatchSlot]=2 WHERE [MatchId]=4;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=25, [NextWinningMatchSlot]=2, [NextLosingMatchId]=84, [NextLosingMatchSlot]=2 WHERE [MatchId]=5;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=27, [NextWinningMatchSlot]=2, [NextLosingMatchId]=85, [NextLosingMatchSlot]=2 WHERE [MatchId]=6;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=29, [NextWinningMatchSlot]=2, [NextLosingMatchId]=82, [NextLosingMatchSlot]=2 WHERE [MatchId]=7;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=31, [NextWinningMatchSlot]=2, [NextLosingMatchId]=83, [NextLosingMatchSlot]=2 WHERE [MatchId]=8;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=33, [NextWinningMatchSlot]=2, [NextLosingMatchId]=88, [NextLosingMatchSlot]=2 WHERE [MatchId]=9;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=35, [NextWinningMatchSlot]=2, [NextLosingMatchId]=89, [NextLosingMatchSlot]=2 WHERE [MatchId]=10;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=37, [NextWinningMatchSlot]=2, [NextLosingMatchId]=94, [NextLosingMatchSlot]=2 WHERE [MatchId]=11;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=39, [NextWinningMatchSlot]=2, [NextLosingMatchId]=95, [NextLosingMatchSlot]=2 WHERE [MatchId]=12;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=41, [NextWinningMatchSlot]=2, [NextLosingMatchId]=92, [NextLosingMatchSlot]=2 WHERE [MatchId]=13;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=43, [NextWinningMatchSlot]=2, [NextLosingMatchId]=93, [NextLosingMatchSlot]=2 WHERE [MatchId]=14;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=45, [NextWinningMatchSlot]=2, [NextLosingMatchId]=90, [NextLosingMatchSlot]=2 WHERE [MatchId]=15;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=47, [NextWinningMatchSlot]=2, [NextLosingMatchId]=91, [NextLosingMatchSlot]=2 WHERE [MatchId]=16;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=49, [NextWinningMatchSlot]=1, [NextLosingMatchId]=88, [NextLosingMatchSlot]=1 WHERE [MatchId]=17;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=49, [NextWinningMatchSlot]=2, [NextLosingMatchId]=104, [NextLosingMatchSlot]=1 WHERE [MatchId]=18;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=50, [NextWinningMatchSlot]=1, [NextLosingMatchId]=89, [NextLosingMatchSlot]=1 WHERE [MatchId]=19;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=50, [NextWinningMatchSlot]=2, [NextLosingMatchId]=105, [NextLosingMatchSlot]=1 WHERE [MatchId]=20;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=51, [NextWinningMatchSlot]=1, [NextLosingMatchId]=94, [NextLosingMatchSlot]=1 WHERE [MatchId]=21;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=51, [NextWinningMatchSlot]=2, [NextLosingMatchId]=110, [NextLosingMatchSlot]=1 WHERE [MatchId]=22;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=52, [NextWinningMatchSlot]=1, [NextLosingMatchId]=95, [NextLosingMatchSlot]=1 WHERE [MatchId]=23;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=52, [NextWinningMatchSlot]=2, [NextLosingMatchId]=111, [NextLosingMatchSlot]=1 WHERE [MatchId]=24;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=53, [NextWinningMatchSlot]=1, [NextLosingMatchId]=92, [NextLosingMatchSlot]=1 WHERE [MatchId]=25;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=53, [NextWinningMatchSlot]=2, [NextLosingMatchId]=108, [NextLosingMatchSlot]=1 WHERE [MatchId]=26;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=54, [NextWinningMatchSlot]=1, [NextLosingMatchId]=93, [NextLosingMatchSlot]=1 WHERE [MatchId]=27;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=54, [NextWinningMatchSlot]=2, [NextLosingMatchId]=109, [NextLosingMatchSlot]=1 WHERE [MatchId]=28;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=55, [NextWinningMatchSlot]=1, [NextLosingMatchId]=90, [NextLosingMatchSlot]=1 WHERE [MatchId]=29;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=55, [NextWinningMatchSlot]=2, [NextLosingMatchId]=106, [NextLosingMatchSlot]=1 WHERE [MatchId]=30;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=56, [NextWinningMatchSlot]=1, [NextLosingMatchId]=91, [NextLosingMatchSlot]=1 WHERE [MatchId]=31;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=56, [NextWinningMatchSlot]=2, [NextLosingMatchId]=107, [NextLosingMatchSlot]=1 WHERE [MatchId]=32;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=57, [NextWinningMatchSlot]=1, [NextLosingMatchId]=80, [NextLosingMatchSlot]=1 WHERE [MatchId]=33;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=57, [NextWinningMatchSlot]=2, [NextLosingMatchId]=96, [NextLosingMatchSlot]=1 WHERE [MatchId]=34;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=58, [NextWinningMatchSlot]=1, [NextLosingMatchId]=81, [NextLosingMatchSlot]=1 WHERE [MatchId]=35;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=58, [NextWinningMatchSlot]=2, [NextLosingMatchId]=97, [NextLosingMatchSlot]=1 WHERE [MatchId]=36;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=59, [NextWinningMatchSlot]=1, [NextLosingMatchId]=86, [NextLosingMatchSlot]=1 WHERE [MatchId]=37;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=59, [NextWinningMatchSlot]=2, [NextLosingMatchId]=102, [NextLosingMatchSlot]=1 WHERE [MatchId]=38;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=60, [NextWinningMatchSlot]=1, [NextLosingMatchId]=87, [NextLosingMatchSlot]=1 WHERE [MatchId]=39;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=60, [NextWinningMatchSlot]=2, [NextLosingMatchId]=103, [NextLosingMatchSlot]=1 WHERE [MatchId]=40;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=61, [NextWinningMatchSlot]=1, [NextLosingMatchId]=84, [NextLosingMatchSlot]=1 WHERE [MatchId]=41;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=61, [NextWinningMatchSlot]=2, [NextLosingMatchId]=100, [NextLosingMatchSlot]=1 WHERE [MatchId]=42;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=62, [NextWinningMatchSlot]=1, [NextLosingMatchId]=85, [NextLosingMatchSlot]=1 WHERE [MatchId]=43;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=62, [NextWinningMatchSlot]=2, [NextLosingMatchId]=101, [NextLosingMatchSlot]=1 WHERE [MatchId]=44;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=63, [NextWinningMatchSlot]=1, [NextLosingMatchId]=82, [NextLosingMatchSlot]=1 WHERE [MatchId]=45;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=63, [NextWinningMatchSlot]=2, [NextLosingMatchId]=98, [NextLosingMatchSlot]=1 WHERE [MatchId]=46;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=64, [NextWinningMatchSlot]=1, [NextLosingMatchId]=83, [NextLosingMatchSlot]=1 WHERE [MatchId]=47;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=64, [NextWinningMatchSlot]=2, [NextLosingMatchId]=99, [NextLosingMatchSlot]=1 WHERE [MatchId]=48;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=65, [NextWinningMatchSlot]=1, [NextLosingMatchId]=114, [NextLosingMatchSlot]=1 WHERE [MatchId]=49;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=65, [NextWinningMatchSlot]=2, [NextLosingMatchId]=116, [NextLosingMatchSlot]=1 WHERE [MatchId]=50;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=66, [NextWinningMatchSlot]=1, [NextLosingMatchId]=115, [NextLosingMatchSlot]=1 WHERE [MatchId]=51;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=66, [NextWinningMatchSlot]=2, [NextLosingMatchId]=117, [NextLosingMatchSlot]=1 WHERE [MatchId]=52;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=67, [NextWinningMatchSlot]=1, [NextLosingMatchId]=118, [NextLosingMatchSlot]=1 WHERE [MatchId]=53;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=67, [NextWinningMatchSlot]=2, [NextLosingMatchId]=112, [NextLosingMatchSlot]=1 WHERE [MatchId]=54;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=68, [NextWinningMatchSlot]=1, [NextLosingMatchId]=119, [NextLosingMatchSlot]=1 WHERE [MatchId]=55;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=68, [NextWinningMatchSlot]=2, [NextLosingMatchId]=113, [NextLosingMatchSlot]=1 WHERE [MatchId]=56;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=69, [NextWinningMatchSlot]=1, [NextLosingMatchId]=122, [NextLosingMatchSlot]=1 WHERE [MatchId]=57;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=69, [NextWinningMatchSlot]=2, [NextLosingMatchId]=124, [NextLosingMatchSlot]=1 WHERE [MatchId]=58;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=70, [NextWinningMatchSlot]=1, [NextLosingMatchId]=123, [NextLosingMatchSlot]=1 WHERE [MatchId]=59;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=70, [NextWinningMatchSlot]=2, [NextLosingMatchId]=125, [NextLosingMatchSlot]=1 WHERE [MatchId]=60;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=71, [NextWinningMatchSlot]=1, [NextLosingMatchId]=126, [NextLosingMatchSlot]=1 WHERE [MatchId]=61;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=71, [NextWinningMatchSlot]=2, [NextLosingMatchId]=120, [NextLosingMatchSlot]=1 WHERE [MatchId]=62;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=72, [NextWinningMatchSlot]=1, [NextLosingMatchId]=127, [NextLosingMatchSlot]=1 WHERE [MatchId]=63;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=72, [NextWinningMatchSlot]=2, [NextLosingMatchId]=121, [NextLosingMatchSlot]=1 WHERE [MatchId]=64;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=73, [NextWinningMatchSlot]=1, [NextLosingMatchId]=141, [NextLosingMatchSlot]=1 WHERE [MatchId]=65;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=73, [NextWinningMatchSlot]=2, [NextLosingMatchId]=140, [NextLosingMatchSlot]=1 WHERE [MatchId]=66;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=74, [NextWinningMatchSlot]=1, [NextLosingMatchId]=143, [NextLosingMatchSlot]=1 WHERE [MatchId]=67;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=74, [NextWinningMatchSlot]=2, [NextLosingMatchId]=142, [NextLosingMatchSlot]=1 WHERE [MatchId]=68;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=75, [NextWinningMatchSlot]=1, [NextLosingMatchId]=137, [NextLosingMatchSlot]=1 WHERE [MatchId]=69;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=75, [NextWinningMatchSlot]=2, [NextLosingMatchId]=136, [NextLosingMatchSlot]=1 WHERE [MatchId]=70;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=76, [NextWinningMatchSlot]=1, [NextLosingMatchId]=139, [NextLosingMatchSlot]=1 WHERE [MatchId]=71;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=76, [NextWinningMatchSlot]=2, [NextLosingMatchId]=138, [NextLosingMatchSlot]=1 WHERE [MatchId]=72;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=77, [NextWinningMatchSlot]=1, [NextLosingMatchId]=148, [NextLosingMatchSlot]=1 WHERE [MatchId]=73;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=77, [NextWinningMatchSlot]=2, [NextLosingMatchId]=149, [NextLosingMatchSlot]=1 WHERE [MatchId]=74;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=78, [NextWinningMatchSlot]=1, [NextLosingMatchId]=150, [NextLosingMatchSlot]=1 WHERE [MatchId]=75;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=78, [NextWinningMatchSlot]=2, [NextLosingMatchId]=151, [NextLosingMatchSlot]=1 WHERE [MatchId]=76;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=79, [NextWinningMatchSlot]=1, [NextLosingMatchId]=155, [NextLosingMatchSlot]=1 WHERE [MatchId]=77;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=79, [NextWinningMatchSlot]=2, [NextLosingMatchId]=154, [NextLosingMatchSlot]=1 WHERE [MatchId]=78;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=158, [NextWinningMatchSlot]=1, [NextLosingMatchId]=157, [NextLosingMatchSlot]=1 WHERE [MatchId]=79;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=96, [NextWinningMatchSlot]=2 WHERE [MatchId]=80;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=97, [NextWinningMatchSlot]=2 WHERE [MatchId]=81;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=98, [NextWinningMatchSlot]=2 WHERE [MatchId]=82;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=99, [NextWinningMatchSlot]=2 WHERE [MatchId]=83;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=100, [NextWinningMatchSlot]=2 WHERE [MatchId]=84;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=101, [NextWinningMatchSlot]=2 WHERE [MatchId]=85;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=102, [NextWinningMatchSlot]=2 WHERE [MatchId]=86;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=103, [NextWinningMatchSlot]=2 WHERE [MatchId]=87;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=104, [NextWinningMatchSlot]=2 WHERE [MatchId]=88;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=105, [NextWinningMatchSlot]=2 WHERE [MatchId]=89;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=106, [NextWinningMatchSlot]=2 WHERE [MatchId]=90;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=107, [NextWinningMatchSlot]=2 WHERE [MatchId]=91;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=108, [NextWinningMatchSlot]=2 WHERE [MatchId]=92;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=109, [NextWinningMatchSlot]=2 WHERE [MatchId]=93;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=110, [NextWinningMatchSlot]=2 WHERE [MatchId]=94;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=111, [NextWinningMatchSlot]=2 WHERE [MatchId]=95;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=112, [NextWinningMatchSlot]=2 WHERE [MatchId]=96;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=113, [NextWinningMatchSlot]=2 WHERE [MatchId]=97;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=114, [NextWinningMatchSlot]=2 WHERE [MatchId]=98;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=115, [NextWinningMatchSlot]=2 WHERE [MatchId]=99;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=116, [NextWinningMatchSlot]=2 WHERE [MatchId]=100;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=117, [NextWinningMatchSlot]=2 WHERE [MatchId]=101;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=118, [NextWinningMatchSlot]=2 WHERE [MatchId]=102;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=119, [NextWinningMatchSlot]=2 WHERE [MatchId]=103;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=120, [NextWinningMatchSlot]=2 WHERE [MatchId]=104;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=121, [NextWinningMatchSlot]=2 WHERE [MatchId]=105;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=122, [NextWinningMatchSlot]=2 WHERE [MatchId]=106;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=123, [NextWinningMatchSlot]=2 WHERE [MatchId]=107;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=124, [NextWinningMatchSlot]=2 WHERE [MatchId]=108;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=125, [NextWinningMatchSlot]=2 WHERE [MatchId]=109;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=126, [NextWinningMatchSlot]=2 WHERE [MatchId]=110;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=127, [NextWinningMatchSlot]=2 WHERE [MatchId]=111;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=128, [NextWinningMatchSlot]=1 WHERE [MatchId]=112;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=128, [NextWinningMatchSlot]=2 WHERE [MatchId]=113;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=129, [NextWinningMatchSlot]=1 WHERE [MatchId]=114;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=129, [NextWinningMatchSlot]=2 WHERE [MatchId]=115;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=130, [NextWinningMatchSlot]=1 WHERE [MatchId]=116;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=130, [NextWinningMatchSlot]=2 WHERE [MatchId]=117;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=131, [NextWinningMatchSlot]=1 WHERE [MatchId]=118;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=131, [NextWinningMatchSlot]=2 WHERE [MatchId]=119;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=132, [NextWinningMatchSlot]=1 WHERE [MatchId]=120;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=132, [NextWinningMatchSlot]=2 WHERE [MatchId]=121;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=133, [NextWinningMatchSlot]=1 WHERE [MatchId]=122;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=133, [NextWinningMatchSlot]=2 WHERE [MatchId]=123;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=134, [NextWinningMatchSlot]=1 WHERE [MatchId]=124;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=134, [NextWinningMatchSlot]=2 WHERE [MatchId]=125;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=135, [NextWinningMatchSlot]=1 WHERE [MatchId]=126;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=135, [NextWinningMatchSlot]=2 WHERE [MatchId]=127;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=136, [NextWinningMatchSlot]=2 WHERE [MatchId]=128;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=137, [NextWinningMatchSlot]=2 WHERE [MatchId]=129;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=138, [NextWinningMatchSlot]=2 WHERE [MatchId]=130;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=139, [NextWinningMatchSlot]=2 WHERE [MatchId]=131;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=140, [NextWinningMatchSlot]=2 WHERE [MatchId]=132;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=141, [NextWinningMatchSlot]=2 WHERE [MatchId]=133;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=142, [NextWinningMatchSlot]=2 WHERE [MatchId]=134;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=143, [NextWinningMatchSlot]=2 WHERE [MatchId]=135;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=144, [NextWinningMatchSlot]=1 WHERE [MatchId]=136;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=144, [NextWinningMatchSlot]=2 WHERE [MatchId]=137;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=145, [NextWinningMatchSlot]=1 WHERE [MatchId]=138;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=145, [NextWinningMatchSlot]=2 WHERE [MatchId]=139;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=146, [NextWinningMatchSlot]=1 WHERE [MatchId]=140;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=146, [NextWinningMatchSlot]=2 WHERE [MatchId]=141;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=147, [NextWinningMatchSlot]=1 WHERE [MatchId]=142;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=147, [NextWinningMatchSlot]=2 WHERE [MatchId]=143;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=148, [NextWinningMatchSlot]=2 WHERE [MatchId]=144;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=149, [NextWinningMatchSlot]=2 WHERE [MatchId]=145;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=150, [NextWinningMatchSlot]=2 WHERE [MatchId]=146;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=151, [NextWinningMatchSlot]=2 WHERE [MatchId]=147;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=152, [NextWinningMatchSlot]=1 WHERE [MatchId]=148;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=152, [NextWinningMatchSlot]=2 WHERE [MatchId]=149;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=153, [NextWinningMatchSlot]=1 WHERE [MatchId]=150;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=153, [NextWinningMatchSlot]=2 WHERE [MatchId]=151;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=154, [NextWinningMatchSlot]=2 WHERE [MatchId]=152;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=155, [NextWinningMatchSlot]=2 WHERE [MatchId]=153;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=156, [NextWinningMatchSlot]=1 WHERE [MatchId]=154;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=156, [NextWinningMatchSlot]=2 WHERE [MatchId]=155;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=157, [NextWinningMatchSlot]=2 WHERE [MatchId]=156;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=158, [NextWinningMatchSlot]=2 WHERE [MatchId]=157;
-UPDATE [dbo].[Match] SET [NextWinningMatchId]=159, [NextWinningMatchSlot]=1 WHERE [MatchId]=158;
-UPDATE [dbo].[Match] SET [NextLosingMatchId]=159, [NextLosingMatchSlot]=2 WHERE [MatchId]=158;
-GO
-
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (29, 'Joe Mildenberger', 'Joe Mildenberger');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (31, 'Mason West', 'Ascentium');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (20, 'Allison Thompson', 'Pop Art, Inc.');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (49, 'Yvonne Perez Emerson', 'WeMake');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (41, 'Yvonne Perez Emerson', 'Creativegirl');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (40, 'Michael Dryden', 'Nike');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (63, 'Del Olds', 'Pop Art, Inc.');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (25, 'John Skelton', 'Pop Art, Inc.');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (77, 'Ed Matthews', 'Ed Matthews');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (36, 'Johnny Levenson', 'John Levenson Design');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (59, 'Ryan Smythe', 'Smythe Design');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (27, 'Evan Wilcox', 'Evan Wilcox');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (39, 'HERENOW', 'HERENOW');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (12, 'Emily Passmore', 'Pop Art, Inc.');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (47, 'Jamie Jeffers', 'Pop Art, Inc.');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (64, 'Simon McDowell', 'Mountain Shop/Castle Boardshop');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (68, 'Nate Currie', 'Nate Currie');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (58, 'Nick Fedoroff', 'Webtrends');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (76, 'Robin Balmer', 'Webtrends Design Lab');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (34, 'Kelley Roy and Team ADX Three', 'ADX Portland');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (14, 'Ryan Parr', 'Webtrends Design Lab');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (3, 'Rob Derstadt', 'Rob Derstadt');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (55, 'AIGA Portland', 'AIGA Portland');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (35, 'Erik Ratcliffe', 'Erik Ratcliffe');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (44, 'Timurx', 'Timurx');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (15, 'Jen Raynak', 'Little Star Cars');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (33, 'Brad Hagstrom', 'Brad Hagstrom');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (67, 'Duane Casey', 'King/Casey Motor Sports');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (56, 'Steven Osborn', 'Urban Airship');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (22, 'Mark Kellar', 'Mark Kellar');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (24, 'Anton Legoo', 'Anton Legoo');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (18, 'Charrice Finks', 'Charrice Finks');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (69, 'Maria & Nikole', 'Sockeye');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (60, 'Patrick Holly', 'Get Crisp');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (2, 'Kris Jaksic', 'Kris Jaksic');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (13, 'DanO', 'Splash Worldwide');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (6, 'Jason Keisling', 'www.jasonkeisling.com');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (28, 'Mike Wellins', 'The Freakybuttrue Peculiarium');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (19, 'Brandon Schoessler', 'Transport');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (8, 'Jeremy Knudson', 'Jeremy Knudson');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (65, 'Mark Lewis', 'Mark Lewis');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (66, 'Tim May', 'Tim May');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (71, 'Urban Airship One', 'Urban Airship');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (74, 'Urban Airship Two', 'Urban Airship');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (10, 'Urban Airship Three', 'Urban Airship');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (37, 'David Frey', 'Webtrends Design Lab');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (26, 'Pinball One', 'Pinball One');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (51, 'Bryant Jaksic', 'Bryant Jaksic');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (70, 'Ben Friedle', 'Outlier Solutions');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (23, 'Evan Osherow', 'Webtrends');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (50, 'Fabrice Tatieze', 'Webtrends');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (7, 'Julie Sowell', 'Webtrends');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (17, 'Sheli Bryan', 'Buckman');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (61, 'Zach Vestal', 'Buckman');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (30, 'Five', 'Athletepath');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (5, 'George Vakoutis', 'TheNewGroup');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (53, 'Nick Nakadate', 'Animation Dynamics, Inc.');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (80, 'Sho Ito', 'Pop Art, Inc.');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (52, 'Keenan Blanchard', 'Keenan Blanchard Photography');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (79, 'Willamette Week', 'Willamette Week');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (1, 'Steve Jarvis', 'Steve Jarvis');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (42, 'Dirk Frewing', 'Dirk Frewing');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (46, 'Kelley Roy and Team ADX One', 'ADX Portland');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (43, 'David Stewart', 'Webtrends Design Lab');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (73, 'Kelley Roy and Team ADX Two', 'ADX Portland');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (4, 'Seth Cameron Short', 'Animation Dynamics Inc (ADi)');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (16, 'Nic Petersen', 'Makelike (ADi)');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (32, 'Eric Graham-Adams Herboth', 'Equippe');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (9, 'Bruce Kehe', 'Hopworks');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (54, 'Rocket', 'Revel In Portland');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (11, 'Andy Hugelier', 'Subtext');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (48, 'Stephen Leineweber', 'Pop Art Inc.');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (21, 'Mark Ulanowicz', 'Mark Ulanowicz');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (62, 'Birdhat', 'Birdhat');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (1, 'Joe Mildenberger', 'Joe Mildenberger');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (2, 'Mason West', 'Ascentium');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (3, 'Allison Thompson', 'Pop Art, Inc.');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (4, 'Yvonne Perez Emerson', 'WeMake');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (5, 'Yvonne Perez Emerson', 'Creativegirl');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (6, 'Michael Dryden', 'Nike');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (7, 'Del Olds', 'Pop Art, Inc.');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (8, 'John Skelton', 'Pop Art, Inc.');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (9, 'Ed Matthews', 'Ed Matthews');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (10, 'Johnny Levenson', 'John Levenson Design');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (11, 'Ryan Smythe', 'Smythe Design');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (12, 'Evan Wilcox', 'Evan Wilcox');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (13, 'HERENOW', 'HERENOW');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (14, 'Emily Passmore', 'Pop Art, Inc.');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (15, 'Jamie Jeffers', 'Pop Art, Inc.');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (16, 'Simon McDowell', 'Mountain Shop/Castle Boardshop');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (17, 'Nate Currie', 'Nate Currie');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (18, 'Nick Fedoroff', 'Webtrends');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (19, 'Robin Balmer', 'Webtrends Design Lab');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (20, 'Kelley Roy and Team ADX Three', 'ADX Portland');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (21, 'Ryan Parr', 'Webtrends Design Lab');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (22, 'Rob Derstadt', 'Rob Derstadt');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (23, 'AIGA Portland', 'AIGA Portland');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (24, 'Erik Ratcliffe', 'Erik Ratcliffe');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (25, 'Timurx', 'Timurx');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (26, 'Jen Raynak', 'Little Star Cars');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (27, 'Brad Hagstrom', 'Brad Hagstrom');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (28, 'Duane Casey', 'King/Casey Motor Sports');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (29, 'Steven Osborn', 'Urban Airship');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (30, 'Mark Kellar', 'Mark Kellar');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (31, 'Anton Legoo', 'Anton Legoo');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (32, 'Charrice Finks', 'Charrice Finks');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (33, 'Maria & Nikole', 'Sockeye');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (34, 'Patrick Holly', 'Get Crisp');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (35, 'Kris Jaksic', 'Kris Jaksic');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (36, 'DanO', 'Splash Worldwide');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (37, 'Jason Keisling', 'www.jasonkeisling.com');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (38, 'Mike Wellins', 'The Freakybuttrue Peculiarium');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (39, 'Brandon Schoessler', 'Transport');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (40, 'Jeremy Knudson', 'Jeremy Knudson');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (41, 'Mark Lewis', 'Mark Lewis');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (42, 'Tim May', 'Tim May');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (43, 'Urban Airship One', 'Urban Airship');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (44, 'Urban Airship Two', 'Urban Airship');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (45, 'Urban Airship Three', 'Urban Airship');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (46, 'David Frey', 'Webtrends Design Lab');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (47, 'Pinball One', 'Pinball One');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (48, 'Bryant Jaksic', 'Bryant Jaksic');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (49, 'Ben Friedle', 'Outlier Solutions');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (50, 'Evan Osherow', 'Webtrends');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (51, 'Fabrice Tatieze', 'Webtrends');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (52, 'Julie Sowell', 'Webtrends');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (53, 'Sheli Bryan', 'Buckman');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (54, 'Zach Vestal', 'Buckman');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (55, 'Five', 'Athletepath');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (56, 'George Vakoutis', 'TheNewGroup');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (57, 'Nick Nakadate', 'Animation Dynamics, Inc.');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (58, 'Sho Ito', 'Pop Art, Inc.');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (59, 'Keenan Blanchard', 'Keenan Blanchard Photography');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (60, 'Willamette Week', 'Willamette Week');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (61, 'Steve Jarvis', 'Steve Jarvis');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (62, 'Dirk Frewing', 'Dirk Frewing');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (63, 'Kelley Roy and Team ADX One', 'ADX Portland');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (64, 'David Stewart', 'Webtrends Design Lab');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (65, 'Kelley Roy and Team ADX Two', 'ADX Portland');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (66, 'Seth Cameron Short', 'Animation Dynamics Inc (ADi)');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (67, 'Nic Petersen', 'Makelike (ADi)');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (68, 'Eric Graham-Adams Herboth', 'Equippe');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (69, 'Bruce Kehe', 'Hopworks');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (70, 'Rocket', 'Revel In Portland');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (71, 'Andy Hugelier', 'Subtext');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (72, 'Stephen Leineweber', 'Pop Art Inc.');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (73, 'Mark Ulanowicz', 'Mark Ulanowicz');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (74, 'Birdhat', 'Birdhat');
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (75, 'Mark Stein', 'Mark Stein Photography');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (72, 'Lorien Steele', 'Pop Art, Inc.');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (38, 'Ezra Cimino-Hurt', 'Case of Bass');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (57, 'Doug Chamblin', 'Doug Chamblin Furniture Maker');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (45, 'Derek Keevil', 'The Hat Sharpener');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (78, 'Matthew Ross', 'RosStars');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (76, 'Lorien Steele', 'Pop Art, Inc.');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (77, 'Ezra Cimino-Hurt', 'Case of Bass');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (78, 'Doug Chamblin', 'Doug Chamblin Furniture Maker');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (79, 'Derek Keevil', 'The Hat Sharpener');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (80, 'Alice Brown80', 'RosStars80');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (81, 'Alice Brown81', 'RosStars81');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (82, 'Alice Brown82', 'RosStars82');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (83, 'Alice Brown83', 'RosStars83');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (84, 'Alice Brown84', 'RosStars84');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (85, 'Alice Brown85', 'RosStars85');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (86, 'Alice Brown86', 'RosStars86');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (87, 'Alice Brown87', 'RosStars87');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (88, 'Alice Brown88', 'RosStars88');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (89, 'Alice Brown89', 'RosStars89');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (90, 'Alice Brown90', 'RosStars90');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (91, 'Alice Brown91', 'RosStars91');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (92, 'Alice Brown92', 'RosStars92');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (93, 'Alice Brown93', 'RosStars93');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (94, 'Alice Brown94', 'RosStars94');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (95, 'Alice Brown95', 'RosStars95');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (96, 'Alice Brown96', 'RosStars96');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (97, 'Alice Brown97', 'RosStars97');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (98, 'Alice Brown98', 'RosStars98');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (99, 'Alice Brown99', 'RosStars99');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (100, 'Alice Brown100', 'RosStars100');
 GO
