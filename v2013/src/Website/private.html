@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>SignalR Simple Chat</title>
+    <style type="text/css">
+        * { font-family: Arial; }
+        .container {
+            background-color: #99CCFF;
+            border: thick solid #808080;
+            padding: 20px;
+            margin: 20px;
+        }
+        .messageContainer {
+            margin-bottom: 20px;
+        }
+        .messageContainer span {
+            font-weight: bold;
+        }
+        .messageContainer div {
+            margin-left: 20px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <h1>Private Page</h1>
+        
+        <div class="messageContainer">
+            <input type="radio" name="rdoMessage" checked />
+            <span>sponsorView</span>
+            <div>
+                {"peek":"aboo"}
+            </div>
+        </div>
+        
+        <div class="messageContainer">
+            <input type="radio" name="rdoMessage" />
+            <span>roundView</span>
+            <div>
+                {"roundNumber":"3","totalRaces":"10","completedRaces":"7","remainingRaces":"3"}
+            </div>
+        </div>
+        
+        <div class="messageContainer">
+            <input type="radio" name="rdoMessage" />
+            <span>heatView</span>
+            <div>
+                [{"racer1":"41","racer2":"44","winner":"44"},{"racer1":"2","racer2":"18","winner":"0"}]
+            </div>
+        </div>
+        
+        <div class="messageContainer">
+            <input type="radio" name="rdoMessage" />
+            <span>raceView</span>
+            <div>
+                {"racer1":"41","racer2":"44","winner":"0"}
+            </div>
+        </div>
+        
+        <div class="messageContainer">
+            <input type="radio" name="rdoMessage" />
+            <span>raceView</span>
+            <div>
+                {"racer1":"41","racer2":"44","winner":"41"}
+            </div>
+        </div>
+
+        <input type="button" id="sendmessage" value="Send" />
+
+    </div>
+    <script src="/Scripts/jquery-1.8.2.min.js" ></script>
+    <script src="/Scripts/jquery.signalR-1.0.0.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script type="text/javascript">
+
+        $(function () {
+
+            // Declare a proxy to reference the hub. 
+            var chat = $.connection.navigationHub;
+
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+
+                $('#sendmessage').click(function () {
+
+                    var radioButton = $('input[type=radio]:checked');
+                    var parentDiv = radioButton.parent();
+                    var viewSpan = parentDiv.find('span');
+                    var jsonDiv = parentDiv.find('div');
+                    
+                    // Call the Navigate method on the hub. 
+                    chat.server.navigate(viewSpan.text().trim(), jsonDiv.text().trim());
+                });
+
+            });
+        });
+
+    </script>
+</body>
+</html>

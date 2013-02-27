@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>SignalR Simple Chat</title>
+    <style type="text/css">
+        * { font-family: Arial; }
+        .container {
+            background-color: #99CCFF;
+            border: thick solid #808080;
+            padding: 20px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+       
+    <div class="container">
+        
+        <h1>Public Page</h1>
+
+        <ul id="discussion">
+        </ul>
+    </div>
+
+    <script src="/Scripts/jquery-1.8.2.min.js" ></script>
+    <script src="/Scripts/jquery.signalR-1.0.0.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script type="text/javascript">
+
+        $(function () {
+
+            // Declare a proxy to reference the hub. 
+            var chat = $.connection.navigationHub;
+
+            // Create a function that the hub can call to broadcast messages.
+            chat.client.onNavigate = function (viewName, jsonData) {
+
+                var encodedName = $('<div />').text(viewName).html();
+                var encodedMsg = $('<div />').text(jsonData).html();
+
+                $('#discussion').append('<li><strong>' + encodedName + '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
+            };
+
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                $('#discussion').append('<li><strong>Ready to receive messages.</strong></li>');
+            });
+        });
+
+    </script>
+
+</body>
+</html>

@@ -16,6 +16,9 @@ namespace Website
     {
         protected void Application_Start()
         {
+            // Register the default hubs route: ~/signalr/hubs
+            RouteTable.Routes.MapHubs();
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
