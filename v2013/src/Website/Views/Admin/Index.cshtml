@@ -1,0 +1,115 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stumptown40</title>
+    <style>
+        .hidden { display: none; }
+    </style>
+    <script src="/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="/Scripts/knockout-2.2.0.js"></script>
+    <script src="/Scripts/sammy-0.7.4.min.js"></script>
+    <script type="text/javascript">
+
+        function showView(viewId) {
+            $('div.view').addClass('hidden');
+            $(viewId).removeClass('hidden');
+        }
+
+        $(function () {
+            
+            Sammy(function () {
+                this.get('#:controller', function () {
+                    switch (this.params.controller) {
+                        case 'round':
+                            showView('#bracketView');
+                            break;
+                        case 'admin':
+                            showView('#adminView');
+                            break;
+                        default:
+                            alert('unexpected: ' + this.params.controller);
+                            break;
+                    }
+                });
+                this.get('#:controller/:id', function () {
+                    switch (this.params.controller) {
+                        case 'round':
+                            showView('#roundView');
+                            break;
+                        default:
+                            alert('unexpected: ' + this.params.controller);
+                            break;
+                    }
+                });
+                this.get('', function () {
+                    this.app.runRoute('get', '#round');
+                });
+            }).run();
+            
+        });
+        
+    </script>
+</head>
+<body>
+    <div>
+        
+        <ul>
+            <li><a href="#round">Bracket</a></li>
+            <li><a href="#stats">Stats</a></li>
+            <li><a href="#carGallery">Car Gallery</a></li>
+            <li><a href="#sponsors">Sponsors</a></li>
+            <li><a href="#admin">Admin</a></li>
+        </ul>
+
+        <div id="bracketView" class="view">
+            <h1>Brackets</h1>
+            <ol>
+                <li><a href="#round/1">Round 1</a></li>
+                <li><a href="#round/2">Round 2</a></li>
+                <li><a href="#round/3">Round 3</a></li>
+                <li><a href="#round/4">Round 4</a></li>
+                <li><a href="#round/5">Round 5</a></li>
+                <li><a href="#round/6">Round 6</a></li>
+                <li><a href="#round/7">Round 7</a></li>
+            </ol>
+        </div>
+        
+        <div id="roundView" class="view hidden">
+            <div>
+                <a href="#round">Back</a>
+                <input type="button" value="Round 6"/>
+            </div>
+            <table>
+                <tr>
+                    <td><input type="button" value="1." /></td>
+                    <td><input type="button" value="#1 Alice Smith" style="background:green;" /></td>
+                    <td><input type="button" value="#57 Bob Kline" /></td>
+                    <td><input type="button" value="Clear" /></td>
+                </tr>
+                <tr>
+                    <td><input type="button" value="2." /></td>
+                    <td><input type="button" value="#1 Alice Smith" /></td>
+                    <td><input type="button" value="#57 Bob Kline" /></td>
+                    <td><input type="button" value="Clear" /></td>
+                </tr>
+                <tr>
+                    <td><input type="button" value="3." /></td>
+                    <td><input type="button" value="#1 Alice Smith" /></td>
+                    <td><input type="button" value="#57 Bob Kline" /></td>
+                    <td><input type="button" value="Clear" /></td>
+                </tr>
+            </table>
+        </div>
+        
+        <div id="adminView" class="view hidden">
+            <h1>Admin</h1>
+            <div><input type="button" value="Assign Brackets" /></div>
+            <div><input type="button" value="Clear Brackets" /></div>
+        </div>
+    </div>
+</body>
+</html>
