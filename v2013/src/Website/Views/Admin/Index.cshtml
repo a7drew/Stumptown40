@@ -7,6 +7,8 @@
 <head>
     <title>Stumptown40</title>
     <style>
+        body { background: #666; }
+        a { color: #fff;}
         .hidden { display: none; }
     </style>
     <script src="/Scripts/jquery-1.8.2.min.js"></script>
@@ -18,9 +20,56 @@
             $('div.view').addClass('hidden');
             $(viewId).removeClass('hidden');
         }
+        
+        function RaceItem(raceId, heatNumber, racer1Id, racer1Name, racer2Id, racer2Name) {
+            var self = this;
+            self.raceId = raceId;
+            self.heatNumber = heatNumber;
+            self.racer1Id = racer1Id;
+            self.racer1Name = racer1Name;
+            self.racer2Id = racer2Id;
+            self.racer2Name = racer2Name;
+        }
+        
+        function RoundViewModel() {
 
-        $(function () {
+            var self = this;
             
+            // data
+
+            self.races = ko.observableArray();
+            self.roundNumber = ko.observable();
+
+            // behaviors
+
+            self.showRace = function (raceItem) {
+                alert('showRace:' + raceItem.raceId);
+            };
+
+            self.showRacer1Winner = function (raceItem) {
+                alert('showRacer1Winner:' + raceItem.racer1Name);
+            };
+
+            self.showRacer2Winner = function (raceItem) {
+                alert('showRacer2Winner:' + raceItem.racer2Name);
+            };
+
+            self.clearRaceWinner = function (raceItem) {
+                alert('clearRaceWinner:' + raceItem.raceId);
+            };
+
+            self.showRoundView = function(roundId) {
+
+                self.roundNumber(roundId);
+
+                self.races.removeAll();
+                self.races.push(new RaceItem(55, '1', 60, 'Alice' + roundId, 61, 'Bob'));
+                self.races.push(new RaceItem(56, '2', 62, 'Charles' + roundId, 63, 'Dan'));
+                self.races.push(new RaceItem(57, '3', 64, 'Eddie' + roundId, 65, 'Frank'));
+
+                showView('#roundView');
+            };
+
             Sammy(function () {
                 this.get('#:controller', function () {
                     switch (this.params.controller) {
@@ -38,7 +87,7 @@
                 this.get('#:controller/:id', function () {
                     switch (this.params.controller) {
                         case 'round':
-                            showView('#roundView');
+                            self.showRoundView(this.params.id);
                             break;
                         default:
                             alert('unexpected: ' + this.params.controller);
@@ -49,7 +98,10 @@
                     this.app.runRoute('get', '#round');
                 });
             }).run();
-            
+        }
+        
+        $(function () {
+            ko.applyBindings(new RoundViewModel());
         });
         
     </script>
@@ -58,10 +110,11 @@
     <div>
         
         <ul>
-            <li><a href="#round">Bracket</a></li>
-            <li><a href="#stats">Stats</a></li>
             <li><a href="#carGallery">Car Gallery</a></li>
             <li><a href="#sponsors">Sponsors</a></li>
+            <li>|</li>
+            <li><a href="#round">Bracket</a></li>
+            <li><a href="#stats">Stats</a></li>
             <li><a href="#admin">Admin</a></li>
         </ul>
 
@@ -81,27 +134,17 @@
         <div id="roundView" class="view hidden">
             <div>
                 <a href="#round">Back</a>
-                <input type="button" value="Round 6"/>
+                <input type="button" data-bind="value: roundNumber"/>
             </div>
             <table>
+                <tbody data-bind="foreach: races">
                 <tr>
-                    <td><input type="button" value="1." /></td>
-                    <td><input type="button" value="#1 Alice Smith" style="background:green;" /></td>
-                    <td><input type="button" value="#57 Bob Kline" /></td>
-                    <td><input type="button" value="Clear" /></td>
+                    <td><input type="button" data-bind="value: heatNumber, click: $root.showRace" style="width:50px;" /></td>
+                    <td><input type="button" data-bind="value: racer1Name, click: $root.showRacer1Winner" style="width:100px;"/></td>
+                    <td><input type="button" data-bind="value: racer2Name, click: $root.showRacer2Winner" style="width:100px;"/></td>
+                    <td><input type="button" value="Clear" data-bind="click: $root.clearRaceWinner" /></td>
                 </tr>
-                <tr>
-                    <td><input type="button" value="2." /></td>
-                    <td><input type="button" value="#1 Alice Smith" /></td>
-                    <td><input type="button" value="#57 Bob Kline" /></td>
-                    <td><input type="button" value="Clear" /></td>
-                </tr>
-                <tr>
-                    <td><input type="button" value="3." /></td>
-                    <td><input type="button" value="#1 Alice Smith" /></td>
-                    <td><input type="button" value="#57 Bob Kline" /></td>
-                    <td><input type="button" value="Clear" /></td>
-                </tr>
+                </tbody>
             </table>
         </div>
         
