@@ -37,11 +37,17 @@
             
             // data
 
+            self.rounds = [1, 2, 3, 4, 5, 6, 7];
+
             self.races = ko.observableArray();
             self.roundNumber = ko.observable();
 
             // behaviors
 
+            self.showRound = function (roundId) {
+                location.hash = 'round/' + roundId;
+            };
+            
             self.showRace = function (raceItem) {
                 alert('showRace:' + raceItem.raceId);
             };
@@ -101,6 +107,23 @@
         }
         
         $(function () {
+
+            $('#assignBracketsButton').click(function () {
+
+                if (!window.confirm('Assign Brackets?'))
+                    return;
+
+                alert('assignBracketsButton');
+            });
+            
+            $('#clearBracketsButton').click(function () {
+
+                if (!window.confirm('Clear Brackets?'))
+                    return;
+                
+                alert('clearBracketsButton');
+            });
+
             ko.applyBindings(new RoundViewModel());
         });
         
@@ -120,15 +143,9 @@
 
         <div id="bracketView" class="view">
             <h1>Brackets</h1>
-            <ol>
-                <li><a href="#round/1">Round 1</a></li>
-                <li><a href="#round/2">Round 2</a></li>
-                <li><a href="#round/3">Round 3</a></li>
-                <li><a href="#round/4">Round 4</a></li>
-                <li><a href="#round/5">Round 5</a></li>
-                <li><a href="#round/6">Round 6</a></li>
-                <li><a href="#round/7">Round 7</a></li>
-            </ol>
+            <ul data-bind="foreach: rounds">
+                <li><input type="button" data-bind="value: $data, click: $root.showRound"/></li>
+            </ul>
         </div>
         
         <div id="roundView" class="view hidden">
@@ -150,8 +167,8 @@
         
         <div id="adminView" class="view hidden">
             <h1>Admin</h1>
-            <div><input type="button" value="Assign Brackets" /></div>
-            <div><input type="button" value="Clear Brackets" /></div>
+            <div><input id="assignBracketsButton" type="button" value="Assign Brackets" /></div>
+            <div><input id="clearBracketsButton" type="button" value="Clear Brackets" /></div>
         </div>
     </div>
 </body>
