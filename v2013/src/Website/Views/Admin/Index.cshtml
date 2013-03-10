@@ -108,20 +108,52 @@
         
         $(function () {
 
-            $('#assignBracketsButton').click(function () {
+            $('#clearWinningRacersButton').click(function () {
 
-                if (!window.confirm('Assign Brackets?'))
+                if (!window.confirm('Clear Winning Racers?'))
                     return;
 
-                alert('assignBracketsButton');
+                $.post('/Admin/ClearWinningRacers', function (isGood) {
+                    if (!isGood) {
+                        alert('no good!');
+                    }
+                });
             });
             
-            $('#clearBracketsButton').click(function () {
+            $('#assignSequentialStartSlotsButton').click(function () {
 
-                if (!window.confirm('Clear Brackets?'))
+                if (!window.confirm('Assign Sequential Start Slots Button?'))
                     return;
-                
-                alert('clearBracketsButton');
+
+                $.post('/Admin/AssignSequentialStartSlots', function (isGood) {
+                    if (!isGood) {
+                        alert('no good!');
+                    }
+                });
+            });
+            
+            $('#assignRandomStartSlotsButton').click(function () {
+
+                if (!window.confirm('Assign Random Start Slots?'))
+                    return;
+
+                $.post('/Admin/AssignRandomStartSlots', function (isGood) {
+                    if (!isGood) {
+                        alert('no good!');
+                    }
+                });
+            });
+            
+            $('#assignBracketsByStartSlotButton').click(function () {
+
+                if (!window.confirm('Assign Brackets By Start Slot ?'))
+                    return;
+
+                $.post('/Admin/assignBracketsByStartSlot', function (isGood) {
+                    if (!isGood) {
+                        alert('no good!');
+                    }
+                });
             });
 
             ko.applyBindings(new RoundViewModel());
@@ -167,8 +199,10 @@
         
         <div id="adminView" class="view hidden">
             <h1>Admin</h1>
-            <div><input id="assignBracketsButton" type="button" value="Assign Brackets" /></div>
-            <div><input id="clearBracketsButton" type="button" value="Clear Brackets" /></div>
+            <div><input id="clearWinningRacersButton" type="button" value="Clear Winning Racers" /></div>
+            <div><input id="assignSequentialStartSlotsButton" type="button" value="Assign Sequential Start Slots" /></div>
+            <div><input id="assignRandomStartSlotsButton" type="button" value="Assign Random Start Slots" /></div>
+            <div><input id="assignBracketsByStartSlotButton" type="button" value="Assign Brackets By Start Slot" /></div>
         </div>
     </div>
 </body>

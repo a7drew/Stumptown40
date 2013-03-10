@@ -16,7 +16,8 @@ namespace Website.Controllers
             return View();
         }
 
-        public bool ClearBrackets()
+        [HttpPost]
+        public bool ClearWinningRacers()
         {
             using (var connection = new SqlConnection(Cnn))
             {
@@ -27,34 +28,47 @@ namespace Website.Controllers
             return true;
         }
 
-        public bool AssignStartSlots()
+        [HttpPost]
+        public bool AssignSequentialStartSlots()
         {
             using (var connection = new SqlConnection(Cnn))
             {
                 connection.Open();
                 connection.Execute("update racer set startslot=racerId");
-
-                //connection.Execute("update racer set startslot=-1");
-
-                //var numbers = Enumerable.Range(1, 100).ToList();
-
-                //var racers = connection.Query<Racer>("select * from racer order by racerid").ToList();
-
-                //var rnd = new Random();
-
-                //foreach (var racer in racers)
-                //{
-                //    var x = rnd.Next(0, numbers.Count);
-                //    racer.StartSlot = numbers[x];
-                //    numbers.RemoveAt(x);
-                //    connection.Execute("update racer set startslot=@StartSlot where racerid=@RacerId", new { racer.StartSlot, racer.RacerId });
-                //}
             }
 
             return true;
         }
 
-        public bool AssignBrackets()
+        [HttpPost]
+        public bool AssignRandomStartSlots()
+        {
+            using (var connection = new SqlConnection(Cnn))
+            {
+                connection.Open();
+
+                connection.Execute("update racer set startslot=-1");
+
+                var numbers = Enumerable.Range(1, 100).ToList();
+
+                var racers = connection.Query<Racer>("select * from racer order by racerid").ToList();
+
+                var rnd = new Random();
+
+                foreach (var racer in racers)
+                {
+                    var x = rnd.Next(0, numbers.Count);
+                    racer.StartSlot = numbers[x];
+                    numbers.RemoveAt(x);
+                    connection.Execute("update racer set startslot=@StartSlot where racerid=@RacerId", new { racer.StartSlot, racer.RacerId });
+                }
+            }
+
+            return true;
+        }
+
+        [HttpPost]
+        public bool AssignBracketsByStartSlot()
         {
             using (var connection = new SqlConnection(Cnn))
             {
