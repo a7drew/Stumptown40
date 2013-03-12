@@ -26,15 +26,24 @@
         
         function RaceItem(raceId, heatNumber, racer1Id, racer1Name, racer2Id, racer2Name, winningRacerId) {
             var self = this;
-            self.raceId = raceId;
-            self.heatNumber = heatNumber;
-            self.racer1Id = racer1Id;
-            self.racer1Name = racer1Name;
-            self.racer2Id = racer2Id;
-            self.racer2Name = racer2Name;
-            self.winningRacerId = winningRacerId;
-            self.button1Id = 'button' + racer1Id;
-            self.button2Id = 'button' + racer2Id;
+            
+            self.raceId = ko.observable(raceId);
+            self.heatNumber = ko.observable(heatNumber);
+            self.racer1Id = ko.observable(racer1Id);
+            self.racer1Name = ko.observable(racer1Name);
+            self.racer2Id = ko.observable(racer2Id);
+            self.racer2Name = ko.observable(racer2Name);
+            self.winningRacerId = ko.observable(winningRacerId);
+
+            //self.raceId = raceId;
+            //self.heatNumber = heatNumber;
+            //self.racer1Id = racer1Id;
+            //self.racer1Name = racer1Name;
+            //self.racer2Id = racer2Id;
+            //self.racer2Name = racer2Name;
+            //self.winningRacerId = winningRacerId;
+            //self.button1Id = 'button' + racer1Id;
+            //self.button2Id = 'button' + racer2Id;
         }
         
         function RoundViewModel() {
@@ -61,10 +70,10 @@
             self.showRacer1Winner = function (raceItem) {
 
                 $.ajax({
-                    url: '/api/match?matchId=' + raceItem.raceId + '&winningracerid=' + raceItem.racer1Id,
+                    url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer1Id(),
                     type: 'PUT',
                     success: function() {
-                        raceItem.winningRacerId = raceItem.racer1Id;
+                        raceItem.winningRacerId(raceItem.racer1Id());
                     }
                 });
 
@@ -87,6 +96,18 @@
                 $.get('/api/match?roundId=' + roundId, function(data) {
                     for (var x = 0; x < data.length; x++) {
                         var m = data[x];
+
+                        //var item = ko.observable();
+                        //item.raceId(m.MatchId);
+                        //item.heatNumber(m.RaceNumber);
+                        //item.racer1Id(m.Racer1Id);
+                        //item.racer1Name(racerCache[parseInt(m.Racer1Id)].Name);
+                        //item.racer2Id(m.Racer2Id);
+                        //item.racer2Name(racerCache[parseInt(m.Racer2Id)].Name);
+                        //item.winningRacerId(m.WinningRacerId);
+
+                        //self.races.push(item);
+
                         self.races.push(
                             new RaceItem(
                                 m.MatchId,
@@ -225,7 +246,7 @@
                 <tbody data-bind="foreach: races">
                 <tr>
                     <td><input type="button" data-bind="value: heatNumber, click: $root.showRace" style="width:50px;" /></td>
-                    <td><input type="button" data-bind="title: racer1Id, value: racer1Name, click: $root.showRacer1Winner, css: { selected: winningRacerId == racer1Id }" style="width:300px;"/></td>
+                    <td><input type="button" data-bind="value: racer1Name, click: $root.showRacer1Winner, css: { selected: winningRacerId() == racer1Id() }" style="width:300px;"/></td>
                     <td><input type="button" data-bind="value: racer2Name, click: $root.showRacer2Winner" style="width:300px;"/></td>
                     <td><input type="button" value="Clear" data-bind="click: $root.clearRaceWinner" /></td>
                 </tr>

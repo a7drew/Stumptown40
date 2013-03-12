@@ -22,7 +22,7 @@ namespace Website.Controllers
             using (var connection = new SqlConnection(Cnn))
             {
                 connection.Open();
-                connection.Execute("update match set winningracerid=null, racer1id=null, racer2id=null");
+                connection.Execute("update match set winningracerid=null");
             }
 
             return true;
