@@ -10,6 +10,9 @@
         body { background: #666; }
         a { color: #fff;}
         .hidden { display: none; }
+        #roundView input.selected {
+            background: yellow;
+        }
     </style>
     <script src="/Scripts/jquery-1.8.2.min.js"></script>
     <script src="/Scripts/knockout-2.2.0.js"></script>
@@ -21,7 +24,7 @@
             $(viewId).removeClass('hidden');
         }
         
-        function RaceItem(raceId, heatNumber, racer1Id, racer1Name, racer2Id, racer2Name) {
+        function RaceItem(raceId, heatNumber, racer1Id, racer1Name, racer2Id, racer2Name, winningRacerId) {
             var self = this;
             self.raceId = raceId;
             self.heatNumber = heatNumber;
@@ -29,6 +32,9 @@
             self.racer1Name = racer1Name;
             self.racer2Id = racer2Id;
             self.racer2Name = racer2Name;
+            self.winningRacerId = winningRacerId;
+            self.button1Id = 'button' + racer1Id;
+            self.button2Id = 'button' + racer2Id;
         }
         
         function RoundViewModel() {
@@ -53,7 +59,15 @@
             };
 
             self.showRacer1Winner = function (raceItem) {
-                alert('showRacer1Winner:' + raceItem.racer1Name);
+
+                $.ajax({
+                    url: '/api/match?matchId=' + raceItem.raceId + '&winningracerid=' + raceItem.racer1Id,
+                    type: 'PUT',
+                    success: function() {
+                        raceItem.winningRacerId = raceItem.racer1Id;
+                    }
+                });
+
             };
 
             self.showRacer2Winner = function (raceItem) {
@@ -69,9 +83,25 @@
                 self.roundNumber(roundId);
 
                 self.races.removeAll();
-                self.races.push(new RaceItem(55, '1', 60, 'Alice' + roundId, 61, 'Bob'));
-                self.races.push(new RaceItem(56, '2', 62, 'Charles' + roundId, 63, 'Dan'));
-                self.races.push(new RaceItem(57, '3', 64, 'Eddie' + roundId, 65, 'Frank'));
+
+                $.get('/api/match?roundId=' + roundId, function(data) {
+                    for (var x = 0; x < data.length; x++) {
+                        var m = data[x];
+                        self.races.push(
+                            new RaceItem(
+                                m.MatchId,
+                                m.RaceNumber,
+                                m.Racer1Id,
+                                racerCache[parseInt(m.Racer1Id)].Name,
+                                m.Racer2Id,
+                                racerCache[parseInt(m.Racer2Id)].Name,
+                                m.WinningRacerId));
+                    }
+                });
+
+                //self.races.push(new RaceItem(55, '1', 60, 'Alice' + roundId, 61, 'Bob'));
+                //self.races.push(new RaceItem(56, '2', 62, 'Charles' + roundId, 63, 'Dan'));
+                //self.races.push(new RaceItem(57, '3', 64, 'Eddie' + roundId, 65, 'Frank'));
 
                 showView('#roundView');
             };
@@ -105,8 +135,14 @@
                 });
             }).run();
         }
+
+        var racerCache = null;
         
         $(function () {
+
+            $.get('/api/racers2', function(data) {
+                racerCache = data;
+            });
 
             $('#clearWinningRacersButton').click(function () {
 
@@ -189,8 +225,8 @@
                 <tbody data-bind="foreach: races">
                 <tr>
                     <td><input type="button" data-bind="value: heatNumber, click: $root.showRace" style="width:50px;" /></td>
-                    <td><input type="button" data-bind="value: racer1Name, click: $root.showRacer1Winner" style="width:100px;"/></td>
-                    <td><input type="button" data-bind="value: racer2Name, click: $root.showRacer2Winner" style="width:100px;"/></td>
+                    <td><input type="button" data-bind="title: racer1Id, value: racer1Name, click: $root.showRacer1Winner, css: { selected: winningRacerId == racer1Id }" style="width:300px;"/></td>
+                    <td><input type="button" data-bind="value: racer2Name, click: $root.showRacer2Winner" style="width:300px;"/></td>
                     <td><input type="button" value="Clear" data-bind="click: $root.clearRaceWinner" /></td>
                 </tr>
                 </tbody>
