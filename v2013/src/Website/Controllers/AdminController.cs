@@ -74,6 +74,8 @@ namespace Website.Controllers
             {
                 connection.Open();
 
+                connection.Execute("update match set racer1id=null, racer2id=null, winningracerid=null");                        
+
                 var racers = connection.Query<Racer>("select * from racer order by startslot").ToList();
 
                 var matches1 = connection.Query<Match>("select * from match where roundid=1 order by matchid").ToList();

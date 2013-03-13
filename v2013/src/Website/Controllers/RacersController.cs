@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -82,7 +83,21 @@ namespace Website.Controllers
             {
                 connection.Open();
 
+                if (winningracerid < 1)
+                {
+                    connection.Execute("update match set winningracerid=null where matchid=@matchId", new { matchId });
+                    return new HttpResponseMessage(HttpStatusCode.OK);
+                }
+
                 connection.Execute("update match set winningracerid=@winningracerid where matchid=@matchId", new { matchId, winningracerid });
+
+                Match match = connection.Query<Match>("select * from match where matchId=@matchId", new {matchId}).First();
+
+                var sql = match.NextWinningMatchSlot == 1
+                    ? "update match set racer1id=@winningracerid where matchid=@NextWinningMatchId"
+                    : "update match set racer2id=@winningracerid where matchid=@NextWinningMatchId";
+
+                connection.Execute(sql, new { match.NextWinningMatchId, winningracerid });
 
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }

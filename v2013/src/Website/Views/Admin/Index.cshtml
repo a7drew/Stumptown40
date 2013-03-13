@@ -7,11 +7,36 @@
 <head>
     <title>Stumptown40</title>
     <style>
+        
         body { background: #666; }
         a { color: #fff;}
         .hidden { display: none; }
         #roundView input.selected {
             background: yellow;
+        }
+        #roundView table tr td {
+            padding: 20px;
+        }
+        #roundView table tr td.c1 input,
+        #roundView table tr td.c4 input {
+            width: 60px;
+            height: 60px;
+            font-size: 150%;
+        }
+        #roundView table tr td.c2 input,
+        #roundView table tr td.c3 input {
+            width: 300px;
+            height: 60px;
+            font-size: 120%;
+            text-align: left;
+        }
+        #menu {
+            margin: 0 0 20px 0;padding: 0;
+        }
+        #menu li {
+            display: inline;
+            font: normal normal bold 14pt Verdana;
+            margin-right: 20px;
         }
     </style>
     <script src="/Scripts/jquery-1.8.2.min.js"></script>
@@ -80,11 +105,27 @@
             };
 
             self.showRacer2Winner = function (raceItem) {
-                alert('showRacer2Winner:' + raceItem.racer2Name);
+                
+                $.ajax({
+                    url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer2Id(),
+                    type: 'PUT',
+                    success: function () {
+                        raceItem.winningRacerId(raceItem.racer2Id());
+                    }
+                });
+                
             };
 
             self.clearRaceWinner = function (raceItem) {
-                alert('clearRaceWinner:' + raceItem.raceId);
+                
+                $.ajax({
+                    url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=-1',
+                    type: 'PUT',
+                    success: function () {
+                        raceItem.winningRacerId(-1);
+                    }
+                });
+
             };
 
             self.showRoundView = function(roundId) {
@@ -107,15 +148,20 @@
                         //item.winningRacerId(m.WinningRacerId);
 
                         //self.races.push(item);
+                        var racer1Id = parseInt(m.Racer1Id);
+                        var racer2Id = parseInt(m.Racer2Id);
+
+                        var racer1Name = racer1Id > 0 ? racerCache[racer1Id].Name : "???";
+                        var racer2Name = racer2Id > 0 ? racerCache[racer2Id].Name : "???";
 
                         self.races.push(
                             new RaceItem(
                                 m.MatchId,
                                 m.RaceNumber,
                                 m.Racer1Id,
-                                racerCache[parseInt(m.Racer1Id)].Name,
+                                racer1Name,
                                 m.Racer2Id,
-                                racerCache[parseInt(m.Racer2Id)].Name,
+                                racer2Name,
                                 m.WinningRacerId));
                     }
                 });
@@ -221,10 +267,9 @@
 <body>
     <div>
         
-        <ul>
-            <li><a href="#carGallery">Car Gallery</a></li>
+        <ul id="menu">
+            <li><a href="#carGallery">Gallery</a></li>
             <li><a href="#sponsors">Sponsors</a></li>
-            <li>|</li>
             <li><a href="#round">Bracket</a></li>
             <li><a href="#stats">Stats</a></li>
             <li><a href="#admin">Admin</a></li>
@@ -245,10 +290,10 @@
             <table>
                 <tbody data-bind="foreach: races">
                 <tr>
-                    <td><input type="button" data-bind="value: heatNumber, click: $root.showRace" style="width:50px;" /></td>
-                    <td><input type="button" data-bind="value: racer1Name, click: $root.showRacer1Winner, css: { selected: winningRacerId() == racer1Id() }" style="width:300px;"/></td>
-                    <td><input type="button" data-bind="value: racer2Name, click: $root.showRacer2Winner" style="width:300px;"/></td>
-                    <td><input type="button" value="Clear" data-bind="click: $root.clearRaceWinner" /></td>
+                    <td class="c1"><input type="button" data-bind="value: heatNumber, click: $root.showRace" /></td>
+                    <td class="c2"><input type="button" data-bind="value: racer1Name, click: $root.showRacer1Winner, css: { selected: racer1Id() > 0 && winningRacerId() == racer1Id() }" /></td>
+                    <td class="c3"><input type="button" data-bind="value: racer2Name, click: $root.showRacer2Winner, css: { selected: racer2Id() > 0 && winningRacerId() == racer2Id() }" /></td>
+                    <td class="c4"><input type="button" value="X" data-bind="click: $root.clearRaceWinner" /></td>
                 </tr>
                 </tbody>
             </table>
