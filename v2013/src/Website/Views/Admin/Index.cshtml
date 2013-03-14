@@ -7,37 +7,93 @@
 <head>
     <title>Stumptown40</title>
     <style>
-        
-        body { background: #666; }
-        a { color: #fff;}
-        .hidden { display: none; }
-        #roundView input.selected {
+        body
+        {
+            background: #666;
+        }
+
+        a
+        {
+            color: #fff;
+        }
+
+        h1
+        {
+            color: #CCC;
+            font: normal normal normal 200% Arial;
+        }
+
+        .hidden
+        {
+            display: none;
+        }
+
+        #bracketView input
+        {
+            height: 60px;
+            width: 80px;
+            font-size: 140%;
+        }
+
+        #bracketView ul li
+        {
+            list-style: none;
+            margin: 0 0 20px 0;
+        }
+
+        #roundView input.selected
+        {
             background: yellow;
         }
-        #roundView table tr td {
+
+        #roundView table tr td
+        {
             padding: 20px;
         }
+
         #roundView table tr td.c1 input,
-        #roundView table tr td.c4 input {
+        #roundView table tr td.c4 input
+        {
             width: 60px;
             height: 60px;
             font-size: 150%;
         }
+
         #roundView table tr td.c2 input,
-        #roundView table tr td.c3 input {
+        #roundView table tr td.c3 input
+        {
             width: 300px;
             height: 60px;
             font-size: 120%;
             text-align: left;
         }
-        #menu {
-            margin: 0 0 20px 0;padding: 0;
+
+        #menu
+        {
+            margin: 0 0 20px 0;
+            padding: 0;
         }
-        #menu li {
-            display: inline;
-            font: normal normal bold 14pt Verdana;
-            margin-right: 20px;
+
+            #menu li
+            {
+                display: inline;
+                font: normal normal bold 14pt Verdana;
+                margin-right: 20px;
+            }
+
+        #adminView li
+        {
+            list-style: none;
+            margin: 0 0 20px 0;
         }
+
+        #adminView input
+        {
+            height: 60px;
+            width: 320px;
+            font-size: 140%;
+        }
+        .subHeader { background: #000;padding: 30px;}
     </style>
     <script src="/Scripts/jquery-1.8.2.min.js"></script>
     <script src="/Scripts/knockout-2.2.0.js"></script>
@@ -48,10 +104,10 @@
             $('div.view').addClass('hidden');
             $(viewId).removeClass('hidden');
         }
-        
+
         function RaceItem(raceId, heatNumber, racer1Id, racer1Name, racer2Id, racer2Name, winningRacerId) {
             var self = this;
-            
+
             self.raceId = ko.observable(raceId);
             self.heatNumber = ko.observable(heatNumber);
             self.racer1Id = ko.observable(racer1Id);
@@ -70,11 +126,11 @@
             //self.button1Id = 'button' + racer1Id;
             //self.button2Id = 'button' + racer2Id;
         }
-        
+
         function RoundViewModel() {
 
             var self = this;
-            
+
             // data
 
             self.rounds = [1, 2, 3, 4, 5, 6, 7];
@@ -87,7 +143,7 @@
             self.showRound = function (roundId) {
                 location.hash = 'round/' + roundId;
             };
-            
+
             self.showRace = function (raceItem) {
                 alert('showRace:' + raceItem.raceId);
             };
@@ -97,7 +153,7 @@
                 $.ajax({
                     url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer1Id(),
                     type: 'PUT',
-                    success: function() {
+                    success: function () {
                         raceItem.winningRacerId(raceItem.racer1Id());
                     }
                 });
@@ -105,7 +161,7 @@
             };
 
             self.showRacer2Winner = function (raceItem) {
-                
+
                 $.ajax({
                     url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer2Id(),
                     type: 'PUT',
@@ -113,11 +169,11 @@
                         raceItem.winningRacerId(raceItem.racer2Id());
                     }
                 });
-                
+
             };
 
             self.clearRaceWinner = function (raceItem) {
-                
+
                 $.ajax({
                     url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=-1',
                     type: 'PUT',
@@ -128,13 +184,13 @@
 
             };
 
-            self.showRoundView = function(roundId) {
+            self.showRoundView = function (roundId) {
 
-                self.roundNumber(roundId);
+                self.roundNumber('Show Matches for Round ' + roundId);
 
                 self.races.removeAll();
 
-                $.get('/api/match?roundId=' + roundId, function(data) {
+                $.get('/api/match?roundId=' + roundId, function (data) {
                     for (var x = 0; x < data.length; x++) {
                         var m = data[x];
 
@@ -204,10 +260,10 @@
         }
 
         var racerCache = null;
-        
+
         $(function () {
 
-            $.get('/api/racers2', function(data) {
+            $.get('/api/racers2', function (data) {
                 racerCache = data;
             });
 
@@ -222,7 +278,7 @@
                     }
                 });
             });
-            
+
             $('#assignSequentialStartSlotsButton').click(function () {
 
                 if (!window.confirm('Assign Sequential Start Slots Button?'))
@@ -234,7 +290,7 @@
                     }
                 });
             });
-            
+
             $('#assignRandomStartSlotsButton').click(function () {
 
                 if (!window.confirm('Assign Random Start Slots?'))
@@ -246,7 +302,7 @@
                     }
                 });
             });
-            
+
             $('#assignBracketsByStartSlotButton').click(function () {
 
                 if (!window.confirm('Assign Brackets By Start Slot ?'))
@@ -261,12 +317,12 @@
 
             ko.applyBindings(new RoundViewModel());
         });
-        
+
     </script>
 </head>
 <body>
     <div>
-        
+
         <ul id="menu">
             <li><a href="#carGallery">Gallery</a></li>
             <li><a href="#sponsors">Sponsors</a></li>
@@ -278,34 +334,46 @@
         <div id="bracketView" class="view">
             <h1>Brackets</h1>
             <ul data-bind="foreach: rounds">
-                <li><input type="button" data-bind="value: $data, click: $root.showRound"/></li>
+                <li>
+                    <input type="button" data-bind="value: $data, click: $root.showRound" /></li>
             </ul>
         </div>
-        
+
         <div id="roundView" class="view hidden">
-            <div>
-                <a href="#round">Back</a>
-                <input type="button" data-bind="value: roundNumber"/>
+            <div class="subHeader">
+                <a href="#round">Go Back</a>
+                <input type="button" data-bind="value: roundNumber" />
             </div>
             <table>
                 <tbody data-bind="foreach: races">
-                <tr>
-                    <td class="c1"><input type="button" data-bind="value: heatNumber, click: $root.showRace" /></td>
-                    <td class="c2"><input type="button" data-bind="value: racer1Name, click: $root.showRacer1Winner, css: { selected: racer1Id() > 0 && winningRacerId() == racer1Id() }" /></td>
-                    <td class="c3"><input type="button" data-bind="value: racer2Name, click: $root.showRacer2Winner, css: { selected: racer2Id() > 0 && winningRacerId() == racer2Id() }" /></td>
-                    <td class="c4"><input type="button" value="X" data-bind="click: $root.clearRaceWinner" /></td>
-                </tr>
+                    <tr>
+                        <td class="c1">
+                            <input type="button" data-bind="value: heatNumber, click: $root.showRace" /></td>
+                        <td class="c2">
+                            <input type="button" data-bind="value: racer1Name, click: $root.showRacer1Winner, css: { selected: racer1Id() > 0 && winningRacerId() == racer1Id() }" /></td>
+                        <td class="c3">
+                            <input type="button" data-bind="value: racer2Name, click: $root.showRacer2Winner, css: { selected: racer2Id() > 0 && winningRacerId() == racer2Id() }" /></td>
+                        <td class="c4">
+                            <input type="button" value="X" data-bind="click: $root.clearRaceWinner" /></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
-        
+
         <div id="adminView" class="view hidden">
             <h1>Admin</h1>
-            <div><input id="clearWinningRacersButton" type="button" value="Clear Winning Racers" /></div>
-            <div><input id="assignSequentialStartSlotsButton" type="button" value="Assign Sequential Start Slots" /></div>
-            <div><input id="assignRandomStartSlotsButton" type="button" value="Assign Random Start Slots" /></div>
-            <div><input id="assignBracketsByStartSlotButton" type="button" value="Assign Brackets By Start Slot" /></div>
+            <ul>
+                <li>
+                    <input id="clearWinningRacersButton" type="button" value="Clear Winning Racers" /></li>
+                <li>
+                    <input id="assignSequentialStartSlotsButton" type="button" value="Assign Sequential Start Slots" /></li>
+                <li>
+                    <input id="assignRandomStartSlotsButton" type="button" value="Assign Random Start Slots" /></li>
+                <li>
+                    <input id="assignBracketsByStartSlotButton" type="button" value="Assign Brackets By Start Slot" /></li>
+            </ul>
         </div>
+
     </div>
 </body>
 </html>
