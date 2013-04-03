@@ -7,98 +7,74 @@
 <head>
     <title>Stumptown40</title>
     <style>
-        body
-        {
-            background: #666;
-        }
+        body { background: #666; }
 
-        a
-        {
-            color: #fff;
-        }
+        a { color: #fff; }
 
-        h1
-        {
-            color: #CCC;
-            font: normal normal normal 200% Arial;
-        }
+        h1 { color: #CCC; font: normal normal normal 200% Arial; }
 
-        .hidden
-        {
-            display: none;
-        }
+        .hidden { display: none; }
 
-        #bracketView input
-        {
-            height: 60px;
-            width: 80px;
-            font-size: 140%;
-        }
+        #bracketView input { height: 60px; width: 80px; font-size: 140%; }
 
-        #bracketView ul li
-        {
-            list-style: none;
-            margin: 0 0 20px 0;
-        }
+        #bracketView ul li { list-style: none; margin: 0 0 20px 0; }
 
-        #roundView input.selected
-        {
-            background: yellow;
-        }
+        #roundView input.selected { background: yellow; }
 
-        #roundView table tr td
-        {
-            padding: 20px;
-        }
+        #roundView table tr td { padding: 20px; }
 
-        #roundView table tr td.c1 input,
-        #roundView table tr td.c4 input
-        {
-            width: 60px;
-            height: 60px;
-            font-size: 150%;
-        }
+            #roundView table tr td.c1 input,
+            #roundView table tr td.c4 input { width: 60px; height: 60px; font-size: 150%; }
 
-        #roundView table tr td.c2 input,
-        #roundView table tr td.c3 input
-        {
-            width: 300px;
-            height: 60px;
-            font-size: 120%;
-            text-align: left;
-        }
+            #roundView table tr td.c2 input,
+            #roundView table tr td.c3 input { width: 300px; height: 60px; font-size: 120%; text-align: left; }
 
-        #menu
-        {
-            margin: 0 0 20px 0;
-            padding: 0;
-        }
+        #menu { margin: 0 0 20px 0; padding: 0; }
 
-            #menu li
-            {
-                display: inline;
-                font: normal normal bold 14pt Verdana;
-                margin-right: 20px;
-            }
+            #menu li { display: inline; font: normal normal bold 14pt Verdana; margin-right: 20px; }
 
-        #adminView li
-        {
-            list-style: none;
-            margin: 0 0 20px 0;
-        }
+        #adminView li { list-style: none; margin: 0 0 20px 0; }
 
-        #adminView input
-        {
-            height: 60px;
-            width: 320px;
-            font-size: 140%;
-        }
-        .subHeader { background: #000;padding: 30px;}
+        #adminView input { height: 60px; width: 320px; font-size: 140%; }
+        .subHeader { background: #000; padding: 30px; }
+        #statsView h2 { color: #ffffff; }
     </style>
     <script src="/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="/Scripts/jquery.signalR-1.0.0.js"></script>
+    <script src="/signalr/hubs"></script>
     <script src="/Scripts/knockout-2.2.0.js"></script>
     <script src="/Scripts/sammy-0.7.4.min.js"></script>
     <script type="text/javascript">
+        
+        function getRaceViewJson(raceItem) {
+
+            var nextRaceId = parseInt(raceItem.raceId()) + 1;
+            var nextInput = $('#roundView table tr td[class=c1] input[value="' + nextRaceId + '"]');
+
+            var nextRacer1 = 0;
+            var nextRacer2 = 0;
+
+            if (nextInput.length !== 0) {
+                var nextRow = nextInput.parent().parent();
+                var nextRacer1Input = nextRow.find('td[class=c2] input[type=hidden]');
+                var nextRacer2Input = nextRow.find('td[class=c3] input[type=hidden]');
+
+                nextRacer1 = nextRacer1Input.val();
+                nextRacer2 = nextRacer2Input.val();
+            }
+
+            var json = '{'
+                        + '"racer1":"' + raceItem.racer1Id() + '",'
+                        + '"racer2":"' + raceItem.racer2Id() + '",'
+                        + '"winnerId":"' + raceItem.winningRacerId() + '",'
+                        + '"nextRacer1":"' + nextRacer1 + '",'
+                        + '"nextRacer2":"' + nextRacer2 + '",'
+                        + '"}';
+
+            alert(json);
+
+            return json;
+        }
 
         function showView(viewId) {
             $('div.view').addClass('hidden');
@@ -145,7 +121,7 @@
             };
 
             self.showRace = function (raceItem) {
-                alert('showRace:' + raceItem.raceId);
+                gHub.server.navigate('raceView', getRaceViewJson(raceItem));
             };
 
             self.showRacer1Winner = function (raceItem) {
@@ -155,6 +131,7 @@
                     type: 'PUT',
                     success: function () {
                         raceItem.winningRacerId(raceItem.racer1Id());
+                        gHub.server.navigate('raceView', getRaceViewJson(raceItem));
                     }
                 });
 
@@ -167,6 +144,7 @@
                     type: 'PUT',
                     success: function () {
                         raceItem.winningRacerId(raceItem.racer2Id());
+                        gHub.server.navigate('raceView', getRaceViewJson(raceItem));
                     }
                 });
 
@@ -178,7 +156,8 @@
                     url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=-1',
                     type: 'PUT',
                     success: function () {
-                        raceItem.winningRacerId(-1);
+                        raceItem.winningRacerId(0);
+                        gHub.server.navigate('raceView', getRaceViewJson(raceItem));
                     }
                 });
 
@@ -207,8 +186,8 @@
                         var racer1Id = parseInt(m.Racer1Id);
                         var racer2Id = parseInt(m.Racer2Id);
 
-                        var racer1Name = racer1Id > 0 ? racerCache[racer1Id].Name : "???";
-                        var racer2Name = racer2Id > 0 ? racerCache[racer2Id].Name : "???";
+                        var racer1Name = racer1Id > 0 ? gRacerCache[racer1Id].Name : "???";
+                        var racer2Name = racer2Id > 0 ? gRacerCache[racer2Id].Name : "???";
 
                         self.races.push(
                             new RaceItem(
@@ -232,25 +211,28 @@
             Sammy(function () {
                 this.get('#:controller', function () {
                     switch (this.params.controller) {
-                        case 'round':
-                            showView('#bracketView');
-                            break;
-                        case 'admin':
-                            showView('#adminView');
-                            break;
-                        default:
-                            alert('unexpected: ' + this.params.controller);
-                            break;
+                    case 'round':
+                        showView('#bracketView');
+                        break;
+                    case 'admin':
+                        showView('#adminView');
+                        break;
+                    case 'stats':
+                        showView('#statsView');
+                        break;
+                    default:
+                        alert('unexpected: ' + this.params.controller);
+                        break;
                     }
                 });
                 this.get('#:controller/:id', function () {
                     switch (this.params.controller) {
-                        case 'round':
-                            self.showRoundView(this.params.id);
-                            break;
-                        default:
-                            alert('unexpected: ' + this.params.controller);
-                            break;
+                    case 'round':
+                        self.showRoundView(this.params.id);
+                        break;
+                    default:
+                        alert('unexpected: ' + this.params.controller);
+                        break;
                     }
                 });
                 this.get('', function () {
@@ -259,12 +241,24 @@
             }).run();
         }
 
-        var racerCache = null;
+        var gRacerCache = null;
+        var gHub = null;
 
         $(function () {
+            
+            // Declare a proxy to reference the hub. 
+            $.support.cors = true;
+            $.connection.hub.url = '/signalr';
 
-            $.get('/api/racers2', function (data) {
-                racerCache = data;
+            gHub = $.connection.navigationHub; // Start the connection.
+
+            $.connection.hub.start().done(function () {
+                // window.status = 'signalR is ready.';
+            });
+
+            $.get('/api/racers', function (data) {
+                gRacerCache = data;
+                // window.status = '/api/racers returned ' + data.length + ' items.';
             });
 
             $('#clearWinningRacersButton').click(function () {
@@ -350,9 +344,13 @@
                         <td class="c1">
                             <input type="button" data-bind="value: heatNumber, click: $root.showRace" /></td>
                         <td class="c2">
-                            <input type="button" data-bind="value: racer1Name, click: $root.showRacer1Winner, css: { selected: racer1Id() > 0 && winningRacerId() == racer1Id() }" /></td>
+                            <input type="button" data-bind="value: racer1Name, click: $root.showRacer1Winner, css: { selected: racer1Id() > 0 && winningRacerId() == racer1Id() }" />
+                            <input type="hidden" data-bind="value: racer1Id" />
+                        </td>
                         <td class="c3">
-                            <input type="button" data-bind="value: racer2Name, click: $root.showRacer2Winner, css: { selected: racer2Id() > 0 && winningRacerId() == racer2Id() }" /></td>
+                            <input type="button" data-bind="value: racer2Name, click: $root.showRacer2Winner, css: { selected: racer2Id() > 0 && winningRacerId() == racer2Id() }" />
+                            <input type="hidden" data-bind="value: racer2Id" />
+                        </td>
                         <td class="c4">
                             <input type="button" value="X" data-bind="click: $root.clearRaceWinner" /></td>
                     </tr>
@@ -372,6 +370,12 @@
                 <li>
                     <input id="assignBracketsByStartSlotButton" type="button" value="Assign Brackets By Start Slot" /></li>
             </ul>
+        </div>
+
+        <div id="statsView" class="view hidden">
+            <h1>Stats</h1>
+            <h2>Races: {0}/{1}</h2>
+            <h2>Estimated Finish: {0}</h2>
         </div>
 
     </div>

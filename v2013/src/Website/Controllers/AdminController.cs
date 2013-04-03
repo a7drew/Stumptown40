@@ -9,8 +9,6 @@ namespace Website.Controllers
 {
     public class AdminController : Controller
     {
-        private const string Cnn = @"Server=.\sqlexpress;Database=Stumptown40;Trusted_Connection=True;";
-
         public ActionResult Index()
         {
             return View();
@@ -19,7 +17,7 @@ namespace Website.Controllers
         [HttpPost]
         public bool ClearWinningRacers()
         {
-            using (var connection = new SqlConnection(Cnn))
+            using (var connection = new SqlConnection(Settings.Cnn))
             {
                 connection.Open();
                 connection.Execute("update match set winningracerid=null");
@@ -31,7 +29,7 @@ namespace Website.Controllers
         [HttpPost]
         public bool AssignSequentialStartSlots()
         {
-            using (var connection = new SqlConnection(Cnn))
+            using (var connection = new SqlConnection(Settings.Cnn))
             {
                 connection.Open();
                 connection.Execute("update racer set startslot=racerId");
@@ -43,7 +41,7 @@ namespace Website.Controllers
         [HttpPost]
         public bool AssignRandomStartSlots()
         {
-            using (var connection = new SqlConnection(Cnn))
+            using (var connection = new SqlConnection(Settings.Cnn))
             {
                 connection.Open();
 
@@ -70,7 +68,7 @@ namespace Website.Controllers
         [HttpPost]
         public bool AssignBracketsByStartSlot()
         {
-            using (var connection = new SqlConnection(Cnn))
+            using (var connection = new SqlConnection(Settings.Cnn))
             {
                 connection.Open();
 
@@ -116,6 +114,33 @@ namespace Website.Controllers
             }
 
             return true;
+        }
+
+        public string GetStats()
+        {
+            using (var connection = new SqlConnection(Settings.Cnn))
+            {
+                connection.Open();
+
+                var completedRaces = connection.Query<int>("select count(*) from match where winningracerid is not null;").FirstOrDefault();
+                
+                var dates = connection.Query("select min(modified) as minDate, max(modified) as maxDate from match;").FirstOrDefault();
+
+                //return dates.minDate.ToString();
+
+                TimeSpan ts = (DateTime)dates.maxDate - (DateTime)dates.minDate;
+
+                double avgSec = ts.TotalSeconds/completedRaces;
+
+                double estimatedFinish = 99*avgSec;
+
+                var estimatedFinishdate = DateTime.Now.AddSeconds(estimatedFinish);
+
+                return string.Format("{{r:\"{0}\", min:\"{1}\", max:\"{2}\", totalSec:{3}, avgSec:\"{4}\", estimatedFinish:\"{5}\"}}",
+                    ts.TotalSeconds, dates.minDate, dates.maxDate, ts.TotalSeconds, avgSec, estimatedFinishdate);
+                
+                //return string.Format("{{r:\"{0}\"}}", result.First());
+            }            
         }
     }
 }
