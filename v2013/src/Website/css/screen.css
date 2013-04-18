@@ -1,0 +1,1033 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+margin: 0;
+padding: 0;
+border: 0;
+outline: 0;
+font-size: 100%;
+font: inherit;
+vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+display: block;
+}
+body {
+line-height: 1;
+}
+ol, ul {
+list-style: none;
+}
+
+:focus {
+outline: 0;
+}
+
+
+@font-face {
+font-family: 'Ranger';
+src: url('../fonts/Ranger.eot');
+src: url('../fonts/Ranger.eot?#iefix') format('embedded-opentype'),
+url('../fonts/Ranger.woff') format('woff'),
+url('../fonts/Ranger.ttf') format('truetype'),
+url('../fonts/Ranger.svg#Ranger') format('svg');
+font-weight: normal;
+font-style: normal;
+}
+
+@font-face {
+font-family: 'Haymaker';
+src: url('../fonts/Haymaker.eot');
+src: url('../fonts/Haymaker.eot?#iefix') format('embedded-opentype'),
+url('../fonts/Haymaker.woff') format('woff'),
+url('../fonts/Haymaker.ttf') format('truetype'),
+url('../fonts/Haymaker.svg#Haymaker') format('svg');
+font-weight: normal;
+font-style: normal;
+}
+
+html, body {
+width:100%;
+height:100%;
+/* enable when ready for on screen viewing overflow:hidden; */
+overflow:hidden;
+overflow-y: visible;
+}
+
+
+body {
+background: url("../images/bg.png");
+font-family:Ranger;
+font-size:28px;
+}
+
+a {
+color:#000;
+text-decoration:none;
+}
+
+.value, .number {
+font-family:Haymaker;
+}
+
+header {
+text-align:center;
+width:100%;
+height:160px;
+padding-top:15px;
+position:absolute;
+top:-70px;
+left:0;
+background:transparent url("../images/racecenter.png") 50% 100% no-repeat;
+z-index:10;
+}
+
+nav  {
+top:-100px;
+width:700px;
+left:50%;
+margin-left:-350px;
+font-size:16px;
+position:absolute;
+text-align:center;
+padding:80px 0 10px;
+-moz-transition: all 300ms ease-in-out;
+-webkit-transition: all 300ms ease-in-out;
+-ms-transition: all 300ms ease-in-out;
+-o-transition: all 300ms ease-in-out;
+transition: all 300ms ease-in-out;
+z-index:1000;
+}
+
+
+
+nav:hover,
+nav.on {
+top:-68px;
+background:rgba(255,255,255,.6);
+box-shadow:0 1px 5px rgba(0,0,0,.1);
+}
+
+
+nav li {
+display:inline;
+text-align:center;
+}
+
+nav a {
+margin:0 20px;
+color:#e36000;
+}
+
+nav a:hover {
+color:#000;
+}
+
+article {
+
+float: left;
+    height: 100%;
+    left: 0;
+    margin-top: 120px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+}
+
+article > div {
+display:inline;
+}
+
+.meta {
+margin:0 auto;
+box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
+background:#fff;
+width:180px;
+font-size:28px;
+text-align:center;
+line-height:67px;
+height:61px;
+position:absolute;
+left:50%;
+margin-top:140px;
+margin-left:-90px;
+}
+
+.meta:before {
+position:absolute;
+content:'';
+width:23px;
+height:69px;
+display:block;
+left:-22px;
+top:-3px;
+background:transparent url("../images/ribbon_left.png") no-repeat;
+}
+
+.meta:after {
+position:absolute;
+content:'';
+width:22px;
+height:69px;
+display:block;
+right:-21px;
+top:-3px;
+background:transparent url("../images/ribbon_right.png") no-repeat;
+}
+
+.meta span {
+font-size:30px;
+}
+
+/* brackets page */
+
+.bracketTemplate {
+position:absolute;
+top:50%;
+left:0;
+width:100%;
+margin-top:-180px;
+}
+
+.bracketTemplate a {
+position:absolute;
+left:50%;
+top:0;
+width:100%;
+}
+
+.bracketTemplate a[data-bracket="#winning"] {
+width:316px;
+margin-left:-562px;
+height:218px;
+display:block;
+text-indent:-999em;
+background:transparent url("../images/winners.png") 0 50% no-repeat;
+}
+
+.bracketTemplate a[data-bracket="#drinking"] {
+margin-left:296px;
+width:158px;
+height:218px;
+display:block;
+text-indent:-999em;
+background:transparent url("../images/losers.png") 0 50% no-repeat;	
+}
+
+.bracketTemplate a[data-bracket="#championship"] {
+margin-left:-108px;
+width:201px;
+height:218px;
+display:block;
+text-indent:-999em;
+background:transparent url("../images/championship.png") 0 50% no-repeat;	
+}
+
+
+/* list pages */
+
+.racerlist, .round {
+-moz-column-count: 2;
+-moz-column-gap: auto;
+-webkit-column-count: 2;
+-webkit-column-gap:auto;
+column-count: 2;
+column-gap: auto;
+margin: 0 auto;
+width: 80%;
+}
+
+.racerlist li, .round li {
+width: 80%;
+background:#fff;
+padding:40px 80px 28px 20px;
+box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
+position:relative;
+margin-bottom:20px;
+overflow:hidden;
+display:block;
+}
+
+/* left to right readout that sucks 
+
+.racerlist, .round {
+width: 65%;
+margin:0 auto;
+min-width:1000px;
+}
+
+.racerlist li, .round li {
+width: 38%;
+background:#fff;
+padding:40px 80px 28px 20px;
+box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
+position:relative;
+margin-bottom:20px;
+overflow:hidden;
+display:block;
+float:left;
+}
+
+.racerlist li:nth-child(odd), .round li:nth-child(odd) {
+	margin-right:20px;	
+}
+
+.racerlist li:nth-child(even), .round li:nth-child(even) {
+float:right;	
+}
+
+.round li.winner:after {
+content:'';
+background: url("../images/winner.png") repeat scroll 0 0 transparent;
+display: block;
+height: 180px;
+position: absolute;
+right: 220px;
+text-indent: -999em;
+top: -8px;
+width: 207px;
+z-index: 10;
+}
+*/
+
+.round li.winner:after {
+content:'';
+background: url("../images/winner.png") repeat scroll 0 0 transparent;
+display: block;
+height: 180px;
+position: absolute;
+right: 220px;
+text-indent: -999em;
+top: -8px;
+width: 207px;
+z-index: 10;
+}
+
+.roundTemplate .round li.winner:after {
+display:none;
+}
+
+.roundTemplate .round li.winner {
+	opacity:.3;
+}
+
+.matchList a {
+overflow:visible;
+margin-bottom:45px;
+}
+
+.number {
+background: url("../images/circle_green.png") repeat scroll 0 0 transparent;
+color: #FFFFFF;
+display: block;
+font-size: 64px;
+height: 163px;
+padding-top:56px;
+position: absolute;
+right: -30px;
+text-align: center;
+margin-top: -78px;
+width: 163px;
+top:50%;
+}
+
+.racerlist li:nth-child(even) .number, .round li:nth-child(even) .number, .cards a:nth-child(even) .number, .cards .racer2 .number {
+background: url("../images/circle_red.png") repeat scroll 0 0 transparent;
+}
+
+.racerlist li .name, .round li .name {
+display: block;
+font-size: 38px;
+width: 80%;
+white-space: nowrap;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* racer cards */
+.cards {
+margin: 0 auto;
+width: 1310px;
+}
+
+.cards.racers {
+max-width: 1100px;
+min-width: 960px;
+margin-top:140px;
+}
+
+.cards .winner:after {
+content:'';
+background: url("../images/winner.png") repeat scroll 0 0 transparent;
+display: block;
+height: 180px;
+position: absolute;
+right: 0;
+text-indent: -999em;
+top: -8px;
+width: 207px;
+z-index: 10;
+}
+
+.cards > a {
+display: inline-block;
+height: 400px;
+margin-bottom: 440px;
+position: relative;
+width: 315px;
+margin-left: 4%;
+margin-right: 4%;
+}
+
+.card {
+box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
+position:absolute;
+background:#fff;
+width:306px;
+height:400px;
+margin-bottom:20px;
+padding:10px;
+top:0;
+left:0;
+z-index:1;
+overflow:hidden;
+z-index:2;
+-moz-transform:rotate(0deg);
+-webkit-transform:rotate(0deg);
+}
+
+
+.racers .card {
+position:relative;
+float:left;
+}
+
+.racers .card {
+position:relative;
+}
+
+.racers .racer2 .card {
+float:right;
+}
+
+.readout {
+display:none!important;
+}
+
+.card + .card, .race_over > .card {
+-moz-transform:rotate(9deg);
+-webkit-transform:rotate(9deg);
+z-index:1;
+top:100px;
+}
+
+
+.race_over > .card.winner, a > .card + .card.winner {
+z-index:2;
+top:0;
+-moz-transform:rotate(0deg);
+-webkit-transform:rotate(0deg);
+}
+
+.card .avatar {
+width:306px;
+margin:0 auto;
+height:306px;
+box-shadow:0 0 65px 20px rgba(0, 0, 0, 0.2) inset, 0 0 5px -2px rgba(0, 0, 0, 0.9) inset;
+position:relative;
+top:0;
+left:0;
+z-index:2;
+background-color:#fff;
+background-image: url("../images/pinewoodcar.png");
+background-position:50% 50%;
+background-repeat: no-repeat;
+}
+
+.card .avatar::before {
+content:'';
+width:306px;
+position:absolute;
+top:0;
+left:0;
+height:306px;
+z-index:3;
+display:block;
+box-shadow:0 0 65px 20px rgba(0, 0, 0, 0.2) inset, 0 0 5px -2px rgba(0, 0, 0, 0.9) inset;
+}
+
+.card .avatar .car {
+height:306px;
+width:306px;
+}
+
+.racername {
+-moz-box-sizing: padding-box;
+-webkit-box-sizing: padding-box;
+background: none repeat scroll 0 0 #FFFFFF;
+height: 122px;
+left: 0;
+padding: 0;
+position: absolute;
+top: 298px;
+width: 100%;
+z-index: 1;
+}
+
+.racername .name {
+display: table;
+height: 145px;
+left: 15px;
+position: absolute;
+top: 0;
+width: 185px;
+}
+
+.racername .name p {
+display: table-cell;
+vertical-align: middle;
+}
+
+
+.matchList {
+padding-top:100px;
+}
+
+.matchListHeader .meta {
+margin-top:0;
+}
+
+
+/* sponsor */
+
+.sponsorTemplate .meta {
+width:500px;
+margin-top:-100px;
+margin-left:-250px;
+}
+
+.slideshow {
+width:100%; 
+height:346px;
+margin:220px auto 0;
+text-align:center;
+}
+.slides {
+width:100%; 
+height:346px; 
+position:relative; 
+overflow:hidden;
+}
+
+.slides a {
+position:absolute; 
+left:-100%; 
+top: 0; 
+z-index:1;
+height:346px;
+-moz-animation-iteration-count: infinite;
+-moz-animation-timing-function: cubic-bezier(0.680, -0.550, 0.265, 1.550);
+-moz-animation-duration:40s;
+-webkit-animation-iteration-count: infinite;
+-webkit-animation-timing-function: cubic-bezier(0.680, -0.550, 0.265, 1.550);
+-webkit-animation-duration:40s;
+width:100%;
+display:block;
+line-height: 346px;
+}
+.slides a.p1 {left:0;}
+
+.slides a img,
+.slides a span {
+margin:0 auto;
+display:inline;
+}
+
+.slides a span {
+font-size:52px;
+}
+
+@-moz-keyframes show1 {
+0% {left:0;}
+10% {left:0;}
+11% {left:100%;}
+100% {left:100%;}
+}
+@-moz-keyframes show2 {
+0% {left:-100%;}
+10% {left:-100%;}
+11% {left:0;}
+20% {left:0;}
+21% {left:-100%;}
+100% {left:-100%;}
+}
+@-moz-keyframes show3 {
+0% {left:100%;}
+20% {left:100%;}
+21% {left:0;}
+30% {left:0;}
+31% {left:100%;}
+100% {left:100%;}
+}
+@-moz-keyframes show4 {
+0% {left:-100%;}
+30% {left:-100%;}
+31% {left:0;}
+40% {left:0;}
+41% {left:-100%;}
+100% {left:-100%;}
+}
+@-moz-keyframes show5 {
+0% {left:100%;}
+40% {left:100%;}
+41% {left:0;}
+50% {left:0;}
+51% {left:100%;}
+100% {left:100%;}
+}
+@-moz-keyframes show6 {
+0% {left:-100%;}
+50% {left:-100%;}
+51% {left:0;}
+60% {left:0;}
+61% {left:-100%;}
+100% {left:-100%;}
+}
+@-moz-keyframes show7 {
+0% {left:100%;}
+60% {left:100%;}
+61% {left:0;}
+70% {left:0;}
+71% {left:100%;}
+100% {left:100%;}
+}
+@-moz-keyframes show8 {
+0% {left:-100%;}
+70% {left:-100%;}
+71% {left:0;}
+80% {left:0;}
+81% {left:-100%;}
+100% {left:-100%;}
+}
+@-moz-keyframes show9 {
+0% {left:100%;}
+80% {left:100%;}
+81% {left:0;}
+90% {left:0;}
+91% {left:100%;}
+100% {left:100%;}
+}
+
+@-moz-keyframes show10 {
+0% {left:-100%;}
+90% {left:-100%;}
+91% {left:0;}
+99% {left:0;}
+100% {left:-100%;}
+}
+
+@-moz-keyframes show11 {
+0% {left:100%;}
+99% {left:100%;}
+100% {left:0;}
+}
+
+@-webkit-keyframes show1 {
+0% {left:0;}
+10% {left:0;}
+11% {left:100%;}
+100% {left:100%;}
+}
+@-webkit-keyframes show2 {
+0% {left:-100%;}
+10% {left:-100%;}
+11% {left:0;}
+20% {left:0;}
+21% {left:-100%;}
+100% {left:-100%;}
+}
+@-webkit-keyframes show3 {
+0% {left:100%;}
+20% {left:100%;}
+21% {left:0;}
+30% {left:0;}
+31% {left:100%;}
+100% {left:100%;}
+}
+@-webkit-keyframes show4 {
+0% {left:-100%;}
+30% {left:-100%;}
+31% {left:0;}
+40% {left:0;}
+41% {left:-100%;}
+100% {left:-100%;}
+}
+@-webkit-keyframes show5 {
+0% {left:100%;}
+40% {left:100%;}
+41% {left:0;}
+50% {left:0;}
+51% {left:100%;}
+100% {left:100%;}
+}
+@-webkit-keyframes show6 {
+0% {left:-100%;}
+50% {left:-100%;}
+51% {left:0;}
+60% {left:0;}
+61% {left:-100%;}
+100% {left:-100%;}
+}
+@-webkit-keyframes show7 {
+0% {left:100%;}
+60% {left:100%;}
+61% {left:0;}
+70% {left:0;}
+71% {left:100%;}
+100% {left:100%;}
+}
+@-webkit-keyframes show8 {
+0% {left:-100%;}
+70% {left:-100%;}
+71% {left:0;}
+80% {left:0;}
+81% {left:-100%;}
+100% {left:-100%;}
+}
+@-webkit-keyframes show9 {
+0% {left:100%;}
+80% {left:100%;}
+81% {left:0;}
+90% {left:0;}
+91% {left:100%;}
+100% {left:100%;}
+}
+
+@-webkit-keyframes show10 {
+0% {left:-100%;}
+90% {left:-100%;}
+91% {left:0;}
+99% {left:0;}
+100% {left:-100%;}
+}
+
+@-webkit-keyframes show11 {
+0% {left:100%;}
+99% {left:100%;}
+100% {left:0;}
+}
+
+
+.slides a.p1 {
+-moz-animation-name: show1;
+-webkit-animation-name: show1;
+}
+.slides a.p2 {
+-moz-animation-name: show2;
+-webkit-animation-name: show2;
+}
+.slides a.p3 {
+-moz-animation-name: show3;
+-webkit-animation-name: show3;
+}
+.slides a.p4 {
+-moz-animation-name: show4;
+-webkit-animation-name: show4;
+}
+.slides a.p5 {
+-moz-animation-name: show5;
+-webkit-animation-name: show5;
+}
+.slides a.p6 {
+-moz-animation-name: show6;
+-webkit-animation-name: show6;
+}
+.slides a.p7 {
+-moz-animation-name: show7;
+-webkit-animation-name: show7;
+}
+.slides a.p8 {
+-moz-animation-name: show8;
+-webkit-animation-name: show8;
+}
+.slides a.p9 {
+-moz-animation-name: show9;
+-webkit-animation-name: show9;
+}
+.slides a.p10 {
+-moz-animation-name: show10;
+-webkit-animation-name: show10;
+}
+.slides a.p11 {
+-moz-animation-name: show11;
+-webkit-animation-name: show11;
+}
+
+/* home */
+.home {
+ /*background: url("../images/stumptown40_lg.png") no-repeat scroll 50% 50% transparent;*/
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%
+}
+
+.home .meta {
+margin-top:0;
+}
+
+.racerphotos {
+	left: 10px;
+	    position: absolute;
+	    top: 75px;
+	    width: 100%;
+}
+
+.racerphotos li {
+	float: left;
+	    height: 202px;
+	    position: relative;
+	    width: 202px;
+}
+
+.racerphotos img {
+display:block;
+max-width:100%;
+max-height:100%;
+position:relative;
+display:block;
+z-index:2;
+/*-webkit-transform: translateZ(0);*/
+}
+
+.racerphotos .animate img {
+-moz-animation-name: big;
+-moz-animation-iteration-count: 1;
+-moz-animation-timing-function: ease-in-out;
+-moz-animation-duration:2s;
+-webkit-animation-name: big;
+-webkit-animation-iteration-count: 1;
+-webkit-animation-timing-function: ease-in-out;
+-webkit-animation-duration:2s;
+-webkit-backface-visibility: hidden !important;
+-moz-backface-visibility: hidden !important;
+}
+
+.racernumberslide {
+ color: #000000;
+    display: block;
+    font-family: Haymaker;
+    font-size: 76px;
+    height: 100%;
+    left: 0;
+    line-height: 146px;
+    position: absolute;
+    text-align: center;
+    text-shadow: 0 -1px 0 #CFB181;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+}
+
+@-moz-keyframes big {
+ 	0% {
+	-moz-transform: translateY(0);
+	z-index:1;
+	}
+
+	50% {
+	-moz-transform: translateY(200px);
+		z-index:1;
+	}
+	
+	70% {
+	-moz-transform: translateY(200px);
+		z-index:1;
+	}
+	
+	80% {
+	-moz-transform: translateY(200px);
+		z-index:1;
+	}
+	
+	100% {
+	-moz-transform: translateY(0);
+		z-index:1;
+	}
+}
+
+@-webkit-keyframes big {
+ 	0% {
+	-webkit-transform: translateY(0);
+	z-index:1;
+	}
+
+	50% {
+	-webkit-transform: translateY(200px);
+		z-index:1;
+	}
+	
+	70% {
+	-webkit-transform: translateY(200px);
+		z-index:1;
+	}
+	
+	80% {
+	-webkit-transform: translateY(200px);
+		z-index:1;
+	}
+	
+	100% {
+	-webkit-transform: translateY(0);
+		z-index:1;
+	}
+}
+
+/*@-moz-keyframes big {
+0%, 100% {
+max-width:306px;
+max-height:306px;
+z-index:10000;
+margin-left:0;
+}
+
+10%,20%,30%,40%,50%,60%,70%,80%,90% {
+max-width:612px;
+max-height:612px;
+margin-left:-286px;
+margin-top:-236px;
+box-shadow: 0 2px 5px rgba(0,0,0,.8);
+}
+}*/
+
+
+@media all and (min-width: 1920px) {
+
+}
+
+@media all and (min-width: 1680px) {
+
+}
+
+@media all and (min-width: 1440px) {
+
+}
+
+@media all and (min-width: 1280px) {
+
+}
+
+@media all and (max-width: 1024px) {
+	
+	.home {
+	    width: 1024px;
+		margin:0 auto;
+	}
+	
+	.racerphotos {
+		left: 20px;
+	    position: absolute;
+	    top: 200px;
+	}
+	
+	 .racerphotos,  .racerphotos > ul {
+	    width: 	1000px;
+		margin:0 auto;
+	}
+	
+	.cards.racers {
+	    max-width: 970px;
+	}
+	
+	.cards {
+	    margin: 0 auto;
+	    width: 1024px;
+	}
+	
+	.cards > a {
+
+	}
+	
+	.cards > a:nth-child(odd) {
+		margin-left:130px;
+	}
+	
+	.slides a span {
+	    font-size: 38px;
+	}
+	
+	.bracketTemplate {
+	    -moz-transform: scale(0.85);
+		-webkit-transform: scale(0.85);
+		transform: scale(0.85);
+	}
+	
+	.racerlist li .name, .round li .name {
+	    font-size: 27px;
+	}
+	
+	.racerlist, .round {
+	    width: 90%;
+	}
+}
+
+/* ipad styles */
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) {
+	
+	nav, nav:hover  {
+		top:auto;
+		bottom:0;
+		background:rgba(0,0,0,.09);
+		box-shadow:0 -1px 15px rgba(0,0,0,.19);
+		padding:30px 0 22px;
+		position:fixed;
+		width:100%;
+		left:0;
+		margin-left:0;
+		font-size:22px;
+		
+	}
+	
+	.bracketTemplate  {
+		-webkit-transform:scale(.7);
+	}
+
+	.racerlist, .round {
+	-webkit-column-count: 1;
+	-webkit-column-gap:0;
+	margin: 0 auto;
+	width: 95%;
+	}
+	
+
+}
+
+#ipadMenu {
+	position:absolute;
+	top:0;
+	left:0;
+	width:60px;
+	height:60px;
+	z-index:10000;
+}
+
+.intrologo {
+	display:block;
+	margin:0 auto;
+}
