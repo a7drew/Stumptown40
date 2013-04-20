@@ -1,77 +1,77 @@
-// Declare a proxy to reference the hub. 
-	$.support.cors = true;
-	$.connection.hub.url = 'http://stumptown40.cloudapp.net/signalr';
+if (!window.location.hash) {
+	history.pushState(null, 'Home', '#home');
+}
 
-	var chat = $.connection.navigationHub;
-	
-	
-	chat.client.onNavigate = function (viewName, jsonData) {
-		var encodedName = $('<div />').text(viewName).html();
-		var encodedMsg = $('<div />').text(jsonData).html();
-		history.pushState(null, viewName, '#/'+viewName+'/');	
+$.support.cors = true;
+$.connection.hub.url = 'http://stumptown40.cloudapp.net/signalr';
+var chat = $.connection.navigationHub;
 
+function SetActiveLink(name){
+    var nav = $('nav');
+    nav.children().removeClass('active');
+    nav.find('a[href="#/'+name+'/"]').addClass('active');
+}
 
-	var app = $.sammy('#view', function() {
-		
-		if (!window.location.hash) {
-			history.pushState(null, 'Home', '#/home/');
-		}
-	
-	    this.use('Handlebars', 'hb');
-	
-		function SetActiveLink(name){
-		    var nav = $('nav');
-		    nav.children().removeClass('active');
-		    nav.find('a[href="#/'+name+'/"]').addClass('active');
-		}
-		
-		this.get('#/home/', function() {
-			SetActiveLink('home');
+chat = $.connection.navigationHub;
+
+var showView = function(viewId, data) {
+	$.sammy('#view', function() {
+		this.use('Handlebars', 'hb');
+		this.get('#'+viewId, function() {
 			
-			console.log(viewName, jsonData)
+			if(data != null) {
+				console.log(data);
+			}
 			
-	      	this.title = 'Home View';
-	      	this.partial('../Templates/home.hb');
-	    });
+			SetActiveLink(viewId);
+	    	this.title = viewId;
 	
-		this.get('#/gallery/', function() {
-			SetActiveLink('gallery');
-			console.log(viewName, jsonData)
-	      	this.title = 'Gallery View';
-	      	this.partial('../Templates/gallery.hb');
-	    });
+			this.partial('../Templates/'+viewId+'.hb');
+	   });
+	}).run();
+}  
 
-	    this.get('#/sponsors/', function() {
-			SetActiveLink('sponsors');
-			console.log(viewName, jsonData)
-	      	this.title = 'Sponsors View';
-	      	this.partial('../Templates/sponsors.hb');
-	    });
+chat.client.onNavigate = function (viewName, jsonData) {
+	history.pushState(null, viewName, '#'+viewName);
+	showView(viewName, jsonData);
+};	
+
+
+$.sammy(function () {
+       this.get('#:controller', function () {
+           switch (this.params.controller) {
+           case 'home':
+               showView('home', null);
+               break;
+           case 'gallery':
+               showView('gallery', null);
+               break;
+           case 'sponsors':
+               showView('sponsors', null);
+               break;
+			case 'race':
+               showView('race', null);
+               break;
+           default:
+               alert('unexpected: ' + this.params.controller);
+               break;
+           }
+       });
+}).run();
 	
-	
-	    this.get('#/race/', function() {
-			SetActiveLink('race');
-			console.log(viewName, jsonData)
-	      	this.title = 'Race View';
-	      	this.partial('../Templates/race.hb');
-	    });
-	
-	  });
-
-	  $(function() {
-	    app.run()
-	  });
-
-	 };
 
 
-// what is this for?
-  $.getJSON('http://stumptown40.cloudapp.net/api/racers?callback=?', function(e) {
-	console.log(e)
-      //$('#views').append('<li><strong>' + e.length + ' racers received, the name of the first racer is ' + e[0].Name + '.</strong></li>');
-  });
+
  
-  // Start the connection.
-  $.connection.hub.start().done(function () {
-      //$('#views').append('<li><strong>Ready to receive messages.</strong></li>');
-  });
+// Start the connection.
+$.connection.hub.start().done(function () {
+	
+});
+
+
+
+// racers lookup
+  //$.getJSON('http://stumptown40.cloudapp.net/api/racers?callback=?', function(e) {
+	//console.log(e)
+      //$('#views').append('<li><strong>' + e.length + ' racers received, the name of the first racer is ' + e[0].Name + '.</strong></li>');
+ // });
