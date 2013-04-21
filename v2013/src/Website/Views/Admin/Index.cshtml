@@ -1,0 +1,596 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stumptown40</title>
+    <style>
+	html, body, div, span, applet, object, iframe,
+	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+	a, abbr, acronym, address, big, cite, code,
+	del, dfn, em, img, ins, kbd, q, s, samp,
+	small, strike, strong, sub, sup, tt, var,
+	b, u, i, center,
+	dl, dt, dd, ol, ul, li,
+	fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td,
+	article, aside, canvas, details, figcaption, figure, 
+	footer, header, hgroup, menu, nav, section, summary,
+	time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	}
+	article, aside, details, figcaption, figure, 
+	footer, header, hgroup, menu, nav, section {
+	display: block;
+	}
+	body {
+	line-height: 1;
+	}
+	ol, ul {
+	list-style: none;
+	}
+	blockquote, q {
+	quotes: none;
+	}
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+	content: '';
+	content: none;
+	}
+
+	:focus {
+	outline: 0;
+	}
+
+	ins {
+	text-decoration: none;
+	}
+	del {
+	text-decoration: line-through;
+	}
+
+	/* layout */
+	@font-face {
+	font-family: 'Ranger';
+	src: url('/fonts/Ranger.eot');
+	src: url('/fonts/Ranger.eot?#iefix') format('embedded-opentype'),
+	url('/fonts/Ranger.woff') format('woff'),
+	url('/fonts/Ranger.ttf') format('truetype'),
+	url('/fonts/Ranger.svg#Ranger') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	}
+
+	@font-face {
+	font-family: 'Haymaker';
+	src: url('/fonts/Haymaker.eot');
+	src: url('/fonts/Haymaker.eot?#iefix') format('embedded-opentype'),
+	url('/fonts/Haymaker.woff') format('woff'),
+	url('/fonts/Haymaker.ttf') format('truetype'),
+	url('/fonts/Haymaker.svg#Haymaker') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	}
+	
+	
+	body {
+	background:transparent url("/Images/wood.png")repeat;
+	background-size:512px;
+	}
+	section {
+		width:80%;
+		margin:0 auto;
+		font-family:Ranger, arial, sans-serif;
+	}
+	
+	.subHeader {
+	margin:0 auto;
+	box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
+	background:#fff;
+	width:180px;
+	font-size:28px;
+	text-align:center;
+	line-height:67px;
+	height:61px;
+	position:relative;
+	left:50%;
+	margin-top:0;
+	margin-bottom:100px;
+	margin-left:-90px;
+	}
+
+	.subHeader:before {
+	position:absolute;
+	content:'';
+	width:23px;
+	height:69px;
+	display:block;
+	left:-22px;
+	top:-3px;
+	background:transparent url("/Images/ribbon_left.png") no-repeat;
+	}
+
+	.subHeader:after {
+	position:absolute;
+	content:'';
+	width:22px;
+	height:69px;
+	display:block;
+	right:-21px;
+	top:-3px;
+	background:transparent url("/Images/ribbon_right.png") no-repeat;
+	}
+
+	.meta span {
+	font-size:30px;
+	}
+	
+	
+	#menu  {
+	top:0;
+	width:700px;
+	left:50%;
+	margin-left:-350px;
+	font-size:28px;
+	position:relative;
+	text-align:center;
+	padding:30px 0;
+	-moz-transition: all 300ms ease-in-out;
+	-webkit-transition: all 300ms ease-in-out;
+	-ms-transition: all 300ms ease-in-out;
+	-o-transition: all 300ms ease-in-out;
+	transition: all 300ms ease-in-out;
+	z-index:1000;
+	}
+
+
+	#menu li {
+	display:inline;
+	text-align:center;
+	}
+
+	#menu a {
+	margin:0 20px;
+	color:#000;
+	text-decoration:none;
+	}
+
+	#menu a:hover {
+	color:#e36000;
+	}
+	
+	
+	.hidden { 
+	display: none; 
+	}
+
+	table{
+	width:100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	}
+
+	table tr td {
+	padding:15px;
+	}
+	
+	table tr:nth-child(odd) td {
+	}
+	
+	input[type=button] {
+		font-size:22px;
+		-webkit-box-align: left;
+		text-align: center;
+		cursor: default;
+		color: #fff;
+		padding:10px 10px 5px;
+		border: 0 none;
+		border-image: none;
+		box-sizing: border-box;
+		border-radius:5px;
+		font-family:Haymaker;
+		color:#000;
+		background-color:rgba(0,0,0,.1);
+		border:2px solid #000;
+	}
+	
+	
+	td.c1 input[type=button] {
+		border-radius:55px;
+		width:55px;
+		height:55px;
+		line-height:60px;
+		font-size:22px;
+		padding:0;
+		background:transparent;
+		color:#fff;
+		border:0 none;
+	}
+	
+	input[type=button].selected {
+		background-color:rgb(89%, 38%, 0%);
+		color:#fff;
+		border:2px solid rgb(89%, 38%, 0%);
+	}
+	
+	table tr:nth-child(even) td.c1 input[type=button] {
+	background: transparent url('../../Images/circle_green.png') no-repeat;
+	background-size:55px;
+	}
+	
+	table tr:nth-child(odd) td.c1 input[type=button] {
+	background: transparent url('../../Images/circle_red.png') no-repeat;
+	background-size:55px;
+	}	
+    </style>
+
+    <script src="http://stumptown40.cloudapp.net/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="http://stumptown40.cloudapp.net/Scripts/jquery.signalR-1.0.0.js"></script>
+    <script src="http://stumptown40.cloudapp.net/signalr/hubs"></script>
+    <script src="/Scripts/knockout-2.2.0.js"></script>
+    <script src="/Scripts/sammy-0.7.4.min.js"></script>
+    <script type="text/javascript">
+        
+        function getRaceViewJson(raceItem) {
+
+            var nextRaceId = parseInt(raceItem.raceId()) + 1;
+            var nextInput = $('#roundView table tr td[class=c1] input[value="' + nextRaceId + '"]');
+
+            var nextRacer1 = 0;
+            var nextRacer2 = 0;
+
+            if (nextInput.length !== 0) {
+                var nextRow = nextInput.parent().parent();
+                var nextRacer1Input = nextRow.find('td[class=c2] input[type=hidden]');
+                var nextRacer2Input = nextRow.find('td[class=c3] input[type=hidden]');
+
+                nextRacer1 = nextRacer1Input.val();
+                nextRacer2 = nextRacer2Input.val();
+            }
+
+            var json = '{'
+                        + '"racer1":"' + raceItem.racer1Id() + '",'
+                        + '"racer2":"' + raceItem.racer2Id() + '",'
+                        + '"winnerId":"' + raceItem.winningRacerId() + '",'
+                        + '"nextRacer1":"' + nextRacer1 + '",'
+                        + '"nextRacer2":"' + nextRacer2 + '",'
+                        + '"}';
+
+            return json;
+        }
+
+        function showView(viewId) {
+            $('div.view').addClass('hidden');
+            $(viewId).removeClass('hidden');
+        }
+
+        function RaceItem(raceId, heatNumber, racer1Id, racer1Name, racer2Id, racer2Name, winningRacerId) {
+            var self = this;
+
+            self.raceId = ko.observable(raceId);
+            self.heatNumber = ko.observable(heatNumber);
+            self.racer1Id = ko.observable(racer1Id);
+            self.racer1Name = ko.observable(racer1Name);
+            self.racer2Id = ko.observable(racer2Id);
+            self.racer2Name = ko.observable(racer2Name);
+            self.winningRacerId = ko.observable(winningRacerId);
+
+            //self.raceId = raceId;
+            //self.heatNumber = heatNumber;
+            //self.racer1Id = racer1Id;
+            //self.racer1Name = racer1Name;
+            //self.racer2Id = racer2Id;
+            //self.racer2Name = racer2Name;
+            //self.winningRacerId = winningRacerId;
+            //self.button1Id = 'button' + racer1Id;
+            //self.button2Id = 'button' + racer2Id;
+        }
+
+        function RoundViewModel() {
+
+            var self = this;
+
+            // data
+
+            self.rounds = [1, 2, 3, 4, 5, 6, 7];
+
+            self.races = ko.observableArray();
+            self.roundNumber = ko.observable();
+
+            // behaviors
+
+            self.showRound = function (roundId) {
+                location.hash = 'round/' + roundId;
+            };
+
+            self.showRace = function (raceItem) {
+                gHub.server.navigate('raceView', getRaceViewJson(raceItem));
+            };
+
+            self.showRacer1Winner = function (raceItem) {
+
+                $.ajax({
+                    url: 'http://stumptown40.cloudapp.net/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer1Id(),
+                    type: 'PUT',
+					dataType: 'jsonp',
+                    success: function () {
+                        raceItem.winningRacerId(raceItem.racer1Id());
+                        gHub.server.navigate('raceView', getRaceViewJson(raceItem));
+                    }
+                });
+
+            };
+
+            self.showRacer2Winner = function (raceItem) {
+
+                $.ajax({
+                    url: 'http://stumptown40.cloudapp.net/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer2Id(),
+                    type: 'PUT',
+					dataType: 'jsonp',
+                    success: function () {
+                        raceItem.winningRacerId(raceItem.racer2Id());
+                        gHub.server.navigate('raceView', getRaceViewJson(raceItem));
+                    }
+                });
+
+            };
+
+            self.clearRaceWinner = function (raceItem) {
+
+                $.ajax({
+                    url: 'http://stumptown40.cloudapp.net/api/match?matchId=' + raceItem.raceId() + '&winningracerid=-1',
+                    type: 'PUT',
+					dataType: 'jsonp',
+                    success: function () {
+                        raceItem.winningRacerId(0);
+                        gHub.server.navigate('raceView', getRaceViewJson(raceItem));
+                    }
+                });
+
+            };
+
+            self.showRoundView = function (roundId) {
+
+                self.roundNumber('Show Matches for Round ' + roundId);
+
+                self.races.removeAll();
+
+
+
+
+				$.ajax({
+	                    url: 'http://stumptown40.cloudapp.net/api/match?roundId=' + roundId,
+						dataType:'jsonp',
+	                    success: function (data) {
+	                        for (var x = 0; x < data.length; x++) {
+		                        var m = data[x];
+
+		                        //var item = ko.observable();
+		                        //item.raceId(m.MatchId);
+		                        //item.heatNumber(m.RaceNumber);
+		                        //item.racer1Id(m.Racer1Id);
+		                        //item.racer1Name(racerCache[parseInt(m.Racer1Id)].Name);
+		                        //item.racer2Id(m.Racer2Id);
+		                        //item.racer2Name(racerCache[parseInt(m.Racer2Id)].Name);
+		                        //item.winningRacerId(m.WinningRacerId);
+
+		                        //self.races.push(item);
+		                        var racer1Id = parseInt(m.Racer1Id);
+		                        var racer2Id = parseInt(m.Racer2Id);
+
+		                        var racer1Name = racer1Id > 0 ? gRacerCache[racer1Id].Name : "???";
+		                        var racer2Name = racer2Id > 0 ? gRacerCache[racer2Id].Name : "???";
+
+		                        self.races.push(
+		                            new RaceItem(
+		                                m.MatchId,
+		                                m.RaceNumber,
+		                                m.Racer1Id,
+		                                racer1Name,
+		                                m.Racer2Id,
+		                                racer2Name,
+		                                m.WinningRacerId));
+		                    }
+	                    }
+	                });
+
+                //self.races.push(new RaceItem(55, '1', 60, 'Alice' + roundId, 61, 'Bob'));
+                //self.races.push(new RaceItem(56, '2', 62, 'Charles' + roundId, 63, 'Dan'));
+                //self.races.push(new RaceItem(57, '3', 64, 'Eddie' + roundId, 65, 'Frank'));
+
+                showView('#roundView');
+            };
+
+            Sammy(function () {
+                this.get('#:controller', function () {
+                    switch (this.params.controller) {
+                    case 'round':
+                        showView('#bracketView');
+                        break;
+                    case 'admin':
+                        showView('#adminView');
+                        break;
+                    case 'stats':
+                        showView('#statsView');
+                        break;
+                    default:
+                        alert('unexpected: ' + this.params.controller);
+                        break;
+                    }
+                });
+                this.get('#:controller/:id', function () {
+                    switch (this.params.controller) {
+                    case 'round':
+                        self.showRoundView(this.params.id);
+                        break;
+                    default:
+                        alert('unexpected: ' + this.params.controller);
+                        break;
+                    }
+                });
+                this.get('', function () {
+                    this.app.runRoute('get', '#round');
+                });
+            }).run();
+        }
+
+        var gRacerCache = null;
+        var gHub = null;
+
+        $(function () {
+            
+            // Declare a proxy to reference the hub. 
+            $.support.cors = true;
+            $.connection.hub.url = 'http://stumptown40.cloudapp.net/signalr';
+
+            gHub = $.connection.navigationHub; // Start the connection.
+
+            $.connection.hub.start().done(function () {
+				$("#appViews span").on('click touchstart', function () {
+					var view = $(this).attr("data-view");
+                    var message = $(this).attr("data-message");
+					gHub.server.navigate(view, message);
+                });
+            });
+
+
+			  $.ajax({
+                    url: 'http://stumptown40.cloudapp.net/api/racers',
+					dataType:'jsonp',
+                    success: function (data) {
+                        gRacerCache = data;
+                    }
+                });
+
+            $('#clearWinningRacersButton').click(function () {
+
+                if (!window.confirm('Clear Winning Racers?'))
+                    return;
+
+                $.post('http://stumptown40.cloudapp.net/Admin/ClearWinningRacers', function (isGood) {
+                    if (!isGood) {
+                        alert('no good!');
+                    }
+                });
+            });
+
+            $('#assignSequentialStartSlotsButton').click(function () {
+
+                if (!window.confirm('Assign Sequential Start Slots Button?'))
+                    return;
+
+                $.post('http://stumptown40.cloudapp.net/Admin/AssignSequentialStartSlots', function (isGood) {
+                    if (!isGood) {
+                        alert('no good!');
+                    }
+                });
+            });
+
+            $('#assignRandomStartSlotsButton').click(function () {
+
+                if (!window.confirm('Assign Random Start Slots?'))
+                    return;
+
+                $.post('http://stumptown40.cloudapp.net/Admin/AssignRandomStartSlots', function (isGood) {
+                    if (!isGood) {
+                        alert('no good!');
+                    }
+                });
+            });
+
+            $('#assignBracketsByStartSlotButton').click(function () {
+
+                if (!window.confirm('Assign Brackets By Start Slot ?'))
+                    return;
+
+                $.post('http://stumptown40.cloudapp.net/Admin/assignBracketsByStartSlot', function (isGood) {
+                    if (!isGood) {
+                        alert('no good!');
+                    }
+                });
+            });
+
+            ko.applyBindings(new RoundViewModel());
+        });
+
+    </script>
+</head>
+<body>
+	
+	<nav id="appViews">
+		<span data-view="home" data-message='{"home":"home"}'>Home</span>
+		<span data-view="gallery" data-message='{"gallery":"gallery"}'>Gallery</span>
+		<span data-view="sponsors" data-message='{"sponsors":"sponsors"}'>Sponsors</span>
+	</nav>
+
+    <section>
+
+        <ul id="menu">
+            <li><a href="#round">Bracket</a></li>
+            <li><a href="#stats">Stats</a></li>
+            <li><a href="#admin">Admin</a></li>
+        </ul>
+
+        <div id="bracketView" class="view">
+            <h1>Brackets</h1>
+            <ul data-bind="foreach: rounds">
+                <li>
+                    <input type="button" data-bind="value: $data, click: $root.showRound" /></li>
+            </ul>
+        </div>
+
+        <div id="roundView" class="view hidden">
+            <div class="subHeader">
+                <a href="#round">Go Back</a>
+                <input type="button" data-bind="value: roundNumber" />
+            </div>
+            <table>
+                <tbody data-bind="foreach: races">
+                    <tr>
+                        <td class="c1">
+                            <input type="button" data-bind="value: heatNumber, click: $root.showRace" /></td>
+                        <td class="c2">
+                            <input type="button" data-bind="value: racer1Name, click: $root.showRacer1Winner, css: { selected: racer1Id() > 0 && winningRacerId() == racer1Id() }" />
+                            <input type="hidden" data-bind="value: racer1Id" />
+                        </td>
+                        <td class="c3">
+                            <input type="button" data-bind="value: racer2Name, click: $root.showRacer2Winner, css: { selected: racer2Id() > 0 && winningRacerId() == racer2Id() }" />
+                            <input type="hidden" data-bind="value: racer2Id" />
+                        </td>
+                        <td class="c4">
+                            <input type="button" value="X" data-bind="click: $root.clearRaceWinner" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="adminView" class="view hidden">
+            <h1>Admin</h1>
+            <ul>
+                <li>
+                    <input id="clearWinningRacersButton" type="button" value="Clear Winning Racers" /></li>
+                <li>
+                    <input id="assignSequentialStartSlotsButton" type="button" value="Assign Sequential Start Slots" /></li>
+                <li>
+                    <input id="assignRandomStartSlotsButton" type="button" value="Assign Random Start Slots" /></li>
+                <li>
+                    <input id="assignBracketsByStartSlotButton" type="button" value="Assign Brackets By Start Slot" /></li>
+            </ul>
+        </div>
+
+        <div id="statsView" class="view hidden">
+            <h1>Stats</h1>
+            <h2>Races: {0}/{1}</h2>
+            <h2>Estimated Finish: {0}</h2>
+        </div>
+
+    </section>
+</body>
+</html>
