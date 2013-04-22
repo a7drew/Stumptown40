@@ -8,30 +8,44 @@ function SetActiveLink(name){
     nav.find('a[href="#/'+name+'/"]').addClass('active');
 }
 
-var showView = function(viewId, data) {
 
-	$.sammy('#view', function() {
-		this.use('Handlebars', 'hb');
 
-		this.get('#'+viewId, function(context) {
-			$(context.$element()).empty();
-			SetActiveLink(viewId);
-	    	this.title = data;
-	
-			console.log(this.title)
-		
-			
-			this.render('../Templates/'+viewId+'.hb').appendTo(context.$element());
-	   });
-	
-	}).run();
-}  
+
 
 chat.client.onNavigate = function (viewName, jsonData) {
-	console.log('data: '+jsonData)
-	history.pushState(null, viewName, '#'+viewName);
-//	console.log(jsonData)
-	showView(viewName, jsonData);
+		console.log("singlar")
+		var app = Sammy('#view', function() {
+	
+			this.use('Handlebars', 'hb');
+			console.log("app")
+
+			this.bind('#'+viewName, function(e, viewName) {
+			      	var context = this;
+			
+					console.log(e)
+					SetActiveLink(viewName);
+					
+				  	context.title = jsonData;
+				
+				
+			      	this.render('../Templates/'+viewName+'.hb', viewName, function(html){					
+			        	context.$element().html(html);
+			      	});
+			});
+			
+			this.get('#'+viewName);
+			
+		});
+		
+
+		app.trigger('#'+viewName, viewName);
+		
+		app.setLocation('#'+viewName);
+        //app.runRoute('get', '#'+viewName);
+		app.run();
+		
+		
+
 };	
 
 	
