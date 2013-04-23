@@ -13,19 +13,32 @@ function SetActiveLink(name){
 
 
 chat.client.onNavigate = function (viewName, jsonData) {
-		console.log("singlar")
-		var app = Sammy('#view', function() {
+				
+		var app =  $.sammy('#view', function() {
 	
 			this.use('Handlebars', 'hb');
-			console.log("app")
-
-			this.bind('#'+viewName, function(e, viewName) {
+			this.bind('#'+viewName, function(event, viewName) {
 			      	var context = this;
 			
-					console.log(e)
+
 					SetActiveLink(viewName);
 					
-				  	context.title = jsonData;
+				
+				
+				
+					var obj = jQuery.parseJSON(jsonData);
+					
+					console.log(obj.currentRace[0].racer1)
+				
+					context.racer1 = obj.currentRace[0].racer1;
+					context.racer2 = obj.currentRace[0].racer2;
+					
+					
+					
+					$.getJSON('http://stumptown40.cloudapp.net/api/racers?callback=?', function (e) {
+		                gRacerCache = e;
+		               	console.log(gRacerCache[context.racer1])
+		            });
 				
 				
 			      	this.render('../Templates/'+viewName+'.hb', viewName, function(html){					
@@ -33,19 +46,20 @@ chat.client.onNavigate = function (viewName, jsonData) {
 			      	});
 			});
 			
-			this.get('#'+viewName);
+			this.get('', function(context) {
+				app.setLocation('#'+viewName);
+			});
+
+			// Catch-all for 404 errors:
+			    this.get(/.*/, function() { 
+			    console.log('404... come on, really?');
+			});
 			
 		});
-		
 
-		app.trigger('#'+viewName, viewName);
-		
-		app.setLocation('#'+viewName);
-        //app.runRoute('get', '#'+viewName);
 		app.run();
-		
-		
-
+		app.trigger('#'+viewName, viewName);
+		app.destroy();	
 };	
 
 	

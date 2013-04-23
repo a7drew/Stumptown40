@@ -1,1 +1,1 @@
-<h1>{{title}} RaceView</h1>
+<h1>Racer #{{racer1}}</h1>

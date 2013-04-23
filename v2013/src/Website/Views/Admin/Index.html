@@ -1,6 +1,6 @@
-﻿@{
+﻿<!--@{
     Layout = null;
-}
+}-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -255,12 +255,31 @@
                 nextRacer2 = nextRacer2Input.val();
             }
 
+
+			/*{
+			    "currentRace": {
+			        "racer1": "1",
+			        "racer2": "2"  
+			    },
+			    "upcomingRace": {
+			        "nextRacer1": "3",
+			        "nextRacer2": "4" 
+			    },
+			    "winnerId": "1"
+			}*/
+			
+			
+
             var json = '{'
-                        + '"racer1":"' + raceItem.racer1Id() + '",'
-                        + '"racer2":"' + raceItem.racer2Id() + '",'
-                        + '"winnerId":"' + raceItem.winningRacerId() + '",'
-                        + '"nextRacer1":"' + nextRacer1 + '",'
-                        + '"nextRacer2":"' + nextRacer2 + '",'
+						+'"currentRace": [{'
+						+ '"racer1":"' + raceItem.racer1Id() + '",'
+						+ '"racer2":"' + raceItem.racer2Id() + ''
+						+ '"}],'
+						+'"upcomingRace": [{'
+						+ '"nextRacer1":"' + nextRacer1 + '",'
+						+ '"nextRacer2":"' + nextRacer2 + ''
+						+ '"}],'
+                        + '"winnerId":"' + raceItem.winningRacerId() + ''
                         + '"}';
 
             return json;
