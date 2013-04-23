@@ -1,1 +1,1 @@
-<h1>Racer #{{racer1}}</h1>
+<h1>Racer #{{racer3}}</h1>

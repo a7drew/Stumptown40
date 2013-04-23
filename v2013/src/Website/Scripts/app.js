@@ -33,12 +33,13 @@ chat.client.onNavigate = function (viewName, jsonData) {
 					context.racer1 = obj.currentRace[0].racer1;
 					context.racer2 = obj.currentRace[0].racer2;
 					
-					
+					console.log(context)
 					
 					$.getJSON('http://stumptown40.cloudapp.net/api/racers?callback=?', function (e) {
 		                gRacerCache = e;
-		               	console.log(gRacerCache[context.racer1])
+						context.racer3 = gRacerCache[context.racer1].Name;
 		            });
+		
 				
 				
 			      	this.render('../Templates/'+viewName+'.hb', viewName, function(html){					
