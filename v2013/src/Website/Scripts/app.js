@@ -16,6 +16,8 @@ chat.client.onNavigate = function (viewName, jsonData) {
 				$.getJSON('http://stumptown40.cloudapp.net/api/racers?callback=?', function (e) {
 	                gRacerCache = e;
 	
+					console.log(gRacerCache)
+	
 					context.racer1 = gRacerCache[(obj.currentRace[0].racer1) - 1].Name;
 					context.racer2 = gRacerCache[(obj.currentRace[0].racer2) - 1].Name;
 					
