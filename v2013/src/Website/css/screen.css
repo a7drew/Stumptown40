@@ -1031,3 +1031,17 @@ and (max-device-width : 1024px) {
 	display:block;
 	margin:0 auto;
 }
+
+
+
+
+/* new */
+
+
+.racerView p {
+	color:red;
+}
+
+.racerView p.winner {
+color:yellow;	
+}
