@@ -92,63 +92,6 @@ background:transparent url("../images/racecenter.png") 50% 100% no-repeat;
 z-index:10;
 }
 
-nav  {
-top:-100px;
-width:700px;
-left:50%;
-margin-left:-350px;
-font-size:16px;
-position:absolute;
-text-align:center;
-padding:80px 0 10px;
--moz-transition: all 300ms ease-in-out;
--webkit-transition: all 300ms ease-in-out;
--ms-transition: all 300ms ease-in-out;
--o-transition: all 300ms ease-in-out;
-transition: all 300ms ease-in-out;
-z-index:1000;
-}
-
-
-
-nav:hover,
-nav.on {
-top:-68px;
-background:rgba(255,255,255,.6);
-box-shadow:0 1px 5px rgba(0,0,0,.1);
-}
-
-
-nav li {
-display:inline;
-text-align:center;
-}
-
-nav a {
-margin:0 20px;
-color:#e36000;
-}
-
-nav a:hover {
-color:#000;
-}
-
-article {
-
-float: left;
-    height: 100%;
-    left: 0;
-    margin-top: 120px;
-    position: absolute;
-    top: 0;
-    width: 100%;
-
-}
-
-article > div {
-display:inline;
-}
-
 .meta {
 margin:0 auto;
 box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
@@ -188,172 +131,6 @@ background:transparent url("../images/ribbon_right.png") no-repeat;
 
 .meta span {
 font-size:30px;
-}
-
-/* brackets page */
-
-.bracketTemplate {
-position:absolute;
-top:50%;
-left:0;
-width:100%;
-margin-top:-180px;
-}
-
-.bracketTemplate a {
-position:absolute;
-left:50%;
-top:0;
-width:100%;
-}
-
-.bracketTemplate a[data-bracket="#winning"] {
-width:316px;
-margin-left:-562px;
-height:218px;
-display:block;
-text-indent:-999em;
-background:transparent url("../images/winners.png") 0 50% no-repeat;
-}
-
-.bracketTemplate a[data-bracket="#drinking"] {
-margin-left:296px;
-width:158px;
-height:218px;
-display:block;
-text-indent:-999em;
-background:transparent url("../images/losers.png") 0 50% no-repeat;	
-}
-
-.bracketTemplate a[data-bracket="#championship"] {
-margin-left:-108px;
-width:201px;
-height:218px;
-display:block;
-text-indent:-999em;
-background:transparent url("../images/championship.png") 0 50% no-repeat;	
-}
-
-
-/* list pages */
-
-.racerlist, .round {
--moz-column-count: 2;
--moz-column-gap: auto;
--webkit-column-count: 2;
--webkit-column-gap:auto;
-column-count: 2;
-column-gap: auto;
-margin: 0 auto;
-width: 80%;
-}
-
-.racerlist li, .round li {
-width: 80%;
-background:#fff;
-padding:40px 80px 28px 20px;
-box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
-position:relative;
-margin-bottom:20px;
-overflow:hidden;
-display:block;
-}
-
-/* left to right readout that sucks 
-
-.racerlist, .round {
-width: 65%;
-margin:0 auto;
-min-width:1000px;
-}
-
-.racerlist li, .round li {
-width: 38%;
-background:#fff;
-padding:40px 80px 28px 20px;
-box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
-position:relative;
-margin-bottom:20px;
-overflow:hidden;
-display:block;
-float:left;
-}
-
-.racerlist li:nth-child(odd), .round li:nth-child(odd) {
-	margin-right:20px;	
-}
-
-.racerlist li:nth-child(even), .round li:nth-child(even) {
-float:right;	
-}
-
-.round li.winner:after {
-content:'';
-background: url("../images/winner.png") repeat scroll 0 0 transparent;
-display: block;
-height: 180px;
-position: absolute;
-right: 220px;
-text-indent: -999em;
-top: -8px;
-width: 207px;
-z-index: 10;
-}
-*/
-
-.round li.winner:after {
-content:'';
-background: url("../images/winner.png") repeat scroll 0 0 transparent;
-display: block;
-height: 180px;
-position: absolute;
-right: 220px;
-text-indent: -999em;
-top: -8px;
-width: 207px;
-z-index: 10;
-}
-
-.roundTemplate .round li.winner:after {
-display:none;
-}
-
-.roundTemplate .round li.winner {
-	opacity:.3;
-}
-
-.matchList a {
-overflow:visible;
-margin-bottom:45px;
-}
-
-.number {
-background: url("../images/circle_green.png") repeat scroll 0 0 transparent;
-color: #FFFFFF;
-display: block;
-font-size: 64px;
-height: 163px;
-padding-top:56px;
-position: absolute;
-right: -30px;
-text-align: center;
-margin-top: -78px;
-width: 163px;
-top:50%;
-}
-
-.racerlist li:nth-child(even) .number, .round li:nth-child(even) .number, .cards a:nth-child(even) .number, .cards .racer2 .number {
-background: url("../images/circle_red.png") repeat scroll 0 0 transparent;
-}
-
-.racerlist li .name, .round li .name {
-display: block;
-font-size: 38px;
-width: 80%;
-white-space: nowrap;
-	width: 100%;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
 
 /* racer cards */
@@ -408,6 +185,25 @@ z-index:2;
 -webkit-transform:rotate(0deg);
 }
 
+
+.cards .number {
+background: url("../images/circle_green.png") repeat scroll 0 0 transparent;
+color: #FFFFFF;
+display: block;
+font-size: 64px;
+height: 163px;
+padding-top:56px;
+position: absolute;
+right: -30px;
+text-align: center;
+margin-top: -78px;
+width: 163px;
+top:50%;
+}
+
+.cards .racer2 .number {
+background: url("../images/circle_red.png") repeat scroll 0 0 transparent;
+}
 
 .racers .card {
 position:relative;
@@ -1030,18 +826,4 @@ and (max-device-width : 1024px) {
 .intrologo {
 	display:block;
 	margin:0 auto;
-}
-
-
-
-
-/* new */
-
-
-.racerView p {
-	color:red;
-}
-
-.racerView p.winner {
-color:yellow;	
 }

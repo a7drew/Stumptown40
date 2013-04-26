@@ -248,29 +248,18 @@
 
             if (nextInput.length !== 0) {
                 var nextRow = nextInput.parent().parent();
+				var currentRoundInput = nextRow.find('td[class=c1] input[type=hidden]');
                 var nextRacer1Input = nextRow.find('td[class=c2] input[type=hidden]');
                 var nextRacer2Input = nextRow.find('td[class=c3] input[type=hidden]');
-
+				
+				currentRound = (currentRoundInput.val() - 1);
                 nextRacer1 = nextRacer1Input.val();
                 nextRacer2 = nextRacer2Input.val();
-            }
-
-
-			/*{
-			    "currentRace": {
-			        "racer1": "1",
-			        "racer2": "2"  
-			    },
-			    "upcomingRace": {
-			        "nextRacer1": "3",
-			        "nextRacer2": "4" 
-			    },
-			    "winnerId": "1"
-			}*/
-			
+            }			
 			
 
             var json = '{'
+            			+ '"currentRound2":"' + currentRound + '",'
 						+'"currentRace": [{'
 						+ '"racer1":"' + raceItem.racer1Id() + '",'
 						+ '"racer2":"' + raceItem.racer2Id() + ''
@@ -574,7 +563,9 @@
                 <tbody data-bind="foreach: races">
                     <tr>
                         <td class="c1">
-                            <input type="button" data-bind="value: heatNumber, click: $root.showRace" /></td>
+                            <input type="button" data-bind="value: heatNumber, click: $root.showRace" />
+							<input type="hidden" data-bind="value: heatNumber" />
+						</td>
                         <td class="c2">
                             <input type="button" data-bind="value: racer1Name, click: $root.showRacer1Winner, css: { selected: racer1Id() > 0 && winningRacerId() == racer1Id() }" />
                             <input type="hidden" data-bind="value: racer1Id" />
