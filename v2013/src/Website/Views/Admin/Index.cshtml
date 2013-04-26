@@ -57,7 +57,7 @@
 	}
 
 	/* layout */
-	@font-face {
+	@@font-face {
 	font-family: 'Ranger';
 	src: url('/fonts/Ranger.eot');
 	src: url('/fonts/Ranger.eot?#iefix') format('embedded-opentype'),
@@ -68,7 +68,7 @@
 	font-style: normal;
 	}
 
-	@font-face {
+	@@font-face {
 	font-family: 'Haymaker';
 	src: url('/fonts/Haymaker.eot');
 	src: url('/fonts/Haymaker.eot?#iefix') format('embedded-opentype'),
@@ -428,6 +428,12 @@
                     case 'stats':
                         showView('#statsView');
                         break;
+                    case 'gallery':
+                        gHub.server.navigate('galleryView', '');
+                        break;
+                    case 'sponsors':
+                        gHub.server.navigate('sponsorsView', '');
+                        break;
                     default:
                         alert('unexpected: ' + this.params.controller);
                         break;
@@ -541,6 +547,8 @@
     <section>
 
         <ul id="menu">
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#sponsors">Sponsors</a></li>
             <li><a href="#round">Bracket</a></li>
             <li><a href="#stats">Stats</a></li>
             <li><a href="#admin">Admin</a></li>
