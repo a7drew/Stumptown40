@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
@@ -13,7 +14,11 @@ namespace Website.Controllers
     {
         public static string Cnn
         {
-            get { return @"Server=.\sqlexpress;Database=Stumptown40;Trusted_Connection=True;"; }
+            get
+            {
+                var cnn = ConfigurationManager.ConnectionStrings["DefaultConnection"];
+                return cnn.ConnectionString;
+            }
         }
     }
 
