@@ -1,5 +1,5 @@
 $.support.cors = true;
-$.connection.hub.url = 'http://stumptown40.cloudapp.net/signalr';
+$.connection.hub.url = 'http://stumptown40.azurewebsites.net/signalr';
 var chat = $.connection.navigationHub;
 
 chat.client.onNavigate = function (viewName, jsonData) {			
@@ -12,7 +12,7 @@ chat.client.onNavigate = function (viewName, jsonData) {
 
 			//race view
 			var raceView = function() {
-				$.getJSON('http://stumptown40.cloudapp.net/api/racers?callback=?', function (e) {
+			    $.getJSON('http://stumptown40.azurewebsites.net/api/racers?callback=?', function (e) {
 	                gRacerCache = e;
 					
 					context.racer1Id = obj.currentRace[0].racer1;
