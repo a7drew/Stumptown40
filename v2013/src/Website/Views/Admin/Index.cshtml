@@ -103,7 +103,7 @@
                     url: 'http://stumptown40.azurewebsites.net/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer1Id(),
                     type: 'PUT',
 					dataType: 'jsonp',
-                    success: function () {
+                    complete: function () {
                         raceItem.winningRacerId(raceItem.racer1Id());
                         gHub.server.navigate('raceView', getRaceViewJson(raceItem));
                     }
@@ -117,7 +117,7 @@
                     url: 'http://stumptown40.azurewebsites.net/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer2Id(),
                     type: 'PUT',
 					dataType: 'jsonp',
-                    success: function () {
+					complete: function () {
                         raceItem.winningRacerId(raceItem.racer2Id());
                         gHub.server.navigate('raceView', getRaceViewJson(raceItem));
                     }
@@ -131,7 +131,7 @@
                     url: 'http://stumptown40.azurewebsites.net/api/match?matchId=' + raceItem.raceId() + '&winningracerid=-1',
                     type: 'PUT',
 					dataType: 'jsonp',
-                    success: function () {
+					complete: function () {
                         raceItem.winningRacerId(0);
                         gHub.server.navigate('raceView', getRaceViewJson(raceItem));
                     }
@@ -147,7 +147,7 @@
 				$.ajax({
 				        url: 'http://stumptown40.azurewebsites.net/api/match?roundId=' + roundId,
 						dataType:'jsonp',
-	                    success: function (data) {
+						success: function (data) {
 	                        for (var x = 0; x < data.length; x++) {
 		                        var m = data[x];
 
