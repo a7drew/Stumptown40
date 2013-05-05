@@ -1,4 +1,4 @@
-<div id="sponsorTemplate" class="view sponsorTemplate">
+<div class="sponsors">
 	<div class="meta">Thanks for making it happen</div>
 	<div class="slideshow">
 		<div class="slides">

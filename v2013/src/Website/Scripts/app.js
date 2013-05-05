@@ -51,31 +51,80 @@ chat.client.onNavigate = function (viewName, jsonData) {
 				context.render('../Templates/'+viewName+'.hb', jsonData, function(html){					
 		        	context.$element().html(html);
 		      	}).then(function() {
-					var token = '51853638.1fb234f.976879fb4353497caa70fa47810b6e3d';
-					var count = 40;
-					var postano = 'http://api.postano.com/jsonp/?Action=GetPosts&PostanoPublicKey=7d14629360370691c3ed&postano_id=83380&Count=100&jsonp=jsonp';
-				      $.ajax({
-				          type: "GET",
-				          dataType: "jsonp",
-						jsonpCallback:"jsonp",
-				          async: true,
-				          cache: false,
-				          url: postano,
-				          success: function (data) {
-							var result = "";
-							var l = data.posts.length;
-							for (x = 0; x < l; x++) {
-								var photos = data.posts[x];
-								context.render('../Templates/photos.hb', photos, function(i){
-									result = i;
-									return
-								}).then(function(result) {
-									$("#photos").prepend(result);
+						var token = '51853638.1fb234f.976879fb4353497caa70fa47810b6e3d';
+						var count = 40;
+						var postano = 'http://api.postano.com/jsonp/?Action=GetPosts&PostanoPublicKey=7d14629360370691c3ed&postano_id=83380&Count=100&jsonp=jsonp';
+						 var getNewphoto = function() {
+							$.ajax({
+					          	type: "GET",
+					          	dataType: "jsonp",
+								jsonpCallback:"jsonp",
+					          	async: true,
+					          	cache: false,
+					          	url: postano,
+					          	success: function (data) {
+									var newphoto = data.posts[0];
+									newphoto.number =  newphoto.text.replace(/^#/, '');
+									var newphotoId = newphoto.post_id;
+									var prevphotoId = parseInt($('#photos li:nth-child(1)').attr('data-id'));
+									if (newphotoId !== prevphotoId) {
+										context.render('../Templates/photos.hb', newphoto, function(e){
+											result = e;
+											return
+										}).then(function(result) {
+											$("#photos").prepend(result);
+										});	
+									}
+								}
+							});
+						}
+						
+					   $.ajax({
+				          	dataType: "jsonp",
+							jsonpCallback:"jsonp",
+				          	url: postano,
+				          	success: function (data) {
+								/*var l = data.posts.length;
+								for (x = 0; x < l; x++) {
+									var photos = data.posts[x];
+									photos.number =  photos.text.replace(/^#/, '');
+									context.render('../Templates/photos.hb', photos).prependTo($("#photos"));
+								}*/
+								
+								$.each(data.posts, function(){
+									$("#photos").append('<li><a href="#"><img src="'+this.image+'"/></a></li>').append('<li><a href="#"><img src="'+this.image+'"/></a></li>').append('<li><a href="#"><img src="'+this.image+'"/></a></li>').append('<li><a href="#"><img src="'+this.image+'"/></a></li>').append('<li><a href="#"><img src="'+this.image+'"/></a></li>').append('<li><a href="#"><img src="'+this.image+'"/></a></li>');
 								});
-					        }
-				
+							},
+						complete: function(){
+							$('#ri-grid').gridrotator({
+								animType: 'random',
+								animSpeed: 8500,
+								interval: 1000,
+								rows:8,
+								columns : 8,
+								nochange : [0,1,2,3],
+								animEasingOut: 'ease-out',
+								animEasingIn: 'ease-in',
+								maxStep: 20
+							});
+							(function poll() {
+						            if (window.location.hash != '#gallery')
+						                return;
+
+						            setTimeout(function ()
+						            {
+						                //getNewphoto();
+						                //poll();
+						            }, 5000);
+						       })();
+						
+								
+								
+							
+								
 						}
 					});
+			
 				});
 			}
 			
@@ -112,5 +161,21 @@ chat.client.onNavigate = function (viewName, jsonData) {
 
 // Start the connection.
 $.connection.hub.start().done(function () {
+	
+/* for Ryan to debug quickly	
+if(window.location.hash == "#home") {
+	chat.client.onNavigate("home", '');
+}	
+	
+if(window.location.hash == "#gallery") {
+	chat.client.onNavigate("gallery", '');
+}*/
+
+/*if(window.location.hash == "#sponsors") {
+chat.client.onNavigate("sponsors", '');
+}*/
+
+	
+
 
 });

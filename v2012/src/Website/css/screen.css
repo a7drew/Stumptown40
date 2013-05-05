@@ -158,10 +158,14 @@ font-size:28px;
 text-align:center;
 line-height:67px;
 height:61px;
-position:absolute;
+position:relative;
 left:50%;
 margin-top:140px;
 margin-left:-90px;
+}
+
+.racerView .meta {
+	postion:absolute;
 }
 
 .meta:before {
@@ -777,12 +781,12 @@ font-size:52px;
 
 /* home */
 .home {
- /*background: url("../images/stumptown40_lg.png") no-repeat scroll 50% 50% transparent;*/
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%
+background: url("../images/stumptown40_lg.png") no-repeat scroll 50% 50% transparent;
+height: 100%;
+left: 0;
+position: absolute;
+top: 0;
+width: 100%
 }
 
 .home .meta {
@@ -790,17 +794,17 @@ margin-top:0;
 }
 
 .racerphotos {
-	left: 10px;
-	    position: absolute;
-	    top: 75px;
-	    width: 100%;
+left: 10px;
+position: absolute;
+top: 195px;
+width: 100%;
 }
 
 .racerphotos li {
-	float: left;
-	    height: 202px;
-	    position: relative;
-	    width: 202px;
+float: left;
+height: 202px;
+position: relative;
+width: 202px;
 }
 
 .racerphotos img {
@@ -989,45 +993,10 @@ box-shadow: 0 2px 5px rgba(0,0,0,.8);
 @media only screen 
 and (min-device-width : 768px) 
 and (max-device-width : 1024px) {
-	
-	nav, nav:hover  {
-		top:auto;
-		bottom:0;
-		background:rgba(0,0,0,.09);
-		box-shadow:0 -1px 15px rgba(0,0,0,.19);
-		padding:30px 0 22px;
-		position:fixed;
-		width:100%;
-		left:0;
-		margin-left:0;
-		font-size:22px;
-		
-	}
-	
-	.bracketTemplate  {
-		-webkit-transform:scale(.7);
-	}
 
-	.racerlist, .round {
-	-webkit-column-count: 1;
-	-webkit-column-gap:0;
-	margin: 0 auto;
-	width: 95%;
-	}
-	
-
-}
-
-#ipadMenu {
-	position:absolute;
-	top:0;
-	left:0;
-	width:60px;
-	height:60px;
-	z-index:10000;
 }
 
 .intrologo {
 	display:block;
-	margin:0 auto;
+	margin:130px auto;
 }

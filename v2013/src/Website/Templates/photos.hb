@@ -1,4 +1,6 @@
 <li>
-	<h2>{{text}}</h2>
-	<img src="{{image}}" />
+	<a href="#" class="item">
+		<h2>{{number}}</h2>
+		<img src="{{image}}" alt="{{number}}" />
+	</a>
 </li>

@@ -105,6 +105,7 @@ height:61px;
 position:absolute;
 left:50%;
 margin-top:140px;
+z-index:1000;
 margin-left:-90px;
 }
 
@@ -133,6 +134,129 @@ background:transparent url("../images/ribbon_right.png") no-repeat;
 .meta span {
 font-size:30px;
 }
+
+.view  {
+top:0;
+bottom:0;
+right:0;
+left:0;
+position:absolute;
+
+}
+/* home */
+
+.home {
+background: url("../images/stumptown40-4th.png") no-repeat scroll 50% 50% rgba(0, 0, 0, 0);
+background-size: 100%;
+position: relative;
+width: 100%;
+height: 100%;
+max-width: 860px;
+max-height: 100%;
+margin: 0 auto;
+}
+
+/* gallery */
+.ri-grid{
+margin: 0 auto;
+position: relative;
+height: auto;
+}
+
+.ri-grid-loading{
+width: 100px;
+height: 100px;
+background: transparent url(../images/loading.gif) no-repeat center center;
+}
+
+.ri-grid ul {
+list-style: none;
+display: block;
+width: 100%;
+margin: 0;
+padding: 0;
+}
+
+.ri-grid ul:before,
+.ri-grid ul:after{
+content: '';
+display: table;
+}
+
+.ri-grid ul:after {
+clear: both;
+}
+
+.ri-grid ul {
+zoom: 1; 
+} 
+
+.ri-grid ul li {
+-webkit-perspective: 400px;
+-moz-perspective: 400px;
+-o-perspective: 400px;
+-ms-perspective: 400px;
+perspective: 400px;	
+margin: 0;
+padding: 0;
+float: left;
+position: relative;
+display: block;
+overflow: hidden;
+}
+
+.ri-grid ul li a{
+display: block;
+outline: none;
+position: absolute;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+-webkit-background-size: 100% 100%;
+-moz-background-size: 100% 100%;
+background-size: 100% 100%;
+background-position: center center;
+background-repeat: no-repeat;
+background-color: #333;
+-webkit-box-sizing: content-box;
+-moz-box-sizing: content-box;
+box-sizing: content-box;
+-webkit-transform: translate3d(0,0,0);
+}
+
+.ri-grid-size-1{
+width: 100%;
+}
+.ri-grid-size-2{
+width: 100%;
+}
+.ri-grid-size-3{
+width: 100%;
+margin-top: 0px;
+}
+
+.ri-grid-loading:after,
+.ri-grid-loading:before{
+display: none;
+}
+
+.powered {
+	width:250px;
+	position:fixed;
+	bottom:20px;
+	right:20px;
+	z-index:5;
+	text-align:left;
+	font-size:12px;
+	color:#000;
+}
+
+.powered img {
+	width:100%;
+	max-width:100%;
+}
+
 
 /* racer cards */
 .cards {
@@ -309,7 +433,7 @@ margin-top:0;
 
 /* sponsor */
 
-.sponsorTemplate .meta {
+.sponsors .meta {
 width:500px;
 margin-top:-100px;
 margin-left:-250px;
@@ -570,261 +694,4 @@ font-size:52px;
 .slides a.p11 {
 -moz-animation-name: show11;
 -webkit-animation-name: show11;
-}
-
-/* home */
-.home {
- /*background: url("../images/stumptown40_lg.png") no-repeat scroll 50% 50% transparent;*/
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%
-}
-
-.home .meta {
-margin-top:0;
-}
-
-.racerphotos {
-	left: 10px;
-	    position: absolute;
-	    top: 75px;
-	    width: 100%;
-}
-
-.racerphotos li {
-	float: left;
-	    height: 202px;
-	    position: relative;
-	    width: 202px;
-}
-
-.racerphotos img {
-display:block;
-max-width:100%;
-max-height:100%;
-position:relative;
-display:block;
-z-index:2;
-/*-webkit-transform: translateZ(0);*/
-}
-
-.racerphotos .animate img {
--moz-animation-name: big;
--moz-animation-iteration-count: 1;
--moz-animation-timing-function: ease-in-out;
--moz-animation-duration:2s;
--webkit-animation-name: big;
--webkit-animation-iteration-count: 1;
--webkit-animation-timing-function: ease-in-out;
--webkit-animation-duration:2s;
--webkit-backface-visibility: hidden !important;
--moz-backface-visibility: hidden !important;
-}
-
-.racernumberslide {
- color: #000000;
-    display: block;
-    font-family: Haymaker;
-    font-size: 76px;
-    height: 100%;
-    left: 0;
-    line-height: 146px;
-    position: absolute;
-    text-align: center;
-    text-shadow: 0 -1px 0 #CFB181;
-    top: 0;
-    width: 100%;
-    z-index: 0;
-}
-
-@-moz-keyframes big {
- 	0% {
-	-moz-transform: translateY(0);
-	z-index:1;
-	}
-
-	50% {
-	-moz-transform: translateY(200px);
-		z-index:1;
-	}
-	
-	70% {
-	-moz-transform: translateY(200px);
-		z-index:1;
-	}
-	
-	80% {
-	-moz-transform: translateY(200px);
-		z-index:1;
-	}
-	
-	100% {
-	-moz-transform: translateY(0);
-		z-index:1;
-	}
-}
-
-@-webkit-keyframes big {
- 	0% {
-	-webkit-transform: translateY(0);
-	z-index:1;
-	}
-
-	50% {
-	-webkit-transform: translateY(200px);
-		z-index:1;
-	}
-	
-	70% {
-	-webkit-transform: translateY(200px);
-		z-index:1;
-	}
-	
-	80% {
-	-webkit-transform: translateY(200px);
-		z-index:1;
-	}
-	
-	100% {
-	-webkit-transform: translateY(0);
-		z-index:1;
-	}
-}
-
-/*@-moz-keyframes big {
-0%, 100% {
-max-width:306px;
-max-height:306px;
-z-index:10000;
-margin-left:0;
-}
-
-10%,20%,30%,40%,50%,60%,70%,80%,90% {
-max-width:612px;
-max-height:612px;
-margin-left:-286px;
-margin-top:-236px;
-box-shadow: 0 2px 5px rgba(0,0,0,.8);
-}
-}*/
-
-
-@media all and (min-width: 1920px) {
-
-}
-
-@media all and (min-width: 1680px) {
-
-}
-
-@media all and (min-width: 1440px) {
-
-}
-
-@media all and (min-width: 1280px) {
-
-}
-
-@media all and (max-width: 1024px) {
-	
-	.home {
-	    width: 1024px;
-		margin:0 auto;
-	}
-	
-	.racerphotos {
-		left: 20px;
-	    position: absolute;
-	    top: 200px;
-	}
-	
-	 .racerphotos,  .racerphotos > ul {
-	    width: 	1000px;
-		margin:0 auto;
-	}
-	
-	.cards.racers {
-	    max-width: 970px;
-	}
-	
-	.cards {
-	    margin: 0 auto;
-	    width: 1024px;
-	}
-	
-	.cards > a {
-
-	}
-	
-	.cards > a:nth-child(odd) {
-		margin-left:130px;
-	}
-	
-	.slides a span {
-	    font-size: 38px;
-	}
-	
-	.bracketTemplate {
-	    -moz-transform: scale(0.85);
-		-webkit-transform: scale(0.85);
-		transform: scale(0.85);
-	}
-	
-	.racerlist li .name, .round li .name {
-	    font-size: 27px;
-	}
-	
-	.racerlist, .round {
-	    width: 90%;
-	}
-}
-
-/* ipad styles */
-
-@media only screen 
-and (min-device-width : 768px) 
-and (max-device-width : 1024px) {
-	
-	nav, nav:hover  {
-		top:auto;
-		bottom:0;
-		background:rgba(0,0,0,.09);
-		box-shadow:0 -1px 15px rgba(0,0,0,.19);
-		padding:30px 0 22px;
-		position:fixed;
-		width:100%;
-		left:0;
-		margin-left:0;
-		font-size:22px;
-		
-	}
-	
-	.bracketTemplate  {
-		-webkit-transform:scale(.7);
-	}
-
-	.racerlist, .round {
-	-webkit-column-count: 1;
-	-webkit-column-gap:0;
-	margin: 0 auto;
-	width: 95%;
-	}
-	
-
-}
-
-#ipadMenu {
-	position:absolute;
-	top:0;
-	left:0;
-	width:60px;
-	height:60px;
-	z-index:10000;
-}
-
-.intrologo {
-	display:block;
-	margin:0 auto;
 }

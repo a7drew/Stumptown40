@@ -1,15 +1,3 @@
-<!--	<div>
-		<h1>Current Race</h1>
-		<p class="{{winner}}" data-id="{{racer1Id}}">{{racer1}} #{{racer1Id}}</p>
-		<p class="{{winner}}" data-id="{{racer2Id}}">{{racer2}} #{{racer1Id}}</p>
-	</div>
-
-	<div>
-		<h1>Upcoming Race</h1>
-		<p>Racer #{{nextRacer1}}</p>
-		<p>Racer #{{nextRacer2}}</p>
-	</div>
--->
 <div class="racerView">
        <div class="meta">Race <span class="value">{{currentRound}}</span></div>
 	<div class="racers cards">
