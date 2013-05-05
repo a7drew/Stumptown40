@@ -78,20 +78,82 @@ chat.client.onNavigate = function (viewName, jsonData) {
 								}
 							});
 						}
-						
+						var  l = 0;
 					   $.ajax({
 				          	dataType: "jsonp",
 							jsonpCallback:"jsonp",
 				          	url: postano,
 				          	success: function (data) {
-								var l = data.posts.length;
+								l = data.posts.length;
+								
 								for (x = 0; x < l; x++) {
 									var photos = data.posts[x];
 									photos.number =  photos.text.replace(/^#/, '');
-									context.render('../Templates/photos.hb', photos).prependTo($("#photos"));
+									//context.render('../Templates/photos.hb', photos).prependTo($("#photos"));
+									
+									context.render('../Templates/photos.hb', photos, function(e){
+										result = e;
+										return
+									}).then(function(result) {
+										$("#photos").prepend(result).prepend(result).prepend(result).prepend(result).prepend(result);
+									});
 								}
 							},
-						complete: function(){
+						complete: function(){									
+								var min = 1;
+								var max = l;
+								var timer = 3000;
+								var highlight = function() {
+									var randomnumber = Math.floor(Math.random() * (max - min + 1)) + min;
+									$("#photos li").removeClass("on");
+									$("#photos").find("li:nth-child("+randomnumber+")").addClass("on");
+									setTimeout(function () {
+										window.requestAnimationFrame(highlight);
+						            }, timer);
+								}
+								
+								var highlight2 = function() {
+									var randomnumber = Math.floor(Math.random() * (max - min + 1)) + min;
+									$("#photos li").removeClass("on2");
+									$("#photos").find("li:nth-child("+randomnumber+")").addClass("on2");
+									setTimeout(function () {
+										window.requestAnimationFrame(highlight2);
+						            }, 5000);
+								}
+								
+								var highlight3 = function() {
+									var randomnumber = Math.floor(Math.random() * (max - min + 1)) + min;
+									$("#photos li").removeClass("on3");
+									$("#photos").find("li:nth-child("+randomnumber+")").addClass("on3");
+									setTimeout(function () {
+										window.requestAnimationFrame(highlight3);
+						            }, 4000);
+								}
+								
+								var highlight4 = function() {
+									var randomnumber = Math.floor(Math.random() * (max - min + 1)) + min;
+									$("#photos li").removeClass("on4");
+									$("#photos").find("li:nth-child("+randomnumber+")").addClass("on4");
+									setTimeout(function () {
+										window.requestAnimationFrame(highlight4);
+						            }, 3000);
+								}
+								
+								var highlight5 = function() {
+									var randomnumber = Math.floor(Math.random() * (max - min + 1)) + min;
+									$("#photos li").removeClass("on5");
+									$("#photos").find("li:nth-child("+randomnumber+")").addClass("on5");
+									setTimeout(function () {
+										window.requestAnimationFrame(highlight5);
+						            }, 2000);
+								}
+								
+								window.requestAnimationFrame(highlight);
+								window.requestAnimationFrame(highlight2);
+								window.requestAnimationFrame(highlight3);
+								window.requestAnimationFrame(highlight4);
+								window.requestAnimationFrame(highlight5);
+								
 								(function poll() {
 						            if (window.location.hash != '#gallery')
 						                return;

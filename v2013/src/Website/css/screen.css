@@ -82,15 +82,21 @@ font-family:Haymaker;
 }
 
 header {
-text-align:center;
-width:100%;
-height:160px;
-padding-top:15px;
-position:absolute;
-top:-70px;
-left:0;
-background:transparent url("../images/racecenter.png") 50% 100% no-repeat;
-z-index:10;
+text-align: center;
+width: 100%;
+height: 160px;
+padding-top: 15px;
+position: absolute;
+top: 0;
+left: 0;
+background: rgba(0, 0, 0, 0) url("../images/racecenter.png") 50% 10px no-repeat;
+z-index: 10;
+background-size: 160%;
+}
+
+header a {
+text-indent:-9999em;
+display:block;
 }
 
 .meta {
@@ -158,7 +164,7 @@ margin: 0 auto;
 
 /* gallery */
 .racerphotos {
-margin: 35px 0 0 0;
+margin: 0 0 0 0;
 padding: 0;
 list-style: none;
 position: relative;
@@ -173,6 +179,7 @@ width: 16.6666667%; /* Fallback */
 width: -webkit-calc(100% / 6);
 width: calc(100% / 6);
 text-align:center;
+font-size:100%;
 }
 
 .racerphotos li a,
@@ -181,7 +188,7 @@ display: block;
 width: 100%;
 cursor: pointer;
 }
-
+	
 .racerphotos li a img {
 max-width: 100%;
 }
@@ -193,11 +200,11 @@ position: absolute;
 left: 0;
 top: 0;
 right: 0;
-bottom: 0;
-background: rgba(71,163,218,0.8);
-color: #fff;
+bottom: -10px; /* account for offset of font*/
+box-shadow:inset 0 0 200px 50px rgba(0,0,0,0);
+color:rgb(80%, 91%, 95%);
 text-transform: uppercase;
-font-size: 1.4em;
+font-size: 5rem;
 text-align: center;
 display: -webkit-box;
 display: -moz-box;
@@ -227,6 +234,29 @@ align-content: center;
 -webkit-align-items: center;
 -ms-flex-align: center;
 align-items: center;
+-webkit-transition:all 1s ease-in-out;
+-webkit-transform: translate3d(0,0,0);
+}
+
+.racerphotos li.on a h2 {
+	color:rgb(89%, 38%, 0%);
+	box-shadow:inset 0 0 200px 50px rgba(0,0,0,.6);
+}
+
+.racerphotos li.on2 a h2 {
+	box-shadow:inset 0 0 200px 50px rgba(0,0,0,.5);
+}
+
+.racerphotos li.on3 a h2 {
+	box-shadow:inset 0 0 200px 50px rgba(0,0,0,.4);
+}
+
+.racerphotos li.on4 a h2 {
+	box-shadow:inset 0 0 200px 50px rgba(0,0,0,.3);
+}
+
+.racerphotos li.on5 a h2 {
+	box-shadow:inset 0 0 200px 50px rgba(0,0,0,.2);
 }
 
 
