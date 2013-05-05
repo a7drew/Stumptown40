@@ -157,104 +157,96 @@ margin: 0 auto;
 }
 
 /* gallery */
-.ri-grid{
-margin: 0 auto;
-position: relative;
-height: auto;
-}
-
-.ri-grid-loading{
-width: 100px;
-height: 100px;
-background: transparent url(../images/loading.gif) no-repeat center center;
-}
-
-.ri-grid ul {
+.racerphotos {
+margin: 35px 0 0 0;
+padding: 0;
 list-style: none;
+position: relative;
+width: 100%;
+}
+
+.racerphotos li {
+position: relative;
+float: left;
+overflow: hidden;
+width: 16.6666667%; /* Fallback */
+width: -webkit-calc(100% / 6);
+width: calc(100% / 6);
+text-align:center;
+}
+
+.racerphotos li a,
+.racerphotos li a img {
 display: block;
 width: 100%;
-margin: 0;
-padding: 0;
+cursor: pointer;
 }
 
-.ri-grid ul:before,
-.ri-grid ul:after{
-content: '';
-display: table;
+.racerphotos li a img {
+max-width: 100%;
 }
-
-.ri-grid ul:after {
-clear: both;
-}
-
-.ri-grid ul {
-zoom: 1; 
-} 
-
-.ri-grid ul li {
--webkit-perspective: 400px;
--moz-perspective: 400px;
--o-perspective: 400px;
--ms-perspective: 400px;
-perspective: 400px;	
-margin: 0;
-padding: 0;
-float: left;
-position: relative;
-display: block;
-overflow: hidden;
-}
-
-.ri-grid ul li a{
-display: block;
-outline: none;
+ 
+.racerphotos li a h2 {
+font-family:Haymaker;
+color:#000;
 position: absolute;
 left: 0;
 top: 0;
-width: 100%;
-height: 100%;
--webkit-background-size: 100% 100%;
--moz-background-size: 100% 100%;
-background-size: 100% 100%;
-background-position: center center;
-background-repeat: no-repeat;
-background-color: #333;
--webkit-box-sizing: content-box;
--moz-box-sizing: content-box;
-box-sizing: content-box;
--webkit-transform: translate3d(0,0,0);
+right: 0;
+bottom: 0;
+background: rgba(71,163,218,0.8);
+color: #fff;
+text-transform: uppercase;
+font-size: 1.4em;
+text-align: center;
+display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+-webkit-box-direction: normal;
+-moz-box-direction: normal;
+-webkit-box-orient: horizontal;
+-moz-box-orient: horizontal;
+-webkit-flex-direction: row;
+-ms-flex-direction: row;
+flex-direction: row;
+-webkit-flex-wrap: nowrap;
+-ms-flex-wrap: nowrap;
+flex-wrap: nowrap;
+-webkit-box-pack: center;
+-moz-box-pack: center;
+-webkit-justify-content: center;
+-ms-flex-pack: center;
+justify-content: center;
+-webkit-align-content: center;
+-ms-flex-line-pack: center;
+align-content: center;
+-webkit-box-align: center;
+-moz-box-align: center;
+-webkit-align-items: center;
+-ms-flex-align: center;
+align-items: center;
 }
 
-.ri-grid-size-1{
-width: 100%;
-}
-.ri-grid-size-2{
-width: 100%;
-}
-.ri-grid-size-3{
-width: 100%;
-margin-top: 0px;
-}
 
-.ri-grid-loading:after,
-.ri-grid-loading:before{
-display: none;
-}
+
+
 
 .powered {
-	width:250px;
-	position:fixed;
-	bottom:20px;
-	right:20px;
-	z-index:5;
-	text-align:left;
-	font-size:12px;
-	color:#000;
+width:250px;
+position:fixed;
+bottom:20px;
+right:20px;
+z-index:5;
+text-align:left;
+font-size:12px;
+color:#000;
 }
 
 .powered img {
-	width:100%;
-	max-width:100%;
+width:100%;
+max-width:100%;
 }
 
 

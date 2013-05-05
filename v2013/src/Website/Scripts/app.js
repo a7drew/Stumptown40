@@ -84,30 +84,15 @@ chat.client.onNavigate = function (viewName, jsonData) {
 							jsonpCallback:"jsonp",
 				          	url: postano,
 				          	success: function (data) {
-								/*var l = data.posts.length;
+								var l = data.posts.length;
 								for (x = 0; x < l; x++) {
 									var photos = data.posts[x];
 									photos.number =  photos.text.replace(/^#/, '');
 									context.render('../Templates/photos.hb', photos).prependTo($("#photos"));
-								}*/
-								
-								$.each(data.posts, function(){
-									$("#photos").append('<li><a href="#"><img src="'+this.image+'"/></a></li>').append('<li><a href="#"><img src="'+this.image+'"/></a></li>').append('<li><a href="#"><img src="'+this.image+'"/></a></li>').append('<li><a href="#"><img src="'+this.image+'"/></a></li>').append('<li><a href="#"><img src="'+this.image+'"/></a></li>').append('<li><a href="#"><img src="'+this.image+'"/></a></li>');
-								});
+								}
 							},
 						complete: function(){
-							$('#ri-grid').gridrotator({
-								animType: 'random',
-								animSpeed: 8500,
-								interval: 1000,
-								rows:8,
-								columns : 8,
-								nochange : [0,1,2,3],
-								animEasingOut: 'ease-out',
-								animEasingIn: 'ease-in',
-								maxStep: 20
-							});
-							(function poll() {
+								(function poll() {
 						            if (window.location.hash != '#gallery')
 						                return;
 
@@ -117,11 +102,6 @@ chat.client.onNavigate = function (viewName, jsonData) {
 						                //poll();
 						            }, 5000);
 						       })();
-						
-								
-								
-							
-								
 						}
 					});
 			
@@ -166,10 +146,11 @@ $.connection.hub.start().done(function () {
 if(window.location.hash == "#home") {
 	chat.client.onNavigate("home", '');
 }	
+*/
 	
 if(window.location.hash == "#gallery") {
 	chat.client.onNavigate("gallery", '');
-}*/
+}
 
 /*if(window.location.hash == "#sponsors") {
 chat.client.onNavigate("sponsors", '');
