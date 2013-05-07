@@ -381,6 +381,7 @@
     <Content Include="Templates\gallery.hb" />
     <Content Include="Templates\home.hb" />
     <Content Include="Templates\photos.hb" />
+	<Content Include="Templates\marquee.hb" />
     <Content Include="Templates\raceView.hb" />
     <Content Include="Templates\sponsors.hb" />
   </ItemGroup>

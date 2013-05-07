@@ -9,6 +9,9 @@ chat.client.onNavigate = function (viewName, jsonData) {
 	      	var context = this;
 			var obj = jQuery.parseJSON(jsonData);
 			var location = window.location.hash;
+			var token = '51853638.1fb234f.976879fb4353497caa70fa47810b6e3d';
+			var count = 40;
+			var postano = 'http://api.postano.com/jsonp/?Action=GetPosts&PostanoPublicKey=7d14629360370691c3ed&postano_id=83380&Count=100&jsonp=jsonp';
 
 			//race view
 			var raceView = function() {
@@ -41,8 +44,31 @@ chat.client.onNavigate = function (viewName, jsonData) {
 						} else {
 							$('.card[data-id="'+context.racer1Id+'"], p[data-id="'+context.racer2Id+'"]').removeClass("winner");
 						}
+						
+							//racer marquee
+							$.ajax({
+					          	type: "GET",
+					          	dataType: "jsonp",
+								jsonpCallback:"jsonp",
+					          	async: true,
+					          	cache: false,
+					          	url: postano,
+					          	success: function (data) {
+									var items = data.posts.length;
+
+									for (x = 0; x < items; x++) {
+										var photos = data.posts[x];
+										photos.number =  photos.text.replace(/^#/, '');
+										context.render('../Templates/marquee.hb', photos, function(e){
+											result = e;
+											return
+										}).then(function(result) {
+											$("#marquee").prepend(result).prepend(result).prepend(result);
+										})
+									}
+								}
+							});
 					});
-					
 	            });
 			}
 			
@@ -51,9 +77,6 @@ chat.client.onNavigate = function (viewName, jsonData) {
 				context.render('../Templates/'+viewName+'.hb', jsonData, function(html){					
 		        	context.$element().html(html);
 		      	}).then(function() {
-						var token = '51853638.1fb234f.976879fb4353497caa70fa47810b6e3d';
-						var count = 40;
-						var postano = 'http://api.postano.com/jsonp/?Action=GetPosts&PostanoPublicKey=7d14629360370691c3ed&postano_id=83380&Count=100&jsonp=jsonp';
 						 var getNewphoto = function() {
 							$.ajax({
 					          	type: "GET",
