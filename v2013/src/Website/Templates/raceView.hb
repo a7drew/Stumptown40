@@ -21,6 +21,6 @@
 		</div>
 	</div>
 </div>
-<div class="marqueewrapper">
+<!--<div class="marqueewrapper">
 	<marquee id="marquee" class="racersmarquee"></marquee>
-</div>
+</div>-->

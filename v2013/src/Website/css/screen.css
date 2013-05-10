@@ -177,6 +177,7 @@ padding: 0;
 list-style: none;
 position: relative;
 width: 100%;
+-webkit-transform-style:preserve-3d;
 }
 
 .racerphotos li {
@@ -188,20 +189,36 @@ width: -webkit-calc(100% / 10);
 width: calc(100% / 10);
 text-align:center;
 font-size:100%;
+border:5px solid transparent;
+-webkit-box-sizing:border-box;
 }
 
-.racerphotos li a,
-.racerphotos li a img {
-display: block;
-width: 100%;
-cursor: pointer;
+.racerphotos li.on {
+width:100%;
+top:120px;
+right:0;
+left:0;
+position:fixed;
+z-index:10000;
+-webkit-transition:position 1s cubic-bezier(0.680, -0.550, 0.265, 1.550);	
+
 }
 	
-.racerphotos li a img {
+.racerphotos li img {
 max-width: 100%;
+display:block;
+border:0 none;
+box-shadow:0 0 0 rgba(0,0,0,0);
+
+}
+
+.racerphotos li.on img {
+margin:0 auto;
+border:10px solid #fff;
+box-shadow:0 1px 4px rgba(0,0,0,.5);
 }
  
-.racerphotos li a h2 {
+.racerphotos li h2 {
 font-family:Haymaker;
 color:#000;
 position: absolute;
@@ -210,7 +227,6 @@ top: 0;
 right: 0;
 bottom: -10px; /* account for offset of font*/
 box-shadow:inset 0 0 200px 50px rgba(0,0,0,0);
-color:rgb(80%, 91%, 95%);
 text-transform: uppercase;
 font-size: 3rem;
 text-align: center;
@@ -242,33 +258,44 @@ align-content: center;
 -webkit-align-items: center;
 -ms-flex-align: center;
 align-items: center;
--webkit-transition:all 1s ease-in-out;
+-webkit-transition-property:background, color;
+-webkit-transition-timing-function:cubic-bezier(0.680, -0.550, 0.265, 1.550);
+-webkit-transition-duration:1s;
 -webkit-transform: translate3d(0,0,0);
+color:rgba(255,255,255,.6);
 }
 
-.racerphotos li.on a h2 {
-	color:rgb(89%, 38%, 0%);
-	box-shadow:inset 0 0 200px 50px rgba(0,0,0,.8);
+.racerphotos li.on h2,
+.racerphotos li.on.on2 h2,
+.racerphotos li.on.on3 h2,
+.racerphotos li.on.on4 h2,
+.racerphotos li.on.on5 h2 {
+width:100%;
+position:absolute;
+font-size:10rem;
+color:rgb(89%, 38%, 0%);
+background:rgba(0,0,0,0);
+text-shadow:0 1px 1px #000;
 }
 
-.racerphotos li.on2 a h2 {
-	color:rgb(89%, 38%, 0%);
-	box-shadow:inset 0 0 200px 50px rgba(0,0,0,.7);
+.racerphotos li.on2 h2 {
+color:rgba(255,255,255,.8);
+background:rgba(0,0,0,.25);
 }
 
-.racerphotos li.on3 a h2 {
-	color:rgb(89%, 38%, 0%);
-	box-shadow:inset 0 0 200px 50px rgba(0,0,0,.6);
+.racerphotos li.on3 h2 {
+	color:rgba(255,255,255,.8);
+background:rgba(0,0,0,.2);
 }
 
-.racerphotos li.on4 a h2 {
-	color:rgb(89%, 38%, 0%);
-	box-shadow:inset 0 0 200px 50px rgba(0,0,0,.5);
+.racerphotos li.on4 h2 {
+	color:rgba(255,255,255,.8);
+background:rgba(0,0,0,.35);
 }
 
-.racerphotos li.on5 a h2 {
-	color:rgb(89%, 38%, 0%);
-	box-shadow:inset 0 0 200px 50px rgba(0,0,0,.4);
+.racerphotos li.on5 h2 {
+	color:rgba(255,255,255,.8);
+background:rgba(0,0,0,.4);
 }
 
 .powered {
@@ -451,22 +478,53 @@ display: table-cell;
 vertical-align: middle;
 }
 
+@-webkit-keyframes marquee{
+    0%{
+		-webkit-transform: translate3d(100%,0,0);
+}
+    100%{
+        -webkit-transform: translate3d(-100%,0,0);
+    }
+}
 
 .racersmarquee {
-	width: 500%;
-	float: left;
-	overflow-y:hidden;
-	overflow-x: -webkit-marquee;
-	-webkit-marquee-direction: backwards;
-	-webkit-marquee-style: slide;
-	-webkit-marquee-speed: fast;
-	-webkit-marquee-increment: large;
-	-webkit-marquee-repetition: 100000;
-	-webkit-transform: translate3d(0,0,0);
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
+-webkit-animation-name: marquee;
+-webkit-animation-timing-function: linear;
+-webkit-animation-duration:10s;
+-webkit-animation-iteration-count: infinite;
+overflow: hidden;
+display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+-webkit-box-direction: normal;
+-moz-box-direction: normal;
+-webkit-box-orient: horizontal;
+-moz-box-orient: horizontal;
+-webkit-flex-direction: row;
+-ms-flex-direction: row;
+flex-direction: row;
+-webkit-flex-wrap: nowrap;
+-ms-flex-wrap: nowrap;
+flex-wrap: nowrap;
+-webkit-box-pack: start;
+-moz-box-pack: start;
+-webkit-justify-content: flex-start;
+-ms-flex-pack: start;
+justify-content: flex-start;
+-webkit-align-content: stretch;
+-ms-flex-line-pack: stretch;
+align-content: stretch;
+-webkit-box-align: start;
+-moz-box-align: start;
+-webkit-align-items: flex-start;
+-ms-flex-align: start;
+align-items: flex-start;
+position:absolute;
+bottom:0;
+left:0;
+right:0;
 }
 
 .racersmarquee .marqueeItem {
@@ -478,9 +536,19 @@ width: -webkit-calc(100% / 10);
 width: 150px;
 text-align:center;
 font-size:100%;
-float: left; 
-white-space: nowrap;
-display:inline:block;
+-webkit-box-ordinal-group: 1;
+ -moz-box-ordinal-group: 1;
+ -webkit-order: 0;
+ -ms-flex-order: 0;
+ order: 0;
+ -webkit-box-flex: 0;
+ -moz-box-flex: 0;
+ -webkit-flex: 0 1 auto;
+ -ms-flex: 0 1 auto;
+ flex: 0 1 auto;
+ -webkit-align-self: auto;
+ -ms-flex-item-align: auto;
+ align-self: auto;
 }
 
 .racersmarquee .marqueeItem img {
