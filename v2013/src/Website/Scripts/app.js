@@ -121,29 +121,31 @@ chat.client.onNavigate = function (viewName, jsonData) {
 							jsonpCallback:"jsonp",
 				          	url: postano,
 				          	success: function (data) {
-								l = data.posts.length;
+								function shuffle(o){ //v1.0
+								for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+								return o;
+								};
+
+								var myArray = data.posts;
+								newArray = shuffle(myArray);
+									
+								l = newArray.length;
 
 								for (x = 0; x < l; x++) {
-									
-									data.posts.sort(function (a, b) {
-
-									    a = data.posts[x].timestamp,
-									    b = data.posts[x].timestamp;
-									    return a.localeCompare(b);
-									});
-									
-									
-									var photos = data.posts[x];
+									var photos = newArray[x];
 									photos.number =  photos.text.replace(/^#/, '');
 									
-									//context.render('../Templates/photos.hb', photos).prependTo($("#photos"));
+									context.render('../Templates/photos.hb', photos).prependTo($("#photos"));
+									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
+									context.render('../Templates/photos.hb', photos).prependTo($("#photos"));
+									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
 									
-									context.render('../Templates/photos.hb', photos, function(e){
+									/*context.render('../Templates/photos.hb', photos, function(e){
 										result = e;
 										return
 									}).then(function(result) {
-										$("#photos").prepend(result).prepend(result).prepend(result).prepend(result).prepend(result);
-									});
+											$("#photos").prepend(result).append(result).prepend(result).append(result).prepend(result);
+									});*/
 								}
 							},
 						complete: function(){
