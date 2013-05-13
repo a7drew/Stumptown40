@@ -9,8 +9,6 @@ chat.client.onNavigate = function (viewName, jsonData) {
 	      	var context = this;
 			var obj = jQuery.parseJSON(jsonData);
 			var location = window.location.hash;
-			var token = '51853638.1fb234f.976879fb4353497caa70fa47810b6e3d';
-			var count = 40;
 			var postano = 'http://api.postano.com/jsonp/?Action=GetPosts&PostanoPublicKey=7d14629360370691c3ed&postano_id=83380&Count=100&jsonp=jsonp';
 
 			//race view
@@ -73,7 +71,8 @@ chat.client.onNavigate = function (viewName, jsonData) {
 			}
 			
 			//gallery view
-			var galleryView = function() {		
+			var galleryView = function() {	
+					
 				context.render('../Templates/'+viewName+'.hb', jsonData, function(html){					
 		        	context.$element().empty().html(html);
 		      	}).then(function() {
@@ -139,6 +138,21 @@ chat.client.onNavigate = function (viewName, jsonData) {
 									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
 									context.render('../Templates/photos.hb', photos).prependTo($("#photos"));
 									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
+									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
+									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
+									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
+									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
+									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
+									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
+									
+									
+									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
+									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
+									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
+									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
+									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
+									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
+									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
 									
 									/*context.render('../Templates/photos.hb', photos, function(e){
 										result = e;
@@ -178,7 +192,7 @@ chat.client.onNavigate = function (viewName, jsonData) {
 									$("#photos").find("li:nth-child("+randomnumber+")").addClass("on3");
 									setTimeout(function () {
 										window.requestAnimationFrame(highlight3);
-						            }, 800);
+						            }, 1200);
 								}
 								
 								var highlight4 = function() {
@@ -188,7 +202,7 @@ chat.client.onNavigate = function (viewName, jsonData) {
 									$("#photos").find("li:nth-child("+randomnumber+")").addClass("on4");
 									setTimeout(function () {
 										window.requestAnimationFrame(highlight4);
-						            }, 500);
+						            }, 1500);
 								}
 								
 								var highlight5 = function() {
@@ -198,7 +212,7 @@ chat.client.onNavigate = function (viewName, jsonData) {
 									$("#photos").find("li:nth-child("+randomnumber+")").addClass("on5");
 									setTimeout(function () {
 										window.requestAnimationFrame(highlight5);
-						            }, 300);
+						            }, 2000);
 								}
 								
 								window.requestAnimationFrame(highlight);
