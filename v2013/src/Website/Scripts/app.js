@@ -19,6 +19,9 @@ chat.client.onNavigate = function (viewName, jsonData) {
 					context.racer1Id = obj.currentRace[0].racer1;
 					context.racer2Id = obj.currentRace[0].racer2;
 					
+					context.upcomingracer1Id = obj.upcomingRace[0].nextRacer1;
+					context.upcomingracer2Id = obj.upcomingRace[0].nextRacer2;
+					
 					context.racer1 = context.racer1Id > 0 ? gRacerCache[(obj.currentRace[0].racer1) - 1].Name : "???";
 					context.racer2 = context.racer2Id > 0 ? gRacerCache[(obj.currentRace[0].racer2) - 1].Name : "???";
 									 
@@ -35,12 +38,14 @@ chat.client.onNavigate = function (viewName, jsonData) {
 			      	}).then(function() { 
 						//winner
 				       	if(context.racer1Id === context.winnerId) {
-							$('.card[data-id="'+context.racer1Id+'"]').addClass("winner");
+							$('.racer[data-id="'+context.racer1Id+'"]').addClass("winner");
+							$('.racer[data-id="'+context.racer2Id+'"]').addClass("loser");
 
 						} else if(context.racer2Id === context.winnerId) {
-							$('.card[data-id="'+context.racer2Id+'"]').addClass("winner");
+							$('.racer[data-id="'+context.racer2Id+'"]').addClass("winner");
+							$('.racer[data-id="'+context.racer1Id+'"]').addClass("loser");
 						} else {
-							$('.card[data-id="'+context.racer1Id+'"], p[data-id="'+context.racer2Id+'"]').removeClass("winner");
+							$('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]').removeClass("winner");							$('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]').removeClass("loser");
 						}
 						
 							//racer marquee

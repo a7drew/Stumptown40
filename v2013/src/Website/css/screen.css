@@ -66,7 +66,7 @@ overflow-y: visible;
 
 
 body {
-background:transparent url("/Images/wood.png")repeat;
+background:transparent url("../Images/wood.png")repeat;
 background-size:512px;
 font-family:Ranger;
 font-size:28px;
@@ -89,7 +89,7 @@ padding-top: 15px;
 position: absolute;
 top: 0;
 left: 0;
-background: rgba(0, 0, 0, 0) url("../images/racecenter.png") 50% 10px no-repeat;
+background: rgba(0, 0, 0, 0) url("../Images/racecenter.png") 50% 10px no-repeat;
 z-index: 10;
 /*background-size: 160%;*/
 }
@@ -123,7 +123,7 @@ height:69px;
 display:block;
 left:-22px;
 top:-3px;
-background:transparent url("../images/ribbon_left.png") no-repeat;
+background:transparent url("../Images/ribbon_left.png") no-repeat;
 }
 
 .meta:after {
@@ -134,7 +134,7 @@ height:69px;
 display:block;
 right:-21px;
 top:-3px;
-background:transparent url("../images/ribbon_right.png") no-repeat;
+background:transparent url("../Images/ribbon_right.png") no-repeat;
 }
 
 .gallery .meta {
@@ -160,7 +160,7 @@ position:absolute;
 /* home */
 
 .home {
-background: url("../images/stumptown40-4th.png") no-repeat scroll 50% 50% rgba(0, 0, 0, 0);
+background: url("../Images/stumptown40-4th.png") no-repeat scroll 50% 50% rgba(0, 0, 0, 0);
 background-size: 100%;
 position: relative;
 width: 100%;
@@ -353,25 +353,94 @@ max-width:100%;
 .cards {
 margin: 0 auto;
 width: 1310px;
+position:relative;
+z-index:10000;
 }
 
 .cards.racers {
 max-width: 1100px;
 min-width: 960px;
-margin-top:100px;
+-webkit-perspective: 1000;
+-webkit-transform-origin:center center;
+
 }
 
-.cards .winner:after {
-content:'';
-background: url("../images/winner.png") repeat scroll 0 0 transparent;
+
+@-webkit-keyframes flip {
+	0% {
+		-webkit-transform: translate3d(0,0,0) rotateY(0);
+			-webkit-transform-origin:center center;
+			-webkit-animation-timing-function: linear;
+	}
+	30% {
+		-webkit-transform: translate3d(300px,-100px,450px) rotateY(180deg);
+			-webkit-transform-origin:center center;
+			-webkit-animation-timing-function: linear;
+	}
+
+
+	100% {
+		-webkit-transform: translate3d(0,0,0) rotateY(360deg);
+			-webkit-transform-origin:center center;
+			-webkit-animation-timing-function: linear;
+	}
+}
+	
+	
+
+.cards .racer1,
+.cards .racer2 {
+position: absolute;
+left: 50%;
+margin-left: -540px;
+top: 120px;
+-webkit-transform-style:preserve-3d;
+-webkit-transition: all 1650ms;
+-webkit-animation-duration: 900ms;
+-webkit-animation-direction:forwards;
+-webkit-animation-play-state: paused;
+-webkit-animation-timing-function:linear;
+-webkit-backface-visibility: visible !important;
+-webkit-animation-name: flip;
+-webkit-animation-iteration-count: 1;
+-webkit-transform-origin:center center;
+}
+
+.cards .racer2 {
+margin-left: 210px;
+}
+
+.cards .racer1.winner,
+.cards .racer2.winner {
+left: 50%;
+margin-left: -170px;
+z-index: 1000;
+-webkit-animation-play-state: running;
+-webkit-transform-origin:center center;
+}
+
+.cards .racer1.loser,
+.cards .racer2.loser {
+	left:3000px;
+	-webkit-animation-play-state: running;
+	-webkit-tranistion-delay:3s;
+	opacity:0;
+	
+}
+
+.cards .racer1.winner:after,
+.cards .racer2.winner:after {
+content: '';
+background: url("../Images/winner.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
 display: block;
 height: 180px;
 position: absolute;
-right: 0;
+left: 123px;
 text-indent: -999em;
 top: -8px;
 width: 207px;
 z-index: 10;
+-webkit-backface-visibility: hidden;
 }
 
 .cards > a {
@@ -397,13 +466,29 @@ left:0;
 z-index:1;
 overflow:hidden;
 z-index:2;
--moz-transform:rotate(0deg);
--webkit-transform:rotate(0deg);
+-webkit-backface-visibility: hidden;
 }
 
 
-.cards .number {
-background: url("../images/circle_green.png") repeat scroll 0 0 transparent;
+.back {
+box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
+position:absolute;
+background: url("../Images/s40.png") 50% 50% no-repeat, url("../Images/cardboard.png") repeat;
+width:306px;
+height:400px;
+margin-bottom:20px;
+padding:10px;
+top:0;
+left:0;
+z-index:1;
+overflow:hidden;
+z-index:2;
+background-size:50%, 600px;
+}
+
+
+.racername .number {
+background: url("../Images/circle_blu.png") repeat scroll 0 0 transparent;
 color: #FFFFFF;
 display: block;
 font-size: 64px;
@@ -417,41 +502,10 @@ width: 163px;
 top:50%;
 }
 
-.cards .racer2 .number {
-background: url("../images/circle_red.png") repeat scroll 0 0 transparent;
+.racer2 .racername .number {
+background: url("../Images/circle_org.png") repeat scroll 0 0 transparent;
 }
 
-.racers .card {
-position:relative;
-float:left;
-}
-
-.racers .card {
-position:relative;
-}
-
-.racers .racer2 .card {
-float:right;
-}
-
-.readout {
-display:none!important;
-}
-
-.card + .card, .race_over > .card {
--moz-transform:rotate(9deg);
--webkit-transform:rotate(9deg);
-z-index:1;
-top:100px;
-}
-
-
-.race_over > .card.winner, a > .card + .card.winner {
-z-index:2;
-top:0;
--moz-transform:rotate(0deg);
--webkit-transform:rotate(0deg);
-}
 
 .card .avatar {
 width:306px;
@@ -463,7 +517,7 @@ top:0;
 left:0;
 z-index:2;
 background-color:#fff;
-background-image: url("../images/pinewoodcar.png");
+background-image: url("../Images/pinewoodcar.png");
 background-position:50% 50%;
 background-repeat: no-repeat;
 }
@@ -511,6 +565,8 @@ width: 185px;
 display: table-cell;
 vertical-align: middle;
 }
+
+/*racer marquee unfinished */
 
 @-webkit-keyframes marquee{
     0%{
@@ -636,9 +692,83 @@ align-items: center;
 -webkit-transform: translate3d(0,0,0);
 }
 
+/* upcoming racers */
+.otherracer {
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+min-height: 310px;
+background: rgba(255, 255, 255, .4) url("/Images/checkered.png") repeat-x;
+background-size: 24px;
+} 
+
+.upcomingracers {
+	position:relative;
+}
+
+.upcomingracers h2 {
+width: 160px;
+height: 160px;
+background: url("../Images/circle_red.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+position: absolute;
+top: 20px;
+left: 50%;
+-webkit-box-sizing: border-box;
+padding: 57px 23px 0 0;
+margin-left: -480px;
+z-index: 120;
+border-radius: 160px;
+box-shadow: 0 2px 1px rgba(0, 0, 0, .6);
+border: 2px solid rgb(168, 61, 15);
+
+}
+
+.upcomingracers h2 span {
+-webkit-transform: rotate(-18deg);
+font-size: 26px;
+text-align: right;
+width: 120px;
+line-height: 1;
+color: rgb(255, 255, 255);
+border-top: 4px solid rgba(255, 255, 255, .5);
+border-bottom: 4px solid rgba(255, 255, 255, .5);
+position: absolute;
+padding: 10px 0 2px;
+left: 20px;
+top: 44px;
+}
+
+.upcomingracer {
+left: 50%;
+margin-left: -645px;
+-webkit-transform: scale(.75) rotate(0deg);
+margin-top: -15px;
+z-index: 76;
+position: absolute;
+}
+
+.upcomingracer.racer2 {
+margin-left: -382px;
+margin-top: -15px;
+z-index: 101;
+-webkit-transform: scale(.75) rotate(0deg);
+}
+
+.upcomingracer.racer1 .number,
+.upcomingracer.racer2 .number {
+background: url("../Images/circle_blk.png") repeat scroll 0 0 transparent;
+}
+
+.upcomingracer.racer1 .avatar img,
+.upcomingracer.racer2 .avatar img {
+-webkit-filter: grayscale(100%);  	
+}
+
+
+
 
 /* sponsor */
-
 .sponsors .meta {
 width:500px;
 margin-top:-100px;

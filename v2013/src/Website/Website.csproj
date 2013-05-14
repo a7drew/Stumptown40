@@ -296,6 +296,10 @@
     <Content Include="Images\championship.png" />
     <Content Include="Images\circle_green.png" />
     <Content Include="Images\circle_red.png" />
+	<Content Include="Images\circle_blu.png" />
+	<Content Include="Images\circle_org.png" />
+	<Content Include="Images\checkered.png" />
+	<Content Include="Images\s40.png" />
     <Content Include="Images\default.jpg" />
     <Content Include="Images\losers.png" />
     <Content Include="Images\pinewoodcar.png" />
