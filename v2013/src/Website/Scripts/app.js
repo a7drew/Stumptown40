@@ -6,13 +6,13 @@ chat.client.onNavigate = function (viewName, jsonData) {
 	var app =  $.sammy('#view', function() {
 		this.use('Handlebars', 'hb');
 		this.bind('#'+viewName, function(event, viewName) {
-	      	var context = this;
+	      	var context = this;	
 			var obj = jQuery.parseJSON(jsonData);
 			var location = window.location.hash;
 			var postano = 'http://api.postano.com/jsonp/?Action=GetPosts&PostanoPublicKey=7d14629360370691c3ed&postano_id=83380&Count=100&jsonp=jsonp';
-
+			
 			//race view
-			var raceView = function() {
+			var raceView = function() {			
 			    $.getJSON('http://stumptown40.azurewebsites.net/api/racers?callback=?', function (e) {
 	                gRacerCache = e;
 					
@@ -31,22 +31,27 @@ chat.client.onNavigate = function (viewName, jsonData) {
 					
 					context.winnerId = obj.winnerId;
 					context.currentRound = obj.currentRound;
+										
 					
-					
-					context.render('../Templates/'+viewName+'.hb', jsonData, function(html){					
-			        	context.$element().html(html);
+					context.render('../Templates/'+viewName+'.hb', jsonData, function(html){
+								context.$element().html(html);
+								context.$element().addClass("show");						
 			      	}).then(function() { 
 						//winner
-				       	if(context.racer1Id === context.winnerId) {
-							$('.racer[data-id="'+context.racer1Id+'"]').addClass("winner");
-							$('.racer[data-id="'+context.racer2Id+'"]').addClass("loser");
 
-						} else if(context.racer2Id === context.winnerId) {
-							$('.racer[data-id="'+context.racer2Id+'"]').addClass("winner");
-							$('.racer[data-id="'+context.racer1Id+'"]').addClass("loser");
-						} else {
-							$('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]').removeClass("winner");							$('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]').removeClass("loser");
-						}
+							if(context.racer1Id === context.winnerId) {
+								context.$element().addClass("winnerDeclared");
+								$('.racer[data-id="'+context.racer1Id+'"]').addClass("winner");
+								$('.racer[data-id="'+context.racer2Id+'"]').addClass("loser");
+							} else if(context.racer2Id === context.winnerId) {
+								context.$element().addClass("winnerDeclared");
+								$('.racer[data-id="'+context.racer2Id+'"]').addClass("winner");
+								$('.racer[data-id="'+context.racer1Id+'"]').addClass("loser");
+							} else {
+$('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]').removeClass("winner");							$('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]').removeClass("loser");
+							}
+						
+				       	
 						
 							//racer marquee
 							/*$.ajax({
@@ -158,13 +163,6 @@ chat.client.onNavigate = function (viewName, jsonData) {
 									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
 									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
 									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
-									
-									/*context.render('../Templates/photos.hb', photos, function(e){
-										result = e;
-										return
-									}).then(function(result) {
-											$("#photos").prepend(result).append(result).prepend(result).append(result).prepend(result);
-									});*/
 								}
 							},
 						complete: function(){
@@ -245,7 +243,13 @@ chat.client.onNavigate = function (viewName, jsonData) {
 			}
 			
 			if(location === "#raceView") {
-				raceView();
+				
+					context.$element().removeClass("winnerDeclared");
+					context.$element().removeClass("show");
+					setTimeout(function(){
+						raceView();						
+					},1000);
+
 			} else if(location === "#gallery") {
 				galleryView();
 			} else {

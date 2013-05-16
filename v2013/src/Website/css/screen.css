@@ -388,18 +388,17 @@ min-width: 960px;
 	
 	
 
-.cards .racer1,
-.cards .racer2 {
+.racer1,
+.racer2 {
 position: absolute;
-left: 50%;
-margin-left: -540px;
+left: -800px;
 top: 120px;
 -webkit-transform-style:preserve-3d;
--webkit-transition: all 1650ms;
--webkit-animation-duration: 900ms;
+-webkit-transition: all 500ms;
+-webkit-animation-duration: 500ms;
 -webkit-animation-direction:forwards;
--webkit-animation-play-state: paused;
--webkit-animation-timing-function:linear;
+-webkit-animation-play-state: running;
+-webkit-animation-timing-function:cubic-bezier(0.390, 0.575, 0.565, 1.000);
 -webkit-backface-visibility: visible !important;
 -webkit-animation-name: flip;
 -webkit-animation-iteration-count: 1;
@@ -407,29 +406,46 @@ top: 120px;
 }
 
 .cards .racer2 {
-margin-left: 210px;
+right: -800px;
+left:auto;
 }
 
-.cards .racer1.winner,
-.cards .racer2.winner {
-left: 50%;
-margin-left: -170px;
+
+.show .cards .racer1 {
+left:0;	
+}
+
+.show .cards .racer2 {
+right: 330px;	
+}
+
+.show .cards .racer1.winner,
+.show .cards .racer2.winner {
+	-webkit-transition: all 500ms ease-in-out;
+	-webkit-animation-duration:0;
+	-webkit-animation-iteration-count:1;
+}
+
+.show .cards .racer1.winner{
+left: 385px;
 z-index: 1000;
--webkit-animation-play-state: running;
--webkit-transform-origin:center center;
 }
 
-.cards .racer1.loser,
-.cards .racer2.loser {
-	left:3000px;
-	-webkit-animation-play-state: running;
-	-webkit-tranistion-delay:3s;
-	opacity:0;
-	
+.show .cards .racer2.winner{
+	right: 710px;
+z-index: 1000;	
 }
 
-.cards .racer1.winner:after,
-.cards .racer2.winner:after {
+.show .cards .racer1.loser {
+	left: -800px;
+}
+
+.show .cards .racer2.loser  {
+	right: -800px;
+}
+
+.show .cards .racer1.winner:after,
+.show .cards .racer2.winner:after {
 content: '';
 background: url("../Images/winner.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
 display: block;
@@ -456,7 +472,7 @@ margin-right: 4%;
 .card {
 box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
 position:absolute;
-background:#fff;
+background:rgba(255,255,255,.75);
 width:306px;
 height:400px;
 margin-bottom:20px;
@@ -467,6 +483,11 @@ z-index:1;
 overflow:hidden;
 z-index:2;
 -webkit-backface-visibility: hidden;
+}
+
+.racers .card {
+	box-shadow:0 8px 20px 0px rgba(0, 0, 0, 0.75);
+	
 }
 
 
@@ -542,7 +563,6 @@ width:306px;
 .racername {
 -moz-box-sizing: padding-box;
 -webkit-box-sizing: padding-box;
-background: none repeat scroll 0 0 #FFFFFF;
 height: 122px;
 left: 0;
 padding: 0;
@@ -692,13 +712,27 @@ align-items: center;
 -webkit-transform: translate3d(0,0,0);
 }
 
+.racerView {
+position: absolute;
+top: 20px;
+right: 0;
+left: 0;
+}
+
+.vs {
+	position: absolute;
+	left: 50%;
+	margin-left: -158px;
+	top: 250px;
+}
+
 /* upcoming racers */
 .otherracer {
 position: absolute;
 bottom: 0;
 left: 0;
 right: 0;
-min-height: 310px;
+min-height: 200px;
 background: rgba(255, 255, 255, .4) url("/Images/checkered.png") repeat-x;
 background-size: 24px;
 } 
@@ -740,19 +774,34 @@ top: 44px;
 }
 
 .upcomingracer {
-left: 50%;
-margin-left: -645px;
--webkit-transform: scale(.75) rotate(0deg);
-margin-top: -15px;
-z-index: 76;
+left: -2000px;
+-webkit-transform: rotate(-3deg);
 position: absolute;
+top: 220px;
 }
 
 .upcomingracer.racer2 {
-margin-left: -382px;
-margin-top: -15px;
-z-index: 101;
--webkit-transform: scale(.75) rotate(0deg);
+-webkit-transform: rotate(3deg);
+left: auto;
+right: -2000px;
+}
+
+.show .upcomingracer.racer1 {
+	left:220px;
+}
+
+.show .upcomingracer.racer2 {
+	right: 550px;
+}
+
+.show.winnerDeclared .upcomingracer.racer1 {
+	-webkit-transition-delay:5s;
+	left: -2000px;
+}
+
+.show.winnerDeclared .upcomingracer.racer2 {
+		-webkit-transition-delay:5s;
+	right: -2000px;
 }
 
 .upcomingracer.racer1 .number,
@@ -1031,3 +1080,166 @@ font-size:52px;
 -moz-animation-name: show11;
 -webkit-animation-name: show11;
 }
+
+/* the smoke */
+
+.thesmoke {
+	position: absolute;
+	top: 370px;
+	left: 160px;
+	width: 500px;
+	height: 500px;
+	z-index: 0;
+}
+
+.smoke, .smoketwo, .smokethree {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transform-style: preserve-3d;
+  position: absolute;
+  z-index: 0;
+  width: 1px;
+  height: 120px;
+  left: 70%;
+ }
+
+.smoketwo {
+  left: 72.5%; }
+
+.smokethree {
+  left: 75%; }
+
+/* smoke balls */
+.smoke span, .smoketwo span, .smokethree span {
+	display: block;
+	position: absolute;
+	left: 50%;
+	margin-left: 0;
+	height: 0px;
+	width: 0px;
+	border-radius: 300px;
+	left: -14px;
+	opacity: 0;
+	transform: scale(1);
+	box-shadow: 0 0 30px 40px rgba(0, 0, 0, .4);
+	width: 160px;
+	height: 150px;
+	background: rgba(0, 0, 0, .4);
+}
+
+.smokethree .s1, .smokethree.s2, .smokethree .s3, .smokethree .s4, .smokethree .s5, .smokethree .s6, .smokethree .s7, .smokethree .s8, .smokethree .s9 {
+  margin-left: -15px; }
+
+.smoke .s1, .smoke .s2, .smoke .s3, .smoke .s4, .smoke .s5, .smoke .s6, .smoke .s7, .smoke .s8, .smoke .s9 {
+  margin-left: -25px; }
+
+/* Smoke animation */
+@-webkit-keyframes smokeL {
+  0% {
+    -webkit-transform: scale(0.5) translate(0, 0);
+    -moz-transform: scale(0.5) translate(0, 0);
+    -o-transform: scale(0.5) translate(0, 0);
+    transform: scale(0.5) translate(0, 0); }
+
+  10% {
+    opacity: 1;
+    -webkit-transform: scale(0.5) translate(0, 15px);
+    -moz-transform: scale(0.5) translate(0, 15px);
+    -o-transform: scale(0.5) translate(0, 15px);
+    transform: scale(0.5) translate(0, 15px); }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1) translate(0, 130px);
+    -moz-transform: scale(1) translate(0, 130px);
+    -o-transform: scale(1) translate(0, 130px);
+    transform: scale(1) translate(0, 130px); } 
+}
+
+
+@-webkit-keyframes smokeR {
+  0% {
+    -webkit-transform: scale(0.5) translate(0, 0);
+    -moz-transform: scale(0.5) translate(0, 0);
+    -o-transform: scale(0.5) translate(0, 0);
+    transform: scale(0.5) translate(0, 0); }
+
+  10% {
+    opacity: 1;
+    -webkit-transform: scale(0.5) translate(0, 15px);
+    -moz-transform: scale(0.5) translate(0, 15px);
+    -o-transform: scale(0.5) translate(0, 15px);
+    transform: scale(0.5) translate(0, 15px); }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1) translate(5px, 130px);
+    -moz-transform: scale(1) translate(5px, 130px);
+    -o-transform: scale(1) translate(5px, 130px);
+    transform: scale(1) translate(5px, 130px); } 
+}
+
+
+
+.smoke .s0, .smoketwo .s0, .smokethree .s0 {
+  -webkit-animation: smokeL 10s 0s infinite;
+  -moz-animation: smokeL 10s 0s infinite;
+  -o-animation: smokeL 10s 0s infinite;
+  animation: smokeL 10s 0s infinite; }
+
+.smoke .s1, .smoketwo .s1, .smokethree .s1 {
+  -webkit-animation: smokeR 10s 1s infinite;
+  -moz-animation: smokeR 10s 1s infinite;
+  -o-animation: smokeR 10s 1s infinite;
+  animation: smokeR 10s 1s infinite; }
+
+.smoke .s2, .smoketwo .s2, .smokethree .s2 {
+  -webkit-animation: smokeL 10s 2s infinite;
+  -moz-animation: smokeL 10s 2s infinite;
+  -o-animation: smokeL 10s 2s infinite;
+  animation: smokeL 10s 2s infinite; }
+
+.smoke .s3, .smoketwo .s3, .smokethree .s3 {
+  -webkit-animation: smokeR 10s 3s infinite;
+  -moz-animation: smokeR 10s 3s infinite;
+  -o-animation: smokeR 10s 3s infinite;
+  animation: smokeR 10s 3s infinite; }
+
+.smoke .s4, .smoketwo .s4, .smokethree .s4 {
+  -webkit-animation: smokeL 10s 4s infinite;
+  -moz-animation: smokeL 10s 4s infinite;
+  -o-animation: smokeL 10s 4s infinite;
+  animation: smokeL 10s 4s infinite; }
+
+.smoke .s5, .smoketwo .s5, .smokethree .s5 {
+  -webkit-animation: smokeR 10s 5s infinite;
+  -moz-animation: smokeR 10s 5s infinite;
+  -o-animation: smokeR 10s 5s infinite;
+  animation: smokeR 10s 5s infinite; }
+
+.smoke .s6, .smoketwo .s6, .smokethree .s6 {
+  -webkit-animation: smokeL 10s 6s infinite;
+  -moz-animation: smokeL 10s 6s infinite;
+  -o-animation: smokeL 10s 6s infinite;
+  animation: smokeL 10s 6s infinite; }
+
+.smoke .s7, .smoketwo .s7, .smokethree .s7 {
+  -webkit-animation: smokeR 10s 7s infinite;
+  -moz-animation: smokeR 10s 7s infinite;
+  -o-animation: smokeR 10s 7s infinite;
+  animation: smokeR 10s 7s infinite; }
+
+.smoke .s8, .smoketwo .s8, .smokethree .s8 {
+  -webkit-animation: smokeL 10s 8s infinite;
+  -moz-animation: smokeL 10s 8s infinite;
+  -o-animation: smokeL 10s 8s infinite;
+  animation: smokeL 10s 8s infinite; }
+
+.smoke .s9, .smoketwo .s9, .smokethree .s9 {
+  -webkit-animation: smokeR 10s 9s infinite;
+  -moz-animation: smokeR 10s 9s infinite;
+  -o-animation: smokeR 10s 9s infinite;
+  animation: smokeR 10s 9s infinite; }

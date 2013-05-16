@@ -299,6 +299,7 @@
 	<Content Include="Images\circle_blu.png" />
 	<Content Include="Images\circle_org.png" />
 	<Content Include="Images\circle_blk.png" />
+	<Content Include="Images\vs.png" />
 	<Content Include="Images\checkered.png" />
 	<Content Include="Images\stumptown40-4th.png" />
 	<Content Include="Images\cardboard.png" />
