@@ -100,7 +100,7 @@
             self.showRacer1Winner = function (raceItem) {
 
                 $.ajax({
-                    url: 'http://stumptown40.azurewebsites.net/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer1Id(),
+                    url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer1Id(),
                     type: 'PUT',
 					dataType: 'jsonp',
                     complete: function () {
@@ -114,7 +114,7 @@
             self.showRacer2Winner = function (raceItem) {
 
                 $.ajax({
-                    url: 'http://stumptown40.azurewebsites.net/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer2Id(),
+                    url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer2Id(),
                     type: 'PUT',
 					dataType: 'jsonp',
 					complete: function () {
@@ -128,7 +128,7 @@
             self.clearRaceWinner = function (raceItem) {
 
                 $.ajax({
-                    url: 'http://stumptown40.azurewebsites.net/api/match?matchId=' + raceItem.raceId() + '&winningracerid=-1',
+                    url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=-1',
                     type: 'PUT',
 					dataType: 'jsonp',
 					complete: function () {
@@ -145,7 +145,7 @@
 
                 self.races.removeAll();
 				$.ajax({
-				        url: 'http://stumptown40.azurewebsites.net/api/match?roundId=' + roundId,
+				        url: '/api/match?roundId=' + roundId,
 						dataType:'jsonp',
 						success: function (data) {
 	                        for (var x = 0; x < data.length; x++) {
@@ -236,7 +236,7 @@
             
             // Declare a proxy to reference the hub. 
             $.support.cors = true;
-            $.connection.hub.url = 'http://stumptown40.azurewebsites.net/signalr';
+            $.connection.hub.url = '/signalr';
 
             gHub = $.connection.navigationHub; // Start the connection.
 
@@ -250,7 +250,7 @@
 
 
 			  $.ajax({
-                    url: 'http://stumptown40.azurewebsites.net/api/racers',
+                    url: '/api/racers',
 					dataType:'jsonp',
                     success: function (data) {
                         gRacerCache = data;
@@ -262,7 +262,7 @@
                 if (!window.confirm('Clear Winning Racers?'))
                     return;
 
-                $.post('http://stumptown40.azurewebsites.net/Admin/ClearWinningRacers', function (isGood) {
+                $.post('/Admin/ClearWinningRacers', function (isGood) {
                     if (!isGood) {
                         alert('no good!');
                     }
@@ -274,7 +274,7 @@
                 if (!window.confirm('Assign Sequential Start Slots Button?'))
                     return;
 
-                $.post('http://stumptown40.azurewebsites.net/Admin/AssignSequentialStartSlots', function (isGood) {
+                $.post('/Admin/AssignSequentialStartSlots', function (isGood) {
                     if (!isGood) {
                         alert('no good!');
                     }
@@ -286,7 +286,7 @@
                 if (!window.confirm('Assign Random Start Slots?'))
                     return;
 
-                $.post('http://stumptown40.azurewebsites.net/Admin/AssignRandomStartSlots', function (isGood) {
+                $.post('/Admin/AssignRandomStartSlots', function (isGood) {
                     if (!isGood) {
                         alert('no good!');
                     }
@@ -298,7 +298,7 @@
                 if (!window.confirm('Assign Brackets By Start Slot ?'))
                     return;
 
-                $.post('http://stumptown40.azurewebsites.net/Admin/assignBracketsByStartSlot', function (isGood) {
+                $.post('/Admin/assignBracketsByStartSlot', function (isGood) {
                     if (!isGood) {
                         alert('no good!');
                     }
