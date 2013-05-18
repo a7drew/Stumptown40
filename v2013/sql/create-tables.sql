@@ -6,14 +6,47 @@ GO
 -- TABLES
 --
 
+IF (NOT EXISTS (SELECT *
+                FROM INFORMATION_SCHEMA.TABLES 
+                WHERE TABLE_SCHEMA = 'dbo' 
+                AND  TABLE_NAME = 'MyConfig'))
+BEGIN
+	CREATE TABLE [dbo].[MyConfig]
+	(
+		[MyConfigId] [int]           NOT NULL,
+		[MyKey]      [nvarchar](200) NOT NULL,
+		[MyValue]    [nvarchar](200) NOT NULL,	
+		CONSTRAINT [PK_MyConfig] PRIMARY KEY CLUSTERED ([MyConfigId] ASC)
+	)
+END
+GO
+
+IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'Match'))
+BEGIN
+  DROP TABLE [dbo].[Match]
+END
+GO
+
+IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'Round'))
+BEGIN
+  DROP TABLE [dbo].[Round]
+END
+GO
+
+IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'Racer'))
+BEGIN
+  DROP TABLE [dbo].[Racer]
+END
+GO
+
 CREATE TABLE [dbo].[Racer]
 (
-	[RacerId]      [int] IDENTITY(1,1) NOT NULL,
-	[StartSlot]    [int]               NOT NULL DEFAULT(0),
-	[Name]         [nvarchar](200)     NOT NULL,
-	[Organization] [nvarchar](200)     NOT NULL,
-	[FaceUrl]      [nvarchar](200)         NULL,
-	[CarUrl]       [nvarchar](200)         NULL,
+	[RacerId]      [int]           IDENTITY NOT NULL,
+	[StartSlot]    [int]                    NOT NULL DEFAULT(0),
+	[Name]         [nvarchar](200)          NOT NULL,
+	[Organization] [nvarchar](200)          NOT NULL,
+	[FaceUrl]      [nvarchar](200)          NULL,
+	[CarUrl]       [nvarchar](200)          NULL,
 	CONSTRAINT [PK_Racer] PRIMARY KEY CLUSTERED ([RacerId] ASC)
 )
 GO
@@ -184,104 +217,105 @@ INSERT INTO [dbo].[Match] ([MatchId], [RoundId], [RaceNumber], [NextWinningMatch
 
 GO
 
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (1, 'FirstName LastName1', 'Company1 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (2, 'FirstName LastName2', 'Company2 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (3, 'FirstName LastName3', 'Company3 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (4, 'FirstName LastName4', 'Company4 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (5, 'FirstName LastName5', 'Company5 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (6, 'FirstName LastName6', 'Company6 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (7, 'FirstName LastName7', 'Company7 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (8, 'FirstName LastName8', 'Company8 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (9, 'FirstName LastName9', 'Company9 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (10, 'FirstName LastName10', 'Company10 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (11, 'FirstName LastName11', 'Company11 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (12, 'FirstName LastName12', 'Company12 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (13, 'FirstName LastName13', 'Company13 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (14, 'FirstName LastName14', 'Company14 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (15, 'FirstName LastName15', 'Company15 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (16, 'FirstName LastName16', 'Company16 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (17, 'FirstName LastName17', 'Company17 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (18, 'FirstName LastName18', 'Company18 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (19, 'FirstName LastName19', 'Company19 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (20, 'FirstName LastName20', 'Company20 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (21, 'FirstName LastName21', 'Company21 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (22, 'FirstName LastName22', 'Company22 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (23, 'FirstName LastName23', 'Company23 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (24, 'FirstName LastName24', 'Company24 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (25, 'FirstName LastName25', 'Company25 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (26, 'FirstName LastName26', 'Company26 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (27, 'FirstName LastName27', 'Company27 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (28, 'FirstName LastName28', 'Company28 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (29, 'FirstName LastName29', 'Company29 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (30, 'FirstName LastName30', 'Company30 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (31, 'FirstName LastName31', 'Company31 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (32, 'FirstName LastName32', 'Company32 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (33, 'FirstName LastName33', 'Company33 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (34, 'FirstName LastName34', 'Company34 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (35, 'FirstName LastName35', 'Company35 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (36, 'FirstName LastName36', 'Company36 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (37, 'FirstName LastName37', 'Company37 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (38, 'FirstName LastName38', 'Company38 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (39, 'FirstName LastName39', 'Company39 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (40, 'FirstName LastName40', 'Company40 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (41, 'FirstName LastName41', 'Company41 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (42, 'FirstName LastName42', 'Company42 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (43, 'FirstName LastName43', 'Company43 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (44, 'FirstName LastName44', 'Company44 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (45, 'FirstName LastName45', 'Company45 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (46, 'FirstName LastName46', 'Company46 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (47, 'FirstName LastName47', 'Company47 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (48, 'FirstName LastName48', 'Company48 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (49, 'FirstName LastName49', 'Company49 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (50, 'FirstName LastName50', 'Company50 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (51, 'FirstName LastName51', 'Company51 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (52, 'FirstName LastName52', 'Company52 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (53, 'FirstName LastName53', 'Company53 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (54, 'FirstName LastName54', 'Company54 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (55, 'FirstName LastName55', 'Company55 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (56, 'FirstName LastName56', 'Company56 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (57, 'FirstName LastName57', 'Company57 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (58, 'FirstName LastName58', 'Company58 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (59, 'FirstName LastName59', 'Company59 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (60, 'FirstName LastName60', 'Company60 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (61, 'FirstName LastName61', 'Company61 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (62, 'FirstName LastName62', 'Company62 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (63, 'FirstName LastName63', 'Company63 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (64, 'FirstName LastName64', 'Company64 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (65, 'FirstName LastName65', 'Company65 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (66, 'FirstName LastName66', 'Company66 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (67, 'FirstName LastName67', 'Company67 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (68, 'FirstName LastName68', 'Company68 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (69, 'FirstName LastName69', 'Company69 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (70, 'FirstName LastName70', 'Company70 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (71, 'FirstName LastName71', 'Company71 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (72, 'FirstName LastName72', 'Company72 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (73, 'FirstName LastName73', 'Company73 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (74, 'FirstName LastName74', 'Company74 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (75, 'FirstName LastName75', 'Company75 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (76, 'FirstName LastName76', 'Company76 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (77, 'FirstName LastName77', 'Company77 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (78, 'FirstName LastName78', 'Company78 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (79, 'FirstName LastName79', 'Company79 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (80, 'FirstName LastName80', 'Company80 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (81, 'FirstName LastName81', 'Company81 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (82, 'FirstName LastName82', 'Company82 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (83, 'FirstName LastName83', 'Company83 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (84, 'FirstName LastName84', 'Company84 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (85, 'FirstName LastName85', 'Company85 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (86, 'FirstName LastName86', 'Company86 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (87, 'FirstName LastName87', 'Company87 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (88, 'FirstName LastName88', 'Company88 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (89, 'FirstName LastName89', 'Company89 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (90, 'FirstName LastName90', 'Company90 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (91, 'FirstName LastName91', 'Company91 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (92, 'FirstName LastName92', 'Company92 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (93, 'FirstName LastName93', 'Company93 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (94, 'FirstName LastName94', 'Company94 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (95, 'FirstName LastName95', 'Company95 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (96, 'FirstName LastName96', 'Company96 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (97, 'FirstName LastName97', 'Company97 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (98, 'FirstName LastName98', 'Company98 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (99, 'FirstName LastName99', 'Company99 Name Goes Here');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (100, 'FirstName LastName100', 'Company100 Name Goes Here');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (1,'Dave Selden','Co-Founder!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (2,'Howard Freedman','Buckman Elementary');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (3,'Mason West','SMITH');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (4,'Sam Amis','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (5,'Nic Petersen','TROPHIES! / Makelike');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (6,'Ben Friedle','Outlier Solutions');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (7,'Jed Herzog','Outlier Solutions');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (8,'Greg Windell','Hank Designs');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (9,'Greg Windell','Hank Designs');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (10,'Rocket Windell','Revel in Portland');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (11,'Jeremiah Raidt','SMITH');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (12,'Steve Jarvis','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (13,'James Stiehl','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (14,'Michael Dryden','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (15,'Brian Garcia','HOT BOX');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (16,'Greg Windell','BlackBox Productions');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (17,'Chad Jacobsen','Oregon Museum of Science');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (18,'Matthew Ross','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (19,'Pinball Publishing','Sponsor!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (20,'Postano','Sponsor!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (21,'David Stewart','Skylark64');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (22,'Jen Raynak','Little Star Racing');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (23,'Erich Quist','Liveaxle');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (24,'Darren Cools','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (25,'Evan Wilcox','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (26,'Jen Raynak','Little Star Racing');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (27,'Nate Fasser','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (28,'Keenan Blanchard','Keenan Blanchard Photography');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (29,'Evan Wilcox','HERENOW');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (30,'Tiffany Jennings','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (31,'Nicholas Nakadate','Animation Dynamics, Inc.');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (32,'Nate Currie','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (33,'Maria Janosko','Maria & Dusty Inc.');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (34,'Johnny Levenson','Con-way Freight');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (35,'Jerry Blazek','Xerox');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (36,'Transport','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (37,'Katherine Topaz','Storycode');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (38,'Herboth O''Hanlon','Team Vermin');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (39,'Luis Menchu','Portland Community College');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (40,'Kate O''Neil','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (41,'Postano Design Team','Sponsor!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (42,'Postano UX Team','Sponsor!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (43,'Postano Team','Sponsor!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (44,'Gregory Saunders','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (45,'Stephen R. Topaz', 'Topaz Design (Sponsor)');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (46,'Scott Landis','Storycode');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (47,'Schoolhouse Supplies','This year''s beneficiary!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (48,'Schuyler Silva','Figure Plant');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (49,'Ben Birdsall','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (50,'Colin Harvey','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (51,'Bruce Kehe','Hopworks Urban Brewery');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (52,'The New Group','The New Group');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (53,'Urban Airship 1','Sponsor!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (54,'Urban Airship 2','Sponsor!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (55,'Urban Airship 3','Sponsor!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (56,'Urban Airship 4','Sponsor!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (57,'Urban Airship 5','Sponsor!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (58,'Urban Airship 6','Sponsor!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (59,'Ben Bertola','Team Bertola');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (60,'David Danner','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (61,'Greg Schmidt','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (62,'Crystal Potter','Figure Plant');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (63,'Stevie SwellPath Jr.','SwellPath');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (64,'Tad Lowder','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (65,'Steve','Pop Art');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (66,'52 Limited - 1','Sponsor!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (67,'52 Limited - 2','Sponsor!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (68,'52 Limited - 3','Sponsor!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (69,'Ian Kennelly','Pop Art Inc.');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (70,'Rick Koe','Tigerlogic');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (71,'Peter Koe','Tigerlogic');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (72,'Anthony Stock','Microchip Technology, Inc.');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (73,'Jon, Stevesies, Brewer & Garber','Fire it Up');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (74,'Eric Reigert','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (75,'Kyle Ackerman','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (76,'Sho, Yoore, Alex & Megan','Alex Harry & Associates');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (77,'Carter Stewart','Stewart Family');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (78,'Leland Hyer','Search Logic Media');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (79,'Megin Diem','Postano');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (80,'Kendra Freeman','');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (81,'Brian cheek','Postano');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (82, 'Bye-82', '');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (83, 'Bye-83', '');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (84, 'Bye-84', '');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (85, 'Bye-85', '');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (86, 'Bye-86', '');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (87, 'Bye-87', '');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (88, 'Bye-88', '');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (89, 'Bye-89', '');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (90, 'Bye-90', '');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (91, 'Bye-91', '');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (92, 'Bye-92', '');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (93, 'Bye-93', '');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (94, 'Bye-94', '');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (95, 'Bye-95', '');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (96, 'Bye-96', '');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (97, 'Bye-97', '');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (98, 'Bye-98', '');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (99, 'Bye-99', '');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (100, 'Bye-100', '');
+
 GO

@@ -305,6 +305,7 @@
 	<Content Include="Images\cardboard.png" />
 	<Content Include="Images\s40.png" />
     <Content Include="Images\default.jpg" />
+    <Content Include="Images\loading.gif" />
     <Content Include="Images\losers.png" />
     <Content Include="Images\pinewoodcar.png" />
     <Content Include="Images\racecenter.png" />
@@ -318,6 +319,7 @@
     <Content Include="Images\sponsors\blu-jae.png" />
     <Content Include="Images\sponsors\handeyesupply.png" />
     <Content Include="Images\sponsors\popart.png" />
+    <Content Include="Images\sponsors\postano-blk.png" />
     <Content Include="Images\sponsors\postano.png" />
     <Content Include="Images\sponsors\postano-blk.png" />
     <Content Include="Images\sponsors\printpinball.png" />
@@ -328,6 +330,7 @@
     <Content Include="Images\sponsors\webtrends.png" />
     <Content Include="Images\sponsors\webvisions.png" />
     <Content Include="Images\stripes.png" />
+    <Content Include="Images\stumptown40-4th.png" />
     <Content Include="Images\stumptown40.png" />
     <Content Include="Images\stumptown40_lg.png" />
     <Content Include="Images\test.JPG" />
