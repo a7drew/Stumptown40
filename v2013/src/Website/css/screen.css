@@ -632,17 +632,14 @@ align-content: stretch;
 -ms-flex-align: start;
 align-items: flex-start;
 position:absolute;
-bottom:0;
+bottom:12px;
 left:0;
 right:0;
 }
 
 .racersmarquee .marqueeItem {
 position: relative;
-float: left;
 overflow: hidden;
-width: 16.6666667%; /* Fallback */
-width: -webkit-calc(100% / 10);
 width: 150px;
 text-align:center;
 font-size:100%;
@@ -659,6 +656,8 @@ font-size:100%;
  -webkit-align-self: auto;
  -ms-flex-item-align: auto;
  align-self: auto;
+margin-right:10px;
+-webkit-transform: translate3d(0,0,0)
 }
 
 .racersmarquee .marqueeItem img {
@@ -669,14 +668,13 @@ width: 100%;
  
 .racersmarquee .marqueeItem h2 {
 font-family:Haymaker;
-color:#000;
 position: absolute;
 left: 0;
 top: 0;
 right: 0;
 bottom: -10px; /* account for offset of font*/
 box-shadow:inset 0 0 200px 50px rgba(0,0,0,0);
-color:rgb(80%, 91%, 95%);
+color:#000;
 text-transform: uppercase;
 font-size: 3rem;
 text-align: center;
@@ -746,31 +744,32 @@ width: 160px;
 height: 160px;
 background: url("../Images/circle_red.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 position: absolute;
-top: 20px;
-left: 50%;
 -webkit-box-sizing: border-box;
 padding: 57px 23px 0 0;
-margin-left: -480px;
 z-index: 120;
 border-radius: 160px;
 box-shadow: 0 2px 1px rgba(0, 0, 0, .6);
 border: 2px solid rgb(168, 61, 15);
+top: -90px;
+left: 50%;
+margin-left: -100px;
 
 }
 
 .upcomingracers h2 span {
--webkit-transform: rotate(-18deg);
-font-size: 26px;
-text-align: right;
-width: 120px;
+-webkit-transform: rotate(-24deg);
+font-size: 38px;
+text-align: left;
+width: 128px;
 line-height: 1;
 color: rgb(255, 255, 255);
 border-top: 4px solid rgba(255, 255, 255, .5);
 border-bottom: 4px solid rgba(255, 255, 255, .5);
 position: absolute;
-padding: 10px 0 2px;
-left: 20px;
-top: 44px;
+padding: 10px 5px 2px;
+left: 11px;
+top: 30px;
+overflow: hidden;
 }
 
 .upcomingracer {

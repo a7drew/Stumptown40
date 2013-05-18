@@ -89,12 +89,8 @@
 
 <div class="otherracer">
 	<div class="upcomingracers">
-		<h2><span>Upcoming Racers</span></h2>	
-	
+		<h2><span>Speed Racers</span></h2>
 	</div>
 </div>
 	
 	
-<!--<div class="marqueewrapper">
-	<marquee id="marquee" class="racersmarquee"></marquee>
-</div>-->
