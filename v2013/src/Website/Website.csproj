@@ -324,6 +324,7 @@
     <Content Include="Images\sponsors\topaz.png" />
     <Content Include="Images\sponsors\urban.png" />
     <Content Include="Images\sponsors\vertigo.png" />
+	<Content Include="Images\sponsors\scoutbooks.png" />
     <Content Include="Images\sponsors\webtrends.png" />
     <Content Include="Images\sponsors\webvisions.png" />
     <Content Include="Images\stripes.png" />
