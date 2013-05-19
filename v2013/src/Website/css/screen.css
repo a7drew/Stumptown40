@@ -115,6 +115,10 @@ z-index:1000;
 margin-left:-90px;
 }
 
+.meta span {
+	font-family:Haymaker;
+}
+
 .meta:before {
 position:absolute;
 content:'';
@@ -138,11 +142,12 @@ background:transparent url("../Images/ribbon_right.png") no-repeat;
 }
 
 .gallery .meta {
-	position:absolute;
-	left:50px;
-	bottom:25px;
-	z-index:1000;
-	margin:0;
+position:absolute;
+left:50px;
+bottom:25px;
+z-index:1000;
+margin:0;
+width:250px;
 }
 
 .meta span {
@@ -212,7 +217,7 @@ display: -webkit-box;
 
 .racerphotos li {
 position: relative;
-width: 125px;
+width: 208px;
 text-align:center;
 font-size:100%;
 border:5px solid transparent;
@@ -236,17 +241,17 @@ align-self: auto;
 
 .racerphotos li.on {
 	width: 100%;
-	top:125px;
+	top:208px;
 	right:0;
 	left:0;
 	position:fixed;
 	z-index:10000;
 	-webkit-transition:position 1s linear;	
-	
 }
 	
 .racerphotos li img {
 max-width: 100%;
+width:100%;
 display:block;
 }
 
@@ -305,11 +310,24 @@ color:rgba(255,255,255,.6);
 .racerphotos li.on.on5 h2 {
 width:100%;
 position:absolute;
-font-size:20rem;
+font-size:6rem;
 color:rgba(255,255,255,1);
 background:rgba(0,0,0,0);
 text-shadow:0 -1px 0 rgba(0,0,0,.3);
+line-height:1;
+margin:240px 0 0 -210px;
+background: url("../images/bg.png") repeat, white;
+-webkit-text-fill-color: transparent;
+-webkit-background-clip: text;
+-webkit-animation-name: masked-animation;
+-webkit-animation-duration: 80s;
+-webkit-animation-iteration-count: infinite;
+-webkit-animation-timing-function: linear;
+}
 
+@-webkit-keyframes masked-animation {
+0% {background-position: left bottom;}
+100% {background-position: right bottom;}
 }
 
 .racerphotos li.on2 h2 {
@@ -600,7 +618,7 @@ vertical-align: middle;
 .racersmarquee {
 -webkit-animation-name: marquee;
 -webkit-animation-timing-function: linear;
--webkit-animation-duration:10s;
+-webkit-animation-duration:30s;
 -webkit-animation-iteration-count: infinite;
 overflow: hidden;
 display: -webkit-box;

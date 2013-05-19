@@ -9,7 +9,8 @@ chat.client.onNavigate = function (viewName, jsonData) {
 	      	var context = this;	
 			var obj = jQuery.parseJSON(jsonData);
 			var location = window.location.hash;
-			var postano = 'http://api.postano.com/jsonp/?Action=GetPosts&PostanoPublicKey=7d14629360370691c3ed&postano_id=83380&Count=100&jsonp=jsonp';
+			var noletter = /^[0-9a]+$/;
+			var s40 = 'http://api.postano.com/jsonp/?Action=GetPosts&PostanoPublicKey=7d14629360370691c3ed&postano_id=83380&Count=100&jsonp=jsonp';
 			
 			//race view
 			var raceView = function() {			
@@ -17,7 +18,7 @@ chat.client.onNavigate = function (viewName, jsonData) {
 	                gRacerCache = e;
 					context.racer1Id = obj.currentRace[0].racer1;
 					context.racer2Id = obj.currentRace[0].racer2;
-					
+										
 					context.upcomingracer1Id = obj.upcomingRace[0].nextRacer1;
 					context.upcomingracer2Id = obj.upcomingRace[0].nextRacer2;
 					
@@ -59,19 +60,19 @@ $('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]
 								jsonpCallback:"jsonp",
 					          	async: true,
 					          	cache: false,
-					          	url: postano,
+					          	url: s40,
 					          	success: function (data) {
 									var items = data.posts.length;
 									var w = parseInt(items * 160);
-									$("body").append('<div class="marqueewrapper"><marquee style="width:'+w+'px" id="marquee" class="racersmarquee"></marquee></div>');
+									$("body").append('<div class="marqueewrapper" id="marqueewrapper"><marquee style="width:'+w+'px" id="marquee" class="racersmarquee"></marquee></div>');
 									for (x = 0; x < items; x++) {
 										var photos = data.posts[x];
-										photos.number =  photos.text.replace(/^#/, '');
+										 photos.number =  (photos.text.replace(/^#/, '').match(noletter) != null) ? photos.text.replace(/^#/, '') : '' ;
+										
 										context.render('../Templates/marquee.hb', photos, function(e){
 											result = e;
 											return
 										}).then(function(result) {
-											
 											$("#marquee").prepend(result);
 										})
 									}
@@ -98,7 +99,6 @@ $('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]
 							while (intervalId--) {
 							    window.clearInterval(intervalId);
 							}
-							
 						 var getNewphoto = function() {
 							$.ajax({
 					          	type: "GET",
@@ -106,10 +106,10 @@ $('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]
 								jsonpCallback:"jsonp",
 					          	async: true,
 					          	cache: false,
-					          	url: postano,
+					          	url: s40,
 					          	success: function (data) {
 									var newphoto = data.posts[0];
-									newphoto.number =  newphoto.text.replace(/^#/, '');
+									newphoto.number =  (newphoto.text.replace(/^#/, '').match(noletter) != null) ? newphoto.text.replace(/^#/, '') : '' ;									
 									var newphotoId = newphoto.post_id;
 									var prevphotoId = (!isNaN(parseInt($('#photos li:nth-child(1)').attr('data-id')))) ? parseInt($('#photos li:nth-child(1)').attr('data-id')) : newphotoId;
 									//console.log(newphotoId,prevphotoId)
@@ -129,7 +129,7 @@ $('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]
 					   $.ajax({
 				          	dataType: "jsonp",
 							jsonpCallback:"jsonp",
-				          	url: postano,
+				          	url: s40,
 				          	success: function (data) {
 								function shuffle(o){ //v1.0
 								for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
@@ -137,33 +137,15 @@ $('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]
 								};
 
 								var myArray = data.posts;
-								newArray = shuffle(myArray);
-									
+								newArray = shuffle(myArray);	
 								l = newArray.length;
-
 								for (x = 0; x < l; x++) {
 									var photos = newArray[x];
-									photos.number =  photos.text.replace(/^#/, '');
+									
+									photos.number = (photos.text.replace(/^#/, '').match(noletter) != null) ? photos.text.replace(/^#/, '') : '' ;
+									console.log(photos.number)
 									
 									context.render('../Templates/photos.hb', photos).prependTo($("#photos"));
-									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
-									context.render('../Templates/photos.hb', photos).prependTo($("#photos"));
-									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
-									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
-									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
-									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
-									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
-									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
-									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
-									
-									
-									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
-									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
-									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
-									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
-									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
-									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
-									context.render('../Templates/photos.hb', photos).appendTo($("#photos"));
 								}
 							},
 						complete: function(){
@@ -251,7 +233,9 @@ $('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]
 				},500);
 			} else if(location === "#gallery") {
 				galleryView();
+				$("#marqueewrapper").remove();
 			} else {
+				$("#marqueewrapper").remove();
 				context.render('../Templates/'+viewName+'.hb', viewName, function(html){					
 		        	context.$element().html(html);
 		      	});	
