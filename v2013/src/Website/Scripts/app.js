@@ -67,7 +67,9 @@ $('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]
 									$("body").append('<div class="marqueewrapper" id="marqueewrapper"><marquee style="width:'+w+'px" id="marquee" class="racersmarquee"></marquee></div>');
 									for (x = 0; x < items; x++) {
 										var photos = data.posts[x];
-										 photos.number =  (photos.text.replace(/^#/, '').match(noletter) != null) ? photos.text.replace(/^#/, '') : '' ;
+										
+										photos.newtext = (photos.text != null) ? photos.text : '';
+										photos.number = (photos.newtext.match(noletter) != null) ? photos.newtext : '';
 										
 										context.render('../Templates/marquee.hb', photos, function(e){
 											result = e;
@@ -109,7 +111,10 @@ $('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]
 					          	url: s40,
 					          	success: function (data) {
 									var newphoto = data.posts[0];
-									newphoto.number =  (newphoto.text.replace(/^#/, '').match(noletter) != null) ? newphoto.text.replace(/^#/, '') : '' ;									
+									
+									newphoto.newtext = (newphoto.text != null) ? newphoto.text : '';
+									newphoto.number = (newphoto.newtext.match(noletter) != null) ? newphoto.newtext : '';
+														
 									var newphotoId = newphoto.post_id;
 									var prevphotoId = (!isNaN(parseInt($('#photos li:nth-child(1)').attr('data-id')))) ? parseInt($('#photos li:nth-child(1)').attr('data-id')) : newphotoId;
 									//console.log(newphotoId,prevphotoId)
@@ -141,16 +146,15 @@ $('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]
 								l = newArray.length;
 								for (x = 0; x < l; x++) {
 									var photos = newArray[x];
-									
-									photos.number = (photos.text.replace(/^#/, '').match(noletter) != null) ? photos.text.replace(/^#/, '') : '' ;
-									console.log(photos.number)
+									photos.newtext = (photos.text != null) ? photos.text : '';
+									photos.number = (photos.newtext.match(noletter) != null) ? photos.newtext : '';
 									
 									context.render('../Templates/photos.hb', photos).prependTo($("#photos"));
 								}
 							},
 						complete: function(){
 								var min = 1;
-								var timer = 3000;
+								var timer = 6000;
 								var highlight = function() {
 									var max = $("#photos li").size();
 									var randomnumber = Math.floor(Math.random() * (max - min + 1)) + min;
