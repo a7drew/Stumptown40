@@ -65,6 +65,14 @@
             self.racer2Name = ko.observable(racer2Name);
             self.winningRacerId = ko.observable(winningRacerId);
 
+            self.racer1FullName = ko.computed(function() {
+                return this.racer1Id() + ' ' + this.racer1Name();
+            }, this);
+            
+            self.racer2FullName = ko.computed(function () {
+                return this.racer2Id() + " " + this.racer2Name();
+            }, this);
+
             //self.raceId = raceId;
             //self.heatNumber = heatNumber;
             //self.racer1Id = racer1Id;
@@ -170,8 +178,8 @@
 		                        var racer1Id = parseInt(m.Racer1Id);
 		                        var racer2Id = parseInt(m.Racer2Id);
 
-		                        var racer1Name = racer1Id > 0 ? gRacerCache[racer1Id].Name : "???";
-		                        var racer2Name = racer2Id > 0 ? gRacerCache[racer2Id].Name : "???";
+		                        var racer1Name = racer1Id > 0 ? gRacerCache[racer1Id-1].Name : "???";
+		                        var racer2Name = racer2Id > 0 ? gRacerCache[racer2Id-1].Name : "???";
 
 		                        self.races.push(
 		                            new RaceItem(
@@ -349,11 +357,11 @@
 							<input type="hidden" data-bind="value: heatNumber" />
 						</td>
                         <td class="c2">
-                            <input type="button" data-bind="value: racer1Name, click: $root.showRacer1Winner, css: { selected: racer1Id() > 0 && winningRacerId() == racer1Id() }" />
+                            <input type="button" data-bind="value: racer1FullName, click: $root.showRacer1Winner, css: { selected: racer1Id() > 0 && winningRacerId() == racer1Id() }" />
                             <input type="hidden" data-bind="value: racer1Id" />
                         </td>
                         <td class="c3">
-                            <input type="button" data-bind="value: racer2Name, click: $root.showRacer2Winner, css: { selected: racer2Id() > 0 && winningRacerId() == racer2Id() }" />
+                            <input type="button" data-bind="value: racer2FullName, click: $root.showRacer2Winner, css: { selected: racer2Id() > 0 && winningRacerId() == racer2Id() }" />
                             <input type="hidden" data-bind="value: racer2Id" />
                         </td>
                         <td class="c4">
