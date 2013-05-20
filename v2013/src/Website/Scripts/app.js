@@ -22,12 +22,12 @@ chat.client.onNavigate = function (viewName, jsonData) {
 					context.upcomingracer1Id = obj.upcomingRace[0].nextRacer1;
 					context.upcomingracer2Id = obj.upcomingRace[0].nextRacer2;
 					
-					context.racer1 = context.racer1Id > 0 ? gRacerCache[(obj.currentRace[0].racer1)].Name : "???";
-					context.racer2 = context.racer2Id > 0 ? gRacerCache[(obj.currentRace[0].racer2)].Name : "???";
+					context.racer1 = context.racer1Id > 0 ? gRacerCache[(obj.currentRace[0].racer1) - 1].Name : "???";
+					context.racer2 = context.racer2Id > 0 ? gRacerCache[(obj.currentRace[0].racer2) - 1].Name : "???";
 									 
 					
-					context.nextRacer1 = context.racer1Id > 0 ? gRacerCache[(obj.upcomingRace[0].nextRacer1)].Name : "???";
-					context.nextRacer2 = context.racer2Id > 0 ? gRacerCache[(obj.upcomingRace[0].nextRacer2)].Name : "???";
+					context.nextRacer1 = context.racer1Id > 0 ? gRacerCache[(obj.upcomingRace[0].nextRacer1) - 1].Name : "???";
+					context.nextRacer2 = context.racer2Id > 0 ? gRacerCache[(obj.upcomingRace[0].nextRacer2) - 1].Name : "???";
 					
 					context.winnerId = obj.winnerId;
 					context.currentRound = obj.currentRound;
