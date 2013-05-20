@@ -290,6 +290,7 @@
     <Content Include="fonts\Ranger.eot" />
     <Content Include="fonts\Ranger.otf" />
     <Content Include="fonts\Ranger.ttf" />
+	<Content Include="fonts\services.ttf" />
     <Content Include="fonts\Ranger.woff" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\bg.png" />

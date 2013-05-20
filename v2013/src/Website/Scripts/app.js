@@ -37,8 +37,11 @@ chat.client.onNavigate = function (viewName, jsonData) {
 								context.$element().html(html);
 								context.$element().addClass("show");						
 			      	}).then(function() { 
+						context.$element().find("img").error(function () { 
+						    $(this).hide();
+						    // or $(this).css({visibility:"hidden"}); 
+						});
 						//winner
-
 							if(context.racer1Id === context.winnerId) {
 								context.$element().addClass("winnerDeclared");
 								$('.racer[data-id="'+context.racer1Id+'"]').addClass("winner");
@@ -50,9 +53,8 @@ chat.client.onNavigate = function (viewName, jsonData) {
 							} else {
 $('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]').removeClass("winner");							$('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]').removeClass("loser");
 							}
-						
-				       	
-						
+					
+					}).then(function() {
 							//racer marquee
 							$.ajax({
 					          	type: "GET",
@@ -62,9 +64,15 @@ $('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]
 					          	cache: false,
 					          	url: s40,
 					          	success: function (data) {
-									var items = data.posts.length;
+									var items = 20;
 									var w = parseInt(items * 160);
-									$("body").append('<div class="marqueewrapper" id="marqueewrapper"><marquee style="width:'+w+'px" id="marquee" class="racersmarquee"></marquee></div>');
+									context.$element().append('<div class="marqueewrapper" id="marqueewrapper"><marquee style="width:'+w+'px" id="marquee" class="racersmarquee"></marquee></div>');
+									
+									setTimeout(function(){
+										$("#marqueewrapper").addClass("on");
+									}, 500);
+									
+									
 									for (x = 0; x < items; x++) {
 										var photos = data.posts[x];
 										
@@ -113,7 +121,7 @@ $('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]
 									var newphoto = data.posts[0];
 									
 									newphoto.newtext = (newphoto.text != null) ? newphoto.text : '';
-									newphoto.number = (newphoto.newtext.match(noletter) != null) ? newphoto.newtext : '';
+									newphoto.number = (newphoto.newtext.match(noletter) != null) ? newphoto.newtext : 'newphoto.newtext';
 														
 									var newphotoId = newphoto.post_id;
 									var prevphotoId = (!isNaN(parseInt($('#photos li:nth-child(1)').attr('data-id')))) ? parseInt($('#photos li:nth-child(1)').attr('data-id')) : newphotoId;
@@ -147,7 +155,7 @@ $('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]
 								for (x = 0; x < l; x++) {
 									var photos = newArray[x];
 									photos.newtext = (photos.text != null) ? photos.text : '';
-									photos.number = (photos.newtext.match(noletter) != null) ? photos.newtext : '';
+									photos.number = photos.text;
 									
 									context.render('../Templates/photos.hb', photos).prependTo($("#photos"));
 								}
@@ -232,6 +240,7 @@ $('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]
 			if(location === "#raceView") {				
 				context.$element().removeClass("winnerDeclared");
 				context.$element().removeClass("show");
+				$("#marqueewrapper").removeClass("on");
 				setTimeout(function(){
 					raceView();
 				},500);
@@ -273,17 +282,17 @@ $.connection.hub.start().done(function () {
 if(window.location.hash == "#home") {
 	chat.client.onNavigate("home", '');
 }	
+
+
+
+if(window.location.hash == "#sponsors") {
+chat.client.onNavigate("sponsors", '');
+}
 */
-	
+
 if(window.location.hash == "#gallery") {
 	chat.client.onNavigate("gallery", '');
-}
-
-/*if(window.location.hash == "#sponsors") {
-chat.client.onNavigate("sponsors", '');
-}*/
-
-	
+}	
 
 
 });

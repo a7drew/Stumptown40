@@ -36,25 +36,19 @@ outline: 0;
 
 @font-face {
 font-family: 'Ranger';
-src: url('../fonts/Ranger.eot');
-src: url('../fonts/Ranger.eot?#iefix') format('embedded-opentype'),
-url('../fonts/Ranger.woff') format('woff'),
-url('../fonts/Ranger.ttf') format('truetype'),
-url('../fonts/Ranger.svg#Ranger') format('svg');
-font-weight: normal;
-font-style: normal;
+src: url('../fonts/Ranger.ttf') format('truetype');
 }
 
 @font-face {
 font-family: 'Haymaker';
-src: url('../fonts/Haymaker.eot');
-src: url('../fonts/Haymaker.eot?#iefix') format('embedded-opentype'),
-url('../fonts/Haymaker.woff') format('woff'),
-url('../fonts/Haymaker.ttf') format('truetype'),
-url('../fonts/Haymaker.svg#Haymaker') format('svg');
-font-weight: normal;
-font-style: normal;
+src: url('../fonts/Haymaker.ttf') format('truetype');
 }
+
+@font-face {
+font-family: 'services';
+src: url('../fonts/services.ttf') format('truetype');
+}
+
 
 html, body {
 width:100%;
@@ -110,9 +104,16 @@ line-height:67px;
 height:61px;
 position:absolute;
 left:50%;
-margin-top:140px;
+margin-top:97px;
 z-index:1000;
 margin-left:-90px;
+opacity:1;
+-webkit-transition:opacity 250ms;
+}
+
+
+.winnerDeclared .meta {
+	opacity:0;
 }
 
 .meta span {
@@ -142,12 +143,38 @@ background:transparent url("../Images/ribbon_right.png") no-repeat;
 }
 
 .gallery .meta {
+	position: absolute;
+	left: 50px;
+	bottom: 25px;
+	z-index: 1000;
+	margin: 0;
+	width: 320px;
+	text-indent: 0;
+	text-align: left;
+	padding-left: 0;
+}
+
+.meta span.icon::after {
+display:block;
+font-family: 'services';
 position:absolute;
-left:50px;
-bottom:25px;
-z-index:1000;
-margin:0;
-width:250px;
+top:-3px;
+right:10px;
+-webkit-font-smoothing: antialiased;
+color:#000;
+font-size:28px;
+}
+
+.meta span.icon.instagram::after {
+content: "\e000";
+right:50px;
+font-size:26px;
+}
+
+.meta span.icon.twitter::after {
+content: "\e002";
+right:10px;
+left:auto;
 }
 
 .meta span {
@@ -335,10 +362,11 @@ align-content: center;
 align-items: center;
 color:rgba(255,255,255,.6);
 z-index:2;
--webkit-transition-property:color;
+-webkit-transition-property:color, text-shadow;
 -webkit-transition-duration: 1500ms;
 -webkit-transition-timing-function:ease-in;
 -webkit-transform: translate3d(0,0,0);
+text-indent: -9999em;
 }
 
 .racerphotos li.on h2,
@@ -346,14 +374,14 @@ z-index:2;
 .racerphotos li.on.on3 h2,
 .racerphotos li.on.on4 h2,
 .racerphotos li.on.on5 h2 {
-width:100%;
-position:absolute;
-font-size:6rem;
-color:#222;
-background:rgba(0,0,0,.8);
-line-height:1;
-top:750px;
-left: -245px;
+	text-indent: 1px;
+	top: 520px;
+	color: #ff8935;
+	width: 615px;
+	left: 50%;
+	margin-left: -307px;
+	font-size: 52px;
+	text-shadow:0 1px 0 #000;
 }
 
 
@@ -531,11 +559,40 @@ z-index:2;
 -webkit-backface-visibility: hidden;
 }
 
-.racers .card {
-	box-shadow:0 8px 20px 0px rgba(0, 0, 0, 0.75);
-	
+.upcomingracer .card::after {
+	background: #333;
+	width: 220px;
+	content: 'Next Up';
+	padding: 14px 0 8px;
+	position: absolute;
+	top: 20px;
+	left: -63px;
+	z-index: 100000;
+	-webkit-transform: rotate(-45deg);
+	text-align: center;
+	font-size: 21px;
+	box-shadow: 0 1px 10px rgba(0, 0, 0, .9);
+	color:#fff;
+	text-shadow: 0 -1px 0 #000;
 }
 
+.upcomingracer.racer2  .card::after  {
+	-webkit-transform: rotate(45deg);
+	top: 20px;
+	left:auto;
+	right: -63px;
+}
+
+.racers .card {
+box-shadow:0 8px 20px 0px rgba(0, 0, 0, 0.75);	
+}
+
+.racers .racer.winner .card,
+.racers .racer.winner .back {
+box-shadow: 0 100px 220px rgba(0, 0, 0, 0.8);
+-webkit-transform: scale(1.1);
+top: 21px;
+}
 
 .back {
 box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
@@ -636,7 +693,7 @@ vertical-align: middle;
 
 @-webkit-keyframes marquee{
     0%{
-		-webkit-transform: translate3d(100%,0,0);
+		-webkit-transform: translate3d(0,0,0);
 }
     100%{
         -webkit-transform: translate3d(-100%,0,0);
@@ -646,7 +703,7 @@ vertical-align: middle;
 .racersmarquee {
 -webkit-animation-name: marquee;
 -webkit-animation-timing-function: linear;
--webkit-animation-duration:30s;
+-webkit-animation-duration:200s;
 -webkit-animation-iteration-count: infinite;
 overflow: hidden;
 display: -webkit-box;
@@ -681,6 +738,15 @@ position:absolute;
 bottom:12px;
 left:0;
 right:0;
+opacity:0;
+-webkit-transition-property:opacity;
+-webkit-transition-duration: 300ms;
+-webkit-transition-timing-funciton:linear;
+-webkit-transform: translate3d(0,0,0);
+}
+
+.on .racersmarquee {
+opacity:1;	
 }
 
 .racersmarquee .marqueeItem {
@@ -710,6 +776,7 @@ margin-right:10px;
 max-width: 100%;
 display: block;
 width: 100%;
+-webkit-transform: translate3d(0,0,0);
 }
  
 .racersmarquee .marqueeItem h2 {
@@ -764,10 +831,10 @@ left: 0;
 }
 
 .vs {
-	position: absolute;
-	left: 50%;
-	margin-left: -158px;
-	top: 250px;
+position: absolute;
+left: 50%;
+margin-left: -162px;
+top: 260px;
 }
 
 /* upcoming racers */
@@ -820,13 +887,13 @@ overflow: hidden;
 
 .upcomingracer {
 left: -2000px;
--webkit-transform: rotate(-3deg);
 position: absolute;
-top: 220px;
+top: 310px;
+-webkit-transform: scale(.85) rotate(-3deg);
 }
 
 .upcomingracer.racer2 {
--webkit-transform: rotate(3deg);
+	-webkit-transform: scale(.85) rotate(3deg);
 left: auto;
 right: -2000px;
 }
