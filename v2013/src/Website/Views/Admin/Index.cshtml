@@ -289,7 +289,7 @@
 
                 if (!window.confirm('Assign Sequential Start Slots Button?'))
                     return;
-				$.post('/Admin/ClearWinningRacers', function (isGood) {
+                $.post('/Admin/AssignSequentialStartSlots', function (isGood) {
                 //$.post('/Admin/AssignSequentialStartSlots', function (isGood) {
                     if (!isGood) {
                         alert('no good!');
@@ -301,7 +301,7 @@
 
                 if (!window.confirm('Assign Random Start Slots?'))
                     return;
-				$.post('/Admin/AssignSequentialStartSlots', function (isGood) {
+                $.post('/Admin/AssignRandomStartSlots', function (isGood) {
                 //$.post('/Admin/AssignRandomStartSlots', function (isGood) {
                     if (!isGood) {
                         alert('no good!');
@@ -313,7 +313,7 @@
 
                 if (!window.confirm('Assign Brackets By Start Slot ?'))
                     return;
-				$.post('/Admin/AssignRandomStartSlots', function (isGood) {
+                $.post('/Admin/AssignBracketsByStartSlot', function (isGood) {
 				//$.post('/Admin/assignBracketsByStartSlot', function (isGood) {
                     if (!isGood) {
                         alert('no good!');
