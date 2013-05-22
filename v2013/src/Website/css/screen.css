@@ -275,12 +275,7 @@ align-self: auto;
 
 
 .racerphotos li.on {
-	width: 100%;
-	top:0;
-	right:0;
-	left:0;
-	position:absolute;
-	z-index:10000;
+
 }
 
 @-webkit-keyframes flip {
@@ -310,7 +305,7 @@ align-self: auto;
 max-width: 100%;
 width:100%;
 display:block;
--webkit-transition-property:left, top, position, width, margin-left, max-width;
+-webkit-transition-property:all;
 -webkit-transition-duration: 600ms;
 -webkit-transition-timing-function:ease-in;
 -webkit-transform: translate3d(0,0,0);
@@ -319,13 +314,7 @@ z-index:1;
 }
 
 .racerphotos li.on img {
-width:655px;
-height:655px;
-max-width:100%;
-position:absolute;
-left:50%;
-top:208px;
-margin-left:-307px;
+
 }
  
 .racerphotos li h2 {
@@ -382,14 +371,7 @@ text-indent: -9999em;
 .racerphotos li.on.on3 h2,
 .racerphotos li.on.on4 h2,
 .racerphotos li.on.on5 h2 {
-text-indent: 1px;
-top: 520px;
-color: #fff;
-width: 615px;
-left: 50%;
-margin-left: -307px;
-font-size: 52px;
-text-shadow:0 2px 0 #000;
+
 }
 
 
