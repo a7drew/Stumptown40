@@ -69,6 +69,7 @@ namespace Website.Controllers
 
         // http://localhost:31464/api/match?matchId=1&winningracerid=2
 
+        [Authorize(Users = "alice")]
         public HttpResponseMessage Put(int matchId, int winningracerid)
         {
             using (var connection = new SqlConnection(Settings.Cnn))
