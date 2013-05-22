@@ -250,6 +250,7 @@ display: -webkit-box;
 .racerphotos li {
 position: relative;
 width: 208px;
+height:208px;
 text-align:center;
 font-size:100%;
 border:5px solid transparent;
@@ -757,6 +758,7 @@ opacity:1;
 position: relative;
 overflow: hidden;
 width: 150px;
+height:150px;
 text-align:center;
 font-size:100%;
 -webkit-box-ordinal-group: 1;
