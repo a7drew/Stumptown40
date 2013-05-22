@@ -309,7 +309,7 @@ align-self: auto;
 max-width: 100%;
 width:100%;
 display:block;
--webkit-transition-property:all;
+-webkit-transition-property:left, top, position, width, margin-left, max-width;
 -webkit-transition-duration: 600ms;
 -webkit-transition-timing-function:ease-in;
 -webkit-transform: translate3d(0,0,0);
