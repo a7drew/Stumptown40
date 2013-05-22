@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Selenium Generator</title>
+    <style type="text/css">
+        #resultText {
+            width: 1024px;
+            height: 600px;
+        }
+    </style>
+    <script src="/Scripts/jquery-1.8.2.js"></script>
+    <script>
+        $(function() {
+            $('#btnGenerate').click(function () {
+
+                var s = '';
+                
+                for (var x = 1; x < 3; x++) {
+                    s += '\n<tr><td>click</td><td>css=div#roundView tr:nth-child(' + x + ') .c1 input[type=button]</td><td></td></tr>';
+                    s += '\n<tr><td>click</td><td>css=div#roundView tr:nth-child(' + x + ') .c2 input[type=button]</td><td></td></tr>\n';
+                }
+                
+                $('#resultText').val(s);
+            });
+        });
+    </script>
+</head>
+    <body>
+        <input type="button" id="btnGenerate" value="Generate"/><br />
+        <textarea id="resultText"></textarea>
+    </body>
+</html>
