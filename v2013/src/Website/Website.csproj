@@ -191,6 +191,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RacersController.cs" />
@@ -200,6 +201,7 @@
     </Compile>
     <Compile Include="Helpers\JsonpMediaTypeFormatter.cs" />
     <Compile Include="Models\Match.cs" />
+    <Compile Include="Models\MyConfig.cs" />
     <Compile Include="Models\Racer.cs" />
     <Compile Include="NavigationHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -290,21 +292,21 @@
     <Content Include="fonts\Ranger.eot" />
     <Content Include="fonts\Ranger.otf" />
     <Content Include="fonts\Ranger.ttf" />
-	<Content Include="fonts\services.ttf" />
+    <Content Include="fonts\services.ttf" />
     <Content Include="fonts\Ranger.woff" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\bg.png" />
     <Content Include="Images\championship.png" />
     <Content Include="Images\circle_green.png" />
     <Content Include="Images\circle_red.png" />
-	<Content Include="Images\circle_blu.png" />
-	<Content Include="Images\circle_org.png" />
-	<Content Include="Images\circle_blk.png" />
-	<Content Include="Images\vs.png" />
-	<Content Include="Images\checkered.png" />
-	<Content Include="Images\stumptown40-4th.png" />
-	<Content Include="Images\cardboard.png" />
-	<Content Include="Images\s40.png" />
+    <Content Include="Images\circle_blu.png" />
+    <Content Include="Images\circle_org.png" />
+    <Content Include="Images\circle_blk.png" />
+    <Content Include="Images\vs.png" />
+    <Content Include="Images\checkered.png" />
+    <Content Include="Images\stumptown40-4th.png" />
+    <Content Include="Images\cardboard.png" />
+    <Content Include="Images\s40.png" />
     <Content Include="Images\default.jpg" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\losers.png" />
@@ -327,7 +329,7 @@
     <Content Include="Images\sponsors\topaz.png" />
     <Content Include="Images\sponsors\urban.png" />
     <Content Include="Images\sponsors\vertigo.png" />
-	<Content Include="Images\sponsors\scoutbooks.png" />
+    <Content Include="Images\sponsors\scoutbooks.png" />
     <Content Include="Images\sponsors\webtrends.png" />
     <Content Include="Images\sponsors\webvisions.png" />
     <Content Include="Images\stripes.png" />
@@ -363,6 +365,7 @@
     <Content Include="Scripts\sammy-0.7.4.js" />
     <Content Include="Scripts\sammy-0.7.4.min.js" />
     <Content Include="Scripts\sammy.handlebars.js" />
+    <Content Include="selenium.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -395,9 +398,10 @@
     <Content Include="Templates\gallery.hb" />
     <Content Include="Templates\home.hb" />
     <Content Include="Templates\photos.hb" />
-	<Content Include="Templates\marquee.hb" />
+    <Content Include="Templates\marquee.hb" />
     <Content Include="Templates\raceView.hb" />
     <Content Include="Templates\sponsors.hb" />
+    <Content Include="Views\Account\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

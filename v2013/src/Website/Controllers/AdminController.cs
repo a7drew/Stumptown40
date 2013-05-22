@@ -7,6 +7,7 @@ using Website.Models;
 
 namespace Website.Controllers
 {
+    [Authorize(Users = "alice")]
     public class AdminController : Controller
     {
         public ActionResult Index()
