@@ -124,10 +124,11 @@ namespace Website.Controllers
                 connection.Open();
 
                 var completedRaces = connection.Query<int>("select count(*) from match where winningracerid is not null;").FirstOrDefault();
-                
-                var dates = connection.Query("select min(modified) as minDate, max(modified) as maxDate from match;").FirstOrDefault();
 
-                TimeSpan ts = (DateTime)dates.maxDate - (DateTime)dates.minDate;
+                var d1 = connection.Query("select min(modified) as minDate from match where winningracerid is not null;").FirstOrDefault();
+                var d2 = connection.Query("select max(modified) as maxDate from match where winningracerid is not null;").FirstOrDefault();
+
+                TimeSpan ts = (DateTime)d2.maxDate - (DateTime)d1.minDate;
 
                 double avgSec = ts.TotalSeconds/completedRaces;
 
@@ -136,7 +137,7 @@ namespace Website.Controllers
                 var estimatedFinishdate = DateTime.Now.AddSeconds(estimatedFinish);
 
                 return string.Format("{{min:\"{0}\", \nmax:\"{1}\", \ntotalSec:\"{2}\", \navgSec:\"{3}\", \nestimatedFinish:\"{4}\"}}",
-                    dates.minDate, dates.maxDate, ts.TotalSeconds, avgSec, estimatedFinishdate);
+                    d1.minDate, d2.maxDate, ts.TotalSeconds, avgSec, estimatedFinishdate);
             }            
         }
     }
