@@ -319,6 +319,8 @@ z-index:1;
 
 .racerphotos li.on img {
 width:615px;
+height:615px;
+max-width:100%;
 position:absolute;
 left:50%;
 top:208px;
@@ -762,20 +764,20 @@ height:150px;
 text-align:center;
 font-size:100%;
 -webkit-box-ordinal-group: 1;
- -moz-box-ordinal-group: 1;
- -webkit-order: 0;
- -ms-flex-order: 0;
- order: 0;
- -webkit-box-flex: 0;
- -moz-box-flex: 0;
- -webkit-flex: 0 1 auto;
- -ms-flex: 0 1 auto;
- flex: 0 1 auto;
- -webkit-align-self: auto;
- -ms-flex-item-align: auto;
- align-self: auto;
+-moz-box-ordinal-group: 1;
+-webkit-order: 0;
+-ms-flex-order: 0;
+order: 0;
+-webkit-box-flex: 0;
+-moz-box-flex: 0;
+-webkit-flex: 0 1 auto;
+-ms-flex: 0 1 auto;
+flex: 0 1 auto;
+-webkit-align-self: auto;
+-ms-flex-item-align: auto;
+align-self: auto;
 margin-right:10px;
--webkit-transform: translate3d(0,0,0)
+-webkit-transform: translate3d(0,0,0);
 }
 
 .racersmarquee .marqueeItem img {
