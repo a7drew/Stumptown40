@@ -319,8 +319,8 @@ z-index:1;
 }
 
 .racerphotos li.on img {
-width:615px;
-height:615px;
+width:645px;
+height:645px;
 max-width:100%;
 position:absolute;
 left:50%;
@@ -908,11 +908,11 @@ right: -2000px;
 }
 
 .show .upcomingracer.racer1 {
-	left:220px;
+	left:120px;
 }
 
 .show .upcomingracer.racer2 {
-	right: 550px;
+	right: 400px;
 }
 
 .show.winnerDeclared .upcomingracer.racer1 {
