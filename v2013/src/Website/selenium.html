@@ -14,10 +14,14 @@
             $('#btnGenerate').click(function () {
 
                 var s = '';
+
+                var count = parseInt($('#txtCount').val());
                 
-                for (var x = 1; x < 3; x++) {
-                    s += '\n<tr><td>click</td><td>css=div#roundView tr:nth-child(' + x + ') .c1 input[type=button]</td><td></td></tr>';
-                    s += '\n<tr><td>click</td><td>css=div#roundView tr:nth-child(' + x + ') .c2 input[type=button]</td><td></td></tr>\n';
+                for (var x = 1; x <= count; x++) {
+                    s += '\r\n<tr><td>click</td><td>css=div#roundView tr:nth-child(' + x + ') .c1 input[type=button]</td><td></td></tr>';
+                    s += '\r\n<tr><td>pause</td><td>1000</td><td></td></tr>';
+                    s += '\r\n<tr><td>click</td><td>css=div#roundView tr:nth-child(' + x + ') .c2 input[type=button]</td><td></td></tr>';
+                    s += '\r\n<tr><td>pause</td><td>1000</td><td></td></tr>\r\n';
                 }
                 
                 $('#resultText').val(s);
@@ -26,7 +30,7 @@
     </script>
 </head>
     <body>
-        <input type="button" id="btnGenerate" value="Generate"/><br />
+        <input type="text" id="txtCount" value="10"/> <input type="button" id="btnGenerate" value="Generate"/><br />
         <textarea id="resultText"></textarea>
     </body>
 </html>
