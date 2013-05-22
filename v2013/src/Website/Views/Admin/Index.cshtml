@@ -13,6 +13,18 @@
     <script src="/Scripts/sammy-0.7.4.min.js"></script>
     <script type="text/javascript">
         
+        function updateStats() {
+
+            $.ajax({
+                url: '/admin/GetStats',
+                dataType: 'text',
+                success: function (data) {
+                    $('#statsText').val(data);
+                }
+            });
+
+        }
+        
         function getRaceViewJson(raceItem) {
 
             var nextRaceId = parseInt(raceItem.raceId()) + 1;
@@ -23,28 +35,28 @@
 
             if (nextInput.length !== 0) {
                 var nextRow = nextInput.parent().parent();
-				var currentRoundInput = nextRow.find('td[class=c1] input[type=hidden]');
+                var currentRoundInput = nextRow.find('td[class=c1] input[type=hidden]');
                 var nextRacer1Input = nextRow.find('td[class=c2] input[type=hidden]');
                 var nextRacer2Input = nextRow.find('td[class=c3] input[type=hidden]');
 				
-				currentRound = (currentRoundInput.val() - 1);
+                currentRound = (currentRoundInput.val() - 1);
                 nextRacer1 = nextRacer1Input.val();
                 nextRacer2 = nextRacer2Input.val();
             }			
 			
 
             var json = '{'
-            			+ '"currentRound":"' + currentRound + '",'
-						+'"currentRace": [{'
-						+ '"racer1":"' + raceItem.racer1Id() + '",'
-						+ '"racer2":"' + raceItem.racer2Id() + ''
-						+ '"}],'
-						+'"upcomingRace": [{'
-						+ '"nextRacer1":"' + nextRacer1 + '",'
-						+ '"nextRacer2":"' + nextRacer2 + ''
-						+ '"}],'
-                        + '"winnerId":"' + raceItem.winningRacerId() + ''
-                        + '"}';
+                + '"currentRound":"' + currentRound + '",'
+                +'"currentRace": [{'
+                + '"racer1":"' + raceItem.racer1Id() + '",'
+                + '"racer2":"' + raceItem.racer2Id() + ''
+                + '"}],'
+                +'"upcomingRace": [{'
+                + '"nextRacer1":"' + nextRacer1 + '",'
+                + '"nextRacer2":"' + nextRacer2 + ''
+                + '"}],'
+                + '"winnerId":"' + raceItem.winningRacerId() + ''
+                + '"}';
 
             return json;
         }
@@ -108,11 +120,11 @@
             self.showRacer1Winner = function (raceItem) {
 
                 $.ajax({
-					url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer1Id(),
+                    url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer1Id(),
 	
                     //url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer1Id(),
                     type: 'PUT',
-					dataType: 'jsonp',
+                    dataType: 'jsonp',
                     complete: function () {
                         raceItem.winningRacerId(raceItem.racer1Id());
                         gHub.server.navigate('raceView', getRaceViewJson(raceItem));
@@ -124,12 +136,12 @@
             self.showRacer2Winner = function (raceItem) {
 
                 $.ajax({
-					url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer2Id(),
+                    url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer2Id(),
 	
                     //url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer2Id(),
                     type: 'PUT',
-					dataType: 'jsonp',
-					complete: function () {
+                    dataType: 'jsonp',
+                    complete: function () {
                         raceItem.winningRacerId(raceItem.racer2Id());
                         gHub.server.navigate('raceView', getRaceViewJson(raceItem));
                     }
@@ -140,11 +152,11 @@
             self.clearRaceWinner = function (raceItem) {
 
                 $.ajax({
-					url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=-1',
+                    url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=-1',
                     //url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=-1',
                     type: 'PUT',
-					dataType: 'jsonp',
-					complete: function () {
+                    dataType: 'jsonp',
+                    complete: function () {
                         raceItem.winningRacerId(0);
                         gHub.server.navigate('raceView', getRaceViewJson(raceItem));
                     }
@@ -157,42 +169,42 @@
                 self.roundNumber('Round ' + roundId);
 
                 self.races.removeAll();
-				$.ajax({
-						url: '/api/match?roundId=' + roundId,
-				        //url: '/api/match?roundId=' + roundId,
-						dataType:'jsonp',
-						success: function (data) {
-	                        for (var x = 0; x < data.length; x++) {
-		                        var m = data[x];
+                $.ajax({
+                    url: '/api/match?roundId=' + roundId,
+                    //url: '/api/match?roundId=' + roundId,
+                    dataType:'jsonp',
+                    success: function (data) {
+                        for (var x = 0; x < data.length; x++) {
+                            var m = data[x];
 
-		                        //var item = ko.observable();
-		                        //item.raceId(m.MatchId);
-		                        //item.heatNumber(m.RaceNumber);
-		                        //item.racer1Id(m.Racer1Id);
-		                        //item.racer1Name(racerCache[parseInt(m.Racer1Id)].Name);
-		                        //item.racer2Id(m.Racer2Id);
-		                        //item.racer2Name(racerCache[parseInt(m.Racer2Id)].Name);
-		                        //item.winningRacerId(m.WinningRacerId);
+                            //var item = ko.observable();
+                            //item.raceId(m.MatchId);
+                            //item.heatNumber(m.RaceNumber);
+                            //item.racer1Id(m.Racer1Id);
+                            //item.racer1Name(racerCache[parseInt(m.Racer1Id)].Name);
+                            //item.racer2Id(m.Racer2Id);
+                            //item.racer2Name(racerCache[parseInt(m.Racer2Id)].Name);
+                            //item.winningRacerId(m.WinningRacerId);
 
-		                        //self.races.push(item);
-		                        var racer1Id = parseInt(m.Racer1Id);
-		                        var racer2Id = parseInt(m.Racer2Id);
+                            //self.races.push(item);
+                            var racer1Id = parseInt(m.Racer1Id);
+                            var racer2Id = parseInt(m.Racer2Id);
 
-		                        var racer1Name = racer1Id > 0 ? gRacerCache[racer1Id-1].Name : "???";
-		                        var racer2Name = racer2Id > 0 ? gRacerCache[racer2Id-1].Name : "???";
+                            var racer1Name = racer1Id > 0 ? gRacerCache[racer1Id-1].Name : "???";
+                            var racer2Name = racer2Id > 0 ? gRacerCache[racer2Id-1].Name : "???";
 
-		                        self.races.push(
-		                            new RaceItem(
-		                                m.MatchId,
-		                                m.RaceNumber,
-		                                m.Racer1Id,
-		                                racer1Name,
-		                                m.Racer2Id,
-		                                racer2Name,
-		                                m.WinningRacerId));
-		                    }
-	                    }
-	                });
+                            self.races.push(
+                                new RaceItem(
+                                    m.MatchId,
+                                    m.RaceNumber,
+                                    m.Racer1Id,
+                                    racer1Name,
+                                    m.Racer2Id,
+                                    racer2Name,
+                                    m.WinningRacerId));
+                        }
+                    }
+                });
 
                 //self.races.push(new RaceItem(55, '1', 60, 'Alice' + roundId, 61, 'Bob'));
                 //self.races.push(new RaceItem(56, '2', 62, 'Charles' + roundId, 63, 'Dan'));
@@ -212,8 +224,9 @@
                         break;
                     case 'stats':
                         showView('#statsView');
+                        updateStats();
                         break;
-					case 'home':
+                    case 'home':
                         gHub.server.navigate('home', '');
                         break;
                     case 'gallery':
@@ -250,35 +263,35 @@
             
             // Declare a proxy to reference the hub. 
             $.support.cors = true;
-			$.connection.hub.url = '/signalr';
+            $.connection.hub.url = '/signalr';
             //$.connection.hub.url = '/signalr';
 
             gHub = $.connection.navigationHub; // Start the connection.
 
             $.connection.hub.start().done(function () {
-				$("#appViews span").on('click touchstart', function () {
-					var view = $(this).attr("data-view");
+                $("#appViews span").on('click touchstart', function () {
+                    var view = $(this).attr("data-view");
                     var message = $(this).attr("data-message");
-					gHub.server.navigate(view, message);
+                    gHub.server.navigate(view, message);
                 });
             });
 
 
-			  $.ajax({
-					url: '/api/racers',
-                    //url: '/api/racers',
-					dataType:'jsonp',
-                    success: function (data) {
-                        gRacerCache = data;
-                    }
-                });
+            $.ajax({
+                url: '/api/racers',
+                //url: '/api/racers',
+                dataType:'jsonp',
+                success: function (data) {
+                    gRacerCache = data;
+                }
+            });
 
             $('#clearWinningRacersButton').click(function () {
 
                 if (!window.confirm('Clear Winning Racers?'))
                     return;
-	            $.post('/Admin/ClearWinningRacers', function (isGood) {
-                //$.post('/Admin/ClearWinningRacers', function (isGood) {
+                $.post('/Admin/ClearWinningRacers', function (isGood) {
+                    //$.post('/Admin/ClearWinningRacers', function (isGood) {
                     if (!isGood) {
                         alert('no good!');
                     }
@@ -290,7 +303,7 @@
                 if (!window.confirm('Assign Sequential Start Slots Button?'))
                     return;
                 $.post('/Admin/AssignSequentialStartSlots', function (isGood) {
-                //$.post('/Admin/AssignSequentialStartSlots', function (isGood) {
+                    //$.post('/Admin/AssignSequentialStartSlots', function (isGood) {
                     if (!isGood) {
                         alert('no good!');
                     }
@@ -302,7 +315,7 @@
                 if (!window.confirm('Assign Random Start Slots?'))
                     return;
                 $.post('/Admin/AssignRandomStartSlots', function (isGood) {
-                //$.post('/Admin/AssignRandomStartSlots', function (isGood) {
+                    //$.post('/Admin/AssignRandomStartSlots', function (isGood) {
                     if (!isGood) {
                         alert('no good!');
                     }
@@ -314,7 +327,7 @@
                 if (!window.confirm('Assign Brackets By Start Slot ?'))
                     return;
                 $.post('/Admin/AssignBracketsByStartSlot', function (isGood) {
-				//$.post('/Admin/assignBracketsByStartSlot', function (isGood) {
+                    //$.post('/Admin/assignBracketsByStartSlot', function (isGood) {
                     if (!isGood) {
                         alert('no good!');
                     }
@@ -340,7 +353,7 @@
             <h1>Brackets</h1>
             <ul data-bind="foreach: rounds">
                 <li>
-                    <input type="button" data-bind="value: $data, click: $root.showRound" /></li>
+                    <input type="button" data-bind="value: $data, click: $root.showRound" style="padding:26px;margin:10px;font-weight:bold;" /></li>
             </ul>
         </div>
 
@@ -387,8 +400,7 @@
 
         <div id="statsView" class="view hidden">
             <h1>Stats</h1>
-            <h2>Races: {0}/{1}</h2>
-            <h2>Estimated Finish: {0}</h2>
+            <textarea id="statsText" style="width:400px; height:200px;"></textarea>
         </div>
 
     </section>
