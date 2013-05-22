@@ -288,11 +288,12 @@ if(window.location.hash == "#home") {
 if(window.location.hash == "#sponsors") {
 chat.client.onNavigate("sponsors", '');
 }
-*/
+
 
 if(window.location.hash == "#gallery") {
 	chat.client.onNavigate("gallery", '');
 }	
+*/
 
 
 });
