@@ -258,7 +258,7 @@ INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (38,'Herboth O'
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (39,'Luis Menchu','Portland Community College');
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (40,'Kate O''Neil','');
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (41,'Postano Design Team','Sponsor!');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (42,'Postano UX Team','Sponsor!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (42,'Ryan Legler','Sponsor!');
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (43,'Postano Team','Sponsor!');
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (44,'Gregory Saunders','');
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (45,'Stephen R. Topaz', 'Topaz Design (Sponsor)');
