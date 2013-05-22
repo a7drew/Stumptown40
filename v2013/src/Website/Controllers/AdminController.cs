@@ -128,16 +128,19 @@ namespace Website.Controllers
                 var d1 = connection.Query("select min(modified) as minDate from match where winningracerid is not null;").FirstOrDefault();
                 var d2 = connection.Query("select max(modified) as maxDate from match where winningracerid is not null;").FirstOrDefault();
 
-                TimeSpan ts = (DateTime)d2.maxDate - (DateTime)d1.minDate;
+                var minDate = ((DateTime)d1.minDate).AddHours(-7);
+                var maxDate = ((DateTime)d2.maxDate).AddHours(-7);
+
+                TimeSpan ts = maxDate - minDate;
 
                 double avgSec = ts.TotalSeconds/completedRaces;
 
                 double estimatedFinish = 99*avgSec;
 
-                var estimatedFinishdate = DateTime.Now.AddSeconds(estimatedFinish);
+                var estimatedFinishdate = DateTime.Now.AddSeconds(estimatedFinish).AddHours(-7);
 
                 return string.Format("{{min:\"{0}\", \nmax:\"{1}\", \ntotalSec:\"{2}\", \navgSec:\"{3}\", \nestimatedFinish:\"{4}\"}}",
-                    d1.minDate, d2.maxDate, ts.TotalSeconds, avgSec, estimatedFinishdate);
+                    minDate, maxDate, ts.TotalSeconds, avgSec, estimatedFinishdate);
             }            
         }
     }
