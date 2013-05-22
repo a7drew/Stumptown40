@@ -18,8 +18,8 @@
             var nextRaceId = parseInt(raceItem.raceId()) + 1;
             var nextInput = $('#roundView table tr td[class=c1] input[value="' + nextRaceId + '"]');
 
-            var nextRacer1 = 0;
-            var nextRacer2 = 0;
+            var nextRacer1 = 100;
+            var nextRacer2 = 100;
 
             if (nextInput.length !== 0) {
                 var nextRow = nextInput.parent().parent();
