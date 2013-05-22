@@ -128,7 +128,7 @@ namespace Website.Controllers
                 var d1 = connection.Query("select min(modified) as minDate from match where winningracerid is not null;").FirstOrDefault();
                 var d2 = connection.Query("select max(modified) as maxDate from match where winningracerid is not null;").FirstOrDefault();
 
-                TimeSpan ts = (DateTime)d2.maxDate - (DateTime)d1.minDate;
+                TimeSpan ts = ((DateTime)d2.maxDate).AddHours(-7) - ((DateTime)d1.minDate).AddHours(-7);
 
                 double avgSec = ts.TotalSeconds/completedRaces;
 
