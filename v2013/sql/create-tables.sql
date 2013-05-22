@@ -236,7 +236,7 @@ INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (16,'Greg Winde
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (17,'Chad Jacobsen','Oregon Museum of Science');
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (18,'Matthew Ross','');
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (19,'Pinball Publishing','Sponsor!');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (20,'Postano','Sponsor!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (20,'Gaby Jenkins','Sponsor!');
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (21,'David Stewart','Skylark64');
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (22,'Jen Raynak','Little Star Racing');
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (23,'Erich Quist','Liveaxle');
@@ -257,9 +257,9 @@ INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (37,'Katherine 
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (38,'Herboth O''Hanlon','Team Vermin');
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (39,'Luis Menchu','Portland Community College');
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (40,'Kate O''Neil','');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (41,'Postano Design Team','Sponsor!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (41,'Mari Gamard','Sponsor!');
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (42,'Ryan Legler','Sponsor!');
-INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (43,'Postano Team','Sponsor!');
+INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (43,'Justin Garrity','Sponsor!');
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (44,'Gregory Saunders','');
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (45,'Stephen R. Topaz', 'Topaz Design (Sponsor)');
 INSERT INTO [dbo].[Racer] (StartSlot, Name, Organization) VALUES (46,'Scott Landis','Storycode');
