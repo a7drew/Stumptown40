@@ -116,6 +116,10 @@ opacity:1;
 	opacity:0;
 }
 
+.winnerDeclared .gallery .meta {
+	opacity:1;
+}
+
 .meta span {
 	font-family:Haymaker;
 }
