@@ -64,6 +64,7 @@ background:transparent url("../Images/wood.png")repeat;
 background-size:512px;
 font-family:Ranger;
 font-size:28px;
+overflow:hidden;
 }
 
 a {
