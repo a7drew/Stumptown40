@@ -597,7 +597,7 @@ box-shadow:0 8px 20px 0px rgba(0, 0, 0, 0.75);
 
 .racers .racer.winner .card,
 .racers .racer.winner .back {
-box-shadow: 0 100px 220px rgba(0, 0, 0, 0.8);
+box-shadow: 0 0 120px rgba(0, 0, 0, 0.3);
 -webkit-transform: scale(1.1);
 top: 21px;
 }
