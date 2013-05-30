@@ -9,7 +9,6 @@ csx/
 *.vssscc
 *.suo
 *.user
-*.sdf
 *.zip
 Web.Debug.config
 Web.Release.config
