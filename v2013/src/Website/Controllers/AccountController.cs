@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data.SqlServerCe;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -20,7 +21,7 @@ namespace Website.Controllers
         public ActionResult SignIn(string username, string password)
         {
             MyConfig myConfig;
-            using (var connection = new SqlConnection(Settings.Cnn))
+            using (var connection = new SqlCeConnection(Settings.Cnn))
             {
                 connection.Open();
                 myConfig = connection.Query<MyConfig>("select * from MyConfig where MyConfigId=1").FirstOrDefault();

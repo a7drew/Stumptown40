@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Data.SqlServerCe;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -27,7 +28,7 @@ namespace Website.Controllers
         // GET api/racers
         public IEnumerable<Racer> Get()
         {
-            using (var connection = new SqlConnection(Settings.Cnn))
+            using (var connection = new SqlCeConnection(Settings.Cnn))
             {
                 connection.Open();
                 return connection.Query<Racer>("select * from racer order by RacerId");
@@ -39,7 +40,7 @@ namespace Website.Controllers
     {
         public IEnumerable<int> Get()
         {
-            using (var connection = new SqlConnection(Settings.Cnn))
+            using (var connection = new SqlCeConnection(Settings.Cnn))
             {
                 connection.Open();
                 return connection.Query<int>("select * from round");
@@ -51,7 +52,7 @@ namespace Website.Controllers
     {
         public IEnumerable<Match> Get()
         {
-            using (var connection = new SqlConnection(Settings.Cnn))
+            using (var connection = new SqlCeConnection(Settings.Cnn))
             {
                 connection.Open();
                 return connection.Query<Match>("select * from match");
@@ -60,7 +61,7 @@ namespace Website.Controllers
 
         public IEnumerable<Match> GetMatchByRound(int roundId)
         {
-            using (var connection = new SqlConnection(Settings.Cnn))
+            using (var connection = new SqlCeConnection(Settings.Cnn))
             {
                 connection.Open();
                 return connection.Query<Match>("select * from match where roundid=@roundId", new {roundId});
@@ -72,7 +73,7 @@ namespace Website.Controllers
         [Authorize(Users = "alice")]
         public HttpResponseMessage Put(int matchId, int winningracerid)
         {
-            using (var connection = new SqlConnection(Settings.Cnn))
+            using (var connection = new SqlCeConnection(Settings.Cnn))
             {
                 connection.Open();
 

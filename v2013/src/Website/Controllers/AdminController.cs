@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Data.SqlServerCe;
 using System.Linq;
 using System.Web.Mvc;
 using Dapper;
@@ -18,7 +19,7 @@ namespace Website.Controllers
         [HttpPost]
         public bool ClearWinningRacers()
         {
-            using (var connection = new SqlConnection(Settings.Cnn))
+            using (var connection = new SqlCeConnection(Settings.Cnn))
             {
                 connection.Open();
                 connection.Execute("update match set winningracerid=null");
@@ -30,7 +31,7 @@ namespace Website.Controllers
         [HttpPost]
         public bool AssignSequentialStartSlots()
         {
-            using (var connection = new SqlConnection(Settings.Cnn))
+            using (var connection = new SqlCeConnection(Settings.Cnn))
             {
                 connection.Open();
                 connection.Execute("update racer set startslot=racerId");
@@ -42,7 +43,7 @@ namespace Website.Controllers
         [HttpPost]
         public bool AssignRandomStartSlots()
         {
-            using (var connection = new SqlConnection(Settings.Cnn))
+            using (var connection = new SqlCeConnection(Settings.Cnn))
             {
                 connection.Open();
 
@@ -69,7 +70,7 @@ namespace Website.Controllers
         [HttpPost]
         public bool AssignBracketsByStartSlot()
         {
-            using (var connection = new SqlConnection(Settings.Cnn))
+            using (var connection = new SqlCeConnection(Settings.Cnn))
             {
                 connection.Open();
 
@@ -119,7 +120,7 @@ namespace Website.Controllers
 
         public string GetStats()
         {
-            using (var connection = new SqlConnection(Settings.Cnn))
+            using (var connection = new SqlCeConnection(Settings.Cnn))
             {
                 connection.Open();
 
