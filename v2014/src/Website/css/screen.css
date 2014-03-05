@@ -1,0 +1,1309 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+margin: 0;
+padding: 0;
+border: 0;
+outline: 0;
+font-size: 100%;
+font: inherit;
+vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+display: block;
+}
+body {
+line-height: 1;
+}
+ol, ul {
+list-style: none;
+}
+
+:focus {
+outline: 0;
+}
+
+
+@font-face {
+font-family: 'Ranger';
+src: url('../fonts/Ranger.ttf') format('truetype');
+}
+
+@font-face {
+font-family: 'Haymaker';
+src: url('../fonts/Haymaker.ttf') format('truetype');
+}
+
+@font-face {
+font-family: 'services';
+src: url('../fonts/services.ttf') format('truetype');
+}
+
+
+html, body {
+width:100%;
+height:100%;
+/* enable when ready for on screen viewing overflow:hidden; */
+overflow:hidden;
+}
+
+
+body {
+background:transparent url("../Images/wood.png")repeat;
+background-size:512px;
+font-family:Ranger;
+font-size:28px;
+overflow:hidden;
+}
+
+a {
+color:#000;
+text-decoration:none;
+}
+
+.value, .number {
+font-family:Haymaker;
+}
+
+header {
+text-align: center;
+width: 100%;
+height: 160px;
+padding-top: 15px;
+position: absolute;
+top: 0;
+left: 0;
+background: rgba(0, 0, 0, 0) url("../Images/racecenter.png") 50% 10px no-repeat;
+z-index: 10;
+/*background-size: 160%;*/
+}
+
+header a {
+text-indent:-9999em;
+display:block;
+}
+
+.meta {
+margin:0 auto;
+box-shadow:0 2px 5px rgba(0, 0, 0, 0.7), 0 -1px 3px rgba(0, 0, 0, 0.4);
+background:#fff;
+width:180px;
+font-size:28px;
+text-align:center;
+line-height:67px;
+height:61px;
+position:absolute;
+left:50%;
+margin-top:97px;
+z-index:1000;
+margin-left:-90px;
+opacity:1;
+-webkit-transition:opacity 250ms;
+}
+
+
+.winnerDeclared .meta {
+	opacity:0;
+}
+
+.winnerDeclared .gallery .meta {
+	opacity:1;
+}
+
+.meta span {
+	font-family:Haymaker;
+}
+
+.meta:before {
+position:absolute;
+content:'';
+width:23px;
+height:69px;
+display:block;
+left:-22px;
+top:-3px;
+background:transparent url("../Images/ribbon_left.png") no-repeat;
+}
+
+.meta:after {
+position:absolute;
+content:'';
+width:22px;
+height:69px;
+display:block;
+right:-21px;
+top:-3px;
+background:transparent url("../Images/ribbon_right.png") no-repeat;
+}
+
+.gallery .meta {
+	position: absolute;
+	left: 50px;
+	bottom: 25px;
+	z-index: 1000;
+	margin: 0;
+	width: 320px;
+	text-indent: 0;
+	text-align: left;
+	padding-left: 0;
+}
+
+.meta span.icon::after {
+display:block;
+font-family: 'services';
+position:absolute;
+top:-3px;
+right:10px;
+-webkit-font-smoothing: antialiased;
+color:#000;
+font-size:28px;
+}
+
+.meta span.icon.instagram::after {
+content: "\e000";
+right:50px;
+font-size:26px;
+}
+
+.meta span.icon.twitter::after {
+content: "\e002";
+right:10px;
+left:auto;
+}
+
+.meta span {
+font-size:30px;
+}
+
+.view  {
+top:0;
+bottom:0;
+right:0;
+left:0;
+position:absolute;
+
+}
+/* home */
+
+.home {
+background: url("../Images/stumptown40-4th.png") no-repeat scroll 50% 50% rgba(0, 0, 0, 0);
+background-size: 100%;
+position: relative;
+width: 100%;
+height: 100%;
+max-width: 860px;
+max-height: 100%;
+margin: 0 auto;
+}
+
+/* gallery */
+.racerphotos {
+margin: 5px 0 0 -20px;
+padding: 0;
+list-style: none;
+position: relative;
+width: 100%;
+
+-webkit-transform-style:preserve-3d;
+
+
+display: -webkit-box;
+    display: -moz-box;
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    -webkit-box-direction: normal;
+    -moz-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.racerphotos li {
+position: relative;
+width: 208px;
+height:208px;
+text-align:center;
+font-size:100%;
+border:5px solid transparent;
+-webkit-box-sizing:border-box;
+-webkit-box-ordinal-group: 1;
+-moz-box-ordinal-group: 1;
+-webkit-order: 0;
+-ms-flex-order: 0;
+order: 0;
+-webkit-box-flex: 0;
+-moz-box-flex: 0;
+-webkit-flex: 0 1 auto;
+-ms-flex: 0 1 auto;
+flex: 0 1 auto;
+-webkit-align-self: auto;
+-ms-flex-item-align: auto;
+align-self: auto;
+-webkit-transform: translate3d(0,0,0);
+}
+
+
+
+.racerphotos li.on {
+	width: 100%;
+	top:0;
+	right:0;
+	left:0;
+	position:absolute;
+	z-index:10000;
+}
+
+@-webkit-keyframes flip {
+	0% {
+		-webkit-transform: perspective(400px) rotateY(0);
+		-webkit-animation-timing-function: ease-out;
+	}
+	40% {
+		-webkit-transform: perspective(400px) translateZ(150px) rotateY(170deg);
+		-webkit-animation-timing-function: ease-out;
+	}
+	50% {
+		-webkit-transform: perspective(400px) translateZ(150px) rotateY(190deg) scale(1);
+		-webkit-animation-timing-function: ease-in;
+	}
+	80% {
+		-webkit-transform: perspective(400px) rotateY(360deg) scale(.95);
+		-webkit-animation-timing-function: ease-in;
+	}
+	100% {
+		-webkit-transform: perspective(400px) scale(1);
+		-webkit-animation-timing-function: ease-in;
+	}
+}
+	
+.racerphotos li img {
+max-width: 100%;
+width:100%;
+display:block;
+-webkit-transition-property:left, top, position, width, margin-left, max-width;
+-webkit-transition-duration: 600ms;
+-webkit-transition-timing-function:ease-in;
+-webkit-transform: translate3d(0,0,0);
+position:relative;
+z-index:1;
+}
+
+.racerphotos li.on img {
+width:685px;
+height:685px;
+max-width:100%;
+position:absolute;
+left:50%;
+top:208px;
+margin-left:-307px;
+}
+ 
+.racerphotos li h2 {
+font-family:Haymaker;
+color:#000;
+position: absolute;
+width:100%;
+height:100%;
+top:0;
+bottom: -10px; /* account for offset of font*/
+box-shadow:inset 0 0 200px 50px rgba(0,0,0,0);
+text-transform: uppercase;
+font-size: 3rem;
+text-align: center;
+display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+-webkit-box-direction: normal;
+-moz-box-direction: normal;
+-webkit-box-orient: horizontal;
+-moz-box-orient: horizontal;
+-webkit-flex-direction: row;
+-ms-flex-direction: row;
+flex-direction: row;
+-webkit-flex-wrap: nowrap;
+-ms-flex-wrap: nowrap;
+flex-wrap: nowrap;
+-webkit-box-pack: center;
+-moz-box-pack: center;
+-webkit-justify-content: center;
+-ms-flex-pack: center;
+justify-content: center;
+-webkit-align-content: center;
+-ms-flex-line-pack: center;
+align-content: center;
+-webkit-box-align: center;
+-moz-box-align: center;
+-webkit-align-items: center;
+-ms-flex-align: center;
+align-items: center;
+color:rgba(255,255,255,.6);
+z-index:2;
+-webkit-transition-property:color, text-shadow;
+-webkit-transition-duration: 1500ms;
+-webkit-transition-timing-function:ease-in;
+-webkit-transform: translate3d(0,0,0);
+text-indent: -9999em;
+}
+
+.racerphotos li.on h2,
+.racerphotos li.on.on2 h2,
+.racerphotos li.on.on3 h2,
+.racerphotos li.on.on4 h2,
+.racerphotos li.on.on5 h2 {
+text-indent: 1px;
+top: 520px;
+color: #fff;
+width: 615px;
+left: 50%;
+margin-left: -307px;
+font-size: 52px;
+text-shadow:0 2px 0 #000;
+}
+
+
+.racerphotos li.on2 h2 {
+color:rgba(255,255,255,.8);
+background:rgba(0,0,0,.5);
+}
+
+.racerphotos li.on3 h2 {
+color:rgba(255,255,255,.8);
+background:rgba(0,0,0,.3);
+}
+
+.racerphotos li.on4 h2 {
+color:rgba(255,255,255,.8);
+background:rgba(0,0,0,.2);
+}
+
+.racerphotos li.on5 h2 {
+color:rgba(255,255,255,.8);
+background:rgba(0,0,0,.05);
+
+}
+
+.powered {
+width:250px;
+position:fixed;
+bottom:20px;
+right:20px;
+z-index:5;
+text-align:left;
+font-size:12px;
+color:#000;
+}
+
+.powered img {
+width:100%;
+max-width:100%;
+}
+
+
+/* racer cards */
+.cards {
+margin: 0 auto;
+width: 1310px;
+position:relative;
+z-index:10000;
+}
+
+.cards.racers {
+max-width: 1100px;
+min-width: 960px;
+-webkit-perspective: 1000;
+-webkit-transform-origin:center center;
+
+}
+
+
+@-webkit-keyframes flip {
+	0% {
+		-webkit-transform: translate3d(0,0,0) rotateY(0);
+			-webkit-transform-origin:center center;
+			-webkit-animation-timing-function: linear;
+	}
+	30% {
+		-webkit-transform: translate3d(300px,-100px,450px) rotateY(180deg);
+			-webkit-transform-origin:center center;
+			-webkit-animation-timing-function: linear;
+	}
+
+
+	100% {
+		-webkit-transform: translate3d(0,0,0) rotateY(360deg);
+			-webkit-transform-origin:center center;
+			-webkit-animation-timing-function: linear;
+	}
+}
+	
+	
+
+.racer1,
+.racer2 {
+position: absolute;
+left: -800px;
+top: 120px;
+-webkit-transform-style:preserve-3d;
+-webkit-transition: all 500ms;
+-webkit-animation-duration: 500ms;
+-webkit-animation-direction:forwards;
+-webkit-animation-play-state: running;
+-webkit-animation-timing-function:cubic-bezier(0.390, 0.575, 0.565, 1.000);
+-webkit-backface-visibility: visible !important;
+-webkit-animation-name: flip;
+-webkit-animation-iteration-count: 1;
+-webkit-transform-origin:center center;
+}
+
+.cards .racer2 {
+right: -800px;
+left:auto;
+}
+
+
+.show .cards .racer1 {
+left:0;	
+}
+
+.show .cards .racer2 {
+right: 330px;	
+}
+
+.show .cards .racer1.winner,
+.show .cards .racer2.winner {
+	-webkit-transition: all 500ms ease-in-out;
+	-webkit-animation-duration:0;
+	-webkit-animation-iteration-count:1;
+}
+
+.show .cards .racer1.winner{
+left: 385px;
+z-index: 1000;
+}
+
+.show .cards .racer2.winner{
+	right: 710px;
+z-index: 1000;	
+}
+
+.show .cards .racer1.loser {
+	left: -800px;
+}
+
+.show .cards .racer2.loser  {
+	right: -800px;
+}
+
+.show .cards .racer1.winner:after,
+.show .cards .racer2.winner:after {
+content: '';
+background: url("../Images/winner.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+display: block;
+height: 180px;
+position: absolute;
+left: 123px;
+text-indent: -999em;
+top: -8px;
+width: 207px;
+z-index: 10;
+-webkit-backface-visibility: hidden;
+}
+
+.cards > a {
+display: inline-block;
+height: 400px;
+margin-bottom: 440px;
+position: relative;
+width: 315px;
+margin-left: 4%;
+margin-right: 4%;
+}
+
+.card {
+box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
+position:absolute;
+background:rgba(255,255,255,.75);
+width:306px;
+height:400px;
+margin-bottom:20px;
+padding:10px;
+top:0;
+left:0;
+z-index:1;
+overflow:hidden;
+z-index:2;
+-webkit-backface-visibility: hidden;
+}
+
+.upcomingracer .card::after {
+	background: #333;
+	width: 220px;
+	content: 'Next Up';
+	padding: 14px 0 8px;
+	position: absolute;
+	top: 20px;
+	left: -63px;
+	z-index: 100000;
+	-webkit-transform: rotate(-45deg);
+	text-align: center;
+	font-size: 21px;
+	box-shadow: 0 1px 10px rgba(0, 0, 0, .9);
+	color:#fff;
+	text-shadow: 0 -1px 0 #000;
+}
+
+.upcomingracer.racer2  .card::after  {
+	-webkit-transform: rotate(45deg);
+	top: 20px;
+	left:auto;
+	right: -63px;
+}
+
+.racers .card {
+box-shadow:0 8px 20px 0px rgba(0, 0, 0, 0.75);	
+}
+
+.racers .racer.winner .card,
+.racers .racer.winner .back {
+box-shadow: 0 0 120px rgba(0, 0, 0, 0.3);
+-webkit-transform: scale(1.1);
+top: 21px;
+}
+
+.back {
+box-shadow:0 2px 5px rgba(0, 0, 0, 0.8);
+position:absolute;
+background: url("../Images/s40.png") 50% 50% no-repeat, url("../Images/cardboard.png") repeat;
+width:306px;
+height:400px;
+margin-bottom:20px;
+padding:10px;
+top:0;
+left:0;
+z-index:1;
+overflow:hidden;
+z-index:2;
+background-size:50%, 600px;
+}
+
+
+.racername .number {
+background: url("../Images/circle_blu.png") repeat scroll 0 0 transparent;
+color: #FFFFFF;
+display: block;
+font-size: 64px;
+height: 163px;
+padding-top:56px;
+position: absolute;
+right: -30px;
+text-align: center;
+margin-top: -78px;
+width: 163px;
+top:50%;
+}
+
+.racer2 .racername .number {
+background: url("../Images/circle_org.png") repeat scroll 0 0 transparent;
+}
+
+
+.card .avatar {
+width:306px;
+margin:0 auto;
+height:306px;
+box-shadow:0 0 65px 20px rgba(0, 0, 0, 0.2) inset, 0 0 5px -2px rgba(0, 0, 0, 0.9) inset;
+position:relative;
+top:0;
+left:0;
+z-index:2;
+background-color:#fff;
+background-image: url("../Images/pinewoodcar.png");
+background-position:50% 50%;
+background-repeat: no-repeat;
+}
+
+.card .avatar::before {
+content:'';
+width:306px;
+position:absolute;
+top:0;
+left:0;
+height:306px;
+z-index:3;
+display:block;
+box-shadow:0 0 65px 20px rgba(0, 0, 0, 0.2) inset, 0 0 5px -2px rgba(0, 0, 0, 0.9) inset;
+}
+
+.card .avatar .car {
+height:306px;
+width:306px;
+}
+
+.racername {
+-moz-box-sizing: padding-box;
+-webkit-box-sizing: padding-box;
+height: 122px;
+left: 0;
+padding: 0;
+position: absolute;
+top: 298px;
+width: 100%;
+z-index: 1;
+}
+
+.racername .name {
+display: table;
+height: 145px;
+left: 15px;
+position: absolute;
+top: 0;
+width: 215px;
+}
+
+.racername .name p {
+display: table-cell;
+vertical-align: middle;
+}
+
+/*racer marquee unfinished */
+
+@-webkit-keyframes marquee{
+    0%{
+		-webkit-transform: translate3d(0,0,0);
+}
+    100%{
+        -webkit-transform: translate3d(-100%,0,0);
+    }
+}
+
+.racersmarquee {
+-webkit-animation-name: marquee;
+-webkit-animation-timing-function: linear;
+-webkit-animation-duration:200s;
+-webkit-animation-iteration-count: infinite;
+overflow: hidden;
+display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+-webkit-box-direction: normal;
+-moz-box-direction: normal;
+-webkit-box-orient: horizontal;
+-moz-box-orient: horizontal;
+-webkit-flex-direction: row;
+-ms-flex-direction: row;
+flex-direction: row;
+-webkit-flex-wrap: nowrap;
+-ms-flex-wrap: nowrap;
+flex-wrap: nowrap;
+-webkit-box-pack: start;
+-moz-box-pack: start;
+-webkit-justify-content: flex-start;
+-ms-flex-pack: start;
+justify-content: flex-start;
+-webkit-align-content: stretch;
+-ms-flex-line-pack: stretch;
+align-content: stretch;
+-webkit-box-align: start;
+-moz-box-align: start;
+-webkit-align-items: flex-start;
+-ms-flex-align: start;
+align-items: flex-start;
+position:absolute;
+bottom:12px;
+left:0;
+right:0;
+opacity:0;
+-webkit-transition-property:opacity;
+-webkit-transition-duration: 300ms;
+-webkit-transition-timing-funciton:linear;
+-webkit-transform: translate3d(0,0,0);
+}
+
+.on .racersmarquee {
+opacity:1;	
+}
+
+.racersmarquee .marqueeItem {
+position: relative;
+overflow: hidden;
+width: 150px;
+height:150px;
+text-align:center;
+font-size:100%;
+-webkit-box-ordinal-group: 1;
+-moz-box-ordinal-group: 1;
+-webkit-order: 0;
+-ms-flex-order: 0;
+order: 0;
+-webkit-box-flex: 0;
+-moz-box-flex: 0;
+-webkit-flex: 0 1 auto;
+-ms-flex: 0 1 auto;
+flex: 0 1 auto;
+-webkit-align-self: auto;
+-ms-flex-item-align: auto;
+align-self: auto;
+margin-right:10px;
+-webkit-transform: translate3d(0,0,0);
+}
+
+.racersmarquee .marqueeItem img {
+max-width: 100%;
+display: block;
+width: 100%;
+-webkit-transform: translate3d(0,0,0);
+}
+ 
+.racersmarquee .marqueeItem h2 {
+font-family:Haymaker;
+position: absolute;
+left: 0;
+top: 0;
+right: 0;
+bottom: -10px; /* account for offset of font*/
+box-shadow:inset 0 0 200px 50px rgba(0,0,0,0);
+color:#000;
+text-transform: uppercase;
+font-size: 3rem;
+text-align: center;
+display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+-webkit-box-direction: normal;
+-moz-box-direction: normal;
+-webkit-box-orient: horizontal;
+-moz-box-orient: horizontal;
+-webkit-flex-direction: row;
+-ms-flex-direction: row;
+flex-direction: row;
+-webkit-flex-wrap: nowrap;
+-ms-flex-wrap: nowrap;
+flex-wrap: nowrap;
+-webkit-box-pack: center;
+-moz-box-pack: center;
+-webkit-justify-content: center;
+-ms-flex-pack: center;
+justify-content: center;
+-webkit-align-content: center;
+-ms-flex-line-pack: center;
+align-content: center;
+-webkit-box-align: center;
+-moz-box-align: center;
+-webkit-align-items: center;
+-ms-flex-align: center;
+align-items: center;
+-webkit-transition:all 1s ease-in-out;
+-webkit-transform: translate3d(0,0,0);
+}
+
+.racerView {
+position: absolute;
+top: 20px;
+right: 0;
+left: 0;
+}
+
+.vs {
+position: absolute;
+left: 50%;
+margin-left: -162px;
+top: 260px;
+}
+
+/* upcoming racers */
+.otherracer {
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+min-height: 200px;
+background: rgba(255, 255, 255, .4) url("/Images/checkered.png") repeat-x;
+background-size: 24px;
+} 
+
+.upcomingracers {
+	position:relative;
+}
+
+.upcomingracers h2 {
+width: 160px;
+height: 160px;
+background: url("../Images/circle_red.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+position: absolute;
+-webkit-box-sizing: border-box;
+padding: 57px 23px 0 0;
+z-index: 120;
+border-radius: 160px;
+box-shadow: 0 2px 1px rgba(0, 0, 0, .6);
+border: 2px solid rgb(168, 61, 15);
+top: -90px;
+left: 50%;
+margin-left: -100px;
+
+}
+
+.upcomingracers h2 span {
+-webkit-transform: rotate(-24deg);
+font-size: 38px;
+text-align: left;
+width: 128px;
+line-height: 1;
+color: rgb(255, 255, 255);
+border-top: 4px solid rgba(255, 255, 255, .5);
+border-bottom: 4px solid rgba(255, 255, 255, .5);
+position: absolute;
+padding: 10px 5px 2px;
+left: 11px;
+top: 30px;
+overflow: hidden;
+}
+
+.upcomingracer {
+left: -2000px;
+position: absolute;
+top: 310px;
+-webkit-transform: scale(.85) rotate(-3deg);
+}
+
+.upcomingracer.racer2 {
+	-webkit-transform: scale(.85) rotate(3deg);
+left: auto;
+right: -2000px;
+}
+
+.show .upcomingracer.racer1 {
+	left:20px;
+}
+
+.show .upcomingracer.racer2 {
+	right: 300px;
+}
+
+.show.winnerDeclared .upcomingracer.racer1 {
+	-webkit-transition-delay:5s;
+	left: -2000px;
+}
+
+.show.winnerDeclared .upcomingracer.racer2 {
+		-webkit-transition-delay:5s;
+	right: -2000px;
+}
+
+.upcomingracer.racer1 .number,
+.upcomingracer.racer2 .number {
+background: url("../Images/circle_blk.png") repeat scroll 0 0 transparent;
+}
+
+.upcomingracer.racer1 .avatar img,
+.upcomingracer.racer2 .avatar img {
+-webkit-filter: grayscale(100%);  	
+}
+
+
+
+
+/* sponsor */
+
+.rollingSponsors {
+position: absolute;
+left: 0;
+top: 0;
+bottom: 0;
+right: 0;
+background:rgba(255,255,255,.98);	
+}
+
+.slideshow {
+text-align: center;
+position: absolute;
+left: 0;
+top: 0;
+bottom: 0;
+right: 0;
+}
+
+.slides {
+position: absolute;
+overflow: hidden;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+}
+
+.slides a {
+position: absolute;
+left: -100%;
+top: 0;
+z-index: 1;
+height: 100%;
+-webkit-animation-iteration-count: infinite;
+-webkit-animation-timing-function: cubic-bezier(0.680, -0.550, 0.265, 1.550);
+-webkit-animation-duration: 40s;
+width: 100%;
+display: block;
+line-height: 1;
+display: -webkit-box;
+display: -webkit-flex;
+display: flex;
+-webkit-box-direction: normal;
+-webkit-box-orient: horizontal;
+-webkit-flex-direction: row;
+flex-direction: row;
+-webkit-flex-wrap: nowrap;
+flex-wrap: nowrap;
+-webkit-box-pack: center;
+-webkit-justify-content: center;
+justify-content: center;
+-webkit-align-content: center;
+align-content: center;
+-webkit-box-align: center;
+-webkit-align-items: center;
+align-items: center;
+}
+.slides a.p1 {left:0;}
+
+.slides a img,
+.slides a span {
+margin:0 auto;
+display:inline;
+-webkit-box-ordinal-group: 1;
+-webkit-order: 0;
+order: 0;
+-webkit-box-flex: 0;
+-webkit-flex: 0 1 auto;
+flex: 0 1 auto;
+-webkit-align-self: center;
+align-self: center;
+}
+
+
+@-webkit-keyframes show1 {
+0% {left:0;}
+10% {left:0;}
+11% {left:100%;}
+100% {left:100%;}
+}
+@-webkit-keyframes show2 {
+0% {left:-100%;}
+10% {left:-100%;}
+11% {left:0;}
+20% {left:0;}
+21% {left:-100%;}
+100% {left:-100%;}
+}
+@-webkit-keyframes show3 {
+0% {left:100%;}
+20% {left:100%;}
+21% {left:0;}
+30% {left:0;}
+31% {left:100%;}
+100% {left:100%;}
+}
+@-webkit-keyframes show4 {
+0% {left:-100%;}
+30% {left:-100%;}
+31% {left:0;}
+40% {left:0;}
+41% {left:-100%;}
+100% {left:-100%;}
+}
+@-webkit-keyframes show5 {
+0% {left:100%;}
+40% {left:100%;}
+41% {left:0;}
+50% {left:0;}
+51% {left:100%;}
+100% {left:100%;}
+}
+@-webkit-keyframes show6 {
+0% {left:-100%;}
+50% {left:-100%;}
+51% {left:0;}
+60% {left:0;}
+61% {left:-100%;}
+100% {left:-100%;}
+}
+@-webkit-keyframes show7 {
+0% {left:100%;}
+60% {left:100%;}
+61% {left:0;}
+70% {left:0;}
+71% {left:100%;}
+100% {left:100%;}
+}
+@-webkit-keyframes show8 {
+0% {left:-100%;}
+70% {left:-100%;}
+71% {left:0;}
+80% {left:0;}
+81% {left:-100%;}
+100% {left:-100%;}
+}
+@-webkit-keyframes show9 {
+0% {left:100%;}
+80% {left:100%;}
+81% {left:0;}
+90% {left:0;}
+91% {left:100%;}
+100% {left:100%;}
+}
+
+@-webkit-keyframes show10 {
+0% {left:-100%;}
+90% {left:-100%;}
+91% {left:0;}
+99% {left:0;}
+100% {left:-100%;}
+}
+
+@-webkit-keyframes show11 {
+0% {left:100%;}
+99% {left:100%;}
+100% {left:0;}
+}
+
+
+.slides a.p1 {
+-moz-animation-name: show1;
+-webkit-animation-name: show1;
+}
+.slides a.p2 {
+-moz-animation-name: show2;
+-webkit-animation-name: show2;
+}
+.slides a.p3 {
+-moz-animation-name: show3;
+-webkit-animation-name: show3;
+}
+.slides a.p4 {
+-moz-animation-name: show4;
+-webkit-animation-name: show4;
+}
+.slides a.p5 {
+-moz-animation-name: show5;
+-webkit-animation-name: show5;
+}
+.slides a.p6 {
+-moz-animation-name: show6;
+-webkit-animation-name: show6;
+}
+.slides a.p7 {
+-moz-animation-name: show7;
+-webkit-animation-name: show7;
+}
+.slides a.p8 {
+-moz-animation-name: show8;
+-webkit-animation-name: show8;
+}
+.slides a.p9 {
+-moz-animation-name: show9;
+-webkit-animation-name: show9;
+}
+.slides a.p10 {
+-moz-animation-name: show10;
+-webkit-animation-name: show10;
+}
+.slides a.p11 {
+-moz-animation-name: show11;
+-webkit-animation-name: show11;
+}
+
+
+/* the smoke */
+
+.thesmoke {
+	position: absolute;
+	top: 370px;
+	left: 160px;
+	width: 500px;
+	height: 500px;
+	z-index: 0;
+}
+
+.smoke, .smoketwo, .smokethree {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transform-style: preserve-3d;
+  position: absolute;
+  z-index: 0;
+  width: 1px;
+  height: 120px;
+  left: 70%;
+ }
+
+.smoketwo {
+  left: 72.5%; }
+
+.smokethree {
+  left: 75%; }
+
+/* smoke balls */
+.smoke span, .smoketwo span, .smokethree span {
+	display: block;
+	position: absolute;
+	left: 50%;
+	margin-left: 0;
+	height: 0px;
+	width: 0px;
+	border-radius: 300px;
+	left: -14px;
+	opacity: 0;
+	transform: scale(1);
+	box-shadow: 0 0 30px 40px rgba(0, 0, 0, .4);
+	width: 160px;
+	height: 150px;
+	background: rgba(0, 0, 0, .4);
+}
+
+.smokethree .s1, .smokethree.s2, .smokethree .s3, .smokethree .s4, .smokethree .s5, .smokethree .s6, .smokethree .s7, .smokethree .s8, .smokethree .s9 {
+  margin-left: -15px; }
+
+.smoke .s1, .smoke .s2, .smoke .s3, .smoke .s4, .smoke .s5, .smoke .s6, .smoke .s7, .smoke .s8, .smoke .s9 {
+  margin-left: -25px; }
+
+/* Smoke animation */
+@-webkit-keyframes smokeL {
+  0% {
+    -webkit-transform: scale(0.5) translate(0, 0);
+    -moz-transform: scale(0.5) translate(0, 0);
+    -o-transform: scale(0.5) translate(0, 0);
+    transform: scale(0.5) translate(0, 0); }
+
+  10% {
+    opacity: 1;
+    -webkit-transform: scale(0.5) translate(0, 15px);
+    -moz-transform: scale(0.5) translate(0, 15px);
+    -o-transform: scale(0.5) translate(0, 15px);
+    transform: scale(0.5) translate(0, 15px); }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1) translate(0, 130px);
+    -moz-transform: scale(1) translate(0, 130px);
+    -o-transform: scale(1) translate(0, 130px);
+    transform: scale(1) translate(0, 130px); } 
+}
+
+
+@-webkit-keyframes smokeR {
+  0% {
+    -webkit-transform: scale(0.5) translate(0, 0);
+    -moz-transform: scale(0.5) translate(0, 0);
+    -o-transform: scale(0.5) translate(0, 0);
+    transform: scale(0.5) translate(0, 0); }
+
+  10% {
+    opacity: 1;
+    -webkit-transform: scale(0.5) translate(0, 15px);
+    -moz-transform: scale(0.5) translate(0, 15px);
+    -o-transform: scale(0.5) translate(0, 15px);
+    transform: scale(0.5) translate(0, 15px); }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(1) translate(5px, 130px);
+    -moz-transform: scale(1) translate(5px, 130px);
+    -o-transform: scale(1) translate(5px, 130px);
+    transform: scale(1) translate(5px, 130px); } 
+}
+
+
+
+.smoke .s0, .smoketwo .s0, .smokethree .s0 {
+  -webkit-animation: smokeL 10s 0s infinite;
+  -moz-animation: smokeL 10s 0s infinite;
+  -o-animation: smokeL 10s 0s infinite;
+  animation: smokeL 10s 0s infinite; }
+
+.smoke .s1, .smoketwo .s1, .smokethree .s1 {
+  -webkit-animation: smokeR 10s 1s infinite;
+  -moz-animation: smokeR 10s 1s infinite;
+  -o-animation: smokeR 10s 1s infinite;
+  animation: smokeR 10s 1s infinite; }
+
+.smoke .s2, .smoketwo .s2, .smokethree .s2 {
+  -webkit-animation: smokeL 10s 2s infinite;
+  -moz-animation: smokeL 10s 2s infinite;
+  -o-animation: smokeL 10s 2s infinite;
+  animation: smokeL 10s 2s infinite; }
+
+.smoke .s3, .smoketwo .s3, .smokethree .s3 {
+  -webkit-animation: smokeR 10s 3s infinite;
+  -moz-animation: smokeR 10s 3s infinite;
+  -o-animation: smokeR 10s 3s infinite;
+  animation: smokeR 10s 3s infinite; }
+
+.smoke .s4, .smoketwo .s4, .smokethree .s4 {
+  -webkit-animation: smokeL 10s 4s infinite;
+  -moz-animation: smokeL 10s 4s infinite;
+  -o-animation: smokeL 10s 4s infinite;
+  animation: smokeL 10s 4s infinite; }
+
+.smoke .s5, .smoketwo .s5, .smokethree .s5 {
+  -webkit-animation: smokeR 10s 5s infinite;
+  -moz-animation: smokeR 10s 5s infinite;
+  -o-animation: smokeR 10s 5s infinite;
+  animation: smokeR 10s 5s infinite; }
+
+.smoke .s6, .smoketwo .s6, .smokethree .s6 {
+  -webkit-animation: smokeL 10s 6s infinite;
+  -moz-animation: smokeL 10s 6s infinite;
+  -o-animation: smokeL 10s 6s infinite;
+  animation: smokeL 10s 6s infinite; }
+
+.smoke .s7, .smoketwo .s7, .smokethree .s7 {
+  -webkit-animation: smokeR 10s 7s infinite;
+  -moz-animation: smokeR 10s 7s infinite;
+  -o-animation: smokeR 10s 7s infinite;
+  animation: smokeR 10s 7s infinite; }
+
+.smoke .s8, .smoketwo .s8, .smokethree .s8 {
+  -webkit-animation: smokeL 10s 8s infinite;
+  -moz-animation: smokeL 10s 8s infinite;
+  -o-animation: smokeL 10s 8s infinite;
+  animation: smokeL 10s 8s infinite; }
+
+.smoke .s9, .smoketwo .s9, .smokethree .s9 {
+  -webkit-animation: smokeR 10s 9s infinite;
+  -moz-animation: smokeR 10s 9s infinite;
+  -o-animation: smokeR 10s 9s infinite;
+  animation: smokeR 10s 9s infinite; }

@@ -1,0 +1,408 @@
+﻿<!--@{
+    Layout = null;
+}-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stumptown40</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/admin.css" />
+    <script src="/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="/Scripts/jquery.signalR-1.0.0.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script src="/Scripts/knockout-2.2.0.js"></script>
+    <script src="/Scripts/sammy-0.7.4.min.js"></script>
+    <script type="text/javascript">
+        
+        function updateStats() {
+
+            $.ajax({
+                url: '/admin/GetStats',
+                dataType: 'text',
+                success: function (data) {
+                    $('#statsText').val(data);
+                }
+            });
+
+        }
+        
+        function getRaceViewJson(raceItem) {
+
+            var nextRaceId = parseInt(raceItem.raceId()) + 1;
+            var nextInput = $('#roundView table tr td[class=c1] input[value="' + nextRaceId + '"]');
+
+            var nextRacer1 = 100;
+            var nextRacer2 = 100;
+
+            if (nextInput.length !== 0) {
+                var nextRow = nextInput.parent().parent();
+                var currentRoundInput = nextRow.find('td[class=c1] input[type=hidden]');
+                var nextRacer1Input = nextRow.find('td[class=c2] input[type=hidden]');
+                var nextRacer2Input = nextRow.find('td[class=c3] input[type=hidden]');
+				
+                currentRound = (currentRoundInput.val() - 1);
+                nextRacer1 = nextRacer1Input.val();
+                nextRacer2 = nextRacer2Input.val();
+            }			
+			
+
+            var json = '{'
+                + '"currentRound":"' + currentRound + '",'
+                +'"currentRace": [{'
+                + '"racer1":"' + raceItem.racer1Id() + '",'
+                + '"racer2":"' + raceItem.racer2Id() + ''
+                + '"}],'
+                +'"upcomingRace": [{'
+                + '"nextRacer1":"' + nextRacer1 + '",'
+                + '"nextRacer2":"' + nextRacer2 + ''
+                + '"}],'
+                + '"winnerId":"' + raceItem.winningRacerId() + ''
+                + '"}';
+
+            return json;
+        }
+
+        function showView(viewId) {
+            $('div.view').addClass('hidden');
+            $(viewId).removeClass('hidden');
+        }
+
+        function RaceItem(raceId, heatNumber, racer1Id, racer1Name, racer2Id, racer2Name, winningRacerId) {
+            var self = this;
+
+            self.raceId = ko.observable(raceId);
+            self.heatNumber = ko.observable(heatNumber);
+            self.racer1Id = ko.observable(racer1Id);
+            self.racer1Name = ko.observable(racer1Name);
+            self.racer2Id = ko.observable(racer2Id);
+            self.racer2Name = ko.observable(racer2Name);
+            self.winningRacerId = ko.observable(winningRacerId);
+
+            self.racer1FullName = ko.computed(function() {
+                return this.racer1Id() + ' ' + this.racer1Name();
+            }, this);
+            
+            self.racer2FullName = ko.computed(function () {
+                return this.racer2Id() + " " + this.racer2Name();
+            }, this);
+
+            //self.raceId = raceId;
+            //self.heatNumber = heatNumber;
+            //self.racer1Id = racer1Id;
+            //self.racer1Name = racer1Name;
+            //self.racer2Id = racer2Id;
+            //self.racer2Name = racer2Name;
+            //self.winningRacerId = winningRacerId;
+            //self.button1Id = 'button' + racer1Id;
+            //self.button2Id = 'button' + racer2Id;
+        }
+
+        function RoundViewModel() {
+
+            var self = this;
+
+            // data
+
+            self.rounds = [1, 2, 3, 4, 5, 6, 7];
+
+            self.races = ko.observableArray();
+            self.roundNumber = ko.observable();
+
+            // behaviors
+
+            self.showRound = function (roundId) {
+                location.hash = 'round/' + roundId;
+            };
+
+            self.showRace = function (raceItem) {
+                gHub.server.navigate('raceView', getRaceViewJson(raceItem));
+            };
+
+            self.showRacer1Winner = function (raceItem) {
+
+                $.ajax({
+                    url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer1Id(),
+	
+                    //url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer1Id(),
+                    type: 'PUT',
+                    dataType: 'jsonp',
+                    complete: function () {
+                        raceItem.winningRacerId(raceItem.racer1Id());
+                        gHub.server.navigate('raceView', getRaceViewJson(raceItem));
+                    }
+                });
+
+            };
+
+            self.showRacer2Winner = function (raceItem) {
+
+                $.ajax({
+                    url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer2Id(),
+	
+                    //url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer2Id(),
+                    type: 'PUT',
+                    dataType: 'jsonp',
+                    complete: function () {
+                        raceItem.winningRacerId(raceItem.racer2Id());
+                        gHub.server.navigate('raceView', getRaceViewJson(raceItem));
+                    }
+                });
+
+            };
+
+            self.clearRaceWinner = function (raceItem) {
+
+                $.ajax({
+                    url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=-1',
+                    //url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=-1',
+                    type: 'PUT',
+                    dataType: 'jsonp',
+                    complete: function () {
+                        raceItem.winningRacerId(0);
+                        gHub.server.navigate('raceView', getRaceViewJson(raceItem));
+                    }
+                });
+
+            };
+
+            self.showRoundView = function (roundId) {
+
+                self.roundNumber('Round ' + roundId);
+
+                self.races.removeAll();
+                $.ajax({
+                    url: '/api/match?roundId=' + roundId,
+                    //url: '/api/match?roundId=' + roundId,
+                    dataType:'jsonp',
+                    success: function (data) {
+                        for (var x = 0; x < data.length; x++) {
+                            var m = data[x];
+
+                            //var item = ko.observable();
+                            //item.raceId(m.MatchId);
+                            //item.heatNumber(m.RaceNumber);
+                            //item.racer1Id(m.Racer1Id);
+                            //item.racer1Name(racerCache[parseInt(m.Racer1Id)].Name);
+                            //item.racer2Id(m.Racer2Id);
+                            //item.racer2Name(racerCache[parseInt(m.Racer2Id)].Name);
+                            //item.winningRacerId(m.WinningRacerId);
+
+                            //self.races.push(item);
+                            var racer1Id = parseInt(m.Racer1Id);
+                            var racer2Id = parseInt(m.Racer2Id);
+
+                            var racer1Name = racer1Id > 0 ? gRacerCache[racer1Id-1].Name : "???";
+                            var racer2Name = racer2Id > 0 ? gRacerCache[racer2Id-1].Name : "???";
+
+                            self.races.push(
+                                new RaceItem(
+                                    m.MatchId,
+                                    m.RaceNumber,
+                                    m.Racer1Id,
+                                    racer1Name,
+                                    m.Racer2Id,
+                                    racer2Name,
+                                    m.WinningRacerId));
+                        }
+                    }
+                });
+
+                //self.races.push(new RaceItem(55, '1', 60, 'Alice' + roundId, 61, 'Bob'));
+                //self.races.push(new RaceItem(56, '2', 62, 'Charles' + roundId, 63, 'Dan'));
+                //self.races.push(new RaceItem(57, '3', 64, 'Eddie' + roundId, 65, 'Frank'));
+
+                showView('#roundView');
+            };
+
+            Sammy(function () {
+                this.get('#:controller', function () {
+                    switch (this.params.controller) {
+                    case 'round':
+                        showView('#bracketView');
+                        break;
+                    case 'admin':
+                        showView('#adminView');
+                        break;
+                    case 'stats':
+                        showView('#statsView');
+                        updateStats();
+                        break;
+                    case 'home':
+                        gHub.server.navigate('home', '');
+                        break;
+                    case 'gallery':
+                        gHub.server.navigate('gallery', '');
+                        break;
+                    case 'sponsors':
+                        gHub.server.navigate('sponsors', '');
+                        break;
+                    default:
+                        alert('unexpected: ' + this.params.controller);
+                        break;
+                    }
+                });
+                this.get('#:controller/:id', function () {
+                    switch (this.params.controller) {
+                    case 'round':
+                        self.showRoundView(this.params.id);
+                        break;
+                    default:
+                        alert('unexpected: ' + this.params.controller);
+                        break;
+                    }
+                });
+                this.get('', function () {
+                    this.app.runRoute('get', '#round');
+                });
+            }).run();
+        }
+
+        var gRacerCache = null;
+        var gHub = null;
+
+        $(function () {
+            
+            // Declare a proxy to reference the hub. 
+            $.support.cors = true;
+            $.connection.hub.url = '/signalr';
+            //$.connection.hub.url = '/signalr';
+
+            gHub = $.connection.navigationHub; // Start the connection.
+
+            $.connection.hub.start().done(function () {
+                $("#appViews span").on('click touchstart', function () {
+                    var view = $(this).attr("data-view");
+                    var message = $(this).attr("data-message");
+                    gHub.server.navigate(view, message);
+                });
+            });
+
+
+            $.ajax({
+                url: '/api/racers',
+                //url: '/api/racers',
+                dataType:'jsonp',
+                success: function (data) {
+                    gRacerCache = data;
+                }
+            });
+
+            $('#clearWinningRacersButton').click(function () {
+
+                if (!window.confirm('Clear Winning Racers?'))
+                    return;
+                $.post('/Admin/ClearWinningRacers', function (isGood) {
+                    //$.post('/Admin/ClearWinningRacers', function (isGood) {
+                    if (!isGood) {
+                        alert('no good!');
+                    }
+                });
+            });
+
+            $('#assignSequentialStartSlotsButton').click(function () {
+
+                if (!window.confirm('Assign Sequential Start Slots Button?'))
+                    return;
+                $.post('/Admin/AssignSequentialStartSlots', function (isGood) {
+                    //$.post('/Admin/AssignSequentialStartSlots', function (isGood) {
+                    if (!isGood) {
+                        alert('no good!');
+                    }
+                });
+            });
+
+            $('#assignRandomStartSlotsButton').click(function () {
+
+                if (!window.confirm('Assign Random Start Slots?'))
+                    return;
+                $.post('/Admin/AssignRandomStartSlots', function (isGood) {
+                    //$.post('/Admin/AssignRandomStartSlots', function (isGood) {
+                    if (!isGood) {
+                        alert('no good!');
+                    }
+                });
+            });
+
+            $('#assignBracketsByStartSlotButton').click(function () {
+
+                if (!window.confirm('Assign Brackets By Start Slot ?'))
+                    return;
+                $.post('/Admin/AssignBracketsByStartSlot', function (isGood) {
+                    //$.post('/Admin/assignBracketsByStartSlot', function (isGood) {
+                    if (!isGood) {
+                        alert('no good!');
+                    }
+                });
+            });
+
+            ko.applyBindings(new RoundViewModel());
+        });
+
+    </script>
+</head>
+<body>
+    <section>
+        <ul id="menu">
+			<li><a href="#home">Home</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#sponsors">Sponsors</a></li>
+            <li><a href="#round">Bracket</a></li>
+            <li><a href="#stats">Stats</a></li>
+            <li><a href="#admin">Admin</a></li>
+        </ul>
+        <div id="bracketView" class="view">
+            <h1>Brackets</h1>
+            <ul data-bind="foreach: rounds">
+                <li>
+                    <input type="button" data-bind="value: $data, click: $root.showRound" style="padding:26px;margin:10px;font-weight:bold;" /></li>
+            </ul>
+        </div>
+
+        <div id="roundView" class="view hidden">
+			<div class="back"><a href="#round">&#x2B05;</a></div>
+            <div class="subHeader">
+                <input class="title" type="button" data-bind="value: roundNumber" />
+            </div>
+            <table>
+                <tbody data-bind="foreach: races">
+                    <tr>
+                        <td class="c1">
+                            <input type="button" data-bind="value: heatNumber, click: $root.showRace" />
+							<input type="hidden" data-bind="value: raceId" />
+						</td>
+                        <td class="c2">
+                            <input type="button" data-bind="value: racer1FullName, click: $root.showRacer1Winner, css: { selected: racer1Id() > 0 && winningRacerId() == racer1Id() }" />
+                            <input type="hidden" data-bind="value: racer1Id" />
+                        </td>
+                        <td class="c3">
+                            <input type="button" data-bind="value: racer2FullName, click: $root.showRacer2Winner, css: { selected: racer2Id() > 0 && winningRacerId() == racer2Id() }" />
+                            <input type="hidden" data-bind="value: racer2Id" />
+                        </td>
+                        <td class="c4">
+                            <input type="button" value="X" data-bind="click: $root.clearRaceWinner" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="adminView" class="view hidden">
+            <h1>Admin</h1>
+            <ul>
+                <li>
+                    <input id="clearWinningRacersButton" type="button" value="Clear Winning Racers" /></li>
+                <li>
+                    <input id="assignSequentialStartSlotsButton" type="button" value="Assign Sequential Start Slots" /></li>
+                <li>
+                    <input id="assignRandomStartSlotsButton" type="button" value="Assign Random Start Slots" /></li>
+                <li>
+                    <input id="assignBracketsByStartSlotButton" type="button" value="Assign Brackets By Start Slot" /></li>
+            </ul>
+        </div>
+
+        <div id="statsView" class="view hidden">
+            <h1>Stats</h1>
+            <textarea id="statsText" style="width:400px; height:200px;"></textarea>
+        </div>
+
+    </section>
+</body>
+</html>
