@@ -1,5 +1,5 @@
 SET NOCOUNT ON
-USE [Stumptown40]
+USE [Stumptown40DB]
 GO
 
 --
@@ -25,7 +25,7 @@ CREATE TABLE [dbo].[Car]
 	[DivisionId]   [int]                    NOT NULL,
 	[Name]         [nvarchar](200)          NOT NULL,
 	[Organization] [nvarchar](200)          NOT NULL,
-  [PositionId]   [int]                        NULL,	
+    [PositionId]   [int]                        NULL,	
 	CONSTRAINT [PK_Racer] PRIMARY KEY CLUSTERED ([CarId] ASC)
 )
 GO
