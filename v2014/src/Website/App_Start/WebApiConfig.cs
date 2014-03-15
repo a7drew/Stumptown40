@@ -10,15 +10,15 @@ namespace Website
         public static void Register(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
-                name: "WithActionApi",
+                name: "WithoutActionApi",
                 routeTemplate: "api/{controller}"
             );
 
-            //config.Routes.MapHttpRoute(
-            //    name: "WithActionApi",
-            //    routeTemplate: "api/{controller}/{action}/{id}", 
-            //    defaults: new { action="Get", id=RouteParameter.Optional}
-            //);
+            config.Routes.MapHttpRoute(
+                name: "WithActionApi",
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { action = "Get", id = RouteParameter.Optional }
+            );
 
             //config.Routes.MapHttpRoute(
             //    name: "DefaultApi",

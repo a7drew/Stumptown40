@@ -12,7 +12,10 @@ namespace Website.Controllers
             using (var cnn = Settings.GetConnection())
             {
                 cnn.Open();
-                return cnn.Query<Car>("select * from Car order by CarId");
+
+                return cnn.Query<Car>(@"select * 
+                                      from Car 
+                                      order by CarId");
             }
         }
     }
