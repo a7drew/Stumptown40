@@ -23,9 +23,9 @@
 
     </div>
 
-    <script src="http://stumptown40.cloudapp.net/Scripts/jquery-1.8.2.min.js"></script>
-    <script src="http://stumptown40.cloudapp.net/Scripts/jquery.signalR-1.0.0.js"></script>
-    <script src="http://stumptown40.cloudapp.net/signalr/hubs"></script>
+    <script src="http://stumptown40.azurewebsites.net/Scripts/jquery-1.8.3.min.js"></script>
+    <script src="http://stumptown40.azurewebsites.net/Scripts/jquery.signalR-1.0.0.js"></script>
+    <script src="http://stumptown40.azurewebsites.net/signalr/hubs"></script>
     <script type="text/javascript">
 
         var gRacerCache = null;
@@ -34,7 +34,7 @@
 
             // Declare a proxy to reference the hub. 
             $.support.cors = true;
-            $.connection.hub.url = 'http://stumptown40.cloudapp.net/signalr';
+            $.connection.hub.url = 'http://stumptown40.azurewebsites.net/signalr';
 
             var hub = $.connection.navigationHub;
 
@@ -47,10 +47,10 @@
                 $('#discussion').append('<li><strong>' + encodedName + '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
             };
 
-            $.getJSON('http://stumptown40.cloudapp.net/api/racers?callback=?', function (e) {
-                gRacerCache = e;
-                $('#discussion').append('<li><strong>' + gRacerCache.length + ' racers received, the name of the first racer is ' + gRacerCache[0].Name + '.</strong></li>');
-            });
+            //$.getJSON('http://stumptown40.azurewebsites.net/api/racers?callback=?', function (e) {
+            //    gRacerCache = e;
+            //    $('#discussion').append('<li><strong>' + gRacerCache.length + ' racers received, the name of the first racer is ' + gRacerCache[0].Name + '.</strong></li>');
+            //});
 
             // Start the connection.
             $.connection.hub.start().done(function () {
