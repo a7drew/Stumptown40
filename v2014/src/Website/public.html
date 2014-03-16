@@ -1,27 +1,21 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>SignalR Simple Chat</title>
+    <title>Sample Public Page</title>
     <style type="text/css">
-        * { font-family: Arial; }
-        .container {
-            background-color: #99CCFF;
-            border: thick solid #808080;
-            padding: 20px;
-            margin: 20px;
+        body {
+            font-family: Courier;
+            background: #000;
+            color: #008800;
         }
     </style>
 </head>
 <body>
        
-    <div class="container">
-        
-        <h1>Public Page</h1>
+    <h1>Public Page</h1>
 
-        <ul id="discussion">
-        </ul>
-
-    </div>
+    <ul id="discussion">
+    </ul>
 
     <script src="http://stumptown40.azurewebsites.net/Scripts/jquery-1.8.3.min.js"></script>
     <script src="http://stumptown40.azurewebsites.net/Scripts/jquery.signalR-1.0.0.js"></script>
@@ -47,14 +41,26 @@
                 $('#discussion').append('<li><strong>' + encodedName + '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
             };
 
-            //$.getJSON('http://stumptown40.azurewebsites.net/api/racers?callback=?', function (e) {
-            //    gRacerCache = e;
-            //    $('#discussion').append('<li><strong>' + gRacerCache.length + ' racers received, the name of the first racer is ' + gRacerCache[0].Name + '.</strong></li>');
-            //});
+            $.getJSON('http://stumptown40.azurewebsites.net/api/cars?callback=?', function (e) {
+                gRacerCache = e;
+                $('#discussion').append('<li>' + gRacerCache.length + ' racers received.</li>');
+
+                var car = gRacerCache[0];
+                var html = '<ul style="margin-bottom:10px;">';
+                html += '<li>CarId: ' + car.CarId + '</li>';
+                html += '<li>CarNumber: ' + car.CarNumber + '</li>';
+                html += '<li>DivisionId: ' + car.DivisionId + '</li>';
+                html += '<li>Name: ' + car.Name + '</li>';
+                html += '<li>Organization: ' + car.Organization + '</li>';
+                html += '<li>PositionId: ' + car.PositionId + '</li>';
+                html += '</ul>';
+
+                $('#discussion').append('<li>Here&apos;s the first racer:' + html + '</li>');
+            });
 
             // Start the connection.
             $.connection.hub.start().done(function () {
-                $('#discussion').append('<li><strong>Ready to receive messages.</strong></li>');
+                $('#discussion').append('<li>Ready to receive messages from server.</li>');
             });
         });
 

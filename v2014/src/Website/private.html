@@ -1,55 +1,85 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>SignalR Simple Chat</title>
+    <title>Sample Private Page</title>
     <style type="text/css">
-        * { font-family: Arial; }
-        .container {
-            background-color: #99CCFF;
-            border: thick solid #808080;
-            padding: 20px;
-            margin: 20px;
+        body {
+            font-family: Courier;
+            background: #000;
+            color: #008800;
         }
-        .messageContainer {
-            margin-bottom: 20px;
+        li { 
+            margin: 0 0 20px 0;
+            list-style: none;
         }
-        .messageContainer span {
-            font-weight: bold;
-        }
-        .messageContainer div {
-            margin-left: 20px;
-            font-family: monospace;
+        input[type=button] {
+            width: 600px;
+            height: 40px;
+            font: normal normal bold 20pt Courier;
         }
     </style>
 </head>
 <body>
-    <div class="container">
         
-        <h1>Private Page</h1>
+    <h1>Private Page</h1>
 
-		<div class="messageContainer">
-            <input data-view="home" type="radio" name="rdoMessage" data-message='{"home":"home"}' />
-            <span>Home</span>
-        </div>
-        
-		<div class="messageContainer">
-            <input data-view="sponsors" type="radio" name="rdoMessage" data-message='{"sponsors":"sponsors"}' />
-            <span>sponsors</span>
-        </div>
-        
-        <div class="messageContainer">
-            <input data-view="gallery" type="radio" name="rdoMessage" data-message='{"gallery":"gallery"}' />
-            <span>Gallery</span>
-        </div>
-        
-        <div class="messageContainer">
-            <input data-view="race" type="radio" name="rdoMessage" data-message='{"racer1":"4","racer2":"5","winner":"0"}' />
-            <span>Race</span>
-        </div>
+    <ul>
+        <li>
+            <input type="button" 
+                   value="Home" 
+                   data-view="home" 
+                   data-message='{"home":"home"}' />
+        </li>
+        <li>
+            <input type="button" 
+                   value="Sponsors" 
+                   data-view="sponsors" 
+                   data-message='{"sponsors":"sponsors"}' />
+        </li>
+        <li>
+            <input type="button" 
+                   value="Gallery" 
+                   data-view="gallery" 
+                   data-message='{"gallery":"gallery"}' />
+        </li>
+        <li>
+            <input type="button" 
+                   value="Standard Division" 
+                   data-view="gallery" 
+                   data-message='{"standardDivision":""}' />
+        </li>
+        <li>
+            <input type="button" 
+                   value="Unlimited Division" 
+                   data-view="gallery" 
+                   data-message='{"unlimitedDivision":""}' />
+        </li>
+        <li>
+            <input type="button" 
+                   value="Next Race: Scenario 1" 
+                   data-view="race" 
+                   data-message='{"racer1CarId":"1","racer2CarId":"2","winnerCarId":"0", "next1CarId":"3", "next2CarId":"4"}' />
+        </li>
+        <li>
+            <input type="button" 
+                   value="Next Race: Scenario 2" 
+                   data-view="race" 
+                   data-message='{"racer1CarId":"1","racer2CarId":"2","winnerCarId":"2", "next1CarId":"3", "next2CarId":"4"}' />
+        </li>
+        <li>
+            <input type="button" 
+                   value="Next Race: Scenario 3" 
+                   data-view="race" 
+                   data-message='{"racer1CarId":"1","racer2CarId":"2","winnerCarId":"0", "next1CarId":"0", "next2CarId":"0"}' />
+        </li>
+        <li>
+            <input type="button" 
+                   value="Next Race: Scenario 4" 
+                   data-view="race" 
+                   data-message='{"racer1CarId":"1","racer2CarId":"2","winnerCarId":"1", "next1CarId":"0", "next2CarId":"0"}' />
+        </li>
+    </ul>
 
-        <input type="button" id="sendmessage" value="Send" />
-
-    </div>
     <script src="http://stumptown40.azurewebsites.net/Scripts/jquery-1.8.3.min.js"></script>
     <script src="http://stumptown40.azurewebsites.net/Scripts/jquery.signalR-1.0.0.js"></script>
     <script src="http://stumptown40.azurewebsites.net/signalr/hubs"></script>
@@ -65,16 +95,15 @@
             
             $.connection.hub.start().done(function () {
 
-                $('#sendmessage').on('click touchstart', function () {
+            });
+            
+            $('input').on('click', function () {
 
-                    var radioButton = $('input[type=radio]:checked');
-					var view = radioButton.attr("data-view");
-                    var data = radioButton.attr("data-message");
-                    
-                    // Call the Navigate method on the hub. 
-                    chat.server.navigate(view, data);
-                });
+                var view = $(this).attr("data-view");
+                var data = $(this).attr("data-message");
 
+                // Call the Navigate method on the hub. 
+                chat.server.navigate(view, data);
             });
         });
 
