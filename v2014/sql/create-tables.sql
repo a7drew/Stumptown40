@@ -57,6 +57,75 @@ ALTER TABLE [dbo].[Race] CHECK CONSTRAINT [FK_Race_CarIdLoser]
 GO
 
 --
+-- STORED PROCEDURES
+--
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+IF EXISTS (select * from dbo.sysobjects where id = object_id(N'[dbo].[spGetNextRaceByDivisionId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	DROP PROCEDURE [dbo].[spGetNextRaceByDivisionId];
+GO
+
+CREATE PROCEDURE [dbo].[spGetNextRaceByDivisionId] 
+	@id INT
+AS
+BEGIN
+
+	SET NOCOUNT ON;
+
+	DECLARE @LastCarIdWinner INT;
+
+	DECLARE @NextCar TABLE
+		(
+			Id         INT IDENTITY,
+			CarId      INT
+		);
+
+	SELECT TOP 1 @LastCarIdWinner=CarIdWinner
+	FROM [dbo].[Race]
+	WHERE DivisionId = @id
+	ORDER BY RaceId DESC;
+
+	IF @LastCarIdWinner IS NULL
+		BEGIN
+			SET @LastCarIdWinner = -1;
+		END
+
+	INSERT INTO @NextCar
+	SELECT TOP 4 [CarId] 
+	FROM [dbo].[Car] a
+	WHERE [a].[DivisionId] = @id
+	AND [a].[CarId] > @LastCarIdWinner
+	AND [a].[CarId] NOT IN (SELECT [CarIdLoser] FROM [dbo].[Race])
+	ORDER BY [a].[CarId];
+
+	DECLARE @NextCarCount INT;
+
+	SELECT @NextCarCount = COUNT(*) FROM @NextCar;
+
+	IF (@NextCarCount < 4)
+		BEGIN
+			SET @LastCarIdWinner = -1;
+
+			INSERT INTO @NextCar
+			SELECT TOP 4 [CarId] 
+			FROM [dbo].[Car] a
+			WHERE [a].[DivisionId] = @id
+			AND [a].[CarId] > @LastCarIdWinner
+			AND [a].[CarId] NOT IN (SELECT [CarIdLoser] FROM [dbo].[Race])
+			ORDER BY [a].[CarId];
+		END
+
+	SELECT TOP 4 [CarId] FROM @NextCar ORDER BY [Id];
+
+END
+GO
+
+--
 -- DATA
 --
 

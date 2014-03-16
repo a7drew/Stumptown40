@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -21,17 +23,32 @@ namespace Website.Controllers
             }
         }
 
-        public IEnumerable<Race> GetLastRaceByDivisionId(int id)
+        public EventModel GetNextRaceByDivisionId(int id)
         {
             using (var cnn = Settings.GetConnection())
             {
                 cnn.Open();
 
-                return cnn.Query<Race>(@"select top 1 * 
-                                         from Race 
-                                         where DivisionId=@id 
-                                         order by RaceId desc;",
-                                       new {id});
+                var racers = cnn.Query<IEnumerable<int>>(
+                    "spGetNextRaceByDivisionId",
+                    new {id},
+                    commandType: CommandType.StoredProcedure).First().ToList();
+
+                var eventModel = new EventModel();
+
+                if (racers.Count() > 1)
+                {
+                    eventModel.Racer1CarId = racers[0];
+                    eventModel.Racer2CarId = racers[1];
+                }
+
+                if (racers.Count() > 3)
+                {
+                    eventModel.NextRacer1CarId = racers[2];
+                    eventModel.NextRacer2CarId = racers[3];
+                }
+
+                return eventModel;
             }
         }
 

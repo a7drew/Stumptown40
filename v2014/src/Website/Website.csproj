@@ -225,6 +225,7 @@
     </Compile>
     <Compile Include="Helpers\JsonpMediaTypeFormatter.cs" />
     <Compile Include="Models\Car.cs" />
+    <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\Race.cs" />
     <Compile Include="NavigationHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
