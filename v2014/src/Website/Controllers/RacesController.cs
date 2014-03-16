@@ -29,10 +29,10 @@ namespace Website.Controllers
             {
                 cnn.Open();
 
-                var racers = cnn.Query<IEnumerable<int>>(
+                var racers = cnn.Query<int>(
                     "spGetNextRaceByDivisionId",
                     new {id},
-                    commandType: CommandType.StoredProcedure).First().ToList();
+                    commandType: CommandType.StoredProcedure).ToList();
 
                 var eventModel = new EventModel();
 
