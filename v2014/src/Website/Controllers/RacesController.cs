@@ -58,11 +58,13 @@ namespace Website.Controllers
             {
                 cnn.Open();
 
+                // TODO: Simplify by always deleting first, then remove HTTP PUT?
+
                 cnn.Execute(@"insert into Race 
                               (DivisionId, CarIdWinner, CarIdLoser) 
                               values 
-                              (0, @CarIdWinner, @CarIdLoser)",
-                            new {race.CarIdWinner, race.CarIdLoser});
+                              (@DivisionId, @CarIdWinner, @CarIdLoser)",
+                            new {race.Divisionid, race.CarIdWinner, race.CarIdLoser});
                 
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
