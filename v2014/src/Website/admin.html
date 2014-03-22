@@ -34,6 +34,10 @@
             display: none;
         }
 
+        #nextRaceStandardView input {
+            width: 200px;
+        }
+
     </style>
 </head>
 <body>
@@ -138,11 +142,11 @@
                     <table width="100%">
                         <tr style="opacity: .7">
                             <td width="50%">
-                                <span>Racer1CarId:</span>
+                                <span>CarId:</span>
                                 <span data-bind="text: nextRaceStandardRacer1CarId"></span>
                             </td>
                             <td width="50%">
-                                <span>Racer2CarId:</span>
+                                <span>CarId:</span>
                                 <span data-bind="text: nextRaceStandardRacer2CarId"></span>
                             </td>
                         </tr>
@@ -166,7 +170,29 @@
                                 <span data-bind="text: nextRaceStandardRacer2Name"></span>
                             </td>
                         </tr>
+                        <tr>
+                            <td width="50%">
+                                <input type="button"
+                                       value="&#x2714;"
+                                       data-bind="click: nextRaceStandardRacer1Won" />
+                            </td>
+                            <td width="50%">
+                                <input type="button"
+                                       value="&#x2714;"
+                                       data-bind="click: nextRaceStandardRacer2Won" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center">
+                                <input type="button"
+                                       value="&#x2716;"
+                                       data-bind="click: nextRaceStandardClear" />
+
+                            </td>
+                        </tr>
                     </table>
+                    
+
                 </div>
 
             </td>
@@ -289,6 +315,34 @@
 
                     $('#col2').append('<p>' + self.cars().length + ' racers received.</p>');
                 });
+
+                self.nextRaceStandardRacer1Won = function() {
+                    console.log('nextRaceStandardRacer1Won');
+
+                    var divisionId = 1;
+                    var winnerCarId = self.nextRaceStandardRacer1CarId;
+                    var loserCarId = self.nextRaceStandardRacer2CarId;
+
+                    var data = { 'DivisionId': divisionId, 'CarIdWinner': winnerCarId, 'CarIdLoser': loserCarId };
+                    var url = "http://stumptown40.azurewebsites.net/api/races";
+
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: data,
+                        success: function () { console.log('yay!'); }
+                    });
+
+
+                };
+
+                self.nextRaceStandardRacer2Won = function() {
+                    console.log('nextRaceStandardRacer2Won');
+                };
+
+                self.nextRaceStandardClear = function() {
+                    console.log('nextRaceStandardClear');
+                };
             }
             
             ko.applyBindings(new carViewModel());
