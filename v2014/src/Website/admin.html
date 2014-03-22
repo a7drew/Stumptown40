@@ -323,7 +323,7 @@
                     var winnerCarId = self.nextRaceStandardRacer1CarId;
                     var loserCarId = self.nextRaceStandardRacer2CarId;
 
-                    var data = { 'DivisionId': divisionId, 'CarIdWinner': winnerCarId, 'CarIdLoser': loserCarId };
+                    var data = 'DivisionId=' + divisionId + '&CarIdWinner=' + winnerCarId + '&CarIdLoser=' + loserCarId;
                     var url = "http://stumptown40.azurewebsites.net/api/races";
 
                     $.ajax({

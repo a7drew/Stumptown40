@@ -18,7 +18,7 @@ namespace Website
             RouteTable.Routes.MapHubs(
                 new HubConfiguration
                     {
-                        EnableCrossDomain = true
+                        // EnableCrossDomain = true
                     });
 
             AreaRegistration.RegisterAllAreas();
