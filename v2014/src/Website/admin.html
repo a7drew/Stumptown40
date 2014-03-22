@@ -275,12 +275,15 @@
                 });
 
                 // Declare a proxy to reference the hub. 
+                var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
                 $.support.cors = true;
                 $.connection.hub.url = 'http://stumptown40.azurewebsites.net/signalr';
 
                 var chat = $.connection.navigationHub; // Start the connection.
 
-                $.connection.hub.start().done(function() {
+                $.connection.hub.start({
+                    jsonp: isChrome
+                }).done(function() {
                     $('#col2').append('<p>Ready.</p>');
                 });
 
@@ -320,8 +323,8 @@
                     console.log('nextRaceStandardRacer1Won');
 
                     var divisionId = 1;
-                    var winnerCarId = self.nextRaceStandardRacer1CarId;
-                    var loserCarId = self.nextRaceStandardRacer2CarId;
+                    var winnerCarId = self.nextRaceStandardRacer1CarId();
+                    var loserCarId = self.nextRaceStandardRacer2CarId();
 
                     var data = 'DivisionId=' + divisionId + '&CarIdWinner=' + winnerCarId + '&CarIdLoser=' + loserCarId;
                     var url = "http://stumptown40.azurewebsites.net/api/races";
