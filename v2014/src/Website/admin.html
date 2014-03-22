@@ -135,7 +135,38 @@
                 
                 <div id="nextRaceStandardView" class="mainView hidden">
                     <h1>Next Race &mdash; Standard View</h1>
-                    <textarea></textarea>
+                    <table width="100%">
+                        <tr style="opacity: .7">
+                            <td width="50%">
+                                <span>Racer1CarId:</span>
+                                <span data-bind="text: nextRaceStandardRacer1CarId"></span>
+                            </td>
+                            <td width="50%">
+                                <span>Racer2CarId:</span>
+                                <span data-bind="text: nextRaceStandardRacer2CarId"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="50%">
+                                <span>Car Number:</span>
+                                <span data-bind="text: nextRaceStandardRacer1CarNumber"></span>
+                            </td>
+                            <td width="50%">
+                                <span>Car Number:</span>
+                                <span data-bind="text: nextRaceStandardRacer2CarNumber"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="50%">
+                                <span>Name:</span>
+                                <span data-bind="text: nextRaceStandardRacer1Name"></span>
+                            </td>
+                            <td width="50%">
+                                <span>Name:</span>
+                                <span data-bind="text: nextRaceStandardRacer2Name"></span>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
 
             </td>
@@ -149,20 +180,6 @@
 	<script src="Scripts/sammy-0.7.4.min.js"></script>
     <script type="text/javascript">
 
-        var _cars = null;
-        
-        function getCars() {
-
-            $.getJSON('http://stumptown40.azurewebsites.net/api/cars?callback=?', function (e) {
-
-                _cars = e;
-                
-                ko.applyBindings(new CarViewModel());
-
-                $('#col2').append('<p>' + _cars.length + ' racers received.</p>');
-            });
-        }
-        
         function hideMainViews() {
             $('.mainView').addClass('hidden');
         }
@@ -191,46 +208,92 @@
         }
         
         $(function () {
-            getCars();
             configureSammy();
         });
 
-        function CarViewModel() {
+        (function() {
 
-            var self = this;
-            self.cars = ko.observableArray(_cars);
+            function carViewModel() {
 
-            // Declare a proxy to reference the hub. 
-            $.support.cors = true;
-            $.connection.hub.url = 'http://stumptown40.azurewebsites.net/signalr';
+                var self = this;
+                self.cars = ko.observableArray();
+                self.nextRaceStandardRacer1CarId = ko.observable(0);
+                self.nextRaceStandardRacer2CarId = ko.observable(0);
 
-            var chat = $.connection.navigationHub; // Start the connection.
+                self.nextRaceStandardRacer1Name = ko.computed(function() {
+                    if (self.cars().length > self.nextRaceStandardRacer1CarId())
+                        return self.cars()[self.nextRaceStandardRacer1CarId()].Name;
 
-            $.connection.hub.start().done(function () {
-                $('#col2').append('<p>Ready.</p>');
-            });
-
-            $('input[data-view]').on('click', function () {
-                var view = $(this).attr("data-view");
-                var data = $(this).attr("data-message");
-
-                chat.server.navigate(view, data);
-
-                location.hash = view;
-            });
-
-            $('#btnCars').on('click', function () {
-                location.hash = 'cars';
-            });
-            
-            $('#btnNextRaceStandard').on('click', function () {
-                location.hash = 'nextRaceStandard';
-                
-                $.getJSON('http://stumptown40.azurewebsites.net/api/races/GetNextRaceByDivisionId/1?callback=?', function (e) {
-                    $('#nextRaceStandardView textarea').text(e.Racer1CarId);
+                    return '';
                 });
-            });
-        }
+                
+                self.nextRaceStandardRacer2Name = ko.computed(function () {
+                    if (self.cars().length > self.nextRaceStandardRacer2CarId())
+                        return self.cars()[self.nextRaceStandardRacer2CarId()].Name;
+
+                    return '';
+                });
+                
+                self.nextRaceStandardRacer1CarNumber = ko.computed(function () {
+                    if (self.cars().length > self.nextRaceStandardRacer1CarId())
+                        return self.cars()[self.nextRaceStandardRacer1CarId()].CarNumber;
+
+                    return '';
+                });
+
+                self.nextRaceStandardRacer2CarNumber = ko.computed(function () {
+                    if (self.cars().length > self.nextRaceStandardRacer2CarId())
+                        return self.cars()[self.nextRaceStandardRacer2CarId()].CarNumber;
+
+                    return '';
+                });
+
+                // Declare a proxy to reference the hub. 
+                $.support.cors = true;
+                $.connection.hub.url = 'http://stumptown40.azurewebsites.net/signalr';
+
+                var chat = $.connection.navigationHub; // Start the connection.
+
+                $.connection.hub.start().done(function() {
+                    $('#col2').append('<p>Ready.</p>');
+                });
+
+                $('input[data-view]').on('click', function() {
+
+                    var view = $(this).attr("data-view");
+                    var data = $(this).attr("data-message");
+
+                    chat.server.navigate(view, data);
+
+                    location.hash = view;
+                });
+
+                $('#btnCars').on('click', function() {
+                    location.hash = 'cars';
+                });
+
+                $('#btnNextRaceStandard').on('click', function() {
+                    location.hash = 'nextRaceStandard';
+
+                    $.getJSON('http://stumptown40.azurewebsites.net/api/races/GetNextRaceByDivisionId/1?callback=?', function(e) {
+                        self.nextRaceStandardRacer1CarId(e.Racer1CarId);
+                        self.nextRaceStandardRacer2CarId(e.Racer2CarId);
+                    });
+                });
+                
+                $.getJSON('http://stumptown40.azurewebsites.net/api/cars?callback=?', function(e) {
+
+                    for (var i = 0; i < e.length; i++) {
+                        self.cars.push(e[i]);
+                    }
+
+                    $('#col2').append('<p>' + self.cars().length + ' racers received.</p>');
+                });
+            }
+            
+            ko.applyBindings(new carViewModel());
+
+        })();
 
     </script>
 </body>
