@@ -17,9 +17,9 @@ namespace Website.Controllers
             {
                 cnn.Open();
 
-                return cnn.Query<Race>(@"select * 
-                                         from Race 
-                                         order by RaceId");
+                return cnn.Query<Race>(@"SELECT * 
+                                         FROM Race 
+                                         ORDER BY RaceId");
             }
         }
 
@@ -52,49 +52,54 @@ namespace Website.Controllers
             }
         }
 
-        public HttpResponseMessage Post(Race race)
+        public Race Post(Race race)
         {
             using (var cnn = Settings.GetConnection())
             {
                 cnn.Open();
 
-                // TODO: Simplify by always deleting first, then remove HTTP PUT?
-
-                cnn.Execute(@"insert into Race 
-                              (DivisionId, CarIdWinner, CarIdLoser) 
-                              values 
-                              (@DivisionId, @CarIdWinner, @CarIdLoser)",
-                            new {race.Divisionid, race.CarIdWinner, race.CarIdLoser});
-                
-                return new HttpResponseMessage(HttpStatusCode.OK);
+                return cnn.Query<Race>(@"DELETE RACE 
+                                          WHERE DivisionId=@DivisionId 
+                                          AND 
+                                            ((CarIdWinner=@CarIdWinner and CarIdLoser=@CarIdLoser) 
+                                            OR 
+                                            (CarIdWinner=@CarIdLoser and CarIdLoser=@CarIdWinner));
+                                          INSERT INTO RACE 
+                                            (DivisionId, CarIdWinner, CarIdLoser) 
+                                          VALUES 
+                                            (@DivisionId, @CarIdWinner, @CarIdLoser);
+                                        SELECT TOP 1 * 
+                                         FROM Race 
+                                         ORDER BY RaceId DESC",
+                            new {race.Divisionid, race.CarIdWinner, race.CarIdLoser}).FirstOrDefault();                
             }
         }
 
-        public HttpResponseMessage Put(Race race)
-        {
-            using (var cnn = Settings.GetConnection())
-            {
-                cnn.Open();
+//        public HttpResponseMessage Put(Race race)
+//        {
+//            using (var cnn = Settings.GetConnection())
+//            {
+//                cnn.Open();
 
-                cnn.Execute(@"update Race 
-                              set CarIdWinner=@CarIdWinner, 
-                                  CarIdLoser=@CarIdLoser 
-                              where RaceId=@RaceId",
-                            new {race.CarIdWinner, race.CarIdLoser, race.RaceId});
+//                cnn.Execute(@"update Race 
+//                              set CarIdWinner=@CarIdWinner, 
+//                                  CarIdLoser=@CarIdLoser 
+//                              where RaceId=@RaceId",
+//                            new {race.CarIdWinner, race.CarIdLoser, race.RaceId});
                 
-                return new HttpResponseMessage(HttpStatusCode.OK);
-            }
-        }
+//                return new HttpResponseMessage(HttpStatusCode.OK);
+//            }
+//        }
 
-        public HttpResponseMessage Delete(Race race)
+        public HttpResponseMessage Delete(int id)
         {
             using (var cnn = Settings.GetConnection())
             {
                 cnn.Open();
 
-                cnn.Execute(@"delete Race 
-                              where RaceId=@RaceId",
-                            new {race.RaceId});
+                cnn.Execute(@"DELETE Race 
+                              WHERE RaceId=@id",
+                            new {id});
                 
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }

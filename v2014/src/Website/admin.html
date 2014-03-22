@@ -191,7 +191,6 @@
                             </td>
                         </tr>
                     </table>
-                    
 
                 </div>
 
@@ -245,35 +244,40 @@
                 self.cars = ko.observableArray();
                 self.nextRaceStandardRacer1CarId = ko.observable(0);
                 self.nextRaceStandardRacer2CarId = ko.observable(0);
+                self.nextRaceStandardRaceId = ko.observable(0);
 
-                self.nextRaceStandardRacer1Name = ko.computed(function() {
-                    if (self.cars().length > self.nextRaceStandardRacer1CarId())
-                        return self.cars()[self.nextRaceStandardRacer1CarId()].Name;
-
-                    return '';
+                self.nextRaceStandardRacer1Name = ko.computed(function () {
+                    var racer = getRacerByCarId(self.nextRaceStandardRacer1CarId());
+                    if (racer != null)
+                        return racer.Name;
+                    else
+                        return '';
                 });
                 
                 self.nextRaceStandardRacer2Name = ko.computed(function () {
-                    if (self.cars().length > self.nextRaceStandardRacer2CarId())
-                        return self.cars()[self.nextRaceStandardRacer2CarId()].Name;
-
-                    return '';
+                    var racer = getRacerByCarId(self.nextRaceStandardRacer2CarId());
+                    if (racer != null)
+                        return racer.Name;
+                    else
+                        return '';
                 });
                 
                 self.nextRaceStandardRacer1CarNumber = ko.computed(function () {
-                    if (self.cars().length > self.nextRaceStandardRacer1CarId())
-                        return self.cars()[self.nextRaceStandardRacer1CarId()].CarNumber;
-
-                    return '';
+                    var racer = getRacerByCarId(self.nextRaceStandardRacer1CarId());
+                    if (racer != null)
+                        return racer.CarNumber;
+                    else
+                        return '';
                 });
 
                 self.nextRaceStandardRacer2CarNumber = ko.computed(function () {
-                    if (self.cars().length > self.nextRaceStandardRacer2CarId())
-                        return self.cars()[self.nextRaceStandardRacer2CarId()].CarNumber;
-
-                    return '';
+                    var racer = getRacerByCarId(self.nextRaceStandardRacer2CarId());
+                    if (racer != null)
+                        return racer.CarNumber;
+                    else
+                        return '';
                 });
-
+                
                 // Declare a proxy to reference the hub. 
                 var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
                 $.support.cors = true;
@@ -321,10 +325,31 @@
 
                 self.nextRaceStandardRacer1Won = function() {
                     console.log('nextRaceStandardRacer1Won');
+                    postRaceWinner(1, self.nextRaceStandardRacer1CarId(), self.nextRaceStandardRacer2CarId());
+                };
 
-                    var divisionId = 1;
-                    var winnerCarId = self.nextRaceStandardRacer1CarId();
-                    var loserCarId = self.nextRaceStandardRacer2CarId();
+                self.nextRaceStandardRacer2Won = function() {
+                    console.log('nextRaceStandardRacer2Won');
+                    postRaceWinner(1, self.nextRaceStandardRacer2CarId(), self.nextRaceStandardRacer1CarId());
+                };
+
+                self.nextRaceStandardClear = function() {
+                    console.log('nextRaceStandardClear');
+                    clearRaceWinner(self.nextRaceStandardRaceId());
+                };
+                
+                function clearRaceWinner(raceId) {
+
+                    var url = "http://stumptown40.azurewebsites.net/api/races/" + raceId;
+
+                    $.ajax({
+                        type: "DELETE",
+                        url: url,
+                        success: function () { console.log('yay!'); }
+                    });
+                }
+                
+                function postRaceWinner(divisionId, winnerCarId, loserCarId) {
 
                     var data = 'DivisionId=' + divisionId + '&CarIdWinner=' + winnerCarId + '&CarIdLoser=' + loserCarId;
                     var url = "http://stumptown40.azurewebsites.net/api/races";
@@ -333,19 +358,21 @@
                         type: "POST",
                         url: url,
                         data: data,
-                        success: function () { console.log('yay!'); }
+                        success: function(e) {
+                            console.log('yay!');
+                            self.nextRaceStandardRaceId = e.RacerId;
+                        }
                     });
+                }
 
-
-                };
-
-                self.nextRaceStandardRacer2Won = function() {
-                    console.log('nextRaceStandardRacer2Won');
-                };
-
-                self.nextRaceStandardClear = function() {
-                    console.log('nextRaceStandardClear');
-                };
+                function getRacerByCarId(carId) {
+                    for (var i = 0; i < self.cars().length; i++) {
+                        if (self.cars()[i].CarId == carId) {
+                            return self.cars()[i];
+                        }
+                    }
+                    return null;
+                }
             }
             
             ko.applyBindings(new carViewModel());
