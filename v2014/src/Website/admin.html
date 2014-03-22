@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Sample Private Page</title>
+    <style type="text/css">
+        body {
+            font-family: Courier;
+            background: #000;
+            color: #008800;
+        }
+        #col1 li { 
+            margin: 0 0 20px 0;
+            list-style: none;
+        }
+        input[type=button] {
+            width: 600px;
+            height: 40px;
+            font: normal normal bold 20pt Courier;
+        }
+
+        #myTable td {
+            vertical-align: top;
+        }
+
+        #myTable #col2 {
+            padding-left: 20px;
+        }
+
+        .mainView {
+            display: block;    
+        }
+
+        .hidden {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+        
+    <h1>Admin Page</h1>
+    
+    <table id="myTable">
+        <tr>
+            <td id="col1">
+                <ul>
+                    <li>
+                        <input type="button" 
+                               value="Home" 
+                               data-view="home" 
+                               data-message='{"home":"home"}' />
+                    </li>
+                    <li>
+                        <input type="button" 
+                               value="Sponsors" 
+                               data-view="sponsors" 
+                               data-message='{"sponsors":"sponsors"}' />
+                    </li>
+                    <li>
+                        <input type="button" 
+                               value="Gallery" 
+                               data-view="gallery" 
+                               data-message='{"gallery":"gallery"}' />
+                    </li>
+                    <li>
+                        <input type="button" 
+                               value="Standard Division" 
+                               data-view="standardDivision" 
+                               data-message='{"standardDivision":"standardDivision"}' />
+                    </li>
+                    <li>
+                        <input type="button" 
+                               value="Unlimited Division" 
+                               data-view="unlimitedDivision" 
+                               data-message='{"unlimitedDivision":"unlimitedDivision"}' />
+                    </li>
+                    <li>
+                        <input id="btnCars" 
+                               type="button" 
+                               value="Cars" />
+                    </li>
+                    <li>
+                        <input id="btnNextRaceStandard" 
+                               type="button" 
+                               value="Next Race - Standard" />
+                    </li>
+                </ul>
+            </td>
+            <td id="col2">
+                    
+                <div id="homeView" class="mainView hidden">
+                    <h1>Home View</h1>
+                </div>
+                
+                <div id="sponsorsView" class="mainView hidden">
+                    <h1>Sponsors View</h1>
+                </div>
+                
+                <div id="galleryView" class="mainView hidden">
+                    <h1>Gallery View</h1>
+                </div>
+                
+                <div id="standardDivisionView" class="mainView hidden">
+                    <h1>Standard Division View</h1>
+                </div>
+                
+                <div id="unlimitedDivisionView" class="mainView hidden">
+                    <h1>Unlimited Division View</h1>
+                </div>
+                
+                <div id="carsView" class="mainView hidden">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CarId</th>
+                                <th>CarNumber</th>
+                                <th>DivisionId</th>
+                                <th>Name</th>
+                                <th>Organization</th>
+                                <th>PositionId</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: cars">
+                            <tr>
+                                <td data-bind="text: CarId"></td>
+                                <td data-bind="text: CarNumber"></td>
+                                <td data-bind="text: DivisionId"></td>
+                                <td data-bind="text: Name"></td>
+                                <td data-bind="text: Organization"></td>
+                                <td data-bind="text: PositionId"></td>
+                            </tr>     
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="nextRaceStandardView" class="mainView hidden">
+                    <h1>Next Race &mdash; Standard View</h1>
+                    <textarea></textarea>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+
+    <script src="http://stumptown40.azurewebsites.net/Scripts/jquery-1.8.3.min.js"></script>
+    <script src="http://stumptown40.azurewebsites.net/Scripts/jquery.signalR-1.0.0.js"></script>
+    <script src="http://stumptown40.azurewebsites.net/signalr/hubs"></script>
+    <script src="Scripts/knockout-2.2.1.js"></script>
+	<script src="Scripts/sammy-0.7.4.min.js"></script>
+    <script type="text/javascript">
+
+        var _cars = null;
+        
+        function getCars() {
+
+            $.getJSON('http://stumptown40.azurewebsites.net/api/cars?callback=?', function (e) {
+
+                _cars = e;
+                
+                ko.applyBindings(new CarViewModel());
+
+                $('#col2').append('<p>' + _cars.length + ' racers received.</p>');
+            });
+        }
+        
+        function hideMainViews() {
+            $('.mainView').addClass('hidden');
+        }
+
+        function showview(viewBaseName) {
+            var viewName = '#' + viewBaseName + 'View';
+            $(viewName).removeClass('hidden');
+        }
+        
+        function configureSammy() {
+
+            Sammy(function () {
+
+                this.get('#:folder', function () {
+                    hideMainViews();
+                    showview(this.params.folder);
+                });
+
+                //this.get('#:folder/:mailId', function () {
+                //    console.log(this.params.folder + "/" + this.params.mailId);
+                //});
+
+                this.get('', function () { this.app.runRoute('get', '#home'); });
+
+            }).run();
+        }
+        
+        $(function () {
+            getCars();
+            configureSammy();
+        });
+
+        function CarViewModel() {
+
+            var self = this;
+            self.cars = ko.observableArray(_cars);
+
+            // Declare a proxy to reference the hub. 
+            $.support.cors = true;
+            $.connection.hub.url = 'http://stumptown40.azurewebsites.net/signalr';
+
+            var chat = $.connection.navigationHub; // Start the connection.
+
+            $.connection.hub.start().done(function () {
+                $('#col2').append('<p>Ready.</p>');
+            });
+
+            $('input[data-view]').on('click', function () {
+                var view = $(this).attr("data-view");
+                var data = $(this).attr("data-message");
+
+                chat.server.navigate(view, data);
+
+                location.hash = view;
+            });
+
+            $('#btnCars').on('click', function () {
+                location.hash = 'cars';
+            });
+            
+            $('#btnNextRaceStandard').on('click', function () {
+                location.hash = 'nextRaceStandard';
+                
+                $.getJSON('http://stumptown40.azurewebsites.net/api/races/GetNextRaceByDivisionId/1?callback=?', function (e) {
+                    $('#nextRaceStandardView textarea').text(e.Racer1CarId);
+                });
+            });
+        }
+
+    </script>
+</body>
+</html>

@@ -231,6 +231,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin.html" />
     <Content Include="App_Data\Stumptown40Database.sdf" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Areas\RouteDebugger\Content\rdstyle.css" />
