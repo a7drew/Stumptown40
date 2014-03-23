@@ -335,6 +335,7 @@
 
                 self.nextRaceStandardClear = function() {
                     console.log('nextRaceStandardClear');
+                    console.log('self.nextRaceStandardRaceId()=' + self.nextRaceStandardRaceId());
                     clearRaceWinner(self.nextRaceStandardRaceId());
                 };
                 
@@ -360,7 +361,7 @@
                         data: data,
                         success: function(e) {
                             console.log('yay!');
-                            self.nextRaceStandardRaceId = e.RacerId;
+                            self.nextRaceStandardRaceId(e.RaceId);
                         }
                     });
                 }
