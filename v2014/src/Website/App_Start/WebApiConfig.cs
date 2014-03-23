@@ -12,13 +12,13 @@ namespace Website
             config.Routes.MapHttpRoute(
                 name: "WithoutActionApi",
                 routeTemplate: "api/{controller}"
-            );
+                );
 
             config.Routes.MapHttpRoute(
                 name: "WithActionApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { action = "Get", id = RouteParameter.Optional }
-            );
+                );
 
             //config.Routes.MapHttpRoute(
             //    name: "DefaultApi",

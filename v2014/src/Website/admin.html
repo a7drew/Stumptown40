@@ -3,115 +3,93 @@
 <head>
     <title>Sample Private Page</title>
     <style type="text/css">
-        body {
-            font-family: Courier;
-            background: #000;
-            color: #008800;
-        }
-        #col1 li { 
-            margin: 0 0 20px 0;
-            list-style: none;
-        }
-        input[type=button] {
-            width: 600px;
-            height: 40px;
-            font: normal normal bold 20pt Courier;
-        }
+        body { font-family: Courier; background: #000; color: #008800; }
+        #col1 li { margin: 0 0 20px 0; list-style: none; }
+        input[type=button] { width: 600px; height: 40px; font: normal normal bold 20pt Courier; }
 
-        #myTable td {
-            vertical-align: top;
-        }
+        #myTable td { vertical-align: top; }
 
-        #myTable #col2 {
-            padding-left: 20px;
-        }
+        #myTable #col2 { padding-left: 20px; }
 
-        .mainView {
-            display: block;    
-        }
+        .mainView { display: block; }
 
-        .hidden {
-            display: none;
-        }
+        .hidden { display: none; }
 
-        #nextRaceStandardView input {
-            width: 200px;
-        }
-
+        #nextRaceStandardView input { width: 200px; }
     </style>
 </head>
 <body>
-        
+
     <h1>Admin Page</h1>
-    
+
     <table id="myTable">
         <tr>
             <td id="col1">
                 <ul>
                     <li>
-                        <input type="button" 
-                               value="Home" 
-                               data-view="home" 
-                               data-message='{"home":"home"}' />
+                        <input type="button"
+                            value="Home"
+                            data-view="home"
+                            data-message='{"home":"home"}' />
                     </li>
                     <li>
-                        <input type="button" 
-                               value="Sponsors" 
-                               data-view="sponsors" 
-                               data-message='{"sponsors":"sponsors"}' />
+                        <input type="button"
+                            value="Sponsors"
+                            data-view="sponsors"
+                            data-message='{"sponsors":"sponsors"}' />
                     </li>
                     <li>
-                        <input type="button" 
-                               value="Gallery" 
-                               data-view="gallery" 
-                               data-message='{"gallery":"gallery"}' />
+                        <input type="button"
+                            value="Gallery"
+                            data-view="gallery"
+                            data-message='{"gallery":"gallery"}' />
                     </li>
                     <li>
-                        <input type="button" 
-                               value="Standard Division" 
-                               data-view="standardDivision" 
-                               data-message='{"standardDivision":"standardDivision"}' />
+                        <input type="button"
+                            value="Standard Division"
+                            data-view="standardDivision"
+                            data-message='{"standardDivision":"standardDivision"}' />
                     </li>
                     <li>
-                        <input type="button" 
-                               value="Unlimited Division" 
-                               data-view="unlimitedDivision" 
-                               data-message='{"unlimitedDivision":"unlimitedDivision"}' />
+                        <input type="button"
+                            value="Unlimited Division"
+                            data-view="unlimitedDivision"
+                            data-message='{"unlimitedDivision":"unlimitedDivision"}' />
                     </li>
                     <li>
-                        <input id="btnCars" 
-                               type="button" 
-                               value="Cars" />
+                        <input id="btnCars"
+                            type="button"
+                            value="Cars" />
                     </li>
                     <li>
-                        <input id="btnNextRaceStandard" 
-                               type="button" 
-                               value="Next Race - Standard" />
+                        <input id="btnNextRaceStandard"
+                            type="button"
+                            value="Next Race - Standard" />
                     </li>
                 </ul>
             </td>
             <td id="col2">
-                    
+
                 <div id="homeView" class="mainView hidden">
                     <h1>Home View</h1>
                 </div>
-                
+
                 <div id="sponsorsView" class="mainView hidden">
                     <h1>Sponsors View</h1>
                 </div>
-                
+
                 <div id="galleryView" class="mainView hidden">
                     <h1>Gallery View</h1>
                 </div>
-                
+
                 <div id="standardDivisionView" class="mainView hidden">
                     <h1>Standard Division View</h1>
                 </div>
-                
+
                 <div id="unlimitedDivisionView" class="mainView hidden">
                     <h1>Unlimited Division View</h1>
                 </div>
-                
+
                 <div id="carsView" class="mainView hidden">
                     <table>
                         <thead>
@@ -132,11 +110,11 @@
                                 <td data-bind="text: Name"></td>
                                 <td data-bind="text: Organization"></td>
                                 <td data-bind="text: PositionId"></td>
-                            </tr>     
+                            </tr>
                         </tbody>
                     </table>
                 </div>
-                
+
                 <div id="nextRaceStandardView" class="mainView hidden">
                     <h1>Next Race &mdash; Standard View</h1>
                     <table width="100%">
@@ -173,20 +151,20 @@
                         <tr>
                             <td width="50%">
                                 <input type="button"
-                                       value="&#x2714;"
-                                       data-bind="click: nextRaceStandardRacer1Won" />
+                                    value="&#x2714;"
+                                    data-bind="click: nextRaceStandardRacer1Won" />
                             </td>
                             <td width="50%">
                                 <input type="button"
-                                       value="&#x2714;"
-                                       data-bind="click: nextRaceStandardRacer2Won" />
+                                    value="&#x2714;"
+                                    data-bind="click: nextRaceStandardRacer2Won" />
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2" align="center">
                                 <input type="button"
-                                       value="&#x2716;"
-                                       data-bind="click: nextRaceStandardClear" />
+                                    value="&#x2716;"
+                                    data-bind="click: nextRaceStandardClear" />
 
                             </td>
                         </tr>
@@ -202,8 +180,11 @@
     <script src="http://stumptown40.azurewebsites.net/Scripts/jquery.signalR-1.0.0.js"></script>
     <script src="http://stumptown40.azurewebsites.net/signalr/hubs"></script>
     <script src="Scripts/knockout-2.2.1.js"></script>
-	<script src="Scripts/sammy-0.7.4.min.js"></script>
+    <script src="Scripts/sammy-0.7.4.min.js"></script>
     <script type="text/javascript">
+
+        //var _baseUrl = '/';
+        var _baseUrl = 'http://stumptown40.azurewebsites.net/';
 
         function hideMainViews() {
             $('.mainView').addClass('hidden');
@@ -213,7 +194,7 @@
             var viewName = '#' + viewBaseName + 'View';
             $(viewName).removeClass('hidden');
         }
-        
+
         function configureSammy() {
 
             Sammy(function () {
@@ -231,12 +212,12 @@
 
             }).run();
         }
-        
+
         $(function () {
             configureSammy();
         });
 
-        (function() {
+        (function () {
 
             function carViewModel() {
 
@@ -253,7 +234,7 @@
                     else
                         return '';
                 });
-                
+
                 self.nextRaceStandardRacer2Name = ko.computed(function () {
                     var racer = getRacerByCarId(self.nextRaceStandardRacer2CarId());
                     if (racer != null)
@@ -261,7 +242,7 @@
                     else
                         return '';
                 });
-                
+
                 self.nextRaceStandardRacer1CarNumber = ko.computed(function () {
                     var racer = getRacerByCarId(self.nextRaceStandardRacer1CarId());
                     if (racer != null)
@@ -277,21 +258,21 @@
                     else
                         return '';
                 });
-                
+
                 // Declare a proxy to reference the hub. 
                 var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
                 $.support.cors = true;
-                $.connection.hub.url = 'http://stumptown40.azurewebsites.net/signalr';
+                $.connection.hub.url = _baseUrl + 'signalr';
 
                 var chat = $.connection.navigationHub; // Start the connection.
 
                 $.connection.hub.start({
                     jsonp: isChrome
-                }).done(function() {
+                }).done(function () {
                     $('#col2').append('<p>Ready.</p>');
                 });
 
-                $('input[data-view]').on('click', function() {
+                $('input[data-view]').on('click', function () {
 
                     var view = $(this).attr("data-view");
                     var data = $(this).attr("data-message");
@@ -301,20 +282,20 @@
                     location.hash = view;
                 });
 
-                $('#btnCars').on('click', function() {
+                $('#btnCars').on('click', function () {
                     location.hash = 'cars';
                 });
 
-                $('#btnNextRaceStandard').on('click', function() {
+                $('#btnNextRaceStandard').on('click', function () {
                     location.hash = 'nextRaceStandard';
 
-                    $.getJSON('http://stumptown40.azurewebsites.net/api/races/GetNextRaceByDivisionId/1?callback=?', function(e) {
+                    $.getJSON(_baseUrl + 'api/races/GetNextRaceByDivisionId/1?callback=?', function (e) {
                         self.nextRaceStandardRacer1CarId(e.Racer1CarId);
                         self.nextRaceStandardRacer2CarId(e.Racer2CarId);
                     });
                 });
-                
-                $.getJSON('http://stumptown40.azurewebsites.net/api/cars?callback=?', function(e) {
+
+                $.getJSON(_baseUrl + 'api/cars?callback=?', function (e) {
 
                     for (var i = 0; i < e.length; i++) {
                         self.cars.push(e[i]);
@@ -323,43 +304,43 @@
                     $('#col2').append('<p>' + self.cars().length + ' racers received.</p>');
                 });
 
-                self.nextRaceStandardRacer1Won = function() {
+                self.nextRaceStandardRacer1Won = function () {
                     console.log('nextRaceStandardRacer1Won');
                     postRaceWinner(1, self.nextRaceStandardRacer1CarId(), self.nextRaceStandardRacer2CarId());
                 };
 
-                self.nextRaceStandardRacer2Won = function() {
+                self.nextRaceStandardRacer2Won = function () {
                     console.log('nextRaceStandardRacer2Won');
                     postRaceWinner(1, self.nextRaceStandardRacer2CarId(), self.nextRaceStandardRacer1CarId());
                 };
 
-                self.nextRaceStandardClear = function() {
+                self.nextRaceStandardClear = function () {
                     console.log('nextRaceStandardClear');
                     console.log('self.nextRaceStandardRaceId()=' + self.nextRaceStandardRaceId());
                     clearRaceWinner(self.nextRaceStandardRaceId());
                 };
-                
+
                 function clearRaceWinner(raceId) {
 
-                    var url = "http://stumptown40.azurewebsites.net/api/races/" + raceId;
+                    var url = _baseUrl + 'api/races/delete/' + raceId;
 
                     $.ajax({
-                        type: "DELETE",
+                        type: 'DELETE',
                         url: url,
                         success: function () { console.log('yay!'); }
                     });
                 }
-                
+
                 function postRaceWinner(divisionId, winnerCarId, loserCarId) {
 
                     var data = 'DivisionId=' + divisionId + '&CarIdWinner=' + winnerCarId + '&CarIdLoser=' + loserCarId;
-                    var url = "http://stumptown40.azurewebsites.net/api/races";
+                    var url = _baseUrl + 'api/races';
 
                     $.ajax({
-                        type: "POST",
+                        type: 'POST',
                         url: url,
                         data: data,
-                        success: function(e) {
+                        success: function (e) {
                             console.log('yay!');
                             self.nextRaceStandardRaceId(e.RaceId);
                         }
@@ -375,7 +356,7 @@
                     return null;
                 }
             }
-            
+
             ko.applyBindings(new carViewModel());
 
         })();
