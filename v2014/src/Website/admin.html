@@ -5,7 +5,7 @@
     <style type="text/css">
         body { font-family: Courier; background: #000; color: #008800; }
         #col1 li { margin: 0 0 20px 0; list-style: none; }
-        input[type=button] { width: 600px; height: 40px; font: normal normal bold 20pt Courier; }
+        input[type=button] { width: 300px; height: 40px; font: normal normal bold 16pt Courier; }
 
         #myTable td { vertical-align: top; }
 
@@ -20,8 +20,6 @@
     </style>
 </head>
 <body>
-
-    <h1>Admin Page</h1>
 
     <table id="myTable">
         <tr>
@@ -174,6 +172,16 @@
 
                             </td>
                         </tr>
+                        <tr>
+                            <td width="50%">
+                                <span>Next:</span>
+                                <span data-bind="text: nextNextRaceStandardRacer1"></span>
+                            </td>
+                            <td width="50%">
+                                <span>Next:</span>
+                                <span data-bind="text: nextNextRaceStandardRacer2"></span>
+                            </td>
+                        </tr>
                     </table>
 
                 </div>
@@ -226,9 +234,19 @@
                         <tr>
                             <td colspan="2" align="center">
                                 <input type="button"
-                                    value="&#x2716;"
-                                    data-bind="click: nextRaceUnlimitedClear" />
+                                       value="&#x2716;"
+                                       data-bind="click: nextRaceUnlimitedClear" />
 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="50%">
+                                <span>Next:</span>
+                                <span data-bind="text: nextNextRaceUnlimitedRacer1"></span>
+                            </td>
+                            <td width="50%">
+                                <span>Next:</span>
+                                <span data-bind="text: nextNextRaceUnlimitedRacer2"></span>
                             </td>
                         </tr>
                     </table>
@@ -296,6 +314,12 @@
                 self.nextRaceUnlimitedRacer2CarId = ko.observable(0);
                 self.nextRaceUnlimitedRaceId = ko.observable(0);
 
+                self.nextNextRaceStandardRacer1CarId = ko.observable(0);
+                self.nextNextRaceStandardRacer2CarId = ko.observable(0);
+                
+                self.nextNextRaceUnlimitedRacer1CarId = ko.observable(0);
+                self.nextNextRaceUnlimitedRacer2CarId = ko.observable(0);
+
                 self.nextRaceStandardRacer1Name = ko.computed(function () {
                     var racer = getRacerByCarId(self.nextRaceStandardRacer1CarId());
                     if (racer != null)
@@ -359,18 +383,49 @@
                     else
                         return '';
                 });
+                
+                self.nextNextRaceStandardRacer1 = ko.computed(function () {
+                    var racer = getRacerByCarId(self.nextNextRaceStandardRacer1CarId());
+                    if (racer != null)
+                        return racer.CarNumber + ' - ' + racer.Name;
+                    else
+                        return '';
+                });
 
-                // Declare a proxy to reference the hub. 
+                self.nextNextRaceStandardRacer2 = ko.computed(function () {
+                    var racer = getRacerByCarId(self.nextNextRaceStandardRacer2CarId());
+                    if (racer != null)
+                        return racer.CarNumber + ' - ' + racer.Name;
+                    else
+                        return '';
+                });
+                
+                self.nextNextRaceUnlimitedRacer1 = ko.computed(function () {
+                    var racer = getRacerByCarId(self.nextNextRaceUnlimitedRacer1CarId());
+                    if (racer != null)
+                        return racer.CarNumber + ' - ' + racer.Name;
+                    else
+                        return '';
+                });
+                
+                self.nextNextRaceUnlimitedRacer2 = ko.computed(function () {
+                    var racer = getRacerByCarId(self.nextNextRaceUnlimitedRacer2CarId());
+                    if (racer != null)
+                        return racer.CarNumber + ' - ' + racer.Name;
+                    else
+                        return '';
+                });
+
                 var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
                 $.support.cors = true;
                 $.connection.hub.url = _baseUrl + 'signalr';
 
-                var chat = $.connection.navigationHub; // Start the connection.
+                var chat = $.connection.navigationHub;
 
                 $.connection.hub.start({
                     jsonp: isChrome
                 }).done(function () {
-                    $('#col2').append('<p>Ready.</p>');
+                    console.log('SignalR is ready');
                 });
 
                 $('input[data-view]').on('click', function () {
@@ -393,6 +448,9 @@
                     $.getJSON(_baseUrl + 'api/races/GetNextRaceByDivisionId/1?callback=?', function (e) {
                         self.nextRaceStandardRacer1CarId(e.Racer1CarId);
                         self.nextRaceStandardRacer2CarId(e.Racer2CarId);
+                        
+                        self.nextNextRaceStandardRacer1CarId(e.NextRacer1CarId);
+                        self.nextNextRaceStandardRacer2CarId(e.NextRacer2CarId);
                     });
                 });
                 
@@ -402,6 +460,9 @@
                     $.getJSON(_baseUrl + 'api/races/GetNextRaceByDivisionId/2?callback=?', function (e) {
                         self.nextRaceUnlimitedRacer1CarId(e.Racer1CarId);
                         self.nextRaceUnlimitedRacer2CarId(e.Racer2CarId);
+
+                        self.nextNextRaceUnlimitedRacer1CarId(e.NextRacer1CarId);
+                        self.nextNextRaceUnlimitedRacer2CarId(e.NextRacer2CarId);
                     });
                 });
                 
@@ -411,7 +472,7 @@
                         self.cars.push(e[i]);
                     }
 
-                    $('#col2').append('<p>' + self.cars().length + ' racers received.</p>');
+                    console.log(self.cars().length + ' racers received.');
                 });
 
                 self.nextRaceStandardRacer1Won = function () {
@@ -453,29 +514,27 @@
                     $.ajax({
                         type: 'DELETE',
                         url: url,
-                        success: function () { console.log('yay!'); }
+                        success: function () { console.log('clearRaceWinner(' + raceId + ') completed.'); }
                     });
                 }
 
                 function postRaceWinner(divisionId, winnerCarId, loserCarId) {
 
-                    var data = 'DivisionId=' + divisionId + '&CarIdWinner=' + winnerCarId + '&CarIdLoser=' + loserCarId;
                     var url = _baseUrl + 'api/races';
+                    var data = 'DivisionId=' + divisionId + '&CarIdWinner=' + winnerCarId + '&CarIdLoser=' + loserCarId;
 
                     $.ajax({
                         type: 'POST',
                         url: url,
                         data: data,
                         success: function (e) {
-                            console.log('yay!');
                             if (divisionId === 1) {
-                                console.log('divisionId === 1');
                                 self.nextRaceStandardRaceId(e.RaceId);
                             } else {
-                                console.log('divisionId !== 1');
                                 self.nextRaceUnlimitedRaceId(e.RaceId);
                             }
 
+                            console.log('postRaceWinner(' + divisionId + ', ' + winnerCarId + ', ' + loserCarId + ') completed; raceId=' + e.RaceId);
                         }
                     });
                 }
