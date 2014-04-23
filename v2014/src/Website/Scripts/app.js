@@ -273,10 +273,12 @@ $('.racer[data-id="'+context.racer1Id+'"],.racer[data-id="'+context.racer2Id+'"]
 };	
 
 	
-
+var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
 
 // Start the connection.
-$.connection.hub.start().done(function () {
+$.connection.hub.start({
+    jsonp: isChrome
+}).done(function () {
 	
 /* for Ryan to debug quickly	
 if(window.location.hash == "#home") {
