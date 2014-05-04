@@ -147,15 +147,16 @@ background:transparent url("../Images/ribbon_right.png") no-repeat;
 }
 
 .gallery .meta {
-	position: absolute;
-	left: 50px;
-	bottom: 25px;
-	z-index: 1000;
-	margin: 0;
-	width: 320px;
-	text-indent: 0;
-	text-align: left;
-	padding-left: 0;
+    position: absolute;
+    left: 0;
+    bottom: 25px;
+    z-index: 1000;
+    margin: 0;
+    width: 350px;
+    text-indent: 20px;
+    text-align: left;
+    padding-left: 0;
+    opacity: .9;
 }
 
 .meta span.icon::after {
@@ -196,7 +197,7 @@ position:absolute;
 /* home */
 
 .home {
-background: url("../Images/stumptown40-4th.png") no-repeat scroll 50% 50% rgba(0, 0, 0, 0);
+background: url("../Images/stumptown40-5th.png") no-repeat scroll 50% 50% rgba(0, 0, 0, 0);
 background-size: 100%;
 position: relative;
 width: 100%;
@@ -414,14 +415,14 @@ background:rgba(0,0,0,.05);
 }
 
 .powered {
-width:250px;
-position:fixed;
-bottom:20px;
-right:20px;
-z-index:5;
-text-align:left;
-font-size:12px;
-color:#000;
+width: auto;
+position: fixed;
+bottom: 0;
+right: 0;
+z-index: 5;
+text-align: left;
+font-size: 12px;
+color: #000;
 }
 
 .powered img {
@@ -972,15 +973,17 @@ left: -100%;
 top: 0;
 z-index: 1;
 height: 100%;
--webkit-animation-iteration-count: infinite;
--webkit-animation-timing-function: cubic-bezier(0.680, -0.550, 0.265, 1.550);
 -webkit-animation-duration: 40s;
+-webkit-animation-timing-function: cubic-bezier(0.455, 0.030, 0.515, 0.955);
+-webkit-animation-delay:0;
+-webkit-animation-iteration-count:infinite;
+-webkit-animation-play-state:running;
 width: 100%;
 display: block;
 line-height: 1;
 display: -webkit-box;
 display: -webkit-flex;
-display: flex;
+display: flexbox;
 -webkit-box-direction: normal;
 -webkit-box-orient: horizontal;
 -webkit-flex-direction: row;
@@ -996,6 +999,7 @@ align-content: center;
 -webkit-align-items: center;
 align-items: center;
 }
+
 .slides a.p1 {left:0;}
 
 .slides a img,
@@ -1011,7 +1015,6 @@ flex: 0 1 auto;
 -webkit-align-self: center;
 align-self: center;
 }
-
 
 @-webkit-keyframes show1 {
 0% {left:0;}
