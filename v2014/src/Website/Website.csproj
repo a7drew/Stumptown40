@@ -366,6 +366,7 @@
     <Content Include="Images\ribbon.png" />
     <Content Include="Images\ribbon_left.png" />
     <Content Include="Images\ribbon_right.png" />
+	<Content Include="Images\stumptown40-5th.png" />
     <Content Include="Images\sponsors\33beers.png" />
 	<Content Include="Images\sponsors\bb.png" />
 	<Content Include="Images\sponsors\blujae.png" />

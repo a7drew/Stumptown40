@@ -2,7 +2,8 @@ $.support.cors = true;
 $.connection.hub.url = 'http://stumptown40.azurewebsites.net/signalr';
 var chat = $.connection.navigationHub;
 
-chat.client.onNavigate = function (viewName, jsonData) {			
+chat.client.onNavigate = function (viewName, jsonData) {
+    $("body").removeClass().addClass(viewName);
 	var app =  $.sammy('#view', function() {
 		this.use('Handlebars', 'hb');
 		this.bind('#'+viewName, function(event, viewName) {

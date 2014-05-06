@@ -85,7 +85,12 @@ top: 0;
 left: 0;
 background: rgba(0, 0, 0, 0) url("../Images/racecenter.png") 50% 10px no-repeat;
 z-index: 10;
-/*background-size: 160%;*/
+opacity:1;
+-webkit-transform:all 500ms;
+}
+
+.gallery header {
+    opacity:0;
 }
 
 header a {
@@ -196,7 +201,7 @@ position:absolute;
 }
 /* home */
 
-.home {
+.homeView {
 background: url("../Images/stumptown40-5th.png") no-repeat scroll 50% 50% rgba(0, 0, 0, 0);
 background-size: 100%;
 position: relative;
