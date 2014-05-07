@@ -86,7 +86,7 @@ left: 0;
 background: rgba(0, 0, 0, 0) url("../Images/racecenter.png") 50% 10px no-repeat;
 z-index: 10;
 opacity:1;
--webkit-transform:all 500ms;
+-webkit-transform:all 700ms;
 }
 
 .gallery header {
@@ -376,7 +376,7 @@ align-items: center;
 color:rgba(255,255,255,.6);
 z-index:2;
 -webkit-transition-property:color, text-shadow;
--webkit-transition-duration: 1500ms;
+-webkit-transition-duration: 1700ms;
 -webkit-transition-timing-function:ease-in;
 -webkit-transform: translate3d(0,0,0);
 text-indent: -9999em;
@@ -462,14 +462,14 @@ min-width: 960px;
 	30% {
 		-webkit-transform: translate3d(300px,-100px,450px) rotateY(180deg);
 			-webkit-transform-origin:center center;
-			-webkit-animation-timing-function: linear;
+			-webkit-animation-timing-function: cubic-bezier(0.390, 0.575, 0.565, 1.000);
 	}
 
 
 	100% {
 		-webkit-transform: translate3d(0,0,0) rotateY(360deg);
 			-webkit-transform-origin:center center;
-			-webkit-animation-timing-function: linear;
+			-webkit-animation-timing-function: cubic-bezier(0.390, 0.575, 0.565, 1.000);
 	}
 }
 	
@@ -481,8 +481,8 @@ position: absolute;
 left: -800px;
 top: 120px;
 -webkit-transform-style:preserve-3d;
--webkit-transition: all 500ms;
--webkit-animation-duration: 500ms;
+-webkit-transition: all 700ms;
+-webkit-animation-duration: 700ms;
 -webkit-animation-direction:forwards;
 -webkit-animation-play-state: running;
 -webkit-animation-timing-function:cubic-bezier(0.390, 0.575, 0.565, 1.000);
@@ -508,7 +508,7 @@ right: 330px;
 
 .show .cards .racer1.winner,
 .show .cards .racer2.winner {
-	-webkit-transition: all 500ms ease-in-out;
+	-webkit-transition: all 700ms cubic-bezier(0.390, 0.575, 0.565, 1.000);
 	-webkit-animation-duration:0;
 	-webkit-animation-iteration-count:1;
 }
@@ -620,6 +620,7 @@ left:0;
 z-index:1;
 overflow:hidden;
 z-index:2;
+-webkit-transform: scaleX(-1);
 background-size:50%, 600px;
 }
 
@@ -921,12 +922,12 @@ right: -2000px;
 }
 
 .show.winnerDeclared .upcomingracer.racer1 {
-	-webkit-transition-delay:5s;
+	-webkit-transition-delay:1s;
 	left: -2000px;
 }
 
 .show.winnerDeclared .upcomingracer.racer2 {
-		-webkit-transition-delay:5s;
+		-webkit-transition-delay:1s;
 	right: -2000px;
 }
 
