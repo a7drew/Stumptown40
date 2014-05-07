@@ -26,6 +26,13 @@
             color: #666;
         }
 
+        #remainingCars {
+            position: fixed;
+            top: 20px;
+            right: 50px;
+            font-size: 40px;
+        }
+
         .on { background: #ff0000;}
     </style>
 </head>
@@ -132,6 +139,8 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div id="remainingCars"
+                         data-bind="text: remainingCarsCount"></div>
                 </div>
 
                 <div id="nextRaceStandardView" class="mainView hidden">
@@ -288,6 +297,8 @@
                 self.nextRaceStandardRacer1CarId = ko.observable(0);
                 self.nextRaceStandardRacer2CarId = ko.observable(0);
                 self.nextRaceStandardRaceId = ko.observable(0);
+
+                self.remainingCarsCount = ko.observable(0);
 
                 self.nextRaceUnlimitedRacer1CarId = ko.observable(0);
                 self.nextRaceUnlimitedRacer2CarId = ko.observable(0);
@@ -450,6 +461,8 @@
                     location.hash = 'nextRaceStandard';
 
                     var lastItem = self._raceData[self._raceData.length - 1];
+
+                    self.nextRaceStandardRaceId(lastItem.RaceId);
 
                     self.nextRaceStandardRacer1CarId(lastItem.CarIdWinner);
                     self.nextRaceStandardRacer2CarId(lastItem.CarIdLoser);
@@ -662,13 +675,18 @@
 
                         self._raceData = e;
 
+                        var remainingCarsCount = 0;
                         for (var j = 0; j < self.cars().length; j++) {
                             var wins = getWinsByCarId(self.cars()[j].CarId, e);
                             var losses = getLossesByCarId(self.cars()[j].CarId, e);
                             self.cars()[j].wins(wins);
                             self.cars()[j].losses(losses);
+
+                            if (losses === 0)
+                                remainingCarsCount++;
                         }
 
+                        self.remainingCarsCount(remainingCarsCount);
                     });
                 }
 
