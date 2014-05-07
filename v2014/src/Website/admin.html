@@ -76,9 +76,14 @@
                             value="Next Race - Standard" />
                     </li>
                     <li>
+                        <input id="btnLastRaceStandard"
+                               type="button"
+                               value="Last Race - Standard" />
+                    </li>
+                    <li>
                         <input id="btnNextRaceUnlimited"
-                            type="button"
-                            value="Next Race - Unlimited" />
+                               type="button"
+                               value="Next Race - Unlimited" />
                     </li>
                 </ul>
             </td>
@@ -274,6 +279,8 @@
 
                 var self = this;
 
+                self._raceData = [];
+
                 self.cars = ko.observableArray();
                 self.races = ko.observableArray();
                 self.unlimitedCars = ko.observableArray();
@@ -433,6 +440,34 @@
                         self.nextRace.currentRound = 'Speed';
                         sendRaceViewCommand();
                     });
+                });
+
+                $('#btnLastRaceStandard').on('click', function () {
+
+                    if (self._raceData.length < 1)
+                        return;
+
+                    location.hash = 'nextRaceStandard';
+
+                    var lastItem = self._raceData[self._raceData.length - 1];
+
+                    self.nextRaceStandardRacer1CarId(lastItem.CarIdWinner);
+                    self.nextRaceStandardRacer2CarId(lastItem.CarIdLoser);
+
+                    self.nextNextRaceStandardRacer1CarId(lastItem.CarIdWinner);
+                    self.nextNextRaceStandardRacer2CarId(lastItem.CarIdLoser);
+
+                    self.nextRace = {
+                        NextRacer1CarId: lastItem.CarIdWinner,
+                        NextRacer2CarId: lastItem.CarIdLoser,
+                        Racer1CarId: lastItem.CarIdWinner,
+                        Racer2CarId: lastItem.CarIdLoser,
+                        WinnerCarId: 0
+                    };
+                    
+                    self.nextRace.winnerId = 0;
+                    self.nextRace.currentRound = 'Speed';
+                    sendRaceViewCommand();
                 });
 
                 $('#btnNextRaceUnlimited').on('click', function() {
@@ -624,6 +659,8 @@
                     $.getJSON(_baseUrl + 'api/races?callback=?', function(e) {
 
                         console.log(e.length + ' races received.');
+
+                        self._raceData = e;
 
                         for (var j = 0; j < self.cars().length; j++) {
                             var wins = getWinsByCarId(self.cars()[j].CarId, e);
