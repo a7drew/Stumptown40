@@ -402,6 +402,7 @@
     <Content Include="Images\wood.png" />
     <Content Include="private.html" />
     <Content Include="index.html" />
+	<Content Include="carousel.html" />
     <Content Include="public.html" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
