@@ -467,14 +467,14 @@
                     self.nextRaceStandardRacer1CarId(lastItem.CarIdWinner);
                     self.nextRaceStandardRacer2CarId(lastItem.CarIdLoser);
 
-                    self.nextNextRaceStandardRacer1CarId(lastItem.CarIdWinner);
-                    self.nextNextRaceStandardRacer2CarId(lastItem.CarIdLoser);
+                    self.nextNextRaceStandardRacer1CarId(0);
+                    self.nextNextRaceStandardRacer2CarId(0);
 
                     self.nextRace = {
-                        NextRacer1CarId: lastItem.CarIdWinner,
-                        NextRacer2CarId: lastItem.CarIdLoser,
                         Racer1CarId: lastItem.CarIdWinner,
                         Racer2CarId: lastItem.CarIdLoser,
+                        NextRacer1CarId: 0,
+                        NextRacer2CarId: 0,
                         WinnerCarId: 0
                     };
                     
