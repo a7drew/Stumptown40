@@ -59,11 +59,12 @@ overflow:hidden;
 
 
 body {
-background:transparent url("../Images/wood.png")repeat;
+background:rgb(91%, 82%, 69%) url("../Images/wood.png")repeat;
 background-size:512px;
 font-family:Ranger;
 font-size:28px;
 overflow:hidden;
+   -webkit-transform: scale(1);
 }
 
 a {
@@ -164,6 +165,10 @@ background:transparent url("../Images/ribbon_right.png") no-repeat;
     opacity: .9;
 }
 
+.gallery .carouseliframe {
+    display:none;
+}
+
 .meta span.icon::after {
 display:block;
 font-family: 'services';
@@ -202,14 +207,15 @@ position:absolute;
 /* home */
 
 .homeView {
-background: url("../Images/stumptown40-5th.png") no-repeat scroll 50% 50% rgba(0, 0, 0, 0);
+background: url("../Images/stumptown40-5th.png") no-repeat scroll 50% 30% rgba(0, 0, 0, 0);
 background-size: 100%;
 position: relative;
 width: 100%;
 height: 100%;
-max-width: 860px;
+max-width: 1500px;
 max-height: 100%;
 margin: 0 auto;
+
 }
 
 /* gallery */
@@ -717,46 +723,14 @@ vertical-align: middle;
 .racersmarquee {
 -webkit-animation-name: marquee;
 -webkit-animation-timing-function: linear;
--webkit-animation-duration:200s;
+-webkit-animation-duration:10s;
 -webkit-animation-iteration-count: infinite;
-overflow: hidden;
-display: -webkit-box;
-display: -moz-box;
-display: -ms-flexbox;
-display: -webkit-flex;
-display: flex;
--webkit-box-direction: normal;
--moz-box-direction: normal;
--webkit-box-orient: horizontal;
--moz-box-orient: horizontal;
--webkit-flex-direction: row;
--ms-flex-direction: row;
-flex-direction: row;
--webkit-flex-wrap: nowrap;
--ms-flex-wrap: nowrap;
-flex-wrap: nowrap;
--webkit-box-pack: start;
--moz-box-pack: start;
--webkit-justify-content: flex-start;
--ms-flex-pack: start;
-justify-content: flex-start;
--webkit-align-content: stretch;
--ms-flex-line-pack: stretch;
-align-content: stretch;
--webkit-box-align: start;
--moz-box-align: start;
--webkit-align-items: flex-start;
--ms-flex-align: start;
-align-items: flex-start;
 position:absolute;
 bottom:12px;
 left:0;
 right:0;
-opacity:0;
--webkit-transition-property:opacity;
--webkit-transition-duration: 300ms;
--webkit-transition-timing-funciton:linear;
--webkit-transform: translate3d(0,0,0);
+opacity:1;
+
 }
 
 .on .racersmarquee {
@@ -770,19 +744,7 @@ width: 150px;
 height:150px;
 text-align:center;
 font-size:100%;
--webkit-box-ordinal-group: 1;
--moz-box-ordinal-group: 1;
--webkit-order: 0;
--ms-flex-order: 0;
-order: 0;
--webkit-box-flex: 0;
--moz-box-flex: 0;
--webkit-flex: 0 1 auto;
--ms-flex: 0 1 auto;
-flex: 0 1 auto;
--webkit-align-self: auto;
--ms-flex-item-align: auto;
-align-self: auto;
+float:left;
 margin-right:10px;
 -webkit-transform: translate3d(0,0,0);
 }
@@ -904,11 +866,13 @@ overflow: hidden;
 left: -2000px;
 position: absolute;
 top: 310px;
+-webkit-transform:all 700ms;
 -webkit-transform: scale(.85) rotate(-3deg);
 }
 
 .upcomingracer.racer2 {
-	-webkit-transform: scale(.85) rotate(3deg);
+-webkit-transform:all 700ms;
+-webkit-transform: scale(.85) rotate(3deg);
 left: auto;
 right: -2000px;
 }
@@ -935,12 +899,6 @@ right: -2000px;
 .upcomingracer.racer2 .number {
 background: url("../Images/circle_blk.png") repeat scroll 0 0 transparent;
 }
-
-.upcomingracer.racer1 .avatar img,
-.upcomingracer.racer2 .avatar img {
--webkit-filter: grayscale(100%);  	
-}
-
 
 
 
@@ -976,7 +934,7 @@ bottom: 0;
 .slides a {
 position: absolute;
 left: -100%;
-top: 0;
+top: -150px;
 z-index: 1;
 height: 100%;
 -webkit-animation-duration: 40s;
@@ -1153,166 +1111,3 @@ align-self: center;
 -webkit-animation-name: show11;
 }
 
-
-/* the smoke */
-
-.thesmoke {
-	position: absolute;
-	top: 370px;
-	left: 160px;
-	width: 500px;
-	height: 500px;
-	z-index: 0;
-}
-
-.smoke, .smoketwo, .smokethree {
-  -webkit-transform: translateZ(0);
-  -moz-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  -o-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-transform-style: preserve-3d;
-  position: absolute;
-  z-index: 0;
-  width: 1px;
-  height: 120px;
-  left: 70%;
- }
-
-.smoketwo {
-  left: 72.5%; }
-
-.smokethree {
-  left: 75%; }
-
-/* smoke balls */
-.smoke span, .smoketwo span, .smokethree span {
-	display: block;
-	position: absolute;
-	left: 50%;
-	margin-left: 0;
-	height: 0px;
-	width: 0px;
-	border-radius: 300px;
-	left: -14px;
-	opacity: 0;
-	transform: scale(1);
-	box-shadow: 0 0 30px 40px rgba(0, 0, 0, .4);
-	width: 160px;
-	height: 150px;
-	background: rgba(0, 0, 0, .4);
-}
-
-.smokethree .s1, .smokethree.s2, .smokethree .s3, .smokethree .s4, .smokethree .s5, .smokethree .s6, .smokethree .s7, .smokethree .s8, .smokethree .s9 {
-  margin-left: -15px; }
-
-.smoke .s1, .smoke .s2, .smoke .s3, .smoke .s4, .smoke .s5, .smoke .s6, .smoke .s7, .smoke .s8, .smoke .s9 {
-  margin-left: -25px; }
-
-/* Smoke animation */
-@-webkit-keyframes smokeL {
-  0% {
-    -webkit-transform: scale(0.5) translate(0, 0);
-    -moz-transform: scale(0.5) translate(0, 0);
-    -o-transform: scale(0.5) translate(0, 0);
-    transform: scale(0.5) translate(0, 0); }
-
-  10% {
-    opacity: 1;
-    -webkit-transform: scale(0.5) translate(0, 15px);
-    -moz-transform: scale(0.5) translate(0, 15px);
-    -o-transform: scale(0.5) translate(0, 15px);
-    transform: scale(0.5) translate(0, 15px); }
-
-  100% {
-    opacity: 0;
-    -webkit-transform: scale(1) translate(0, 130px);
-    -moz-transform: scale(1) translate(0, 130px);
-    -o-transform: scale(1) translate(0, 130px);
-    transform: scale(1) translate(0, 130px); } 
-}
-
-
-@-webkit-keyframes smokeR {
-  0% {
-    -webkit-transform: scale(0.5) translate(0, 0);
-    -moz-transform: scale(0.5) translate(0, 0);
-    -o-transform: scale(0.5) translate(0, 0);
-    transform: scale(0.5) translate(0, 0); }
-
-  10% {
-    opacity: 1;
-    -webkit-transform: scale(0.5) translate(0, 15px);
-    -moz-transform: scale(0.5) translate(0, 15px);
-    -o-transform: scale(0.5) translate(0, 15px);
-    transform: scale(0.5) translate(0, 15px); }
-
-  100% {
-    opacity: 0;
-    -webkit-transform: scale(1) translate(5px, 130px);
-    -moz-transform: scale(1) translate(5px, 130px);
-    -o-transform: scale(1) translate(5px, 130px);
-    transform: scale(1) translate(5px, 130px); } 
-}
-
-
-
-.smoke .s0, .smoketwo .s0, .smokethree .s0 {
-  -webkit-animation: smokeL 10s 0s infinite;
-  -moz-animation: smokeL 10s 0s infinite;
-  -o-animation: smokeL 10s 0s infinite;
-  animation: smokeL 10s 0s infinite; }
-
-.smoke .s1, .smoketwo .s1, .smokethree .s1 {
-  -webkit-animation: smokeR 10s 1s infinite;
-  -moz-animation: smokeR 10s 1s infinite;
-  -o-animation: smokeR 10s 1s infinite;
-  animation: smokeR 10s 1s infinite; }
-
-.smoke .s2, .smoketwo .s2, .smokethree .s2 {
-  -webkit-animation: smokeL 10s 2s infinite;
-  -moz-animation: smokeL 10s 2s infinite;
-  -o-animation: smokeL 10s 2s infinite;
-  animation: smokeL 10s 2s infinite; }
-
-.smoke .s3, .smoketwo .s3, .smokethree .s3 {
-  -webkit-animation: smokeR 10s 3s infinite;
-  -moz-animation: smokeR 10s 3s infinite;
-  -o-animation: smokeR 10s 3s infinite;
-  animation: smokeR 10s 3s infinite; }
-
-.smoke .s4, .smoketwo .s4, .smokethree .s4 {
-  -webkit-animation: smokeL 10s 4s infinite;
-  -moz-animation: smokeL 10s 4s infinite;
-  -o-animation: smokeL 10s 4s infinite;
-  animation: smokeL 10s 4s infinite; }
-
-.smoke .s5, .smoketwo .s5, .smokethree .s5 {
-  -webkit-animation: smokeR 10s 5s infinite;
-  -moz-animation: smokeR 10s 5s infinite;
-  -o-animation: smokeR 10s 5s infinite;
-  animation: smokeR 10s 5s infinite; }
-
-.smoke .s6, .smoketwo .s6, .smokethree .s6 {
-  -webkit-animation: smokeL 10s 6s infinite;
-  -moz-animation: smokeL 10s 6s infinite;
-  -o-animation: smokeL 10s 6s infinite;
-  animation: smokeL 10s 6s infinite; }
-
-.smoke .s7, .smoketwo .s7, .smokethree .s7 {
-  -webkit-animation: smokeR 10s 7s infinite;
-  -moz-animation: smokeR 10s 7s infinite;
-  -o-animation: smokeR 10s 7s infinite;
-  animation: smokeR 10s 7s infinite; }
-
-.smoke .s8, .smoketwo .s8, .smokethree .s8 {
-  -webkit-animation: smokeL 10s 8s infinite;
-  -moz-animation: smokeL 10s 8s infinite;
-  -o-animation: smokeL 10s 8s infinite;
-  animation: smokeL 10s 8s infinite; }
-
-.smoke .s9, .smoketwo .s9, .smokethree .s9 {
-  -webkit-animation: smokeR 10s 9s infinite;
-  -moz-animation: smokeR 10s 9s infinite;
-  -o-animation: smokeR 10s 9s infinite;
-  animation: smokeR 10s 9s infinite; }

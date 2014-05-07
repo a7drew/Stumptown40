@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+html, body {
+	background:rgb(91%, 82%, 69%);	
+}
+</style>
+<script src="http://stumptown40.azurewebsites.net/Scripts/jquery-1.8.3.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="css/screen.css" />
+<meta http-Equiv="Cache-Control" Content="no-cache">
+<meta http-Equiv="Pragma" Content="no-cache">
+<meta http-Equiv="Expires" Content="0">
+<script>
+var timer = null;
+function auto_reload()
+{
+	window.location = 'http://domain.com/page.php';
+}
+</script>
+</head>
+<body onload="timer = setTimeout('auto_reload()',10000);">
+<div class="otherracer">
+	<div class="upcomingracers">
+		<h2><span>Speed Racers</span></h2>
+		<!-- postano embed code - carousel -->
+			<div class="postanowrapper" 
+					data-postano-account-id="297" 
+					data-postano-project-id="32243" 
+					data-postano-product-id="4524" 
+					data-postano-posts-data-source="v2" 
+					data-postano-width="100%" 
+					data-postano-height="100%" 
+					data-postano-items-first-page="100" 
+					data-postano-enable-instascroll="false" 
+					data-postano-autoload-new-posts="false" 
+					data-widget="carousel"
+					data-postano-carousel-responsive="true" 
+					data-postano-carousel-items="8" 
+					data-postano-skip-jquery="true"> 
+					</div>
+					<script>
+					  var server = "//postano-embed.s3.amazonaws.com/prod";
+					  (function(id) {
+					    if (document.getElementById(id)) return;
+					    var js = document.createElement('script'); js.id = id; js.src = server + '/scripts/embed.js';
+					    document.body.appendChild(js);
+					  }('postano-embed'));
+					</script>
+					<style>
+					/* postano carousel */
+					
+					/* border on images */
+					.postano-theme-image-carousel .postano-imageContainer {
+					border:1px solid transparent;
+					}
+
+					/* active color */
+					.postano-theme-image-carousel .owl-controlls .owl-page.active span {
+					background: #000;
+					}
+
+					/* arrow colors */
+					.postano-theme-image-carousel .owl-controlls .owl-buttons div.owl-prev:before,
+					.postano-theme-image-carousel .owl-controlls .owl-buttons div.owl-next:before {
+					    color: #000;
+					}
+
+						.postano-theme-image-carousel.postano-show {
+							background:transparent;
+						}
+						.postano-theme-image-carousel .postano-postNest {
+						    margin-bottom:0;
+						}
+
+						.postano-theme-image-carousel.postano-show {
+						    background:transparent!important;
+						}
+
+						.postanowrapper {
+						width: 100%; /* adjust to show posts */
+						float: left;
+						clear: both;
+						margin-top:20px;
+						min-height: 160px!important;
+						}
+
+						.gallery .postanowrapper {
+						    display:none;
+						}
+
+						.postano-carousel .owl-wrapper-outer {
+						height: 100%;
+						width: 100%;
+						z-index:10;
+						}
+
+						.postano-loadmore-bottom,
+						.postano-theme-image-carousel .postano-userContainer .postano-meta .postano-date {
+						display:none!important;
+						}
+
+						.postano-theme-image-carousel .postano-userContainer img.postano-userIcon {
+						border: 0 none;
+						top: -25px;
+						position: relative;
+						border: 1px solid #CCC;
+						border-radius: 100%;
+						}
+
+						/* controlls */
+						.postano-userName {
+						font-weight: 700;
+						font-size: 14px;
+						color: #444;
+						font-family:"arial";
+						font-weight:bold;
+
+						}
+
+						.postano-screenName {
+						display: block;
+						font-size: 10px;
+						color: #555;
+						font-family: arial;
+						font-weight: bold;
+						}
+
+						.postano-theme-image-carousel .postano-userContainer .postano-userWrap {
+						padding: 0;
+						}
+
+						.postanowrapper .postano-icon:after {
+							color: #ccc;
+							font-size: 24px;
+							opacity: .5;
+						}
+						.postano-video-true .postano-imageContainer:after {
+						    background-color:transparent;
+						    background-position: center center;
+						    background-size: 30%;
+						    opacity:.4;
+						}
+						/* dots */
+
+						.owl-pagination {
+							position: absolute;
+							left: 0;
+							right: 0;
+							bottom: 10px;
+							z-index:11;
+						}
+
+						.owl-buttons {
+						    position: absolute;
+						    top: 90px;
+						    left: 0;
+						    right: 0;
+						    text-align: left;
+						}
+
+						.postano-theme-image-carousel .owl-controlls .owl-buttons div {
+						color: #FFF;
+						display: block;
+						zoom: 1;
+						margin: 0;
+						padding:0;
+						font-size: 13px;
+						-webkit-border-radius: 0;
+						-moz-border-radius: 0;
+						border-radius: 0;
+						background: transparent;
+						opacity: 1;
+						font-weight: normal;
+						text-indent:-999em;
+						width:40px;
+						}
+
+
+						.postano-theme-image-carousel .owl-controlls .owl-buttons div.owl-prev:before,
+						.postano-theme-image-carousel .owl-controlls .owl-buttons div.owl-next:before {
+						    content: "\2329";
+						    position: absolute;
+						    left: -40px;
+						    font-size: 42px;
+						    text-indent:0;
+						    top:0;
+						    width:40px;
+						    text-align:left;
+
+						}
+
+						.postano-theme-image-carousel .owl-controlls .owl-buttons div.owl-next:before {
+							content: "\232A";
+						    position: absolute;
+						    right: -40px;
+						    left:auto;
+						    width:40px;
+						    text-align:right;
+						}
+
+						.postano-theme-image-carousel .owl-controlls {
+						width:100%;
+						text-align:center;
+						margin-top: 0;
+						z-index:1;
+						}
+
+						.postano-theme-image-carousel .owl-controlls .owl-page span {
+						display: block;
+						width: 8px;
+						height: 8px;
+						margin: 5px 4px;
+						background: #444;
+						}
+
+						/* feed controls */
+						.postano-feed-selector .postano-control {
+						height:40px;
+						width:40px;
+						margin-top:5px;
+						}
+
+						.postano-feed-selector {
+						text-align: center;
+						margin: 0;
+						position: relative;
+						z-index: 1000;
+						padding: 0;
+						left: 70px;
+						width: 78.5%;
+						}
+
+						.postano-feed-selector .postano-icon:after {
+						font-size: 22px;
+						line-height: 44px;
+						color:#000!important;
+						}
+
+						/* on */
+						.postano-feed-selector .postano-control-label {
+						background: transparent;
+						opacity:.2;
+						}
+
+						/* off */
+						.postano-feed-selector .postano-control input:checked + .postano-control-label {
+						background: transparent;
+						opacity:1;
+						}
+
+						.postano-feed-selector .postano-control-title {
+						display:none;
+						}
+
+
+						.postano-loading {
+						position: relative;
+						left: 0;
+						top: 0;
+						width: 170px;
+						color: #000;
+						margin-top: 0;
+						z-index: 1000;
+						}
+
+						.postano-theme-image-carousel .postano-imageContainer {
+						    height: 244px;
+					        background: rgba(0, 0, 0, 0);
+						}
+
+						.postanowrapper .postano-post {
+							padding:2px;
+						}
+
+						.postano-theme-image-carousel .postano-imageContainer {
+							width: 100%;
+						}
+
+						@-webkit-keyframes expand {
+						0% {
+						background: rgba(0,0,0,.3);
+						}
+						25% {
+						background: rgba(0,0,0,.6);
+						}
+						50% {
+						background: rgba(0,0,0,1);
+						}
+						}
+
+
+						/*card */
+
+						.postano-cardNest {
+						    background:#fff;
+						}
+
+						.postano-cardContainer .postano-userName {
+						    color:#373737;
+						    font-family: helvetica, arial, sans-serif;
+						}
+
+						.postano-cardTitle,
+						.postano-cardTitle a {
+						    color:#505050;
+						    font-family: helvetica, arial, sans-serif;
+						}
+
+						.postano-cardContainer .postano-cardText a {
+						    color:#505050 !important;
+						    font-family: helvetica, arial, sans-serif;
+						}
+
+						.postanowrapper .postano-cardContainer .postano-meta .postano-postService:after {
+						color: #505050;
+						}
+
+						.postano-cardContainer .postano-cardText {
+						margin: 0 0 15px 0;
+						padding-top: 10px;
+						color: rgb(119, 119, 119);
+						font-size: 16px;
+						line-height: 1.25em;
+						padding-right: 10px;
+						font-size: 34px;
+						overflow-y: auto;
+						max-height: 350px;
+						word-wrap: break-word;
+						border:0 none;
+						}
+
+
+						.postano-date {
+						font-size: 13px;
+						text-align: right;
+						width: auto;
+						margin-right: 0;
+						display: block;
+						line-height: 1;
+						color: rgb(255, 255, 255);
+						font-family: liberatorregular;
+						font-weight: 600;
+						text-indent: 0;
+						}
+
+						.postano-screenName,
+						.postano-date a {
+						color: #666;
+						font-family: helvetica, arial, sans-serif;
+						font-size: 12px;
+						}
+
+						.postano-cardContainer .postano-screenName {
+						  color: #444 !important;
+						}
+
+						.postano-date a:after {
+						    content:"";
+						}
+
+						.postano-cardContainer .postano-meta .postano-icon:after {
+						font-size: 44px;
+						}
+
+						.postano-cardContainer .postano-meta:before {
+						    border-color: rgba(0, 0, 0, 0)!important;
+						    border-width: 0!important;
+						}
+						.postano-cardContainer .postano-icon-close:after {
+						position: absolute;
+						font-size: 26px;
+						}
+
+						.postano-cardContainer .postano-icon-close {
+						cursor: pointer;
+						position: absolute;
+						top: -17px;
+						left: -17px;
+						color: rgb(0, 0, 0);
+						z-index: 1000;
+						display: none;
+						}
+
+						.postano-cardContainer .postano-meta {
+						text-align: right;
+						left: auto;
+						top: 25px;
+						right: 80px;
+						z-index: 1000;
+						}
+
+						.postano-cardContainer .postano-meta {
+						text-align: right;
+						left: auto;
+						top: 25px;
+						right: 80px;
+						z-index: 1000;
+						}
+
+						.postanocardImage-vertical .postano-cardImage {
+						max-height: 500px;
+						height: auto;
+						}
+
+						.postano-theme-image-carousel .owl-controlls {
+						    display:none!important;
+						}
+
+						</style>
+			<!-- end Postano -->
+	</div>
+</div>
+</body>
+</html>

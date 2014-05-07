@@ -16,7 +16,7 @@ chat.client.onNavigate = function (viewName, jsonData) {
 			var obj = jQuery.parseJSON(jsonData);
 			var location = window.location.hash;
 			var noletter = /^[0-9a]+$/;
-			var s40 = 'http://api.postano.com/jsonp/?Action=GetPosts&PostanoPublicKey=7d14629360370691c3ed&postano_id=83380&Count=100&jsonp=jsonp';
+			var s40 = 'https://platform.postano.com/apiproxy/accounts/297/projects/32243/products/4524/posts?count=99&sort=post_time&cache=none';
 			
 			//race view
 		    var raceView = function() {
@@ -61,41 +61,6 @@ chat.client.onNavigate = function (viewName, jsonData) {
 		                $('.racer[data-id="' + context.racer1Id + '"],.racer[data-id="' + context.racer2Id + '"]').removeClass("winner");
 		                $('.racer[data-id="' + context.racer1Id + '"],.racer[data-id="' + context.racer2Id + '"]').removeClass("loser");
 		            }
-
-		        }).then(function() {
-		            //racer marquee
-		            $.ajax({
-		                type: "GET",
-		                dataType: "jsonp",
-		                jsonpCallback: "jsonp",
-		                async: true,
-		                cache: false,
-		                url: s40,
-		                success: function(data) {
-		                    var items = 20;
-		                    var w = parseInt(items * 160);
-		                    context.$element().append('<div class="marqueewrapper" id="marqueewrapper"><marquee style="width:' + w + 'px" id="marquee" class="racersmarquee"></marquee></div>');
-
-		                    setTimeout(function() {
-		                        $("#marqueewrapper").addClass("on");
-		                    }, 500);
-
-
-		                    for (x = 0; x < items; x++) {
-		                        var photos = data.posts[x];
-
-		                        photos.newtext = (photos.text != null) ? photos.text : '';
-		                        photos.number = (photos.newtext.match(noletter) != null) ? photos.newtext : '';
-
-		                        context.render('../Templates/marquee.hb', photos, function(e) {
-		                            result = e;
-		                            return
-		                        }).then(function(result) {
-		                            $("#marquee").prepend(result);
-		                        })
-		                    }
-		                }
-		            });
 		        });
 		    };
 			

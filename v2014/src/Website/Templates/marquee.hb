@@ -1,4 +1,4 @@
 <div class="marqueeItem">
-	<h2>{{number}}</h2>
-	<img src="{{image}}" alt="{{number}}" />
+	<h2>{{text}}</h2>
+	<img src="{{imageurl}}" alt="{{text}}" />
 </li>
