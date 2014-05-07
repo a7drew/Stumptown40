@@ -1,6 +1,6 @@
 SET NOCOUNT ON
-USE [Stumptown40DB]
-GO
+--USE [Stumptown40DB]
+--GO
 
 --
 -- TABLES
@@ -25,7 +25,7 @@ CREATE TABLE [dbo].[Car]
 	[DivisionId]   [int]                    NOT NULL,
 	[Name]         [nvarchar](200)          NOT NULL,
 	[Organization] [nvarchar](200)          NOT NULL,
-  [PositionId]   [int]                        NULL,	
+    [PositionId]   [int]                        NULL,	
 	CONSTRAINT [PK_Racer] PRIMARY KEY CLUSTERED ([CarId] ASC)
 )
 GO
@@ -230,6 +230,8 @@ INSERT INTO [dbo].[Car] (CarNumber, DivisionId, Name, Organization) VALUES (69,1
 
 INSERT INTO [dbo].[Car] (CarNumber, DivisionId, Name, Organization) VALUES (70,1,'Ben Pringle','');
 INSERT INTO [dbo].[Car] (CarNumber, DivisionId, Name, Organization) VALUES (71,1,'Curt Brown','Curt Brown Renovation');
+
+INSERT INTO [dbo].[Car] (CarNumber, DivisionId, Name, Organization) VALUES (72,1,'Blogfish','Postano');
 
 -- UNLIMITED DIVISION
 
