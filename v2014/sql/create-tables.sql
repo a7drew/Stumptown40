@@ -18,6 +18,21 @@ BEGIN
 END
 GO
 
+IF (EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND  TABLE_NAME = 'AppSetting'))
+BEGIN
+  DROP TABLE [dbo].[AppSetting]
+END
+GO
+
+CREATE TABLE [dbo].[AppSetting]
+(
+	[AppSettingId] [int]            NOT NULL,
+	[SettingName]  [nvarchar](200)  NOT NULL,
+	[SettingValue] [nvarchar](200)  NOT NULL,
+	CONSTRAINT [PK_AppSetting] PRIMARY KEY CLUSTERED ([AppSettingId] ASC)
+)
+GO
+
 CREATE TABLE [dbo].[Car]
 (
 	[CarId]        [int]           IDENTITY NOT NULL,
@@ -128,6 +143,9 @@ GO
 --
 -- DATA
 --
+
+INSERT INTO [dbo].[AppSetting] (AppSettingId, SettingName, SettingValue) VALUES (1,'username','alice');
+INSERT INTO [dbo].[AppSetting] (AppSettingId, SettingName, SettingValue) VALUES (2,'password','secret');
 
 INSERT INTO [dbo].[Car] (CarNumber, DivisionId, Name, Organization) VALUES (1,1,'Manifest Team','');
 INSERT INTO [dbo].[Car] (CarNumber, DivisionId, Name, Organization) VALUES (2,1,'Greg Schmidt','');

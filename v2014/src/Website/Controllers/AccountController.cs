@@ -20,21 +20,23 @@ namespace Website.Controllers
         [HttpPost]
         public ActionResult SignIn(string username, string password)
         {
-            //MyConfig myConfig;
-            //using (var connection = new SqlCeConnection(Settings.Cnn))
-            //{
-            //    connection.Open();
-            //    myConfig = connection.Query<MyConfig>("select * from MyConfig where MyConfigId=1").FirstOrDefault();
-            //}
+            using (var cnn = Settings.GetConnection())
+            {
+                cnn.Open();
 
-            //if (myConfig != null && myConfig.MyKey == username && myConfig.Myvalue == password)
-            //{
-            //    System.Web.Security.FormsAuthentication.SetAuthCookie(username, false);
+                var list = cnn.Query<AppSetting>(@"SELECT * FROM AppSetting ORDER BY AppSettingId;").ToList();
 
-            //    return RedirectToAction("Index", "Admin");
-            //}
-
-            return RedirectToAction("Index");
+                if (!string.IsNullOrEmpty(username) 
+                    && !string.IsNullOrEmpty(password) 
+                    && username == list[0].SettingValue 
+                    && password == list[1].SettingValue)
+                {
+                    System.Web.Security.FormsAuthentication.SetAuthCookie(username, false);
+                    return RedirectToAction("index", "admin");
+                }
+                
+                return RedirectToAction("index");
+            }
         }
     }
 }
