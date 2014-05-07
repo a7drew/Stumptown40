@@ -119,7 +119,7 @@ $.connection.hub.start({
     jsonp: isChrome
 }).done(function () {
 	
-/*for Ryan to debug quickly	*/
+/*for Ryan to debug quickly	
 if(window.location.hash == "#home") {
 	chat.client.onNavigate("home", '');
 }	
@@ -134,7 +134,7 @@ chat.client.onNavigate("sponsors", '');
 if(window.location.hash == "#gallery") {
 	chat.client.onNavigate("gallery", '');
 }	
-
+*/
 
 
 });
