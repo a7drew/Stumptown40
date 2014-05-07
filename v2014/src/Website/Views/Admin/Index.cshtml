@@ -6,7 +6,7 @@
 <head>
     <title>Sample Private Page</title>
     <style type="text/css">
-        body { font-family: Courier; background: #000; color: #008800;font-size: 150%; }
+        body { font-family: Verdana; background: #000; color: #008800;font-size: 150%; }
         #col1 li { margin: 0 0 30px 0; list-style: none; }
         input[type=button] { width: 300px; height: 50px; font: normal normal bold 16pt Courier; }
 
@@ -31,9 +31,10 @@
 
         #remainingCars {
             position: fixed;
-            top: 20px;
+            top: 50px;
             right: 50px;
-            font-size: 40px;
+            font-size: 50pt;
+            color: yellow;
         }
 
         .on { background: #ff0000;}
@@ -63,7 +64,7 @@
                             data-view="gallery"
                             data-message='{"gallery":"gallery"}' />
                     </li>
-                    <li>
+                    @*<li>
                         <input type="button"
                             value="Standard Division"
                             data-view="standardDivision"
@@ -74,7 +75,7 @@
                             value="Unlimited Division"
                             data-view="unlimitedDivision"
                             data-message='{"unlimitedDivision":"unlimitedDivision"}' />
-                    </li>
+                    </li>*@
                     <li>
                         <input id="btnCars"
                             type="button"
@@ -124,9 +125,9 @@
                         <thead>
                             <tr>
                                 @*<th>CarId</th>*@
-                                <th>CarNumber</th>
+                                <th>#</th>
                                 <th>Name</th>
-                                <th>Organization</th>
+                                @*<th>Organization</th>*@
                                 <th>Wins</th>
                                 <th>Losses</th>
                             </tr>
@@ -136,7 +137,7 @@
                                 @*<td data-bind="text: CarId"></td>*@
                                 <td data-bind="text: CarNumber"></td>
                                 <td data-bind="text: Name"></td>
-                                <td data-bind="text: Organization"></td>
+                                @*<td data-bind="text: Organization"></td>*@
                                 <td data-bind="text: wins"></td>
                                 <td data-bind="text: losses"></td>
                             </tr>
