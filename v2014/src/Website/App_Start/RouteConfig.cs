@@ -18,11 +18,11 @@ namespace Website
             //    "api/{controller}/{action}/{id}"
             //    );
 
-            //RouteTable.Routes.MapRoute(
-            //    "DefaultApi",
-            //    "api/{controller}/{id}",
-            //    new {action = "DefaultAction", id = System.Web.Http.RouteParameter.Optional}
-            //    );
+            RouteTable.Routes.MapRoute(
+                "DefaultApi",
+                "{controller}/{action}",
+                new {action = "Index"}
+                );
         }
     }
 }

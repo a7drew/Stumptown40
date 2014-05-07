@@ -224,6 +224,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\JsonpMediaTypeFormatter.cs" />
+    <Compile Include="Models\AppSetting.cs" />
     <Compile Include="Models\Car.cs" />
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\Race.cs" />
@@ -366,16 +367,16 @@
     <Content Include="Images\ribbon.png" />
     <Content Include="Images\ribbon_left.png" />
     <Content Include="Images\ribbon_right.png" />
-	<Content Include="Images\stumptown40-5th.png" />
+    <Content Include="Images\stumptown40-5th.png" />
     <Content Include="Images\sponsors\33beers.png" />
-	<Content Include="Images\sponsors\bb.png" />
-	<Content Include="Images\sponsors\blujae.png" />
-	<Content Include="Images\sponsors\herenow.png" />
-	<Content Include="Images\sponsors\hub.png" />
-	<Content Include="Images\sponsors\inavero.png" />
-	<Content Include="Images\sponsors\postano.png" />
-	<Content Include="Images\sponsors\s40.png" />
-	<Content Include="Images\sponsors\thanks.png" />
+    <Content Include="Images\sponsors\bb.png" />
+    <Content Include="Images\sponsors\blujae.png" />
+    <Content Include="Images\sponsors\herenow.png" />
+    <Content Include="Images\sponsors\hub.png" />
+    <Content Include="Images\sponsors\inavero.png" />
+    <Content Include="Images\sponsors\postano.png" />
+    <Content Include="Images\sponsors\s40.png" />
+    <Content Include="Images\sponsors\thanks.png" />
     <Content Include="Images\sponsors\33books.png" />
     <Content Include="Images\sponsors\52ltd.png" />
     <Content Include="Images\sponsors\adx.png" />
@@ -402,7 +403,7 @@
     <Content Include="Images\wood.png" />
     <Content Include="private.html" />
     <Content Include="index.html" />
-	<Content Include="carousel.html" />
+    <Content Include="carousel.html" />
     <Content Include="public.html" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />

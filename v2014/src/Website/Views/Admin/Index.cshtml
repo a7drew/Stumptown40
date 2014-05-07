@@ -1,408 +1,733 @@
-﻿<!--@{
+﻿@{
     Layout = null;
-}-->
+}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Stumptown40</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/admin.css" />
-    <script src="/Scripts/jquery-1.8.2.min.js"></script>
-    <script src="/Scripts/jquery.signalR-1.0.0.js"></script>
-    <script src="/signalr/hubs"></script>
-    <script src="/Scripts/knockout-2.2.0.js"></script>
-    <script src="/Scripts/sammy-0.7.4.min.js"></script>
+    <title>Sample Private Page</title>
+    <style type="text/css">
+        body { font-family: Courier; background: #000; color: #008800; }
+        #col1 li { margin: 0 0 20px 0; list-style: none; }
+        input[type=button] { width: 300px; height: 40px; font: normal normal bold 16pt Courier; }
+
+        #myTable td { vertical-align: top; }
+
+        #myTable #col2 { padding-left: 20px; }
+
+        .mainView { display: block; }
+
+        .hidden { display: none; }
+
+        #nextRaceStandardView input,
+        #nextRaceUnlimitedView input { width: 200px; }
+
+        #carsView table th {
+            text-align: left;
+            padding: 0 20px 0 0;
+        }
+        #carsView table tr.loser {
+            color: #666;
+        }
+
+        #remainingCars {
+            position: fixed;
+            top: 20px;
+            right: 50px;
+            font-size: 40px;
+        }
+
+        .on { background: #ff0000;}
+    </style>
+</head>
+<body>
+
+    <table id="myTable">
+        <tr>
+            <td id="col1">
+                <ul>
+                    <li>
+                        <input type="button"
+                            value="Home"
+                            data-view="home"
+                            data-message='{"home":"home"}' />
+                    </li>
+                    <li>
+                        <input type="button"
+                            value="Sponsors"
+                            data-view="sponsors"
+                            data-message='{"sponsors":"sponsors"}' />
+                    </li>
+                    <li>
+                        <input type="button"
+                            value="Gallery"
+                            data-view="gallery"
+                            data-message='{"gallery":"gallery"}' />
+                    </li>
+                    <li>
+                        <input type="button"
+                            value="Standard Division"
+                            data-view="standardDivision"
+                            data-message='{"standardDivision":"standardDivision"}' />
+                    </li>
+                    <li>
+                        <input type="button"
+                            value="Unlimited Division"
+                            data-view="unlimitedDivision"
+                            data-message='{"unlimitedDivision":"unlimitedDivision"}' />
+                    </li>
+                    <li>
+                        <input id="btnCars"
+                            type="button"
+                            value="Cars" />
+                    </li>
+                    <li>
+                        <input id="btnNextRaceStandard"
+                            type="button"
+                            value="Next Race - Standard" />
+                    </li>
+                    <li>
+                        <input id="btnLastRaceStandard"
+                               type="button"
+                               value="Last Race - Standard" />
+                    </li>
+                    <li>
+                        <input id="btnNextRaceUnlimited"
+                               type="button"
+                               value="Next Race - Unlimited" />
+                    </li>
+                </ul>
+            </td>
+            <td id="col2">
+
+                <div id="homeView" class="mainView hidden">
+                    <h1>Home View</h1>
+                </div>
+
+                <div id="sponsorsView" class="mainView hidden">
+                    <h1>Sponsors View</h1>
+                </div>
+
+                <div id="galleryView" class="mainView hidden">
+                    <h1>Gallery View</h1>
+                </div>
+
+                <div id="standardDivisionView" class="mainView hidden">
+                    <h1>Standard Division View</h1>
+                </div>
+
+                <div id="unlimitedDivisionView" class="mainView hidden">
+                    <h1>Unlimited Division View</h1>
+                </div>
+
+                <div id="carsView" class="mainView hidden">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CarId</th>
+                                <th>CarNumber</th>
+                                <th>Name</th>
+                                <th>Organization</th>
+                                <th>Wins</th>
+                                <th>Losses</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: cars">
+                            <tr data-bind="css: { loser: losses() > 0 }">
+                                <td data-bind="text: CarId"></td>
+                                <td data-bind="text: CarNumber"></td>
+                                <td data-bind="text: Name"></td>
+                                <td data-bind="text: Organization"></td>
+                                <td data-bind="text: wins"></td>
+                                <td data-bind="text: losses"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="remainingCars"
+                         data-bind="text: remainingCarsCount"></div>
+                </div>
+
+                <div id="nextRaceStandardView" class="mainView hidden">
+                    <h1>Next Race &mdash; Standard View</h1>
+                    <table width="100%">
+                        <tr style="opacity: .7">
+                            <td width="50%">
+                                <span>CarId:</span>
+                                <span data-bind="text: nextRaceStandardRacer1CarId"></span>
+                            </td>
+                            <td width="50%">
+                                <span>CarId:</span>
+                                <span data-bind="text: nextRaceStandardRacer2CarId"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="50%">
+                                <span>Car Number:</span>
+                                <span data-bind="text: nextRaceStandardRacer1CarNumber"></span>
+                            </td>
+                            <td width="50%">
+                                <span>Car Number:</span>
+                                <span data-bind="text: nextRaceStandardRacer2CarNumber"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="50%">
+                                <span>Name:</span>
+                                <span data-bind="text: nextRaceStandardRacer1Name"></span>
+                            </td>
+                            <td width="50%">
+                                <span>Name:</span>
+                                <span data-bind="text: nextRaceStandardRacer2Name"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="50%">
+                                <input id="nextRaceStandardRacer1WonButton"
+                                       type="button"
+                                       value="&#x2714;"
+                                       data-bind="click: nextRaceStandardRacer1Won" />
+                            </td>
+                            <td width="50%">
+                                <input id="nextRaceStandardRacer2WonButton" 
+                                       type="button"
+                                       value="&#x2714;"
+                                       data-bind="click: nextRaceStandardRacer2Won" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center">
+                                <input type="button"
+                                       value="&#x2716;"
+                                       data-bind="click: nextRaceStandardClear" />
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="50%">
+                                <span>Next:</span>
+                                <span data-bind="text: nextNextRaceStandardRacer1"></span>
+                            </td>
+                            <td width="50%">
+                                <span>Next:</span>
+                                <span data-bind="text: nextNextRaceStandardRacer2"></span>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                
+                <div id="nextRaceUnlimitedView" class="mainView hidden">
+                    <h1>Next Race &mdash; Unlimited View</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td></td>
+                                <th>CarId</th>
+                                <th>CarNumber</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: unlimitedCars">
+                            <tr>
+                                <td><input type="checkbox" style="height: 30px;width:30px;" /></td>
+                                <td data-bind="text: CarId"></td>
+                                <td data-bind="text: CarNumber"></td>
+                                <td data-bind="text: Name"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div style="margin:20px 0;"><input id="unlimitedViewSendButton" type="button" value="Send"/></div>
+
+                </div>
+
+            </td>
+        </tr>
+    </table>
+
+    <script src="http://stumptown40.azurewebsites.net/Scripts/jquery-1.8.3.min.js"></script>
+    <script src="http://stumptown40.azurewebsites.net/Scripts/jquery.signalR-1.0.0.js"></script>
+    <script src="http://stumptown40.azurewebsites.net/signalr/hubs"></script>
+    <script src="http://stumptown40.azurewebsites.net/Scripts/knockout-2.2.1.js"></script>
+    <script src="http://stumptown40.azurewebsites.net/Scripts/sammy-0.7.4.min.js"></script>
     <script type="text/javascript">
-        
-        function updateStats() {
 
-            $.ajax({
-                url: '/admin/GetStats',
-                dataType: 'text',
-                success: function (data) {
-                    $('#statsText').val(data);
-                }
-            });
+        //var _baseUrl = '/';
+        var _baseUrl = 'http://stumptown40.azurewebsites.net/';
 
-        }
-        
-        function getRaceViewJson(raceItem) {
-
-            var nextRaceId = parseInt(raceItem.raceId()) + 1;
-            var nextInput = $('#roundView table tr td[class=c1] input[value="' + nextRaceId + '"]');
-
-            var nextRacer1 = 100;
-            var nextRacer2 = 100;
-
-            if (nextInput.length !== 0) {
-                var nextRow = nextInput.parent().parent();
-                var currentRoundInput = nextRow.find('td[class=c1] input[type=hidden]');
-                var nextRacer1Input = nextRow.find('td[class=c2] input[type=hidden]');
-                var nextRacer2Input = nextRow.find('td[class=c3] input[type=hidden]');
-				
-                currentRound = (currentRoundInput.val() - 1);
-                nextRacer1 = nextRacer1Input.val();
-                nextRacer2 = nextRacer2Input.val();
-            }			
-			
-
-            var json = '{'
-                + '"currentRound":"' + currentRound + '",'
-                +'"currentRace": [{'
-                + '"racer1":"' + raceItem.racer1Id() + '",'
-                + '"racer2":"' + raceItem.racer2Id() + ''
-                + '"}],'
-                +'"upcomingRace": [{'
-                + '"nextRacer1":"' + nextRacer1 + '",'
-                + '"nextRacer2":"' + nextRacer2 + ''
-                + '"}],'
-                + '"winnerId":"' + raceItem.winningRacerId() + ''
-                + '"}';
-
-            return json;
+        function hideMainViews() {
+            $('.mainView').addClass('hidden');
         }
 
-        function showView(viewId) {
-            $('div.view').addClass('hidden');
-            $(viewId).removeClass('hidden');
+        function showview(viewBaseName) {
+            var viewName = '#' + viewBaseName + 'View';
+            $(viewName).removeClass('hidden');
         }
 
-        function RaceItem(raceId, heatNumber, racer1Id, racer1Name, racer2Id, racer2Name, winningRacerId) {
-            var self = this;
-
-            self.raceId = ko.observable(raceId);
-            self.heatNumber = ko.observable(heatNumber);
-            self.racer1Id = ko.observable(racer1Id);
-            self.racer1Name = ko.observable(racer1Name);
-            self.racer2Id = ko.observable(racer2Id);
-            self.racer2Name = ko.observable(racer2Name);
-            self.winningRacerId = ko.observable(winningRacerId);
-
-            self.racer1FullName = ko.computed(function() {
-                return this.racer1Id() + ' ' + this.racer1Name();
-            }, this);
-            
-            self.racer2FullName = ko.computed(function () {
-                return this.racer2Id() + " " + this.racer2Name();
-            }, this);
-
-            //self.raceId = raceId;
-            //self.heatNumber = heatNumber;
-            //self.racer1Id = racer1Id;
-            //self.racer1Name = racer1Name;
-            //self.racer2Id = racer2Id;
-            //self.racer2Name = racer2Name;
-            //self.winningRacerId = winningRacerId;
-            //self.button1Id = 'button' + racer1Id;
-            //self.button2Id = 'button' + racer2Id;
-        }
-
-        function RoundViewModel() {
-
-            var self = this;
-
-            // data
-
-            self.rounds = [1, 2, 3, 4, 5, 6, 7];
-
-            self.races = ko.observableArray();
-            self.roundNumber = ko.observable();
-
-            // behaviors
-
-            self.showRound = function (roundId) {
-                location.hash = 'round/' + roundId;
-            };
-
-            self.showRace = function (raceItem) {
-                gHub.server.navigate('raceView', getRaceViewJson(raceItem));
-            };
-
-            self.showRacer1Winner = function (raceItem) {
-
-                $.ajax({
-                    url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer1Id(),
-	
-                    //url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer1Id(),
-                    type: 'PUT',
-                    dataType: 'jsonp',
-                    complete: function () {
-                        raceItem.winningRacerId(raceItem.racer1Id());
-                        gHub.server.navigate('raceView', getRaceViewJson(raceItem));
-                    }
-                });
-
-            };
-
-            self.showRacer2Winner = function (raceItem) {
-
-                $.ajax({
-                    url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer2Id(),
-	
-                    //url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=' + raceItem.racer2Id(),
-                    type: 'PUT',
-                    dataType: 'jsonp',
-                    complete: function () {
-                        raceItem.winningRacerId(raceItem.racer2Id());
-                        gHub.server.navigate('raceView', getRaceViewJson(raceItem));
-                    }
-                });
-
-            };
-
-            self.clearRaceWinner = function (raceItem) {
-
-                $.ajax({
-                    url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=-1',
-                    //url: '/api/match?matchId=' + raceItem.raceId() + '&winningracerid=-1',
-                    type: 'PUT',
-                    dataType: 'jsonp',
-                    complete: function () {
-                        raceItem.winningRacerId(0);
-                        gHub.server.navigate('raceView', getRaceViewJson(raceItem));
-                    }
-                });
-
-            };
-
-            self.showRoundView = function (roundId) {
-
-                self.roundNumber('Round ' + roundId);
-
-                self.races.removeAll();
-                $.ajax({
-                    url: '/api/match?roundId=' + roundId,
-                    //url: '/api/match?roundId=' + roundId,
-                    dataType:'jsonp',
-                    success: function (data) {
-                        for (var x = 0; x < data.length; x++) {
-                            var m = data[x];
-
-                            //var item = ko.observable();
-                            //item.raceId(m.MatchId);
-                            //item.heatNumber(m.RaceNumber);
-                            //item.racer1Id(m.Racer1Id);
-                            //item.racer1Name(racerCache[parseInt(m.Racer1Id)].Name);
-                            //item.racer2Id(m.Racer2Id);
-                            //item.racer2Name(racerCache[parseInt(m.Racer2Id)].Name);
-                            //item.winningRacerId(m.WinningRacerId);
-
-                            //self.races.push(item);
-                            var racer1Id = parseInt(m.Racer1Id);
-                            var racer2Id = parseInt(m.Racer2Id);
-
-                            var racer1Name = racer1Id > 0 ? gRacerCache[racer1Id-1].Name : "???";
-                            var racer2Name = racer2Id > 0 ? gRacerCache[racer2Id-1].Name : "???";
-
-                            self.races.push(
-                                new RaceItem(
-                                    m.MatchId,
-                                    m.RaceNumber,
-                                    m.Racer1Id,
-                                    racer1Name,
-                                    m.Racer2Id,
-                                    racer2Name,
-                                    m.WinningRacerId));
-                        }
-                    }
-                });
-
-                //self.races.push(new RaceItem(55, '1', 60, 'Alice' + roundId, 61, 'Bob'));
-                //self.races.push(new RaceItem(56, '2', 62, 'Charles' + roundId, 63, 'Dan'));
-                //self.races.push(new RaceItem(57, '3', 64, 'Eddie' + roundId, 65, 'Frank'));
-
-                showView('#roundView');
-            };
+        function configureSammy() {
 
             Sammy(function () {
-                this.get('#:controller', function () {
-                    switch (this.params.controller) {
-                    case 'round':
-                        showView('#bracketView');
-                        break;
-                    case 'admin':
-                        showView('#adminView');
-                        break;
-                    case 'stats':
-                        showView('#statsView');
-                        updateStats();
-                        break;
-                    case 'home':
-                        gHub.server.navigate('home', '');
-                        break;
-                    case 'gallery':
-                        gHub.server.navigate('gallery', '');
-                        break;
-                    case 'sponsors':
-                        gHub.server.navigate('sponsors', '');
-                        break;
-                    default:
-                        alert('unexpected: ' + this.params.controller);
-                        break;
-                    }
+
+                this.get('#:folder', function () {
+                    hideMainViews();
+                    showview(this.params.folder);
                 });
-                this.get('#:controller/:id', function () {
-                    switch (this.params.controller) {
-                    case 'round':
-                        self.showRoundView(this.params.id);
-                        break;
-                    default:
-                        alert('unexpected: ' + this.params.controller);
-                        break;
-                    }
-                });
-                this.get('', function () {
-                    this.app.runRoute('get', '#round');
-                });
+
+                //this.get('#:folder/:mailId', function () {
+                //    console.log(this.params.folder + "/" + this.params.mailId);
+                //});
+
+                this.get('', function () { this.app.runRoute('get', '#home'); });
+
             }).run();
         }
 
-        var gRacerCache = null;
-        var gHub = null;
-
         $(function () {
-            
-            // Declare a proxy to reference the hub. 
-            $.support.cors = true;
-            $.connection.hub.url = '/signalr';
-            //$.connection.hub.url = '/signalr';
-
-            gHub = $.connection.navigationHub; // Start the connection.
-
-            $.connection.hub.start().done(function () {
-                $("#appViews span").on('click touchstart', function () {
-                    var view = $(this).attr("data-view");
-                    var message = $(this).attr("data-message");
-                    gHub.server.navigate(view, message);
-                });
-            });
-
-
-            $.ajax({
-                url: '/api/racers',
-                //url: '/api/racers',
-                dataType:'jsonp',
-                success: function (data) {
-                    gRacerCache = data;
-                }
-            });
-
-            $('#clearWinningRacersButton').click(function () {
-
-                if (!window.confirm('Clear Winning Racers?'))
-                    return;
-                $.post('/Admin/ClearWinningRacers', function (isGood) {
-                    //$.post('/Admin/ClearWinningRacers', function (isGood) {
-                    if (!isGood) {
-                        alert('no good!');
-                    }
-                });
-            });
-
-            $('#assignSequentialStartSlotsButton').click(function () {
-
-                if (!window.confirm('Assign Sequential Start Slots Button?'))
-                    return;
-                $.post('/Admin/AssignSequentialStartSlots', function (isGood) {
-                    //$.post('/Admin/AssignSequentialStartSlots', function (isGood) {
-                    if (!isGood) {
-                        alert('no good!');
-                    }
-                });
-            });
-
-            $('#assignRandomStartSlotsButton').click(function () {
-
-                if (!window.confirm('Assign Random Start Slots?'))
-                    return;
-                $.post('/Admin/AssignRandomStartSlots', function (isGood) {
-                    //$.post('/Admin/AssignRandomStartSlots', function (isGood) {
-                    if (!isGood) {
-                        alert('no good!');
-                    }
-                });
-            });
-
-            $('#assignBracketsByStartSlotButton').click(function () {
-
-                if (!window.confirm('Assign Brackets By Start Slot ?'))
-                    return;
-                $.post('/Admin/AssignBracketsByStartSlot', function (isGood) {
-                    //$.post('/Admin/assignBracketsByStartSlot', function (isGood) {
-                    if (!isGood) {
-                        alert('no good!');
-                    }
-                });
-            });
-
-            ko.applyBindings(new RoundViewModel());
+            configureSammy();
         });
 
+        (function () {
+
+            function carViewModel() {
+
+                var self = this;
+
+                self._raceData = [];
+
+                self.cars = ko.observableArray();
+                self.races = ko.observableArray();
+                self.unlimitedCars = ko.observableArray();
+
+                self.nextRaceStandardRacer1CarId = ko.observable(0);
+                self.nextRaceStandardRacer2CarId = ko.observable(0);
+                self.nextRaceStandardRaceId = ko.observable(0);
+
+                self.remainingCarsCount = ko.observable(0);
+
+                self.nextRaceUnlimitedRacer1CarId = ko.observable(0);
+                self.nextRaceUnlimitedRacer2CarId = ko.observable(0);
+                self.nextRaceUnlimitedRaceId = ko.observable(0);
+
+                self.nextNextRaceStandardRacer1CarId = ko.observable(0);
+                self.nextNextRaceStandardRacer2CarId = ko.observable(0);
+
+                self.nextNextRaceUnlimitedRacer1CarId = ko.observable(0);
+                self.nextNextRaceUnlimitedRacer2CarId = ko.observable(0);
+
+                self.nextRaceStandardRacer1Name = ko.computed(function() {
+                    var racer = getRacerByCarId(self.nextRaceStandardRacer1CarId());
+                    if (racer != null)
+                        return racer.Name;
+                    else
+                        return '';
+                });
+
+                self.nextRaceStandardRacer2Name = ko.computed(function() {
+                    var racer = getRacerByCarId(self.nextRaceStandardRacer2CarId());
+                    if (racer != null)
+                        return racer.Name;
+                    else
+                        return '';
+                });
+
+                self.nextRaceStandardRacer1CarNumber = ko.computed(function() {
+                    var racer = getRacerByCarId(self.nextRaceStandardRacer1CarId());
+                    if (racer != null)
+                        return racer.CarNumber;
+                    else
+                        return '';
+                });
+
+                self.nextRaceStandardRacer2CarNumber = ko.computed(function() {
+                    var racer = getRacerByCarId(self.nextRaceStandardRacer2CarId());
+                    if (racer != null)
+                        return racer.CarNumber;
+                    else
+                        return '';
+                });
+
+                self.nextRaceUnlimitedRacer1Name = ko.computed(function() {
+                    var racer = getRacerByCarId(self.nextRaceUnlimitedRacer1CarId());
+                    if (racer != null)
+                        return racer.Name;
+                    else
+                        return '';
+                });
+
+                self.nextRaceUnlimitedRacer2Name = ko.computed(function() {
+                    var racer = getRacerByCarId(self.nextRaceUnlimitedRacer2CarId());
+                    if (racer != null)
+                        return racer.Name;
+                    else
+                        return '';
+                });
+
+                self.nextRaceUnlimitedRacer1CarNumber = ko.computed(function() {
+                    var racer = getRacerByCarId(self.nextRaceUnlimitedRacer1CarId());
+                    if (racer != null)
+                        return racer.CarNumber;
+                    else
+                        return '';
+                });
+
+                self.nextRaceUnlimitedRacer2CarNumber = ko.computed(function() {
+                    var racer = getRacerByCarId(self.nextRaceUnlimitedRacer2CarId());
+                    if (racer != null)
+                        return racer.CarNumber;
+                    else
+                        return '';
+                });
+
+                self.nextNextRaceStandardRacer1 = ko.computed(function() {
+                    var racer = getRacerByCarId(self.nextNextRaceStandardRacer1CarId());
+                    if (racer != null)
+                        return racer.CarNumber + ' - ' + racer.Name;
+                    else
+                        return '';
+                });
+
+                self.nextNextRaceStandardRacer2 = ko.computed(function() {
+                    var racer = getRacerByCarId(self.nextNextRaceStandardRacer2CarId());
+                    if (racer != null)
+                        return racer.CarNumber + ' - ' + racer.Name;
+                    else
+                        return '';
+                });
+
+                self.nextNextRaceUnlimitedRacer1 = ko.computed(function() {
+                    var racer = getRacerByCarId(self.nextNextRaceUnlimitedRacer1CarId());
+                    if (racer != null)
+                        return racer.CarNumber + ' - ' + racer.Name;
+                    else
+                        return '';
+                });
+
+                self.nextNextRaceUnlimitedRacer2 = ko.computed(function() {
+                    var racer = getRacerByCarId(self.nextNextRaceUnlimitedRacer2CarId());
+                    if (racer != null)
+                        return racer.CarNumber + ' - ' + racer.Name;
+                    else
+                        return '';
+                });
+
+                var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+                $.support.cors = true;
+                $.connection.hub.url = _baseUrl + 'signalr';
+
+                var chat = $.connection.navigationHub;
+
+                $.connection.hub.start({
+                    jsonp: isChrome
+                }).done(function() {
+                    console.log('SignalR is ready');
+                });
+
+                $('input[data-view]').on('click', function() {
+
+                    var view = $(this).attr("data-view");
+                    var data = $(this).attr("data-message");
+
+                    chat.server.navigate(view, data);
+
+                    location.hash = view;
+                });
+
+                $('#btnCars').on('click', function() {
+                    location.hash = 'cars';
+                    getRaceData();
+                });
+
+                $('#btnNextRaceStandard').on('click', function() {
+                    location.hash = 'nextRaceStandard';
+
+                    $('#nextRaceStandardRacer1WonButton').removeClass('on');
+                    $('#nextRaceStandardRacer2WonButton').removeClass('on');
+
+                    $.getJSON(_baseUrl + 'api/races/GetNextRaceByDivisionId/1?callback=?', function(e) {
+                        self.nextRaceStandardRacer1CarId(e.Racer1CarId);
+                        self.nextRaceStandardRacer2CarId(e.Racer2CarId);
+
+                        self.nextNextRaceStandardRacer1CarId(e.NextRacer1CarId);
+                        self.nextNextRaceStandardRacer2CarId(e.NextRacer2CarId);
+
+                        self.nextRace = e;
+                        self.nextRace.winnerId = 0;
+                        self.nextRace.currentRound = 'Speed';
+                        sendRaceViewCommand();
+                    });
+                });
+
+                $('#btnLastRaceStandard').on('click', function () {
+
+                    if (self._raceData.length < 1)
+                        return;
+
+                    location.hash = 'nextRaceStandard';
+
+                    var lastItem = self._raceData[self._raceData.length - 1];
+
+                    self.nextRaceStandardRaceId(lastItem.RaceId);
+
+                    self.nextRaceStandardRacer1CarId(lastItem.CarIdWinner);
+                    self.nextRaceStandardRacer2CarId(lastItem.CarIdLoser);
+
+                    self.nextNextRaceStandardRacer1CarId(0);
+                    self.nextNextRaceStandardRacer2CarId(0);
+
+                    self.nextRace = {
+                        Racer1CarId: lastItem.CarIdWinner,
+                        Racer2CarId: lastItem.CarIdLoser,
+                        NextRacer1CarId: 0,
+                        NextRacer2CarId: 0,
+                        WinnerCarId: 0
+                    };
+                    
+                    self.nextRace.winnerId = 0;
+                    self.nextRace.currentRound = 'Speed';
+                    sendRaceViewCommand();
+                });
+
+                $('#btnNextRaceUnlimited').on('click', function() {
+                    location.hash = 'nextRaceUnlimited';
+                });
+
+                $('#unlimitedViewSendButton').on('click', function() {
+                    var list = $('#nextRaceUnlimitedView table tbody tr');
+
+                    var selectedCars = [];
+
+                    for (var i = 0; i < list.length; i++) {
+
+                        var row = list[i];
+                        var checkbox = row.children[0].children[0];
+                        var carId = row.children[1].innerText;
+
+                        if (checkbox.checked)
+                            selectedCars.push(carId);
+                    }
+
+                    if (selectedCars.length < 2)
+                        return;
+
+                    self.nextRace = {
+                        currentRound: 'Unlimited',
+                        Racer1CarId: selectedCars[0],
+                        Racer2CarId: selectedCars[1],
+                        NextRacer1CarId: 0,
+                        NextRacer2CarId: 0
+                    };
+
+                    sendRaceViewCommand();
+                });
+
+                getCarsData();
+
+                self.nextRaceStandardRacer1Won = function() {
+                    console.log('nextRaceStandardRacer1Won');
+                    postRaceWinner(1, self.nextRaceStandardRacer1CarId(), self.nextRaceStandardRacer2CarId());
+                    $('#nextRaceStandardRacer1WonButton').addClass('on');
+                    $('#nextRaceStandardRacer2WonButton').removeClass('on');
+
+                    self.nextRace.winnerId = self.nextRace.Racer1CarId;
+                    sendRaceViewCommand();
+                };
+
+                self.nextRaceStandardRacer2Won = function() {
+                    console.log('nextRaceStandardRacer2Won');
+                    postRaceWinner(1, self.nextRaceStandardRacer2CarId(), self.nextRaceStandardRacer1CarId());
+                    $('#nextRaceStandardRacer2WonButton').addClass('on');
+                    $('#nextRaceStandardRacer1WonButton').removeClass('on');
+
+                    self.nextRace.winnerId = self.nextRace.Racer2CarId;
+                    sendRaceViewCommand();
+                };
+
+                self.nextRaceStandardClear = function() {
+                    console.log('nextRaceStandardClear');
+                    console.log('self.nextRaceStandardRaceId()=' + self.nextRaceStandardRaceId());
+                    $('#nextRaceStandardRacer1WonButton').removeClass('on');
+                    $('#nextRaceStandardRacer2WonButton').removeClass('on');
+                    clearRaceWinner(self.nextRaceStandardRaceId());
+
+                    self.nextRace.winnerId = 0;
+                    sendRaceViewCommand();
+                };
+
+                self.nextRaceUnlimitedRacer1Won = function() {
+                    console.log('nextRaceUnlimitedRacer1Won');
+                    postRaceWinner(2, self.nextRaceUnlimitedRacer1CarId(), self.nextRaceUnlimitedRacer2CarId());
+                    $('#nextRaceUnlimitedRacer1WonButton').addClass('on');
+                    $('#nextRaceUnlimitedRacer2WonButton').removeClass('on');
+
+                    self.nextRace.winnerId = self.nextRace.Racer1CarId;
+                    sendRaceViewCommand();
+                };
+
+                self.nextRaceUnlimitedRacer2Won = function() {
+                    console.log('nextRaceUnlimitedRacer2Won');
+                    postRaceWinner(2, self.nextRaceUnlimitedRacer2CarId(), self.nextRaceUnlimitedRacer1CarId());
+                    $('#nextRaceUnlimitedRacer2WonButton').addClass('on');
+                    $('#nextRaceUnlimitedRacer1WonButton').removeClass('on');
+
+                    self.nextRace.winnerId = self.nextRace.Racer2CarId;
+                    sendRaceViewCommand();
+                };
+
+                self.nextRaceUnlimitedClear = function() {
+                    console.log('nextRaceUnlimitedClear');
+                    console.log('self.nextRaceUnlimitedRaceId()=' + self.nextRaceUnlimitedRaceId());
+                    clearRaceWinner(self.nextRaceUnlimitedRaceId());
+                    $('#nextRaceUnlimitedRacer1WonButton').removeClass('on');
+                    $('#nextRaceUnlimitedRacer2WonButton').removeClass('on');
+
+                    self.nextRace.winnerId = 0;
+                    sendRaceViewCommand();
+                };
+
+                function sendRaceViewCommand() {
+
+                    var e = self.nextRace;
+
+                    var json = '{'
+                        + '"currentRound":"' + e.currentRound + '",'
+                        + '"currentRace": [{'
+                        + '"racer1":"' + e.Racer1CarId + '",'
+                        + '"racer2":"' + e.Racer2CarId + ''
+                        + '"}],'
+                        + '"upcomingRace": [{'
+                        + '"nextRacer1":"' + e.NextRacer1CarId + '",'
+                        + '"nextRacer2":"' + e.NextRacer2CarId + ''
+                        + '"}],'
+                        + '"winnerId":"' + e.winnerId + ''
+                        + '"}';
+
+                    chat.server.navigate('raceView', json);
+                }
+
+                function clearRaceWinner(raceId) {
+
+                    var url = _baseUrl + 'api/races/delete/' + raceId;
+
+                    $.ajax({
+                        type: 'DELETE',
+                        url: url,
+                        success: function() { console.log('clearRaceWinner(' + raceId + ') completed.'); }
+                    });
+                }
+
+                function postRaceWinner(divisionId, winnerCarId, loserCarId) {
+
+                    var url = _baseUrl + 'api/races';
+                    var data = 'DivisionId=' + divisionId + '&CarIdWinner=' + winnerCarId + '&CarIdLoser=' + loserCarId;
+
+                    $.ajax({
+                        type: 'POST',
+                        url: url,
+                        data: data,
+                        success: function(e) {
+                            if (divisionId === 1) {
+                                self.nextRaceStandardRaceId(e.RaceId);
+                            } else {
+                                self.nextRaceUnlimitedRaceId(e.RaceId);
+                            }
+
+                            console.log('postRaceWinner(' + divisionId + ', ' + winnerCarId + ', ' + loserCarId + ') completed; raceId=' + e.RaceId);
+                        }
+                    });
+                }
+
+                function getRacerByCarId(carId) {
+                    for (var i = 0; i < self.cars().length; i++) {
+                        if (self.cars()[i].CarId == carId) {
+                            return self.cars()[i];
+                        }
+                    }
+                    return null;
+                }
+
+                function getCarsData() {
+
+                    $.getJSON(_baseUrl + 'api/cars?callback=?', function(e) {
+
+                        self.cars().length = 0;
+
+                        for (var i = 0; i < e.length; i++) {
+                            e[i].wins = ko.observable(0);
+                            e[i].losses = ko.observable(0);
+                            self.cars.push(e[i]);
+                        }
+
+                        for (var i = 0; i < self.cars().length; i++) {
+                            var item = self.cars()[i];
+                            if (item.DivisionId === 2) {
+                                self.unlimitedCars.push(item);
+                            }
+                        }
+
+                        console.log(self.cars().length + ' racers received.');
+                        console.log(self.unlimitedCars().length + ' unlimited cars received.');
+
+                        getRaceData();
+                    });
+                }
+
+                function getRaceData() {
+
+                    $.getJSON(_baseUrl + 'api/races?callback=?', function(e) {
+
+                        console.log(e.length + ' races received.');
+
+                        self._raceData = e;
+
+                        var remainingCarsCount = 0;
+                        for (var j = 0; j < self.cars().length; j++) {
+                            var wins = getWinsByCarId(self.cars()[j].CarId, e);
+                            var losses = getLossesByCarId(self.cars()[j].CarId, e);
+                            self.cars()[j].wins(wins);
+                            self.cars()[j].losses(losses);
+
+                            if (losses === 0)
+                                remainingCarsCount++;
+                        }
+
+                        self.remainingCarsCount(remainingCarsCount);
+                    });
+                }
+
+                function getWinsByCarId(carId, list) {
+
+                    var wins = 0;
+
+                    for (var i = 0; i < list.length; i++) {
+
+                        if (carId === list[i].CarIdWinner) {
+                            wins++;
+                        }
+
+                    }
+
+                    return wins;
+                }
+                
+                function getLossesByCarId(carId, list) {
+
+                    var losses = 0;
+
+                    for (var i = 0; i < list.length; i++) {
+
+                        if (carId === list[i].CarIdLoser) {
+                            losses++;
+                        }
+
+                    }
+
+                    return losses;
+                }
+            }
+
+            ko.applyBindings(new carViewModel());
+
+        })();
+
     </script>
-</head>
-<body>
-    <section>
-        <ul id="menu">
-			<li><a href="#home">Home</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#sponsors">Sponsors</a></li>
-            <li><a href="#round">Bracket</a></li>
-            <li><a href="#stats">Stats</a></li>
-            <li><a href="#admin">Admin</a></li>
-        </ul>
-        <div id="bracketView" class="view">
-            <h1>Brackets</h1>
-            <ul data-bind="foreach: rounds">
-                <li>
-                    <input type="button" data-bind="value: $data, click: $root.showRound" style="padding:26px;margin:10px;font-weight:bold;" /></li>
-            </ul>
-        </div>
-
-        <div id="roundView" class="view hidden">
-			<div class="back"><a href="#round">&#x2B05;</a></div>
-            <div class="subHeader">
-                <input class="title" type="button" data-bind="value: roundNumber" />
-            </div>
-            <table>
-                <tbody data-bind="foreach: races">
-                    <tr>
-                        <td class="c1">
-                            <input type="button" data-bind="value: heatNumber, click: $root.showRace" />
-							<input type="hidden" data-bind="value: raceId" />
-						</td>
-                        <td class="c2">
-                            <input type="button" data-bind="value: racer1FullName, click: $root.showRacer1Winner, css: { selected: racer1Id() > 0 && winningRacerId() == racer1Id() }" />
-                            <input type="hidden" data-bind="value: racer1Id" />
-                        </td>
-                        <td class="c3">
-                            <input type="button" data-bind="value: racer2FullName, click: $root.showRacer2Winner, css: { selected: racer2Id() > 0 && winningRacerId() == racer2Id() }" />
-                            <input type="hidden" data-bind="value: racer2Id" />
-                        </td>
-                        <td class="c4">
-                            <input type="button" value="X" data-bind="click: $root.clearRaceWinner" /></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div id="adminView" class="view hidden">
-            <h1>Admin</h1>
-            <ul>
-                <li>
-                    <input id="clearWinningRacersButton" type="button" value="Clear Winning Racers" /></li>
-                <li>
-                    <input id="assignSequentialStartSlotsButton" type="button" value="Assign Sequential Start Slots" /></li>
-                <li>
-                    <input id="assignRandomStartSlotsButton" type="button" value="Assign Random Start Slots" /></li>
-                <li>
-                    <input id="assignBracketsByStartSlotButton" type="button" value="Assign Brackets By Start Slot" /></li>
-            </ul>
-        </div>
-
-        <div id="statsView" class="view hidden">
-            <h1>Stats</h1>
-            <textarea id="statsText" style="width:400px; height:200px;"></textarea>
-        </div>
-
-    </section>
 </body>
 </html>

@@ -52,6 +52,7 @@ namespace Website.Controllers
             }
         }
 
+        [Authorize]
         public Race Post(Race race)
         {
             using (var cnn = Settings.GetConnection())
@@ -75,22 +76,7 @@ namespace Website.Controllers
             }
         }
 
-//        public HttpResponseMessage Put(Race race)
-//        {
-//            using (var cnn = Settings.GetConnection())
-//            {
-//                cnn.Open();
-
-//                cnn.Execute(@"update Race 
-//                              set CarIdWinner=@CarIdWinner, 
-//                                  CarIdLoser=@CarIdLoser 
-//                              where RaceId=@RaceId",
-//                            new {race.CarIdWinner, race.CarIdLoser, race.RaceId});
-                
-//                return new HttpResponseMessage(HttpStatusCode.OK);
-//            }
-//        }
-
+        [Authorize]
         public HttpResponseMessage Delete(int id)
         {
             using (var cnn = Settings.GetConnection())
