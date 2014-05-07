@@ -194,70 +194,26 @@
                 
                 <div id="nextRaceUnlimitedView" class="mainView hidden">
                     <h1>Next Race &mdash; Unlimited View</h1>
-                    <table width="100%">
-                        <tr style="opacity: .7">
-                            <td width="50%">
-                                <span>CarId:</span>
-                                <span data-bind="text: nextRaceUnlimitedRacer1CarId"></span>
-                            </td>
-                            <td width="50%">
-                                <span>CarId:</span>
-                                <span data-bind="text: nextRaceUnlimitedRacer2CarId"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="50%">
-                                <span>Car Number:</span>
-                                <span data-bind="text: nextRaceUnlimitedRacer1CarNumber"></span>
-                            </td>
-                            <td width="50%">
-                                <span>Car Number:</span>
-                                <span data-bind="text: nextRaceUnlimitedRacer2CarNumber"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="50%">
-                                <span>Name:</span>
-                                <span data-bind="text: nextRaceUnlimitedRacer1Name"></span>
-                            </td>
-                            <td width="50%">
-                                <span>Name:</span>
-                                <span data-bind="text: nextRaceUnlimitedRacer2Name"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="50%">
-                                <input id="nextRaceUnlimitedRacer1WonButton" 
-                                       type="button"
-                                       value="&#x2714;"
-                                       data-bind="click: nextRaceUnlimitedRacer1Won" />
-                            </td>
-                            <td width="50%">
-                                <input id="nextRaceUnlimitedRacer2WonButton" 
-                                       type="button"
-                                       value="&#x2714;"
-                                       data-bind="click: nextRaceUnlimitedRacer2Won" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" align="center">
-                                <input type="button"
-                                       value="&#x2716;"
-                                       data-bind="click: nextRaceUnlimitedClear" />
-
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="50%">
-                                <span>Next:</span>
-                                <span data-bind="text: nextNextRaceUnlimitedRacer1"></span>
-                            </td>
-                            <td width="50%">
-                                <span>Next:</span>
-                                <span data-bind="text: nextNextRaceUnlimitedRacer2"></span>
-                            </td>
-                        </tr>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td></td>
+                                <th>CarId</th>
+                                <th>CarNumber</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: unlimitedCars">
+                            <tr>
+                                <td><input type="checkbox" style="height: 30px;width:30px;" /></td>
+                                <td data-bind="text: CarId"></td>
+                                <td data-bind="text: CarNumber"></td>
+                                <td data-bind="text: Name"></td>
+                            </tr>
+                        </tbody>
                     </table>
+                    
+                    <div style="margin:20px 0;"><input id="unlimitedViewSendButton" type="button" value="Send"/></div>
 
                 </div>
 
@@ -314,6 +270,7 @@
 
                 self.cars = ko.observableArray();
                 self.races = ko.observableArray();
+                self.unlimitedCars = ko.observableArray();
 
                 self.nextRaceStandardRacer1CarId = ko.observable(0);
                 self.nextRaceStandardRacer2CarId = ko.observable(0);
@@ -473,19 +430,35 @@
 
                 $('#btnNextRaceUnlimited').on('click', function () {
                     location.hash = 'nextRaceUnlimited';
+                });
 
-                    $.getJSON(_baseUrl + 'api/races/GetNextRaceByDivisionId/2?callback=?', function (e) {
-                        self.nextRaceUnlimitedRacer1CarId(e.Racer1CarId);
-                        self.nextRaceUnlimitedRacer2CarId(e.Racer2CarId);
+                $('#unlimitedViewSendButton').on('click', function() {
+                    var list = $('#nextRaceUnlimitedView table tbody tr');
 
-                        self.nextNextRaceUnlimitedRacer1CarId(e.NextRacer1CarId);
-                        self.nextNextRaceUnlimitedRacer2CarId(e.NextRacer2CarId);
+                    var selectedCars = [];
+                    
+                    for (var i = 0; i < list.length; i++) {
+                        
+                        var row = list[i];
+                        var checkbox = row.children[0].children[0];
+                        var carId = row.children[1].innerText;
 
-                        self.nextRace = e;
-                        self.nextRace.winnerId = 0;
-                        self.nextRace.currentRound = 'Unlimited';
-                        sendRaceViewCommand();
-                    });
+                        if (checkbox.checked)
+                            selectedCars.push(carId);
+                    }
+
+                    if (selectedCars.length < 2)
+                        return;
+                    
+                    self.nextRace = {
+                        currentRound: 'Unlimited',
+                        Racer1CarId: selectedCars[0],
+                        Racer2CarId: selectedCars[1],
+                        NextRacer1CarId: 0,
+                        NextRacer2CarId: 0
+                    };
+
+                    sendRaceViewCommand();
                 });
 
                 getCarsData();
@@ -624,8 +597,16 @@
                             e[i].Wins = 9;
                             self.cars.push(e[i]);
                         }
+                        
+                        for (var i = 0; i < self.cars().length; i++) {
+                            var item = self.cars()[i];
+                            if (item.DivisionId === 2) {
+                                self.unlimitedCars.push(item);
+                            }
+                        }
 
                         console.log(self.cars().length + ' racers received.');
+                        console.log(self.unlimitedCars().length + ' unlimited cars received.');
                     });
                 }
 
