@@ -102,10 +102,8 @@
                             <tr>
                                 <th>CarId</th>
                                 <th>CarNumber</th>
-                                <th>DivisionId</th>
                                 <th>Name</th>
                                 <th>Organization</th>
-                                <th>PositionId</th>
                                 <th>Wins</th>
                             </tr>
                         </thead>
@@ -113,11 +111,9 @@
                             <tr>
                                 <td data-bind="text: CarId"></td>
                                 <td data-bind="text: CarNumber"></td>
-                                <td data-bind="text: DivisionId"></td>
                                 <td data-bind="text: Name"></td>
                                 <td data-bind="text: Organization"></td>
-                                <td data-bind="text: PositionId"></td>
-                                <td data-bind="text: Wins"></td>
+                                <td data-bind="text: wins"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -286,7 +282,7 @@
                 self.nextNextRaceUnlimitedRacer1CarId = ko.observable(0);
                 self.nextNextRaceUnlimitedRacer2CarId = ko.observable(0);
 
-                self.nextRaceStandardRacer1Name = ko.computed(function () {
+                self.nextRaceStandardRacer1Name = ko.computed(function() {
                     var racer = getRacerByCarId(self.nextRaceStandardRacer1CarId());
                     if (racer != null)
                         return racer.Name;
@@ -294,7 +290,7 @@
                         return '';
                 });
 
-                self.nextRaceStandardRacer2Name = ko.computed(function () {
+                self.nextRaceStandardRacer2Name = ko.computed(function() {
                     var racer = getRacerByCarId(self.nextRaceStandardRacer2CarId());
                     if (racer != null)
                         return racer.Name;
@@ -302,7 +298,7 @@
                         return '';
                 });
 
-                self.nextRaceStandardRacer1CarNumber = ko.computed(function () {
+                self.nextRaceStandardRacer1CarNumber = ko.computed(function() {
                     var racer = getRacerByCarId(self.nextRaceStandardRacer1CarId());
                     if (racer != null)
                         return racer.CarNumber;
@@ -310,7 +306,7 @@
                         return '';
                 });
 
-                self.nextRaceStandardRacer2CarNumber = ko.computed(function () {
+                self.nextRaceStandardRacer2CarNumber = ko.computed(function() {
                     var racer = getRacerByCarId(self.nextRaceStandardRacer2CarId());
                     if (racer != null)
                         return racer.CarNumber;
@@ -318,7 +314,7 @@
                         return '';
                 });
 
-                self.nextRaceUnlimitedRacer1Name = ko.computed(function () {
+                self.nextRaceUnlimitedRacer1Name = ko.computed(function() {
                     var racer = getRacerByCarId(self.nextRaceUnlimitedRacer1CarId());
                     if (racer != null)
                         return racer.Name;
@@ -326,7 +322,7 @@
                         return '';
                 });
 
-                self.nextRaceUnlimitedRacer2Name = ko.computed(function () {
+                self.nextRaceUnlimitedRacer2Name = ko.computed(function() {
                     var racer = getRacerByCarId(self.nextRaceUnlimitedRacer2CarId());
                     if (racer != null)
                         return racer.Name;
@@ -334,7 +330,7 @@
                         return '';
                 });
 
-                self.nextRaceUnlimitedRacer1CarNumber = ko.computed(function () {
+                self.nextRaceUnlimitedRacer1CarNumber = ko.computed(function() {
                     var racer = getRacerByCarId(self.nextRaceUnlimitedRacer1CarId());
                     if (racer != null)
                         return racer.CarNumber;
@@ -342,7 +338,7 @@
                         return '';
                 });
 
-                self.nextRaceUnlimitedRacer2CarNumber = ko.computed(function () {
+                self.nextRaceUnlimitedRacer2CarNumber = ko.computed(function() {
                     var racer = getRacerByCarId(self.nextRaceUnlimitedRacer2CarId());
                     if (racer != null)
                         return racer.CarNumber;
@@ -350,7 +346,7 @@
                         return '';
                 });
 
-                self.nextNextRaceStandardRacer1 = ko.computed(function () {
+                self.nextNextRaceStandardRacer1 = ko.computed(function() {
                     var racer = getRacerByCarId(self.nextNextRaceStandardRacer1CarId());
                     if (racer != null)
                         return racer.CarNumber + ' - ' + racer.Name;
@@ -358,7 +354,7 @@
                         return '';
                 });
 
-                self.nextNextRaceStandardRacer2 = ko.computed(function () {
+                self.nextNextRaceStandardRacer2 = ko.computed(function() {
                     var racer = getRacerByCarId(self.nextNextRaceStandardRacer2CarId());
                     if (racer != null)
                         return racer.CarNumber + ' - ' + racer.Name;
@@ -366,7 +362,7 @@
                         return '';
                 });
 
-                self.nextNextRaceUnlimitedRacer1 = ko.computed(function () {
+                self.nextNextRaceUnlimitedRacer1 = ko.computed(function() {
                     var racer = getRacerByCarId(self.nextNextRaceUnlimitedRacer1CarId());
                     if (racer != null)
                         return racer.CarNumber + ' - ' + racer.Name;
@@ -374,7 +370,7 @@
                         return '';
                 });
 
-                self.nextNextRaceUnlimitedRacer2 = ko.computed(function () {
+                self.nextNextRaceUnlimitedRacer2 = ko.computed(function() {
                     var racer = getRacerByCarId(self.nextNextRaceUnlimitedRacer2CarId());
                     if (racer != null)
                         return racer.CarNumber + ' - ' + racer.Name;
@@ -390,11 +386,11 @@
 
                 $.connection.hub.start({
                     jsonp: isChrome
-                }).done(function () {
+                }).done(function() {
                     console.log('SignalR is ready');
                 });
 
-                $('input[data-view]').on('click', function () {
+                $('input[data-view]').on('click', function() {
 
                     var view = $(this).attr("data-view");
                     var data = $(this).attr("data-message");
@@ -404,23 +400,24 @@
                     location.hash = view;
                 });
 
-                $('#btnCars').on('click', function () {
+                $('#btnCars').on('click', function() {
                     location.hash = 'cars';
+                    getRaceData();
                 });
 
-                $('#btnNextRaceStandard').on('click', function () {
+                $('#btnNextRaceStandard').on('click', function() {
                     location.hash = 'nextRaceStandard';
 
                     $('#nextRaceStandardRacer1WonButton').removeClass('on');
                     $('#nextRaceStandardRacer2WonButton').removeClass('on');
 
-                    $.getJSON(_baseUrl + 'api/races/GetNextRaceByDivisionId/1?callback=?', function (e) {
+                    $.getJSON(_baseUrl + 'api/races/GetNextRaceByDivisionId/1?callback=?', function(e) {
                         self.nextRaceStandardRacer1CarId(e.Racer1CarId);
                         self.nextRaceStandardRacer2CarId(e.Racer2CarId);
 
                         self.nextNextRaceStandardRacer1CarId(e.NextRacer1CarId);
                         self.nextNextRaceStandardRacer2CarId(e.NextRacer2CarId);
-                        
+
                         self.nextRace = e;
                         self.nextRace.winnerId = 0;
                         self.nextRace.currentRound = 'Speed';
@@ -428,7 +425,7 @@
                     });
                 });
 
-                $('#btnNextRaceUnlimited').on('click', function () {
+                $('#btnNextRaceUnlimited').on('click', function() {
                     location.hash = 'nextRaceUnlimited';
                 });
 
@@ -436,9 +433,9 @@
                     var list = $('#nextRaceUnlimitedView table tbody tr');
 
                     var selectedCars = [];
-                    
+
                     for (var i = 0; i < list.length; i++) {
-                        
+
                         var row = list[i];
                         var checkbox = row.children[0].children[0];
                         var carId = row.children[1].innerText;
@@ -449,7 +446,7 @@
 
                     if (selectedCars.length < 2)
                         return;
-                    
+
                     self.nextRace = {
                         currentRound: 'Unlimited',
                         Racer1CarId: selectedCars[0],
@@ -462,9 +459,8 @@
                 });
 
                 getCarsData();
-                getRaceData();
 
-                self.nextRaceStandardRacer1Won = function () {
+                self.nextRaceStandardRacer1Won = function() {
                     console.log('nextRaceStandardRacer1Won');
                     postRaceWinner(1, self.nextRaceStandardRacer1CarId(), self.nextRaceStandardRacer2CarId());
                     $('#nextRaceStandardRacer1WonButton').addClass('on');
@@ -474,17 +470,17 @@
                     sendRaceViewCommand();
                 };
 
-                self.nextRaceStandardRacer2Won = function () {
+                self.nextRaceStandardRacer2Won = function() {
                     console.log('nextRaceStandardRacer2Won');
                     postRaceWinner(1, self.nextRaceStandardRacer2CarId(), self.nextRaceStandardRacer1CarId());
                     $('#nextRaceStandardRacer2WonButton').addClass('on');
                     $('#nextRaceStandardRacer1WonButton').removeClass('on');
-                    
+
                     self.nextRace.winnerId = self.nextRace.Racer2CarId;
                     sendRaceViewCommand();
                 };
 
-                self.nextRaceStandardClear = function () {
+                self.nextRaceStandardClear = function() {
                     console.log('nextRaceStandardClear');
                     console.log('self.nextRaceStandardRaceId()=' + self.nextRaceStandardRaceId());
                     $('#nextRaceStandardRacer1WonButton').removeClass('on');
@@ -495,53 +491,53 @@
                     sendRaceViewCommand();
                 };
 
-                self.nextRaceUnlimitedRacer1Won = function () {
+                self.nextRaceUnlimitedRacer1Won = function() {
                     console.log('nextRaceUnlimitedRacer1Won');
                     postRaceWinner(2, self.nextRaceUnlimitedRacer1CarId(), self.nextRaceUnlimitedRacer2CarId());
                     $('#nextRaceUnlimitedRacer1WonButton').addClass('on');
                     $('#nextRaceUnlimitedRacer2WonButton').removeClass('on');
-                    
+
                     self.nextRace.winnerId = self.nextRace.Racer1CarId;
                     sendRaceViewCommand();
                 };
 
-                self.nextRaceUnlimitedRacer2Won = function () {
+                self.nextRaceUnlimitedRacer2Won = function() {
                     console.log('nextRaceUnlimitedRacer2Won');
                     postRaceWinner(2, self.nextRaceUnlimitedRacer2CarId(), self.nextRaceUnlimitedRacer1CarId());
                     $('#nextRaceUnlimitedRacer2WonButton').addClass('on');
                     $('#nextRaceUnlimitedRacer1WonButton').removeClass('on');
-                    
+
                     self.nextRace.winnerId = self.nextRace.Racer2CarId;
                     sendRaceViewCommand();
                 };
 
-                self.nextRaceUnlimitedClear = function () {
+                self.nextRaceUnlimitedClear = function() {
                     console.log('nextRaceUnlimitedClear');
                     console.log('self.nextRaceUnlimitedRaceId()=' + self.nextRaceUnlimitedRaceId());
                     clearRaceWinner(self.nextRaceUnlimitedRaceId());
                     $('#nextRaceUnlimitedRacer1WonButton').removeClass('on');
                     $('#nextRaceUnlimitedRacer2WonButton').removeClass('on');
-                    
+
                     self.nextRace.winnerId = 0;
                     sendRaceViewCommand();
                 };
-                
+
                 function sendRaceViewCommand() {
 
                     var e = self.nextRace;
-                    
+
                     var json = '{'
-                            + '"currentRound":"' + e.currentRound + '",'
-                            + '"currentRace": [{'
-                            + '"racer1":"' + e.Racer1CarId + '",'
-                            + '"racer2":"' + e.Racer2CarId + ''
-                            + '"}],'
-                            + '"upcomingRace": [{'
-                            + '"nextRacer1":"' + e.NextRacer1CarId + '",'
-                            + '"nextRacer2":"' + e.NextRacer2CarId + ''
-                            + '"}],'
-                            + '"winnerId":"' + e.winnerId + ''
-                            + '"}';
+                        + '"currentRound":"' + e.currentRound + '",'
+                        + '"currentRace": [{'
+                        + '"racer1":"' + e.Racer1CarId + '",'
+                        + '"racer2":"' + e.Racer2CarId + ''
+                        + '"}],'
+                        + '"upcomingRace": [{'
+                        + '"nextRacer1":"' + e.NextRacer1CarId + '",'
+                        + '"nextRacer2":"' + e.NextRacer2CarId + ''
+                        + '"}],'
+                        + '"winnerId":"' + e.winnerId + ''
+                        + '"}';
 
                     chat.server.navigate('raceView', json);
                 }
@@ -553,7 +549,7 @@
                     $.ajax({
                         type: 'DELETE',
                         url: url,
-                        success: function () { console.log('clearRaceWinner(' + raceId + ') completed.'); }
+                        success: function() { console.log('clearRaceWinner(' + raceId + ') completed.'); }
                     });
                 }
 
@@ -566,7 +562,7 @@
                         type: 'POST',
                         url: url,
                         data: data,
-                        success: function (e) {
+                        success: function(e) {
                             if (divisionId === 1) {
                                 self.nextRaceStandardRaceId(e.RaceId);
                             } else {
@@ -589,15 +585,15 @@
 
                 function getCarsData() {
 
-                    $.getJSON(_baseUrl + 'api/cars?callback=?', function (e) {
+                    $.getJSON(_baseUrl + 'api/cars?callback=?', function(e) {
 
                         self.cars().length = 0;
 
                         for (var i = 0; i < e.length; i++) {
-                            e[i].Wins = 9;
+                            e[i].wins = ko.observable(0);
                             self.cars.push(e[i]);
                         }
-                        
+
                         for (var i = 0; i < self.cars().length; i++) {
                             var item = self.cars()[i];
                             if (item.DivisionId === 2) {
@@ -607,21 +603,38 @@
 
                         console.log(self.cars().length + ' racers received.');
                         console.log(self.unlimitedCars().length + ' unlimited cars received.');
+
+                        getRaceData();
                     });
                 }
 
                 function getRaceData() {
 
-                    $.getJSON(_baseUrl + 'api/races?callback=?', function (e) {
+                    $.getJSON(_baseUrl + 'api/races?callback=?', function(e) {
 
-                        self.races().length = 0;
+                        console.log(e.length + ' races received.');
 
-                        for (var i = 0; i < e.length; i++) {
-                            self.races.push(e[i]);
+                        for (var j = 0; j < self.cars().length; j++) {
+                            var wins = getWinsByCarId(self.cars()[j].CarId, e);
+                            self.cars()[j].wins(wins);
                         }
 
-                        console.log(self.races().length + ' races received.');
                     });
+                }
+
+                function getWinsByCarId(carId, list) {
+
+                    var wins = 0;
+
+                    for (var i = 0; i < list.length; i++) {
+
+                        if (carId === list[i].CarIdWinner) {
+                            wins++;
+                        }
+
+                    }
+
+                    return wins;
                 }
             }
 
