@@ -249,7 +249,7 @@ INSERT INTO [dbo].[Car] (CarNumber, DivisionId, Name, Organization) VALUES (69,1
 INSERT INTO [dbo].[Car] (CarNumber, DivisionId, Name, Organization) VALUES (70,1,'Ben Pringle','');
 INSERT INTO [dbo].[Car] (CarNumber, DivisionId, Name, Organization) VALUES (71,1,'Curt Brown','Curt Brown Renovation');
 
-INSERT INTO [dbo].[Car] (CarNumber, DivisionId, Name, Organization) VALUES (72,1,'Blogfish','Postano');
+INSERT INTO [dbo].[Car] (CarNumber, DivisionId, Name, Organization) VALUES (72,1,'Blobfish','Postano');
 
 -- UNLIMITED DIVISION
 

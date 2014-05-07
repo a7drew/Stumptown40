@@ -6,9 +6,9 @@
 <head>
     <title>Sample Private Page</title>
     <style type="text/css">
-        body { font-family: Courier; background: #000; color: #008800; }
-        #col1 li { margin: 0 0 20px 0; list-style: none; }
-        input[type=button] { width: 300px; height: 40px; font: normal normal bold 16pt Courier; }
+        body { font-family: Courier; background: #000; color: #008800;font-size: 150%; }
+        #col1 li { margin: 0 0 30px 0; list-style: none; }
+        input[type=button] { width: 300px; height: 50px; font: normal normal bold 16pt Courier; }
 
         #myTable td { vertical-align: top; }
 
@@ -123,7 +123,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>CarId</th>
+                                @*<th>CarId</th>*@
                                 <th>CarNumber</th>
                                 <th>Name</th>
                                 <th>Organization</th>
@@ -133,7 +133,7 @@
                         </thead>
                         <tbody data-bind="foreach: cars">
                             <tr data-bind="css: { loser: losses() > 0 }">
-                                <td data-bind="text: CarId"></td>
+                                @*<td data-bind="text: CarId"></td>*@
                                 <td data-bind="text: CarNumber"></td>
                                 <td data-bind="text: Name"></td>
                                 <td data-bind="text: Organization"></td>
@@ -149,7 +149,7 @@
                 <div id="nextRaceStandardView" class="mainView hidden">
                     <h1>Next Race &mdash; Standard View</h1>
                     <table width="100%">
-                        <tr style="opacity: .7">
+                        @*<tr style="opacity: .7">
                             <td width="50%">
                                 <span>CarId:</span>
                                 <span data-bind="text: nextRaceStandardRacer1CarId"></span>
@@ -158,24 +158,14 @@
                                 <span>CarId:</span>
                                 <span data-bind="text: nextRaceStandardRacer2CarId"></span>
                             </td>
-                        </tr>
+                        </tr>*@
                         <tr>
                             <td width="50%">
-                                <span>Car Number:</span>
-                                <span data-bind="text: nextRaceStandardRacer1CarNumber"></span>
-                            </td>
-                            <td width="50%">
-                                <span>Car Number:</span>
-                                <span data-bind="text: nextRaceStandardRacer2CarNumber"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="50%">
-                                <span>Name:</span>
+                                <span data-bind="text: nextRaceStandardRacer1CarNumber"></span>:
                                 <span data-bind="text: nextRaceStandardRacer1Name"></span>
                             </td>
                             <td width="50%">
-                                <span>Name:</span>
+                                <span data-bind="text: nextRaceStandardRacer2CarNumber"></span>:
                                 <span data-bind="text: nextRaceStandardRacer2Name"></span>
                             </td>
                         </tr>
@@ -194,7 +184,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" align="center">
+                            <td colspan="2" align="center" style="padding-top:100px;">
                                 <input type="button"
                                        value="&#x2716;"
                                        data-bind="click: nextRaceStandardClear" />
@@ -687,6 +677,9 @@
 
                             if (losses === 0 && self.cars()[j].DivisionId === 1)
                                 remainingCarsCount++;
+                            
+                            if (self.cars()[j].DivisionId === 2)
+                                self.cars()[j].losses(99);
                         }
 
                         self.remainingCarsCount(remainingCarsCount);
