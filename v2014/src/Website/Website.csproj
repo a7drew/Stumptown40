@@ -232,7 +232,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="admin.html" />
     <Content Include="App_Data\Stumptown40Database.sdf" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Areas\RouteDebugger\Content\rdstyle.css" />
@@ -401,10 +400,8 @@
     <Content Include="Images\winner.png" />
     <Content Include="Images\winners.png" />
     <Content Include="Images\wood.png" />
-    <Content Include="private.html" />
     <Content Include="index.html" />
     <Content Include="carousel.html" />
-    <Content Include="public.html" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -430,7 +427,6 @@
     <Content Include="Scripts\sammy-0.7.4.js" />
     <Content Include="Scripts\sammy-0.7.4.min.js" />
     <Content Include="Scripts\sammy.handlebars.js" />
-    <Content Include="selenium.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -490,7 +486,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>9875</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:31464/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

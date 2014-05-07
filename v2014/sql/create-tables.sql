@@ -28,7 +28,8 @@ CREATE TABLE [dbo].[AppSetting]
 (
 	[AppSettingId] [int]            NOT NULL,
 	[SettingName]  [nvarchar](200)  NOT NULL,
-	[SettingValue] [nvarchar](200)  NOT NULL
+	[SettingValue] [nvarchar](200)  NOT NULL,
+	CONSTRAINT [PK_AppSetting] PRIMARY KEY CLUSTERED ([AppSettingId] ASC)
 )
 GO
 

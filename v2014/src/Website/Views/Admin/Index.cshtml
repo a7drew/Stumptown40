@@ -685,7 +685,7 @@
                             self.cars()[j].wins(wins);
                             self.cars()[j].losses(losses);
 
-                            if (losses === 0)
+                            if (losses === 0 && self.cars()[j].DivisionId === 1)
                                 remainingCarsCount++;
                         }
 
